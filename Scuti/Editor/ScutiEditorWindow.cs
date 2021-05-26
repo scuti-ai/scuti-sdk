@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 using Scuti;
+using UnityEditor.Experimental.SceneManagement;
 
 [InitializeOnLoad]
 public class ScutiEditorWindow : EditorWindow
@@ -65,8 +66,30 @@ public class ScutiEditorWindow : EditorWindow
     [MenuItem("Scuti/Create Prefab")]
     static void CreateGameObject()
     {
-        var go = Instantiate(Resources.Load<GameObject>(ScutiConstants.BUTTON_PREFAB_NAME));
-        go.name = go.name.Substring(0, go.name.Length - 7);
+        Transform parent = Selection.activeTransform;
+        if (parent != null)
+        {
+            Transform r = parent.root;
+
+            var go = Instantiate(Resources.Load<GameObject>(ScutiConstants.BUTTON_PREFAB_NAME));
+            go.name = go.name.Substring(0, go.name.Length - 7);
+            go.transform.SetParent(parent, false);
+
+            if (PrefabUtility.GetPrefabAssetType(parent) == PrefabAssetType.Regular)
+            {
+                PrefabUtility.ApplyPrefabInstance(parent.gameObject, InteractionMode.AutomatedAction);
+            }
+            else
+            if (PrefabStageUtility.GetCurrentPrefabStage() != null)
+            {
+                PrefabUtility.RecordPrefabInstancePropertyModifications(r);
+                EditorUtility.SetDirty(r);
+            }
+        }else
+        {
+            var go = Instantiate(Resources.Load<GameObject>(ScutiConstants.BUTTON_PREFAB_NAME));
+            go.name = go.name.Substring(0, go.name.Length - 7);
+        }
     }
 
     [MenuItem("Scuti/Settings")]
@@ -79,21 +102,19 @@ public class ScutiEditorWindow : EditorWindow
 
     private static ScutiSettings GetOrCreateSettings()
     {
-        return FindObjectOfType<ScutiSettings> ();
+        string path = Path.Combine(Application.dataPath, ScutiConstants.SCUTI_RESOURSES);
+        if (!Directory.Exists(path))
+        {
+            AssetDatabase.CreateFolder("Assets/", "Scuti");
+            AssetDatabase.CreateFolder("Assets/Scuti/", "Resources");
+        }
+        if (!File.Exists(Path.Combine(path, ScutiConstants.SCUTI_SETTINGS_FILE)))
+        {
+            AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<ScutiSettings>(), $"Assets/{ScutiConstants.SCUTI_RESOURSES}/{ScutiConstants.SCUTI_SETTINGS_FILE}");
+        }
 
-        //string path = Path.Combine(Application.dataPath, ScutiConstants.SCUTI_RESOURSES);
-        //if (!Directory.Exists(path))
-        //{
-        //    AssetDatabase.CreateFolder("Assets/", "Scuti");
-        //    AssetDatabase.CreateFolder("Assets/Scuti/", "Resources");
-        //}
-        //if (!File.Exists(Path.Combine(path, ScutiConstants.SCUTI_SETTINGS_FILE)))
-        //{
-        //    AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<ScutiSettings>(), $"Assets/{ScutiConstants.SCUTI_RESOURSES}/{ScutiConstants.SCUTI_SETTINGS_FILE}");
-        //}
-
-        //var settings = AssetDatabase.LoadAssetAtPath<ScutiSettings>($"Assets/{ScutiConstants.SCUTI_RESOURSES}/{ScutiConstants.SCUTI_SETTINGS_FILE}");
-        //return settings;
+        var settings = AssetDatabase.LoadAssetAtPath<ScutiSettings>($"Assets/{ScutiConstants.SCUTI_RESOURSES}/{ScutiConstants.SCUTI_SETTINGS_FILE}");
+        return settings;
     }
 
     void OnGUI()
