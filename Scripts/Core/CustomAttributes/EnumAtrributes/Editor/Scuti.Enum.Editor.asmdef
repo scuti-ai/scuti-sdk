@@ -1,0 +1,11 @@
+{
+    "name": "Scuti.Enum.Editor",
+    "references": [
+        "Scuti",
+        "Scuti.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

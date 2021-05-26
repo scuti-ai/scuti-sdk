@@ -1,0 +1,10 @@
+{
+    "name": "Scuti.Editor.Attributes",
+    "references": [
+        "Scuti"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

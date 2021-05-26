@@ -1,0 +1,7 @@
+{
+  "name": "com.scuti.sdk",
+  "version": "1.2.3",
+  "displayName": "Scuti Package",
+  "description": "This is an marketplace",
+  "unity": "2018.4"
+}
