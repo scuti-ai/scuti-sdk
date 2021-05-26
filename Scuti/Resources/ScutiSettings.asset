@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: -433590438, guid: 8e0956c3b44fbb64fb075c642c04e826, type: 3}
   m_Name: ScutiSettings
   m_EditorClassIdentifier: 
-  developerKey: 6db28ef4-69b0-421a-9344-31318f898790
+  developerKey: 
   ExchangeMethod: 1
   secret: 
   LogSettings: 2
