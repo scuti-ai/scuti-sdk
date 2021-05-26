@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 34288ee76b62ab248b88c5f790d004da
+timeCreated: 1570963607
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - prefab: {fileID: 1232789725805728, guid: de6e7652dc39ea44f871305fcca64076, type: 2}
+  - m_Background: {instanceID: 0}
+  - m_DisplayImage: {instanceID: 0}
+  - m_TitleText: {instanceID: 0}
+  - m_DisplayPriceText: {instanceID: 0}
+  - m_NewFlag: {instanceID: 0}
+  - m_HotItemFlag: {instanceID: 0}
+  - m_TimerFlag: {instanceID: 0}
+  - m_FireFlag: {instanceID: 0}
+  - m_StarFlag: {instanceID: 0}
+  - m_TicketsFlag: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
