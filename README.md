@@ -7,7 +7,7 @@ Gamers can opt-in to Scuti by visiting the Scuti store. The store is filled with
 
 Developers get a cut of all purchases made and videos watched from within their game. They also get 100% of the revenue from any Scutis that are exchanged for their game's native currency.
 
-The integration process is painless:
+**The Integration Process**:
 
 1. Create a game developer account on Scuti's web dashboard
 2. Add the ScutiSDK package to your project using UPM 
