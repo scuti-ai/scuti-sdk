@@ -554,7 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6afaf67acc89cfb478200e0dd3ec6da9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showForNewUser: 0
+  showForNewUser: 1
 --- !u!114 &114942104422593048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,6 +749,12 @@ MonoBehaviour:
     instance: {fileID: 0}
   - id: PROMOACCOUNT
     view: {fileID: 4876377460699837358, guid: 1ff4f358ff463914b94be156eba250d1, type: 3}
+    view_portrait: {fileID: 0}
+    view_pc: {fileID: 0}
+    parent: {fileID: 224120975414160842}
+    instance: {fileID: 0}
+  - id: WELCOME
+    view: {fileID: 114785370302255702, guid: bccb0c704ad6e124f833ec21023f7ec4, type: 3}
     view_portrait: {fileID: 0}
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
