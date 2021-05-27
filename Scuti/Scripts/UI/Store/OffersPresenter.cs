@@ -245,9 +245,9 @@ namespace Scuti.UI
                         m_Pagination.VideoIndex=0;
                         HideVideo();
                     }
-                }  
+                }
 
-                var offers = await GetRange(m_Pagination.Index, GetActiveMax(), true);
+                var offers = await GetRange(m_Pagination.Index, GetActiveMax(), true, true);
                 Data = Mappers.GetOffersPresenterModel(offers);
             }
         }
@@ -284,7 +284,6 @@ namespace Scuti.UI
             {
                 if (m_Pagination.Category != null && m_Pagination.Category.Equals(category))
                 {
-                    Debug.LogWarning($"OffersPresenter is already showing {category} category");
                     return false;
                 }
             }
@@ -318,7 +317,7 @@ namespace Scuti.UI
         /// <summary>
         /// Returns a list of offers, based on the current paginataion status
         /// </summary>
-        public async Task<List<Offer>> GetRange(int index, int maxCount, bool retry = true)
+        public async Task<List<Offer>> GetRange(int index, int maxCount, bool retry = true, bool resetOverride = false)
         {
             m_Pagination.Index += maxCount;
             List<Offer> offers = null;
@@ -330,12 +329,13 @@ namespace Scuti.UI
             } catch (Exception e)
             {
                 Debug.LogException(e);
-                Debug.LogError("TODO: show error message");
+                //Debug.LogError("TODO: show error message");
                 return offers;
             }
             if (actualCount < maxCount)
             {
-                if (m_Pagination.Index > index) m_Pagination.Index = 0; // only reset if it hasn't been already by another offer
+                if (m_Pagination.Index > index || resetOverride) m_Pagination.Index = 0; // only reset if it hasn't been already by another offer
+
                 if (actualCount == 0 && retry)
                 {
                     return await GetRange(index, maxCount, false);
@@ -345,7 +345,8 @@ namespace Scuti.UI
                     // Attempt to wrap back to the start
                     index = m_Pagination.Index;
                     m_Pagination.Index += maxCount;
-                    offers.AddRange(await ScutiNetClient.Instance.Offer.GetOffers(CampaignType.Product, m_Pagination.Category,null,null, index, maxCount - actualCount));
+                    var results = await ScutiNetClient.Instance.Offer.GetOffers(CampaignType.Product, m_Pagination.Category, null, null, index, maxCount - actualCount);
+                    offers.AddRange(results);
                 }
             }
             return offers;
@@ -402,14 +403,12 @@ namespace Scuti.UI
             Clear();
 #pragma warning disable 4014
             _loadingSource = new CancellationTokenSource();
-            Debug.LogError("On Set State");
             PopulateOffers(_loadingSource.Token);
 #pragma warning restore 4014
         }
 
         async private Task PopulateOffers(CancellationToken cancelToken)
         {
-            Debug.LogError("Populate Offers");
             for (int i = 0; i < GetActiveMax(); i++)
             {
 

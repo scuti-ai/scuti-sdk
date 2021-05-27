@@ -213,7 +213,7 @@ namespace Scuti.UI
             {
                 case ScutiConstants.SCUTI_IMPRESSION_ID: 
                     try
-                    {
+                    { 
                         ScutiAPI.RecordOfferImpression(Data.ID);
                     }
                     catch
@@ -405,6 +405,7 @@ namespace Scuti.UI
 
         public void ResumeTimer()
         {
+            Debug.Log("Resume timer "+this);
             if (!_destroyed && timer != null && m_showing && !_isStatic)
             {
                 timer.gameObject.SetActive(true);
