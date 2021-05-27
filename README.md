@@ -20,3 +20,7 @@ When the gamer clicks/taps the Scuti Store prefab button, it will trigger the Sc
 Please check out our integration guide below for a complete walk through of each step. 
 
 [Integration Guide](https://github.com/scuti-ai/scuti-sdk/wiki/Integration-Guide)
+
+**Dependencies**
+- Newtonsoft's JSON library. 
+- BouncyCastle. We are using a subset of their library so we can encrypt credit card data. If you are using their library you can delete our BouncyCastle.dll as it will not have the entire library (we are trying to keep our filesize down). 
