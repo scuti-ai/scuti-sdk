@@ -5,8 +5,8 @@
   "description": "Scuti Marketplace",
   "unity": "2018.4",
   "dependencies": {
-     "com.yasirkula.nativeshare": "https://github.com/yasirkula/UnityNativeShare.git",
-     "jillejr.newtonsoft.json-for-unity" : "https://github.com/jilleJr/Newtonsoft.Json-for-Unity.git#upm"
+     "com.yasirkula.nativeshare": "https://github.com/yasirkula/UnityNativeShare.git#1.4.1",
+     "jillejr.newtonsoft.json-for-unity" : "https://github.com/jilleJr/Newtonsoft.Json-for-Unity.git#12.0.0"
   },
 
   "resolutionStrategy": "highest"
