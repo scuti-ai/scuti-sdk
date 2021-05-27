@@ -23,4 +23,5 @@ Please check out our integration guide below for a complete walk through of each
 
 **Dependencies**
 - Newtonsoft's JSON library. 
+- NativeShare
 - BouncyCastle. We are using a subset of their library so we can encrypt credit card data. If you are using their library you can delete our BouncyCastle.dll as it will not have the entire library (we are trying to keep our filesize down). 
