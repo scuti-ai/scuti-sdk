@@ -45,8 +45,8 @@ namespace Scuti {
             {
                 // check if logged in 
                 if(!ScutiNetClient.Instance.IsAuthenticated)
-                {
-                    Open(UIManager.Login);
+                {            
+                    Open(UIManager.PromoAccount);
                     return;
                 }
             } 

@@ -36,9 +36,9 @@ public class ScutiUtils  {
         return wallet.Promotional.Value + wallet.Purchase.Value;
     }
 
-    internal static int GetAdsPerPage()
+    internal static int RequiredAdsPerCategory()
     {
         // TODO: Modify for PC layout and Portrait
-        return 6;
+        return 12;
     }
 }

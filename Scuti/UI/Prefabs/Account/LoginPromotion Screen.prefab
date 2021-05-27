@@ -115,7 +115,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114428130225141636}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4876377460699837358}
+        m_MethodName: ShowAccountCreation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &95476455788345316
 Animator:
   serializedVersion: 3
@@ -470,6 +481,7 @@ GameObject:
   - component: {fileID: 225300199145831344}
   - component: {fileID: 114491648362505000}
   - component: {fileID: 114474298031069966}
+  - component: {fileID: 4876377460699837358}
   m_Layer: 5
   m_Name: LoginPromotion Screen
   m_TagString: Untagged
@@ -559,6 +571,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192eb61269d816f4c91c8ed71e72ea1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4876377460699837358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434155382843184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b8f34be572e8d4192d4fb38ba4068e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isModal: 1
+  m_State: 3
+  requiresLogin: 0
+  alwaysEnabled: 0
+  displayEvents: 1
+  onStartOpening:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114491648362505000}
+        m_MethodName: TransitionIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  onStartClosing:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114491648362505000}
+        m_MethodName: TransitionOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onClosed:
+    m_PersistentCalls:
+      m_Calls: []
+  Transitions:
+  - {fileID: 114491648362505000}
+  Description: {fileID: 114233748206985832}
+  DefaultText: Create an Account to Earn Rewards
 --- !u!1 &1493548184138038
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,7 +945,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4576583671258596583}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4876377460699837358}
+        m_MethodName: ShowLogin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &3266640408966764180
 Animator:
   serializedVersion: 3

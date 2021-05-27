@@ -105,7 +105,8 @@ namespace Scuti.UI
         {
             if (!ScutiNetClient.Instance.IsAuthenticated)
             {
-                UIManager.Open(UIManager.Login);
+                UIManager.Open(UIManager.PromoAccount);
+                UIManager.PromoAccount.SetMessage("Create Account to Add to Your Cart.");
                 return;
             }
 

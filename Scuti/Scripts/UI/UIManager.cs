@@ -137,6 +137,12 @@ namespace Scuti.UI {
             get { return Account["ORDERS"] as OrdersPresenter; }
         }
 
+        public static LoginPromotionView PromoAccount
+        {
+            get { return Account["PROMOACCOUNT"] as LoginPromotionView; }
+        }
+
+
         public static OnboardingView Onboarding {
             get { return Account["ONBOARDING"] as OnboardingView; }
         }

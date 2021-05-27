@@ -50,7 +50,7 @@ namespace Scuti.UI
                     ScutiLogger.LogException(ex);
                 }
                 if (_destroyed) return;
-                unordered = readCategories.ByCategories.Where(x => x.Count >= ScutiUtils.GetAdsPerPage()).Select(x => x.Category).ToArray();
+                unordered = readCategories.ByCategories.Where(x => x.Count >= ScutiUtils.RequiredAdsPerCategory()).Select(x => x.Category).ToArray();
                 Preferences prefs = null;
                 try
                 {
