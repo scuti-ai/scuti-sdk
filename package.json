@@ -7,5 +7,7 @@
   "dependencies": {
      "com.yasirkula.nativeshare": "https://github.com/yasirkula/UnityNativeShare.git",
      "jillejr.newtonsoft.json-for-unity" : "https://github.com/jilleJr/Newtonsoft.Json-for-Unity.git#upm"
-  }
+  },
+
+  "resolutionStrategy": "highest"
 }
