@@ -102,19 +102,20 @@ public class ScutiEditorWindow : EditorWindow
 
     private static ScutiSettings GetOrCreateSettings()
     {
-        string path = Path.Combine(Application.dataPath, ScutiConstants.SCUTI_RESOURSES);
-        if (!Directory.Exists(path))
-        {
-            AssetDatabase.CreateFolder("Assets/", "Scuti");
-            AssetDatabase.CreateFolder("Assets/Scuti/", "Resources");
-        }
-        if (!File.Exists(Path.Combine(path, ScutiConstants.SCUTI_SETTINGS_FILE)))
-        {
-            AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<ScutiSettings>(), $"Assets/{ScutiConstants.SCUTI_RESOURSES}/{ScutiConstants.SCUTI_SETTINGS_FILE}");
-        }
+        return FindObjectOfType<ScutiSettings>();
+        //string path = Path.Combine(Application.dataPath, ScutiConstants.SCUTI_RESOURSES);
+        //if (!Directory.Exists(path))
+        //{
+        //    AssetDatabase.CreateFolder("Assets/", "Scuti");
+        //    AssetDatabase.CreateFolder("Assets/Scuti/", "Resources");
+        //}
+        //if (!File.Exists(Path.Combine(path, ScutiConstants.SCUTI_SETTINGS_FILE)))
+        //{
+        //    AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<ScutiSettings>(), $"Assets/{ScutiConstants.SCUTI_RESOURSES}/{ScutiConstants.SCUTI_SETTINGS_FILE}");
+        //}
 
-        var settings = AssetDatabase.LoadAssetAtPath<ScutiSettings>($"Assets/{ScutiConstants.SCUTI_RESOURSES}/{ScutiConstants.SCUTI_SETTINGS_FILE}");
-        return settings;
+        //var settings = AssetDatabase.LoadAssetAtPath<ScutiSettings>($"Assets/{ScutiConstants.SCUTI_RESOURSES}/{ScutiConstants.SCUTI_SETTINGS_FILE}");
+        //return settings;
     }
 
     void OnGUI()
