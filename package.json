@@ -3,19 +3,5 @@
   "version": "0.9.1",
   "displayName": "Scuti SDK",
   "description": "Scuti Marketplace",
-  "unity": "2018.4",
- "scopedRegistries": [
-    {
-      "name": "Packages from jillejr",
-      "url": "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity/",
-      "scopes": [
-        "jillejr"
-      ]
-    }
-  ],
-  "dependencies": {
-    "jillejr.newtonsoft.json-for-unity": "12.0.101"
-  },
-
-  "resolutionStrategy": "highest"
+  "unity": "2018.4"
 }
