@@ -1,0 +1,8 @@
+{
+    "name": "NativeShare.Editor",
+    "references": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}
