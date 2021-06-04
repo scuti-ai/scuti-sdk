@@ -4,9 +4,12 @@ using UnityEditor;
 using Scuti;
 using UnityEditor.Experimental.SceneManagement;
 
+
 [InitializeOnLoad]
 public class ScutiEditorWindow : EditorWindow
 {
+    private static string REPEAT = "repeat";
+    private static string PREVENT = "prevent";
 
     private static int WINDOW_HEIGHT = 380;
     private static int BUTTON_WIDTH = 120;
@@ -23,26 +26,33 @@ public class ScutiEditorWindow : EditorWindow
     static ScutiEditorWindow()
     {
         EditorApplication.update += OnUpdate;
+       
     }
 
     private static void OnUpdate()
     {
         EditorApplication.update -= OnUpdate;
         settings = GetOrCreateSettings();
-        string prefsKey = GetProjectBasedPrefsKey();
-        if (!EditorPrefs.HasKey(prefsKey) || EditorPrefs.GetInt(prefsKey) == 1)
+
+        string preventKey = GetProjectBasedPrefsKey(PREVENT);
+        string repeatKey = GetProjectBasedPrefsKey(REPEAT);
+        if (!EditorPrefs.HasKey(repeatKey) || (settings == null) || string.IsNullOrEmpty(settings.developerKey))
         {
-            EditorPrefs.SetInt(prefsKey, 1);
-            ShowConfiguration();
-        }
+            EditorPrefs.SetInt(repeatKey, 1);
+            if (!EditorPrefs.HasKey(preventKey) || EditorPrefs.GetInt(preventKey) == 1)
+            {
+                EditorPrefs.SetInt(preventKey, 1);
+                ShowConfiguration();
+            }  
+        }  
     }
 
-    private static string GetProjectBasedPrefsKey()
+    private static string GetProjectBasedPrefsKey(string subkey)
     {
         var dp = Application.dataPath;
         var s = dp.Split("/"[0]);
         var projectName = s[s.Length - 2];
-        string prefsKey = $"ScutiIntro{projectName}";
+        string prefsKey = $"ScutiIntro{projectName}_{subkey}";
         return prefsKey;
     }
 
@@ -53,7 +63,7 @@ public class ScutiEditorWindow : EditorWindow
         mywindow.titleContent = new GUIContent("Scuti");
         mywindow.minSize = new Vector2(400, WINDOW_HEIGHT + 10);
         mywindow.maxSize = new Vector2(400, WINDOW_HEIGHT + 10);
-        string prefsKey = GetProjectBasedPrefsKey();
+        string prefsKey = GetProjectBasedPrefsKey(PREVENT);
         mywindow.showAgain = (!EditorPrefs.HasKey(prefsKey) || EditorPrefs.GetInt(prefsKey) == 1) ? true : false;
         mywindow.Show();
     }
@@ -102,20 +112,15 @@ public class ScutiEditorWindow : EditorWindow
 
     private static ScutiSettings GetOrCreateSettings()
     {
-        return FindObjectOfType<ScutiSettings>();
-        //string path = Path.Combine(Application.dataPath, ScutiConstants.SCUTI_RESOURSES);
-        //if (!Directory.Exists(path))
-        //{
-        //    AssetDatabase.CreateFolder("Assets/", "Scuti");
-        //    AssetDatabase.CreateFolder("Assets/Scuti/", "Resources");
-        //}
-        //if (!File.Exists(Path.Combine(path, ScutiConstants.SCUTI_SETTINGS_FILE)))
-        //{
-        //    AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<ScutiSettings>(), $"Assets/{ScutiConstants.SCUTI_RESOURSES}/{ScutiConstants.SCUTI_SETTINGS_FILE}");
-        //}
-
-        //var settings = AssetDatabase.LoadAssetAtPath<ScutiSettings>($"Assets/{ScutiConstants.SCUTI_RESOURSES}/{ScutiConstants.SCUTI_SETTINGS_FILE}");
-        //return settings;
+        var results = AssetDatabase.FindAssets("t:ScutiSettings");
+        ScutiSettings settings = null;
+        if(results!=null && results.Length>0)
+        {
+            var res = results[0];
+            var path = AssetDatabase.GUIDToAssetPath(res);
+            settings = AssetDatabase.LoadAssetAtPath<ScutiSettings>(path);
+        }
+        return settings;
     }
 
     void OnGUI()
@@ -244,10 +249,10 @@ public class ScutiEditorWindow : EditorWindow
         GUILayout.FlexibleSpace();
 
         GUI.changed = false;
-        showAgain = GUILayout.Toggle(showAgain, "Show at startup");
+        showAgain = GUILayout.Toggle(showAgain, "Show Window if Developer Key is Missing");
         if (GUI.changed)
         {
-            EditorPrefs.SetInt(GetProjectBasedPrefsKey(), showAgain ? 1 : 0);
+            EditorPrefs.SetInt(GetProjectBasedPrefsKey(PREVENT), showAgain ? 1 : 0);
             
         }
 

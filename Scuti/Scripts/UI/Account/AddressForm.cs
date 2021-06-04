@@ -51,6 +51,8 @@ namespace Scuti.UI
         {
             base.Open();
 
+
+
             if (UseAsOnboarding)
             {
                 if (ScutiNetClient.Instance.FinishedOnBoarding)
@@ -75,24 +77,29 @@ namespace Scuti.UI
 
         private async void TryToLoadData()
         {
-            if (!_cachedAddress)
+            if (true || !await ScutiNetClient.Instance.InSupportedCountry())
             {
-                var shippingInfo = await ScutiAPI.GetShippingInfo();
-                if (shippingInfo != null)
-                {
-                    Data.Address = new AddressData()
-                    {
-                        Line1 = shippingInfo.Address1,
-                        Line2 = shippingInfo.Address2,
-                        State = shippingInfo.State,
-                        Zip = shippingInfo.ZipCode,
-                        Country = shippingInfo.Country,
-                        City = shippingInfo.City
-                    };
-                    _cachedAddress = true;
-                    Refresh();
-                }
+                UIManager.Alert.SetHeader("Unsupported Location").SetButtonText("Ok").SetBody("We currently do not support your location. International support coming soon!").Show(() => { });
             }
+
+            if (!_cachedAddress)
+                {
+                    var shippingInfo = await ScutiAPI.GetShippingInfo();
+                    if (shippingInfo != null)
+                    {
+                        Data.Address = new AddressData()
+                        {
+                            Line1 = shippingInfo.Address1,
+                            Line2 = shippingInfo.Address2,
+                            State = shippingInfo.State,
+                            Zip = shippingInfo.ZipCode,
+                            Country = shippingInfo.Country,
+                            City = shippingInfo.City
+                        };
+                        _cachedAddress = true;
+                        Refresh();
+                    }
+                }
         }
 
         public override void Refresh()

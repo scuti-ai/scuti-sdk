@@ -90,10 +90,6 @@ namespace Scuti.UI
 
         }
 
-        private void Start()
-        {
-            ScutiUtils.RequestCountry(this);
-        }
 
         public void ShowCategories()
         {

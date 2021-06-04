@@ -44,29 +44,4 @@ public class ScutiUtils  {
         return 12;
     }
 
-    public static void RequestCountry(MonoBehaviour invoker)
-    {
-        Debug.Log("RequestCountry ");
-
-        invoker.StartCoroutine(GetCountry());
-    }
-
-    static IEnumerator GetCountry()
-    {
-        Debug.Log("GetCountry ");
-        UnityWebRequest www = UnityWebRequest.Get("http://ip-api.com/json");
-        yield return www.SendWebRequest();
-        Debug.Log("GetCountry 2 ");
-
-        if (www.isNetworkError || www.isHttpError)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            //UnityEngine.Debug.Log(www.downloadHandler.text);
-            LocalizationData.Localization = JsonUtility.FromJson<LocalizationData.Data>(www.downloadHandler.text);
-            Debug.Log(LocalizationData.Localization.country);
-        }
-    }
 }

@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Scenes",
+    "\\Scripts",
+    "\\Scripts\\Core",
+    "\\Scripts\\Data",
+    "\\Scripts\\ScutiSDK",
+    "\\Scripts\\UI\\Store",
+    "\\Scripts\\UI\\Utilities",
+    "\\Scripts\\UI\\Validation",
+    "\\Scripts\\Utils"
+  ],
+  "SelectedNode": "\\Scripts\\ScutiSDK\\SDKManager.cs",
+  "PreviewInSolutionExplorer": false
+}

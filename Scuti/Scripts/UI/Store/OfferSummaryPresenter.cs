@@ -457,8 +457,13 @@ namespace Scuti.UI
         {
             titleText.text = Data.Title;
             displayPriceText.text = Data.DisplayPrice;
-            newBadge.SetActive(Data.IsNew);
-            hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
+
+            // New and Hot Badges disabled for now
+            //newBadge.SetActive(Data.IsNew);
+            //hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
+            newBadge.SetActive(false);
+            hotBadge.SetActive(false);
+
             // Show ONLY THE FIRST promo that is applicable
             var list = new List<KeyValuePair<GameObject, bool>> {
                 new KeyValuePair<GameObject, bool>(hotPricePromo, Data.IsHotPrice),
@@ -469,6 +474,9 @@ namespace Scuti.UI
             };
 
             list.ForEach(x => x.Key.SetActive(false));
+            
+            
+            /* Disabled Promos For now - mg
             foreach (var pair in list)
             {
                 if (pair.Value)
@@ -476,12 +484,16 @@ namespace Scuti.UI
                     pair.Key.SetActive(true);
                     break;
                 }
-            }
+            }*/
 
             GlowImage.gameObject.SetActive(false);
 
             // Show the rating if there is a rating
             bool hasRatingValue = Data.Rating > 0f;
+
+            // Disabled Ratings for now -mg
+            hasRatingValue = false;
+
             ratingText.gameObject.SetActive(hasRatingValue);
             ratingStarsWidget.gameObject.SetActive(hasRatingValue);
             if (hasRatingValue)
