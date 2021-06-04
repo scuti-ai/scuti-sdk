@@ -138,20 +138,23 @@ MonoBehaviour:
     instance: {fileID: 0}
   - id: OFFERS
     view: {fileID: 114463846195168704, guid: d0014075c4db0094e83ff60b8f9eff67, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114463846195168704, guid: 703608bcdfc018b4a8d1913a0fdbb711,
+      type: 3}
     view_pc: {fileID: 114939992940882344, guid: a069147496a7abf469712558313835af,
       type: 3}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
   - id: DETAILS
     view: {fileID: 114460696469063826, guid: 6b044fc28a040d842a7cd3621cb1c419, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114460696469063826, guid: 3cec39f41f3ccd9478c49c5063fe4ac4,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
   - id: CART
     view: {fileID: 114196425146411846, guid: 647f304acdc311b469d37aec8dbe2ba7, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114196425146411846, guid: 90129ea0951de5e47a1e93788e2b4a5b,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
@@ -163,7 +166,8 @@ MonoBehaviour:
     instance: {fileID: 0}
   - id: REWARD
     view: {fileID: 114490104202079348, guid: 940f2da4678643e48a513476d82c209c, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114490104202079348, guid: 48b1135eb2c6deb42b60860969f776d0,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
@@ -298,13 +302,15 @@ MonoBehaviour:
     instance: {fileID: 0}
   - id: ALERT
     view: {fileID: 114240253315962262, guid: c4f9a2666098e88479b55f35afcfc577, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114240253315962262, guid: 8c6a377d313193845bbabd95ec012bce,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: CONFIRMATION
     view: {fileID: 114975572350812452, guid: 764926c0c2049f34486bbe4cc437fc38, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114975572350812452, guid: bc878a4f32b0b5f49a5f1268214d0049,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
@@ -316,25 +322,29 @@ MonoBehaviour:
     instance: {fileID: 0}
   - id: SETTINGS
     view: {fileID: 114247002012134422, guid: e34a7ff93d461b7499670b4ae2bda021, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114247002012134422, guid: 997a15b4c7a0d454cbbcaa4d3c175723,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: TEXTINPUT
     view: {fileID: 114451015750324946, guid: e3ff7a5f379b0f249865870734dd4396, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114451015750324946, guid: befe57ffc774fdb4b9c29159cd30985f,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: SHIPPING
     view: {fileID: 114815407960247212, guid: 6618b08ddc7d9ee4893cdd6a2130c42c, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114815407960247212, guid: 52db1fea71347ca4ca96c10f63604370,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: SPLASH
     view: {fileID: 114304311399143144, guid: 20581f7529bf35448902710cd9fd06f6, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114304311399143144, guid: 20581f7529bf35448902710cd9fd06f6,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
@@ -418,7 +428,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
@@ -693,31 +703,36 @@ MonoBehaviour:
   creators:
   - id: MYACCOUNT
     view: {fileID: 114809112739792404, guid: 97b265316cb28f14baf8dd9fe18e26f1, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114809112739792404, guid: c7c56b0bc2cccd842a96ce5f973d7d7a,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: ONBOARDING
     view: {fileID: 114526024948912102, guid: d64a4fea3c9b23c4d8e1a2d1bed84856, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114526024948912102, guid: 45be9a2165c1b594aadd8649e557fd29,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: LOGIN
     view: {fileID: 114415404541608640, guid: 598c017db9aa7094f9cc836ed8f44138, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114415404541608640, guid: 7cec5d8f3a5b6164f91320b065545c28,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: PW-RESET-VIA-EMAIL
     view: {fileID: 114593751330843874, guid: 8f7d063360a87214ea6e46d5319f2dc4, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114330477555145026, guid: b10d06030ffc7d94cabb98df46142383,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: WALLET
     view: {fileID: 114784654123931938, guid: 43208d951f4a7bf478160acf37d03fc4, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114784654123931938, guid: 012f81daa3836064c81279100733936d,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
@@ -737,25 +752,29 @@ MonoBehaviour:
     instance: {fileID: 0}
   - id: PW-EDIT
     view: {fileID: 114330477555145026, guid: da67f943c56977a419a6e669f4289599, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114330477555145026, guid: b10d06030ffc7d94cabb98df46142383,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: ORDERS
     view: {fileID: 114969802503334858, guid: 3e3fb1cf2f0f04c4ca71115a25c07c27, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114969802503334858, guid: 9cd892b13860b544f9fcd76f45d7ea93,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: PROMOACCOUNT
     view: {fileID: 4876377460699837358, guid: 1ff4f358ff463914b94be156eba250d1, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 4876377460699837358, guid: d5bf64d6e6054234a87ceb0607b54195,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: WELCOME
     view: {fileID: 114785370302255702, guid: bccb0c704ad6e124f833ec21023f7ec4, type: 3}
-    view_portrait: {fileID: 0}
+    view_portrait: {fileID: 114785370302255702, guid: 413006544987bb04091cb27bb80ca560,
+      type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
