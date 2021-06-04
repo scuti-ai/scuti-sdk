@@ -87,8 +87,13 @@ namespace Scuti.UI
                 else
                     Close();
             };
+
         }
 
+        private void Start()
+        {
+            ScutiUtils.RequestCountry(this);
+        }
 
         public void ShowCategories()
         {
