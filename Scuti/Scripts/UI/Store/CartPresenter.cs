@@ -157,10 +157,7 @@ namespace Scuti.UI
                             City = shippingInfo.City
                         };
                         _cachedAddress = true;
-                    } else
-                    {
-                        Debug.LogError("no shipping saved");
-                    }
+                    } 
                 }
 
             }
