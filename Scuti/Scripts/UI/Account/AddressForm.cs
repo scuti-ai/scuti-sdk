@@ -77,7 +77,7 @@ namespace Scuti.UI
 
         private async void TryToLoadData()
         {
-            if (true || !await ScutiNetClient.Instance.InSupportedCountry())
+            if (!await ScutiNetClient.Instance.InSupportedCountry())
             {
                 UIManager.Alert.SetHeader("Unsupported Location").SetButtonText("Ok").SetBody("We currently do not support your location. International support coming soon!").Show(() => { });
             }
