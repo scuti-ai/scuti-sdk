@@ -18,6 +18,10 @@ namespace Scuti.UI
             public List<GameObject> Children;
         }
 
+
+        protected Coroutine _currencyRoutine;
+        private int retryCount = 0;
+
         public GameObject ExchangeInstructions;
         public Image ExchangeIcon;
 
@@ -42,8 +46,6 @@ namespace Scuti.UI
             _currencyRoutine = StartCoroutine(LoadCurrencyIcon());
         }
 
-        private Coroutine _currencyRoutine;
-        private int retryCount = 0;
         private IEnumerator LoadCurrencyIcon()
         {
             Sprite sprite = null;
