@@ -39,14 +39,16 @@ namespace Scuti.UI
 
             ExchangeInstructions.gameObject.SetActive(false);
 #if !UNITY_IOS
-            StartCoroutine(LoadCurrencyIcon());
+            _currencyRoutine = StartCoroutine(LoadCurrencyIcon());
         }
 
+        private Coroutine _currencyRoutine;
+        private int retryCount = 0;
         private IEnumerator LoadCurrencyIcon()
         {
             Sprite sprite = null;
 
-            while (sprite == null)
+            while (sprite == null && retryCount < 10)
             {
                 sprite = ScutiNetClient.Instance.CurrencyIconToSprite();
                 if (sprite != null)
@@ -54,6 +56,7 @@ namespace Scuti.UI
                     ExchangeIcon.sprite = sprite;
                     ExchangeInstructions.gameObject.SetActive(true);
                 }
+                retryCount++;
                 yield return new WaitForSeconds(0.5f);
             }
         }
@@ -94,6 +97,14 @@ namespace Scuti.UI
             Close();
         }
 
-
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            if (_currencyRoutine != null)
+            {
+                StopCoroutine(_currencyRoutine);
+                _currencyRoutine = null;
+            }
+        }
     }
 }
