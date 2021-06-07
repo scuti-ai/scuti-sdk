@@ -247,9 +247,9 @@ MonoBehaviour:
   showDuration: 10
   instantiationInterval: 0.05
   showInterval: 1
-  widgetPrefab_Large: {fileID: 114999437136715084, guid: de6e7652dc39ea44f871305fcca64076,
+  widgetPrefab_Large: {fileID: 114999437136715084, guid: ebd9c7148f70262469779acab19fcc31,
     type: 3}
-  widgetPrefab_Small: {fileID: 114538486965266772, guid: 3f57bf63bac2c07428afd9d1a0adc55e,
+  widgetPrefab_Small: {fileID: 114538486965266772, guid: 8ff8e711ca86894419e5ca8a70d91d98,
     type: 3}
   container_Large: {fileID: 224860082912133074}
   container_Small: {fileID: 224875811990225284}
