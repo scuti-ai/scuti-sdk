@@ -15,7 +15,7 @@ namespace Scuti.UI
             get
             {
 	            {
-		            _aspectRatio = Screen.width < Screen.height
+		            _aspectRatio = ScreenX.Width < ScreenX.Height
 			            ? (float) ScreenX.Height / ScreenX.Width
 			            : ScreenX.Width / (float) ScreenX.Height;
 	            }
@@ -36,8 +36,8 @@ namespace Scuti.UI
 #endif
 	    private void RefreshScale()
         {
-	        canvas.referenceResolution = Screen.width < Screen.height ? new Vector2(1080, 1920) : new Vector2(1920, 1080);
-	        var dynamicScale = Screen.width < Screen.height ? 1 : scale;
+	        canvas.referenceResolution = ScreenX.Width < ScreenX.Height ? new Vector2(1080, 1920) : new Vector2(1920, 1080);
+	        var dynamicScale = ScreenX.Width < ScreenX.Height ? 1 : scale;
             canvas.matchWidthOrHeight = AspectRatio < 1.7f ? dynamicScale : 1;
         }
 
