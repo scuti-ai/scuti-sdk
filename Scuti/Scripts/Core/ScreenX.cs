@@ -27,8 +27,8 @@ namespace Scuti {
             return result;
 #else
             return new Vector2(
-                Camera.pixelWidth,
-                Camera.pixelHeight
+                Camera.main.pixelWidth,
+                Camera.main.pixelHeight
             );
 #endif
         }
