@@ -9,17 +9,32 @@ namespace Scuti.UI
         [HideInInspector][SerializeField] private CanvasScaler canvas;
         [SerializeField] private float scale = 0.56f;
         private float _aspectRatio = -1;
+        private bool _orientation = true;
 
         private float AspectRatio
         {
             get
             {
 	            {
-		            _aspectRatio = ScreenX.Width < ScreenX.Height
+		            _aspectRatio = Orientation
 			            ? (float) ScreenX.Height / ScreenX.Width
 			            : ScreenX.Width / (float) ScreenX.Height;
 	            }
                 return _aspectRatio;
+            }
+        }
+
+        private bool Orientation
+        {
+            get
+            {
+	            {
+		            _orientation = Screen.orientation == ScreenOrientation.Landscape;
+                    #if UNITY_EDITOR
+                    _orientation = ScreenX.Width > ScreenX.Height;
+                    #endif
+	            }
+                return _orientation;
             }
         }
 
@@ -36,8 +51,8 @@ namespace Scuti.UI
 #endif
 	    private void RefreshScale()
         {
-	        canvas.referenceResolution = ScreenX.Width < ScreenX.Height ? new Vector2(1080, 1920) : new Vector2(1920, 1080);
-	        var dynamicScale = ScreenX.Width < ScreenX.Height ? 1 : scale;
+	        canvas.referenceResolution = Orientation ? new Vector2(1080, 1920) : new Vector2(1920, 1080);
+	        var dynamicScale = Orientation ? 1 : scale;
             canvas.matchWidthOrHeight = AspectRatio < 1.7f ? dynamicScale : 1;
         }
 
