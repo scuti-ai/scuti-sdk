@@ -23,7 +23,7 @@ namespace Scuti.UI
             }
         }
 
-        private void Start()
+        private void Update()
         {
             RefreshScale();
         }
