@@ -21,10 +21,8 @@ namespace Scuti.UI {
 
         internal void SetVariant(ProductVariant productVariant)
         {
-            Debug.LogError("TODO: Need to replace magic numbers here.");
             if (productVariant != null)
             {
-                Data.scutiReward = Mathf.FloorToInt((float)productVariant.Price.Amount.Value * 10000f * 0.03f);
                 OnSetState();
             }
         }

@@ -555,7 +555,6 @@ namespace Scuti.UI
 
             Data.Card = data.Card;
             Data.BillingAddress = data.Address;
-            Debug.LogError("TODO: " + data.ToJson());
             RefreshText();
         }
 
