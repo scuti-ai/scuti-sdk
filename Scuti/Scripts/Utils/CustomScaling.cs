@@ -28,15 +28,13 @@ namespace Scuti.UI
         {
             get
             {
-                return true; // todo: replace this but since we only support landscape I'm hacking for now
-	            //{
-             //       return true;
-		           // _orientation = Screen.orientation == ScreenOrientation.Landscape;
-             //       #if UNITY_EDITOR
-             //       _orientation = ScreenX.Width > ScreenX.Height;
-             //       #endif
-	            //}
-             //   return _orientation;
+	            {
+		            _orientation = Screen.orientation == ScreenOrientation.Landscape;
+                    #if UNITY_EDITOR
+                    _orientation = ScreenX.Width > ScreenX.Height;
+                    #endif
+	            }
+                return _orientation;
             }
         }
 
@@ -53,7 +51,7 @@ namespace Scuti.UI
 #endif
 	    private void RefreshScale()
         {
-	        canvas.referenceResolution = Orientation ? new Vector2(1920, 1080) : new Vector2(1080, 1920);
+	        canvas.referenceResolution = Orientation ? new Vector2(1080, 1920) : new Vector2(1920, 1080);
 	        var dynamicScale = Orientation ? 1 : scale;
             canvas.matchWidthOrHeight = AspectRatio < 1.7f ? dynamicScale : 1;
         }
