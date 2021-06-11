@@ -1,61 +1,89 @@
-﻿using UnityEngine;
+﻿
+using Scuti;
+using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Scuti.UI
 {
-	[ExecuteInEditMode]
+	[ExecuteAlways]
     public class CustomScaling : MonoBehaviour
     {
-        [HideInInspector][SerializeField] private CanvasScaler canvas;
-        [SerializeField] private float scale = 0.56f;
-        private float _aspectRatio = -1;
-        private bool _orientation = true;
+        [SerializeField] private CanvasScaler canvas;
+        [SerializeField] private float _referenceScale = 0.0f;
+        [SerializeField] private float _upperScale = 0.23f;
+        [SerializeField] private float _aspectRatio = -1;
 
-        private float AspectRatio
+        int _count = 0;
+
+        public float AspectRatio
         {
             get
             {
-	            {
-		            _aspectRatio = Orientation
-			            ? (float) ScreenX.Height / ScreenX.Width
-			            : ScreenX.Width / (float) ScreenX.Height;
-	            }
+                {
+                    var screenSize = GetWindowSize();
+                    // hack for now -mg
+                    if(screenSize.x < screenSize.y)
+                    {
+                        var tmp = screenSize.x;
+                        screenSize.x = screenSize.y;
+                        screenSize.y = tmp;
+                    }
+                    _aspectRatio = screenSize.x / screenSize.y;
+                }
                 return _aspectRatio;
             }
         }
 
-        private bool Orientation
-        {
-            get
-            {
-                return true; // todo: replace this but since we only support landscape I'm hacking for now
-	            //{
-             //       return true;
-		           // _orientation = Screen.orientation == ScreenOrientation.Landscape;
-             //       #if UNITY_EDITOR
-             //       _orientation = ScreenX.Width > ScreenX.Height;
-             //       #endif
-	            //}
-             //   return _orientation;
-            }
-        }
+   /// <summary>
+    /// Gets the current window size.
+    /// In the build, this returns Screen.width, Screen.height
+    /// In the editor, this returns the size of the Game Window using reflection
+    /// </summary>
+    private Vector2 GetWindowSize()
+    {
+        // Screen.width and Screen.height sometimes return the dimensions of the inspector
+        // window when Screen.width originates from a ContextMenu or Button attribute
+        // We use reflection to get the actual dimensions. During runtime we simply use Screen again
+#if UNITY_EDITOR
+        System.Type T = System.Type.GetType("UnityEditor.GameView,UnityEditor");
+        System.Reflection.MethodInfo GetSizeOfMainGameView = T.GetMethod("GetSizeOfMainGameView", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+        System.Object Res = GetSizeOfMainGameView.Invoke(null, null);
+        var result = (Vector2)Res;
+        return result;
+#else
+            return new Vector2(
+                Screen.width,
+                Screen.height
+            );
+#endif
+    }
 
-        private void Update()
+        private void Start()
         {
             RefreshScale();
         }
 
+
+        private void Update()
+        {
+            if (_count % 60 == 0)
+                RefreshScale();
+            _count++;
+        }
+
+
+
 #if UNITY_EDITOR
-	    private void OnGUI()
+        private void OnGUI()
         {
 	        RefreshScale();
         }
-#endif
-	    private void RefreshScale()
+		#endif
+
+        private void RefreshScale()
         {
-	        canvas.referenceResolution = Orientation ? new Vector2(1920, 1080) : new Vector2(1080, 1920);
-	        var dynamicScale = Orientation ? 1 : scale;
-            canvas.matchWidthOrHeight = AspectRatio < 1.7f ? dynamicScale : 1;
+            canvas.matchWidthOrHeight = AspectRatio < 1.7f ? _referenceScale : _upperScale;
         }
 
         private void OnValidate()
