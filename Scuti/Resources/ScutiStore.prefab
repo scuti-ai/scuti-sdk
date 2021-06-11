@@ -54,14 +54,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1132727096652746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -74,7 +72,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1180965745265586
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +218,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1266037488985866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
@@ -236,7 +233,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1266037488985866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
@@ -363,7 +360,7 @@ GameObject:
   - component: {fileID: 223116880424058194}
   - component: {fileID: 114164577233245404}
   - component: {fileID: 114579436199758108}
-  - component: {fileID: 2983688978473532156}
+  - component: {fileID: 114120778825116028}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -425,15 +422,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1736270222254480}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 2
-  m_MatchWidthOrHeight: 0.23
+  m_ReferenceResolution: {x: 1080, y: 1920}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -447,7 +444,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1736270222254480}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
@@ -455,7 +452,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2983688978473532156
+--- !u!114 &114120778825116028
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -464,10 +461,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1736270222254480}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b20709905300cb43bb4220066eb7a04, type: 3}
+  m_Script: {fileID: 11500000, guid: dac4b8bdddba8904ba73c6c115bfa8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ReferenceScreenResolution: {x: 1920, y: 1080}
+  canvas: {fileID: 114164577233245404}
+  scale: 0
 --- !u!1 &1833577399175640
 GameObject:
   m_ObjectHideFlags: 0
