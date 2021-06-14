@@ -556,8 +556,8 @@ MonoBehaviour:
   videoOfferBackFill: 3
   largeOffers: 2
   showDuration: 10
-  instantiationInterval: 0.05
-  showInterval: 1
+  instantiationInterval: 0.01
+  showInterval: 0.35
   widgetPrefab_Large: {fileID: 114999437136715084, guid: de6e7652dc39ea44f871305fcca64076,
     type: 3}
   widgetPrefab_Small: {fileID: 114538486965266772, guid: 3f57bf63bac2c07428afd9d1a0adc55e,

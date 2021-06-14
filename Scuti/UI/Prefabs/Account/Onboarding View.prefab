@@ -7242,9 +7242,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380053827147440}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &114218415307270258
 MonoBehaviour:
@@ -7321,7 +7321,7 @@ MonoBehaviour:
   m_ShowFields: 0
   m_UseUnscaledTime: 0
   m_ReferenceScreenResolution: {x: 1920, y: 1080}
-  m_State: 2
+  m_State: 4
   m_TransitionOnStart: 0
   displayEvents: 0
   onStartTransitionIn:
@@ -7916,9 +7916,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1407514739611726}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &114803836329291928
 MonoBehaviour:
@@ -7999,7 +7999,7 @@ MonoBehaviour:
   m_ShowFields: 0
   m_UseUnscaledTime: 0
   m_ReferenceScreenResolution: {x: 1920, y: 1080}
-  m_State: 2
+  m_State: 4
   m_TransitionOnStart: 0
   displayEvents: 0
   onStartTransitionIn:
@@ -13194,7 +13194,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.00006102286, y: 0}
   m_SizeDelta: {x: 0, y: 434.6}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &114101639850121162
@@ -18739,9 +18739,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911322541728462}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!114 &114251951474333310
 MonoBehaviour:
@@ -18758,7 +18758,7 @@ MonoBehaviour:
   m_ShowFields: 0
   m_UseUnscaledTime: 0
   m_ReferenceScreenResolution: {x: 1920, y: 1080}
-  m_State: 4
+  m_State: 2
   m_TransitionOnStart: 0
   displayEvents: 0
   onStartTransitionIn:
@@ -18831,7 +18831,7 @@ MonoBehaviour:
   - {fileID: 114251951474333310}
   Description: {fileID: 114946684935568030}
   Title: {fileID: 114370281620720238}
-  RequestHelp: {fileID: 114217537540677714}
+  SkipButton: {fileID: 0}
   VerifyButton: {fileID: 114131955528827182}
 --- !u!1 &1913635044863112
 GameObject:
@@ -19725,7 +19725,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Having trouble? Request help
+  m_Text: Skip for Now
 --- !u!114 &114217537540677714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19766,9 +19766,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114468275455448304}
-        m_MethodName: OpenURL
-        m_Mode: 5
+      - m_Target: {fileID: 114526024948912102}
+        m_MethodName: Close
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

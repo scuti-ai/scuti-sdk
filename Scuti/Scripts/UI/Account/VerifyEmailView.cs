@@ -13,7 +13,7 @@ namespace Scuti.UI
 
         public Text Description;
         public Text Title;
-        public Button RequestHelp;
+        public Button SkipButton;
         public Button VerifyButton;
 
         private string _defaultTitle;
@@ -36,7 +36,7 @@ namespace Scuti.UI
             Title.text = _defaultTitle;
             Description.text = _defaultDescription;
             Description.color = Color.white;
-            RequestHelp.gameObject.SetActive(false);
+            //SkipButton.gameObject.SetActive(true);
         }
         public void SetCredentials(string email, string pwd)
         {
@@ -63,13 +63,13 @@ namespace Scuti.UI
                     UIManager.Rewards.SetData(new RewardPresenter.Model() { reward = (int)diff,  subtitle = "Collect your account creation rewards!", title = "CONGRATULATIONS!" });
                     UIManager.Open(UIManager.Rewards);
                 } 
-                VerifyButton.interactable = true;
+                //VerifyButton.interactable = true;
                 Verified();
             }
             catch (Exception ex)
             {
                 ScutiLogger.LogError(ex);
-                VerifyButton.interactable = true;
+                //VerifyButton.interactable = true;
                 //string message = ex.Message;
                 //if (ex is ScutiNetClient.UserAuthenticationException)
                 //{
@@ -106,7 +106,7 @@ namespace Scuti.UI
 
         private void Failed()
         {
-            RequestHelp.gameObject.SetActive(false);
+            //SkipButton.gameObject.SetActive(false);
             Description.text = "Your e-mail has not been verfied. Please check your e-mail from Scuti before continuing.";
             Description.color = Color.red;
         }
