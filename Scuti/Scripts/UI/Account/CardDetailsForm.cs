@@ -96,7 +96,10 @@ namespace Scuti.UI
         public void Save()
         {
             if (!Evaluate())
+            {
+                UIManager.Alert.SetHeader("Invalid Field").SetBody("Please ensure all form fields are filled in correctly.").SetButtonText("OK").Show(() => { });
                 return;
+            }
 
             Data.Card.CardType = cardType.text;
 
@@ -106,7 +109,10 @@ namespace Scuti.UI
         private async void SavePayment()
         {
             if (!Evaluate())
+            {
+                UIManager.Alert.SetHeader("Invalid Field").SetBody("Please ensure all form fields are filled in correctly.").SetButtonText("OK").Show(() => { });
                 return;
+            }
 
             saveButton.interactable = false;
             try

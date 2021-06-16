@@ -36,7 +36,10 @@ namespace Scuti.UI
         public async Task ResetWithEmail()
         {
             if (!Evaluate())
+            {
+                UIManager.Alert.SetHeader("Invalid Field").SetBody("Please ensure all form fields are filled in correctly.").SetButtonText("OK").Show(() => { });
                 return;
+            }
             resetButton.interactable = false;
 
             UIManager.ShowLoading();

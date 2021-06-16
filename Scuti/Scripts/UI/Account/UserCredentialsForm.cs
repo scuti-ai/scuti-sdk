@@ -37,7 +37,10 @@ namespace Scuti.UI
         public async Task Register()
         {
             if (!Evaluate())
+            {
+                UIManager.Alert.SetHeader("Invalid Field").SetBody("Please ensure all form fields are filled in correctly.").SetButtonText("OK").Show(() => { });
                 return;
+            }
 
             UIManager.ShowLoading();
             try
