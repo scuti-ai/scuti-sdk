@@ -17,15 +17,26 @@ namespace Scuti.UI {
         private bool _useLargeLayout;
         public bool EditorUseLargeDisplay = false;
 
-
+        public View LoadingBlocker;
 
 
 
         void Awake() {
             instance = this;
             DetermineLayout();
+            LoadingBlocker.Close();
         }
 
+
+        public static void ShowLoading(string message = null)
+        {
+            instance.LoadingBlocker.Open();
+        }
+
+        public static void HideLoading()
+        {
+            instance.LoadingBlocker.Close();
+        }
         
 
         private void Start()
@@ -92,6 +103,8 @@ namespace Scuti.UI {
         }
 
         // OVERLAY
+
+
         public static ViewSet Overlay {
             get { return instance.generator["OVERLAY", true]; }
         }

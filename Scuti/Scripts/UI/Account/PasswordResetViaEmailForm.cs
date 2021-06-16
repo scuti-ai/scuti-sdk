@@ -38,14 +38,20 @@ namespace Scuti.UI
             if (!Evaluate())
                 return;
             resetButton.interactable = false;
+
+            UIManager.ShowLoading();
             try
             {
                 await ScutiNetClient.Instance.ResetPasswordByEmail(Data.Email);
+                UIManager.HideLoading();
+
+                UIManager.Alert.SetHeader("Password Reset Successful").SetBody($"Please check your email for instructions.").SetButtonText("Ok").Show(() => { });
                 Submit();
                 Close();
             }
             catch (Exception ex)
             {
+                UIManager.HideLoading();
                 UIManager.Alert.SetHeader("Password reset failed").SetBody($"Failed to reset password: {ex.Message}").SetButtonText("Ok").Show(() => { });
                 ScutiLogger.LogError(ex);
             }

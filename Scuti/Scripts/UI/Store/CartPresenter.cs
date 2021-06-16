@@ -377,6 +377,8 @@ namespace Scuti.UI
         // ================================================
         public async void Checkout()
         {
+
+            //UIManager.ShowLoading();
             if (Data != null && Data.Items.Count > 0)
             {
                 if (Data.ShippingAddress == null || !Data.ShippingAddress.IsValid())
@@ -468,7 +470,8 @@ namespace Scuti.UI
 
                 }
             }
-             
+
+            //UIManager.HideLoading();
             //var historyData = UIManager.Navigator.GetHistory();
             //MetricsAPI.AdImpressionPriorToBuyingMetric(historyData.Path, historyData.Count); 
 

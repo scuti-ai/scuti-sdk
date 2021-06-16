@@ -9,6 +9,7 @@ namespace Scuti {
 
         public bool Evaluate() {
             bool flag = true;
+
             foreach (var subject in subjects) {
                 var validatable = subject.GetComponent<Validatable>();
                 if (validatable == null) continue;

@@ -46,6 +46,8 @@ namespace Scuti.UI
             if (!Evaluate())
                 return;
 
+
+            UIManager.ShowLoading();
             string fullName = null;
             try
             {
@@ -53,9 +55,11 @@ namespace Scuti.UI
                 await ScutiNetClient.Instance.AuthenticateUser(Data.Email, Data.Password);
                 var response = await ScutiNetClient.Instance.GetAccountInfo();
                 fullName = response.fullName;
+                UIManager.HideLoading();
             }
             catch(Exception ex)
             {
+                UIManager.HideLoading();
                 ScutiLogger.LogError(ex);
                 loginButton.interactable = true;
                 string message = ex.Message;
@@ -113,6 +117,7 @@ namespace Scuti.UI
                 } catch { }
 
             }
+
             Submit();
             loginButton.interactable = true;
             Close();

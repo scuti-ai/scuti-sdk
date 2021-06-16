@@ -1403,7 +1403,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99999
+  m_Text: '#####'
 --- !u!1 &1318042773863136
 GameObject:
   m_ObjectHideFlags: 0
@@ -3952,7 +3952,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 79.01, y: -63.140167}
-  m_SizeDelta: {x: 158.84175, y: 90}
+  m_SizeDelta: {x: 171.3, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222335774995616270
 CanvasRenderer:

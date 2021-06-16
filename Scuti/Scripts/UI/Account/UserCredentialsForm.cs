@@ -38,6 +38,8 @@ namespace Scuti.UI
         {
             if (!Evaluate())
                 return;
+
+            UIManager.ShowLoading();
             try
             {
                 await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName == null ? "" : Data.fullName);
@@ -70,6 +72,8 @@ namespace Scuti.UI
                 }
                 UIManager.Alert.SetHeader("Create Account Failed").SetBody(message).SetButtonText("OK").Show(() => { });
             }
+
+            UIManager.HideLoading();
         }
         public override void Refresh()
         {

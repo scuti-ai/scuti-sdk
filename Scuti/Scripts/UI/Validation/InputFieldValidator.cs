@@ -11,9 +11,9 @@ namespace Scuti {
         }
 
         [BoxGroup("Input Field Validator")] [SerializeField] protected InputField inputField;
-        [BoxGroup("Input Field Validator")] [SerializeField] ValidationMode mode;
+        [BoxGroup("Input Field Validator")] [SerializeField] protected ValidationMode mode;
 
-        void Awake() {
+        protected virtual void Awake() {
             switch (mode) {
                 case ValidationMode.OnDoneEditing:
                     inputField.onEndEdit.AddListener(value =>
