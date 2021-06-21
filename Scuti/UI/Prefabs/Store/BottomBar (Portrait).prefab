@@ -337,7 +337,6 @@ GameObject:
   - component: {fileID: 224690033223385222}
   - component: {fileID: 222989610099630442}
   - component: {fileID: 225962566206600840}
-  - component: {fileID: 114681755075516548}
   m_Layer: 5
   m_Name: BottomBar (Portrait)
   m_TagString: Untagged
@@ -385,39 +384,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &114681755075516548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388535844230700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a6e9625b8180f04691561c107b32e6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowFields: 1
-  m_UseUnscaledTime: 0
-  m_ReferenceScreenResolution: {x: 1920, y: 1080}
-  m_State: 2
-  m_TransitionOnStart: 1
-  displayEvents: 0
-  onStartTransitionIn:
-    m_PersistentCalls:
-      m_Calls: []
-  onEndTransitionIn:
-    m_PersistentCalls:
-      m_Calls: []
-  onStartTransitionOut:
-    m_PersistentCalls:
-      m_Calls: []
-  onEndTransitionOut:
-    m_PersistentCalls:
-      m_Calls: []
-  group: {fileID: 225962566206600840}
-  m_FadeInDuration: 0.2
-  m_FadeOutDuration: 0.2
 --- !u!1 &1513866796370492
 GameObject:
   m_ObjectHideFlags: 0
