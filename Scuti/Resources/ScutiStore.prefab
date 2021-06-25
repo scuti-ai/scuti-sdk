@@ -177,20 +177,6 @@ MonoBehaviour:
     view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
-  OnFinished:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &1266037488985866
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,9 +348,6 @@ MonoBehaviour:
     view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
-  OnFinished:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1736270222254480
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +726,7 @@ MonoBehaviour:
     instance: {fileID: 0}
   - id: PW-RESET-VIA-EMAIL
     view: {fileID: 114593751330843874, guid: 8f7d063360a87214ea6e46d5319f2dc4, type: 3}
-    view_portrait: {fileID: 114330477555145026, guid: b10d06030ffc7d94cabb98df46142383,
+    view_portrait: {fileID: 114593751330843874, guid: 8b71ef73a25cd2d479a2582bff3c8e42,
       type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
@@ -797,9 +780,6 @@ MonoBehaviour:
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
-  OnFinished:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &3972478454920286358
 PrefabInstance:
   m_ObjectHideFlags: 0
