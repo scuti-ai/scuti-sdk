@@ -8,6 +8,7 @@ using Scuti.GraphQL.Generated;
 
 using System.Threading;
 using Scuti.Net;
+using UnityEngine.Events;
 
 namespace Scuti.UI {
     public class OfferRecommendedPresenter : Presenter<OfferRecommendedPresenter.Model> {
@@ -27,6 +28,7 @@ namespace Scuti.UI {
         CancellationTokenSource _loadingSource;
         List<OfferSummaryPresenter> m_Instantiated = new List<OfferSummaryPresenter>();
 
+        public UnityEvent OnPopulateFinished;
 
         public async void SearchForRecommendations(string shopName, string currentOfferId)
         {
@@ -124,6 +126,9 @@ namespace Scuti.UI {
                     UIManager.Open(UIManager.OfferDetails);
                 };
             }
+
+            OnPopulateFinished?.Invoke();
+
         }
 
         private void OnWidgetLoaded(bool value, OfferSummaryPresenter widget)

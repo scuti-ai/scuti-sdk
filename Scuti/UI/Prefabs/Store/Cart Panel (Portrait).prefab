@@ -1736,8 +1736,9 @@ MonoBehaviour:
       m_Calls: []
   Transitions:
   - {fileID: 114691546154060456}
-  entryPrefab: {fileID: 114261226447166722, guid: 554abfb1bd5dbc348866b59c2a2a6b80,
+  entryPrefab: {fileID: 114261226447166722, guid: 5ec8cc75f7687a94a9f37c38d47814a0,
     type: 3}
+  entryPortraitPrefab: {fileID: 0}
   entryContainer: {fileID: 224184896347380600}
   itemCountText1: {fileID: 114193473004871804}
   itemCountText2: {fileID: 114260443162970944}

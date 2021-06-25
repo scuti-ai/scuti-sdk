@@ -58,17 +58,7 @@ namespace UnityEngine.UI.Extensions
                     return;
                 }
 
-                if (items != null)
-                {
-                    items.Clear();
-                }
-
-                for (int i = _scrollRect.content.childCount - 1; i >= 0; i--)
-                {
-                    Transform child = _scrollRect.content.GetChild(i);
-                    child.SetParent(null);
-                    GameObject.DestroyImmediate(child.gameObject);
-                }
+                RemoveItems();
 
                 foreach (Transform newItem in newItems)
                 {
@@ -132,42 +122,76 @@ namespace UnityEngine.UI.Extensions
 
         void DisableGridComponents()
         {
-            if (_isVertical)
+            if (items.Count < 2)
+                return;
+
+            try
             {
-                _recordOffsetY = items[1].GetComponent<RectTransform>().anchoredPosition.y - items[0].GetComponent<RectTransform>().anchoredPosition.y;
-                if (_recordOffsetY < 0)
+                if (_isVertical)
                 {
-                    _recordOffsetY *= -1;
+                    _recordOffsetY = items[1].GetComponent<RectTransform>().anchoredPosition.y - items[0].GetComponent<RectTransform>().anchoredPosition.y;
+                    if (_recordOffsetY < 0)
+                    {
+                        _recordOffsetY *= -1;
+                    }
+                    _disableMarginY = _recordOffsetY * _itemCount / 2;
                 }
-                _disableMarginY = _recordOffsetY * _itemCount / 2;
+                if (_isHorizontal)
+                {
+                    _recordOffsetX = items[1].GetComponent<RectTransform>().anchoredPosition.x - items[0].GetComponent<RectTransform>().anchoredPosition.x;
+                    if (_recordOffsetX < 0)
+                    {
+                        _recordOffsetX *= -1;
+                    }
+                    _disableMarginX = _recordOffsetX * _itemCount / 2;
+                }
             }
-            if (_isHorizontal)
+            catch (System.Exception)
             {
-                _recordOffsetX = items[1].GetComponent<RectTransform>().anchoredPosition.x - items[0].GetComponent<RectTransform>().anchoredPosition.x;
-                if (_recordOffsetX < 0)
-                {
-                    _recordOffsetX *= -1;
-                }
-                _disableMarginX = _recordOffsetX * _itemCount / 2;
+                _scrollRect.onValueChanged.RemoveAllListeners();
+                RemoveItems();
+                EnableGridComponents();
             }
 
             if (_verticalLayoutGroup)
+                {
+                    _verticalLayoutGroup.enabled = false;
+                }
+                if (_horizontalLayoutGroup)
+                {
+                    _horizontalLayoutGroup.enabled = false;
+                }
+                if (_contentSizeFitter)
+                {
+                    _contentSizeFitter.enabled = false;
+                }
+                if (_gridLayoutGroup)
+                {
+                    _gridLayoutGroup.enabled = false;
+                }
+                _hasDisabledGridComponents = true;
+            
+        }
+
+        void EnableGridComponents()
+        {
+            if (_verticalLayoutGroup)
             {
-                _verticalLayoutGroup.enabled = false;
+                _verticalLayoutGroup.enabled = true;
             }
             if (_horizontalLayoutGroup)
             {
-                _horizontalLayoutGroup.enabled = false;
+                _horizontalLayoutGroup.enabled = true;
             }
             if (_contentSizeFitter)
             {
-                _contentSizeFitter.enabled = false;
+                _contentSizeFitter.enabled = true;
             }
             if (_gridLayoutGroup)
             {
-                _gridLayoutGroup.enabled = false;
+                _gridLayoutGroup.enabled = true;
             }
-            _hasDisabledGridComponents = true;
+            _hasDisabledGridComponents = false;
         }
 
         public void OnScroll(Vector2 pos)
@@ -175,43 +199,70 @@ namespace UnityEngine.UI.Extensions
             if (!_hasDisabledGridComponents)
                 DisableGridComponents();
 
-            for (int i = 0; i < items.Count; i++)
+            try
             {
-                if (_isHorizontal)
+                for (int i = 0; i < items.Count; i++)
                 {
-                    if (_scrollRect.transform.InverseTransformPoint(items[i].gameObject.transform.position).x > _disableMarginX + _threshold)
+                    if (_isHorizontal)
                     {
-                        _newAnchoredPosition = items[i].anchoredPosition;
-                        _newAnchoredPosition.x -= _itemCount * _recordOffsetX;
-                        items[i].anchoredPosition = _newAnchoredPosition;
-                        _scrollRect.content.GetChild(_itemCount - 1).transform.SetAsFirstSibling();
+                        if (_scrollRect.transform.InverseTransformPoint(items[i].gameObject.transform.position).x > _disableMarginX + _threshold)
+                        {
+                            _newAnchoredPosition = items[i].anchoredPosition;
+                            _newAnchoredPosition.x -= _itemCount * _recordOffsetX;
+                            items[i].anchoredPosition = _newAnchoredPosition;
+                            _scrollRect.content.GetChild(_itemCount - 1).transform.SetAsFirstSibling();
+                        }
+                        else if (_scrollRect.transform.InverseTransformPoint(items[i].gameObject.transform.position).x < -_disableMarginX)
+                        {
+                            _newAnchoredPosition = items[i].anchoredPosition;
+                            _newAnchoredPosition.x += _itemCount * _recordOffsetX;
+                            items[i].anchoredPosition = _newAnchoredPosition;
+                            _scrollRect.content.GetChild(0).transform.SetAsLastSibling();
+                        }
                     }
-                    else if (_scrollRect.transform.InverseTransformPoint(items[i].gameObject.transform.position).x < -_disableMarginX)
-                    {
-                        _newAnchoredPosition = items[i].anchoredPosition;
-                        _newAnchoredPosition.x += _itemCount * _recordOffsetX;
-                        items[i].anchoredPosition = _newAnchoredPosition;
-                        _scrollRect.content.GetChild(0).transform.SetAsLastSibling();
-                    }
-                }
 
-                if (_isVertical)
-                {
-                    if (_scrollRect.transform.InverseTransformPoint(items[i].gameObject.transform.position).y > _disableMarginY + _threshold)
+                    if (_isVertical)
                     {
-                        _newAnchoredPosition = items[i].anchoredPosition;
-                        _newAnchoredPosition.y -= _itemCount * _recordOffsetY;
-                        items[i].anchoredPosition = _newAnchoredPosition;
-                        _scrollRect.content.GetChild(_itemCount - 1).transform.SetAsFirstSibling();
-                    }
-                    else if (_scrollRect.transform.InverseTransformPoint(items[i].gameObject.transform.position).y < -_disableMarginY)
-                    {
-                        _newAnchoredPosition = items[i].anchoredPosition;
-                        _newAnchoredPosition.y += _itemCount * _recordOffsetY;
-                        items[i].anchoredPosition = _newAnchoredPosition;
-                        _scrollRect.content.GetChild(0).transform.SetAsLastSibling();
+                        if (_scrollRect.transform.InverseTransformPoint(items[i].gameObject.transform.position).y > _disableMarginY + _threshold)
+                        {
+                            _newAnchoredPosition = items[i].anchoredPosition;
+                            _newAnchoredPosition.y -= _itemCount * _recordOffsetY;
+                            items[i].anchoredPosition = _newAnchoredPosition;
+                            _scrollRect.content.GetChild(_itemCount - 1).transform.SetAsFirstSibling();
+                        }
+                        else if (_scrollRect.transform.InverseTransformPoint(items[i].gameObject.transform.position).y < -_disableMarginY)
+                        {
+                            _newAnchoredPosition = items[i].anchoredPosition;
+                            _newAnchoredPosition.y += _itemCount * _recordOffsetY;
+                            items[i].anchoredPosition = _newAnchoredPosition;
+                            _scrollRect.content.GetChild(0).transform.SetAsLastSibling();
+                        }
                     }
                 }
+            }
+            catch (System.Exception)
+            {
+                _scrollRect.onValueChanged.RemoveAllListeners();
+                RemoveItems();
+                EnableGridComponents();
+            }
+            
+        }
+
+        private void RemoveItems()
+        {
+            print(" RemoveItems");
+            if (items != null)
+            {
+                items.Clear();
+            }
+
+            for (int i = _scrollRect.content.childCount - 1; i >= 0; i--)
+            {
+            print(i+" Remove...  ");
+                Transform child = _scrollRect.content.GetChild(i);
+                child.SetParent(null);
+                GameObject.DestroyImmediate(child.gameObject);
             }
         }
     }
