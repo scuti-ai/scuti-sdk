@@ -138,7 +138,7 @@ MonoBehaviour:
     instance: {fileID: 0}
   - id: OFFERS
     view: {fileID: 114463846195168704, guid: d0014075c4db0094e83ff60b8f9eff67, type: 3}
-    view_portrait: {fileID: 114463846195168704, guid: 703608bcdfc018b4a8d1913a0fdbb711,
+    view_portrait: {fileID: 114463846195168704, guid: 4d0e46d0f3285214a9578ea02ee79c23,
       type: 3}
     view_pc: {fileID: 114939992940882344, guid: a069147496a7abf469712558313835af,
       type: 3}
@@ -429,9 +429,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -726,7 +726,7 @@ MonoBehaviour:
     instance: {fileID: 0}
   - id: PW-RESET-VIA-EMAIL
     view: {fileID: 114593751330843874, guid: 8f7d063360a87214ea6e46d5319f2dc4, type: 3}
-    view_portrait: {fileID: 114330477555145026, guid: b10d06030ffc7d94cabb98df46142383,
+    view_portrait: {fileID: 114593751330843874, guid: 8b71ef73a25cd2d479a2582bff3c8e42,
       type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}

@@ -12,6 +12,7 @@ using LoadedWidgetQueue = System.Collections.Generic.Queue<System.Tuple<Scuti.UI
 using GetNextRequestQueue = System.Collections.Generic.Queue<System.Action<Scuti.UI.OfferSummaryPresenter.Model>>;
 using System.Threading;
 using Scuti.Net;
+using UnityEngine.Events;
 
 namespace Scuti.UI
 {
@@ -55,6 +56,9 @@ namespace Scuti.UI
         [SerializeField] float showDuration = 10;
         [SerializeField] float instantiationInterval = .5f;
         [SerializeField] float showInterval = .5f;
+        [SerializeField] bool clearInitialElements = true;
+
+        List<GameObject> initialElements = new List<GameObject>();
 
         [Header("Instantiation")]
         [SerializeField] OfferSummaryPresenter widgetPrefab_Large;
@@ -63,9 +67,6 @@ namespace Scuti.UI
         [SerializeField] Transform container_Small;
         [SerializeField] Transform container_Video;
         [SerializeField] OfferVideoPresenter videoWidget;
-
-
-
 
         [Serializable]
         public struct OfferColorData
@@ -83,6 +84,8 @@ namespace Scuti.UI
         public BannerWidget Banner;
         public Timer TimeoutTimer;
 
+        public UnityEvent OnPopulateFinished;
+
         private bool m_Idle = false;
         private bool m_Paused = false;
         private bool m_ChangingCategories = false;
@@ -92,6 +95,20 @@ namespace Scuti.UI
         Pagination m_Pagination;
         Dictionary<string, Pagination> m_PaginationMap = new Dictionary<string, Pagination>();
         List<OfferSummaryPresenter> m_Instantiated = new List<OfferSummaryPresenter>();
+
+
+        public void Start()
+        {
+            if(!clearInitialElements)
+            {
+
+                foreach (Transform child in container_Large)
+                    if(!initialElements.Contains(child.gameObject)) initialElements.Add(child.gameObject);
+
+                foreach (Transform child in container_Small)
+                    if (!initialElements.Contains(child.gameObject)) initialElements.Add(child.gameObject);
+            }
+        }
 
         // ================================================
         #region LIFECYCLE
@@ -376,11 +393,44 @@ namespace Scuti.UI
             m_Instantiated.Clear();
             GetNextRequestQueue.Clear();
             loadedWidgetQueue.Clear();
-            foreach (Transform child in container_Large)
-                Destroy(child.gameObject);
+            if (clearInitialElements)
+            {
+                print("Clearing all");
+                foreach (Transform child in container_Large)
+                    Destroy(child.gameObject);
 
-            foreach (Transform child in container_Small)
-                Destroy(child.gameObject);
+                foreach (Transform child in container_Small)
+                    Destroy(child.gameObject);
+            }else
+            {
+                print("Clearing");
+                int children = container_Large.childCount;
+                int index = 0;
+                for (int i = 0; i < children; ++i)
+                {
+                    if(initialElements.Contains(container_Large.GetChild(index).gameObject))
+                    {
+                        index++;
+                    }else
+                    {
+                        Destroy(container_Large.GetChild(index).gameObject);
+                    }
+                }
+
+                children = container_Small.childCount;
+                index = 0;
+                for (int i = 0; i < children; ++i)
+                {
+                    if (initialElements.Contains(container_Small.GetChild(index).gameObject))
+                    {
+                        index++;
+                    }
+                    else
+                    {
+                        Destroy(container_Small.GetChild(index).gameObject);
+                    }
+                }
+            }
 
             Resources.UnloadUnusedAssets();
         }
@@ -462,6 +512,7 @@ namespace Scuti.UI
 
 
             await Task.Delay(250);
+            OnPopulateFinished?.Invoke();
             m_ChangingCategories = false;
         }
 

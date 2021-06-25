@@ -79,9 +79,20 @@ public class ScutiEditorWindow : EditorWindow
         Transform parent = Selection.activeTransform;
         if (parent != null)
         {
+            Canvas canv;
+
+            canv = parent.GetComponent<Canvas>();
+
+            if (canv == null)
+                canv = parent.GetComponentInParent<Canvas>();
+       
+            string prefabName = ScutiConstants.BUTTON_PREFAB_NAME;
+            if (canv == null)
+                prefabName = ScutiConstants.BUTTON_PREFAB_3D_NAME;
+
             Transform r = parent.root;
 
-            var go = Instantiate(Resources.Load<GameObject>(ScutiConstants.BUTTON_PREFAB_NAME));
+            var go = Instantiate(Resources.Load<GameObject>(prefabName));
             go.name = go.name.Substring(0, go.name.Length - 7);
             go.transform.SetParent(parent, false);
 
@@ -97,7 +108,7 @@ public class ScutiEditorWindow : EditorWindow
             }
         }else
         {
-            var go = Instantiate(Resources.Load<GameObject>(ScutiConstants.BUTTON_PREFAB_NAME));
+            var go = Instantiate(Resources.Load<GameObject>(ScutiConstants.BUTTON_PREFAB_3D_NAME));
             go.name = go.name.Substring(0, go.name.Length - 7);
         }
     }

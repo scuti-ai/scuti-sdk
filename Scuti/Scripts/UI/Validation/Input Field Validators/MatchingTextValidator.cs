@@ -29,8 +29,8 @@ namespace Scuti {
             if (!fieldToMatch.text.Equals(value)) {
                 SetInvalid(messageOnNotMatch);
                 return false;
-            }
-            else {
+            } 
+            else {  
                 SetValid();
                 return false;
             }
