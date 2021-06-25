@@ -11,6 +11,7 @@ namespace Scuti.UI
         private float _aspectRatio = -1;
         private bool _landscape = true;
 
+
         private float AspectRatio
         {
             get
@@ -28,12 +29,14 @@ namespace Scuti.UI
         {
             get
             {
-	            {
-		            _landscape = Screen.orientation == ScreenOrientation.Landscape || Screen.orientation == ScreenOrientation.LandscapeLeft || Screen.orientation == ScreenOrientation.LandscapeRight;
-                    #if UNITY_EDITOR
-		            _landscape = Camera.main.pixelWidth > Camera.main.pixelHeight;
-                    #endif
-	            }
+                if (ScutiConstants.FORCE_LANDSCAPE)
+                    return true;
+
+		        _landscape = Screen.orientation == ScreenOrientation.Landscape || Screen.orientation == ScreenOrientation.LandscapeLeft || Screen.orientation == ScreenOrientation.LandscapeRight;
+                #if UNITY_EDITOR
+		        _landscape = Camera.main.pixelWidth > Camera.main.pixelHeight;
+                #endif
+	            
                 return _landscape;
             }
         }

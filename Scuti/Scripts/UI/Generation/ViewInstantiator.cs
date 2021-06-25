@@ -26,6 +26,10 @@ namespace Scuti {
             float pixelsHigh = Camera.main.pixelHeight;
 
             bool portrait = pixelsHigh > pixelsWide;
+            if(ScutiConstants.FORCE_LANDSCAPE)
+            {
+                portrait = false;
+            }
 
             var v = portrait && view_portrait != null ? view_portrait : (UIManager.IsLargeDisplay() && view_pc!=null) ? view_pc :  view;
             instance = MonoBehaviour.Instantiate(v, parent);
