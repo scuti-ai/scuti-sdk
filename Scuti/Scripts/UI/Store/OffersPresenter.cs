@@ -85,6 +85,7 @@ namespace Scuti.UI
         public Timer TimeoutTimer;
 
         public UnityEvent OnPopulateFinished;
+        public UnityEvent OnClearFinished;
 
         private bool m_Idle = false;
         private bool m_Paused = false;
@@ -395,7 +396,7 @@ namespace Scuti.UI
             loadedWidgetQueue.Clear();
             if (clearInitialElements)
             {
-                print("Clearing all");
+                Debug.LogWarning("Clearing all");
                 foreach (Transform child in container_Large)
                     Destroy(child.gameObject);
 
@@ -403,9 +404,9 @@ namespace Scuti.UI
                     Destroy(child.gameObject);
             }else
             {
-                print("Clearing");
                 int children = container_Large.childCount;
                 int index = 0;
+                Debug.LogWarning("Clearing:: "+ children);
                 for (int i = 0; i < children; ++i)
                 {
                     if(initialElements.Contains(container_Large.GetChild(index).gameObject))
@@ -413,12 +414,16 @@ namespace Scuti.UI
                         index++;
                     }else
                     {
-                        Destroy(container_Large.GetChild(index).gameObject);
+                        //Debug.LogWarning("     Removing:: "+ container_Large.GetChild(index).gameObject);
+                        Transform child = container_Large.GetChild(index);
+                        child.SetParent(null);
+                        Destroy(child.gameObject);
                     }
                 }
 
                 children = container_Small.childCount;
                 index = 0;
+                //Debug.LogWarning("  Small:: "+ children);
                 for (int i = 0; i < children; ++i)
                 {
                     if (initialElements.Contains(container_Small.GetChild(index).gameObject))
@@ -427,12 +432,17 @@ namespace Scuti.UI
                     }
                     else
                     {
-                        Destroy(container_Small.GetChild(index).gameObject);
+                        //Debug.LogWarning("     Removing small :: "+ container_Large.GetChild(index).gameObject);
+                        Transform child = container_Large.GetChild(index);
+                        child.SetParent(null);
+                        Destroy(child.gameObject);
                     }
                 }
             }
 
             Resources.UnloadUnusedAssets();
+            OnClearFinished?.Invoke();
+
         }
 
         private void ResetTimeout()
@@ -512,6 +522,7 @@ namespace Scuti.UI
 
 
             await Task.Delay(250);
+            //Debug.LogWarning(container_Large.childCount+"   ++++++++++++++    "+ container_Small.childCount);
             OnPopulateFinished?.Invoke();
             m_ChangingCategories = false;
         }
