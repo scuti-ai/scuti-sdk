@@ -115,7 +115,10 @@ namespace Scuti.UI
         private async Task SaveShippingInfo()
         {
             if (!Evaluate())
+            {
+                UIManager.Alert.SetHeader("Invalid Field").SetBody("Please ensure all form fields are filled in correctly.").SetButtonText("OK").Show(() => { });
                 return;
+            }
 
             saveButton.interactable = false;
             bool submit = !UseAsOnboarding;

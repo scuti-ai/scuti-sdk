@@ -26,14 +26,11 @@ namespace Scuti {
 
         public override bool EvaluateInputField(string value) {
 
-            Debug.LogError("Matching text?? " + fieldToMatch.text + " vs " + value);
             if (!fieldToMatch.text.Equals(value)) {
-                Debug.LogError("invalid");
                 SetInvalid(messageOnNotMatch);
                 return false;
-            }
-            else {
-                Debug.LogError("valid");
+            } 
+            else {  
                 SetValid();
                 return false;
             }
