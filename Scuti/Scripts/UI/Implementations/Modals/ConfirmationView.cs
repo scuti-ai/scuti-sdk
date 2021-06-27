@@ -114,7 +114,10 @@ namespace Scuti {
         }
 
         void Init() {
-            instances.Add(id, this);
+            if (!instances.ContainsKey(id))
+                instances.Add(id, this);
+            else
+                instances[id] = this;
             onClosed.AddListener(() => m_Callback = null);
             negativeButton.GetComponent<Button>().onClick.AddListener(OnClickNegative);
             positiveButton.GetComponent<Button>().onClick.AddListener(OnClickPositive);

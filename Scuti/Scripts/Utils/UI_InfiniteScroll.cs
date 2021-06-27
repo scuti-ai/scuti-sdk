@@ -296,6 +296,7 @@ namespace UnityEngine.UI.Extensions
             if (_scrollRect != null && _scrollRect.content != null)
             {
                 _scrollRect.onValueChanged.RemoveAllListeners();
+                _scrollRect.StopMovement();
                 _scrollRect.content.anchoredPosition = Vector2.zero;
                 _newAnchoredPosition = Vector2.zero;
             }

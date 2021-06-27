@@ -105,7 +105,10 @@ namespace Scuti {
         }
 
         void Init() {
-            instances.Add(id, this);
+            if (!instances.ContainsKey(id))
+                instances.Add(id, this);
+            else
+                instances[id] = this;
             okButton.GetComponent<Button>().onClick.AddListener(OnClick);
             crossButton.GetComponent<Button>().onClick.AddListener(Close);
         }
