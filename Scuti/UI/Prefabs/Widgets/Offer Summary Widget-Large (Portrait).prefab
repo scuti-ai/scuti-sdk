@@ -798,6 +798,7 @@ GameObject:
   - component: {fileID: 114660983478889476}
   - component: {fileID: 95563935576684128}
   - component: {fileID: 114208846670482862}
+  - component: {fileID: 114586114965420318}
   m_Layer: 5
   m_Name: Offer Summary Widget-Large (Portrait)
   m_TagString: Untagged
@@ -991,6 +992,33 @@ MonoBehaviour:
   DownDuration: 0.05
   PressedScale: {x: 0.95, y: 0.95, z: 0.95}
   DefaultScale: {x: 1, y: 1, z: 1}
+--- !u!114 &114586114965420318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206384938226104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e74aa9da08038d4cb7d7793661cdb97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Enable: 0
+  OnSiblingIndexChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114999437136715084}
+        m_MethodName: OnRotateOutComplete
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1227466133686592
 GameObject:
   m_ObjectHideFlags: 0
@@ -3541,7 +3569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &224551112685089404
 RectTransform:
   m_ObjectHideFlags: 0
