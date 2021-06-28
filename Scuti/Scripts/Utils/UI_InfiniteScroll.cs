@@ -81,10 +81,9 @@ namespace UnityEngine.UI.Extensions
 
         public void Init()
         {
-            Debug.LogWarning("-------------------------------------------- INIT --------------------------------------------");
-            Debug.LogWarning(" ==== childCount::  " + items.Count);
-            //RemoveItems();
-            Debug.LogWarning("--------------------------------------- POST INIT ---------------------------------------");
+            //Debug.LogWarning("-------------------------------------------- INIT --------------------------------------------");
+            //Debug.LogWarning(" ==== childCount::  " + items.Count);
+            //Debug.LogWarning("--------------------------------------- POST INIT ---------------------------------------");
 
             if (GetComponent<ScrollRect>() != null)
             {

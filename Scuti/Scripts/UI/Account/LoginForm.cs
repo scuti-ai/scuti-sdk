@@ -58,6 +58,7 @@ namespace Scuti.UI
                 await ScutiNetClient.Instance.AuthenticateUser(Data.Email, Data.Password);
                 var response = await ScutiNetClient.Instance.GetAccountInfo();
                 fullName = response.fullName;
+                UIManager.TopBar.Refresh();
                 UIManager.HideLoading();
             }
             catch(Exception ex)

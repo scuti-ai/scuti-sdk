@@ -24,6 +24,13 @@ public class WalletWidget : MonoBehaviour {
         WalletLabel.text = balance.ToString();
     }
 
+    public void DoRefresh()
+    {
+#pragma warning disable 4014
+        Refresh();
+#pragma warning restore 4014
+    }
+
     private async Task Refresh()
     {
         if (ScutiNetClient.Instance.IsAuthenticated)

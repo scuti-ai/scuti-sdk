@@ -111,7 +111,7 @@ MonoBehaviour:
   showDuration: 10
   instantiationInterval: 0.01
   showInterval: 0.35
-  clearInitialElements: 0
+  clearInitialElements: 1
   widgetPrefab_Large: {fileID: 114999437136715084, guid: ebd9c7148f70262469779acab19fcc31,
     type: 3}
   widgetPrefab_Small: {fileID: 114538486965266772, guid: 8ff8e711ca86894419e5ca8a70d91d98,
@@ -613,7 +613,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &593981291431978924
