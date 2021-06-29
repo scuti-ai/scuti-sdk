@@ -471,12 +471,19 @@ namespace Scuti.UI
         {
             titleText.text = Data.Title;
             displayPriceText.text = Data.DisplayPrice;
+            var isPortrait = ScutiUtils.IsPortrait();
 
-            // New and Hot Badges disabled for now
-            //newBadge.SetActive(Data.IsNew);
-            //hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
-            newBadge.SetActive(false);
-            hotBadge.SetActive(false);
+            // New and Hot Badges only in portrait
+            if (isPortrait)
+            {
+                newBadge.SetActive(Data.IsNew);
+                hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
+            }
+            else
+            {
+                newBadge.SetActive(false);
+                hotBadge.SetActive(false);
+            }
 
             // Show ONLY THE FIRST promo that is applicable
             var list = new List<KeyValuePair<GameObject, bool>> {
@@ -488,25 +495,23 @@ namespace Scuti.UI
             };
 
             list.ForEach(x => x.Key.SetActive(false));
-            
-            
-            /* Disabled Promos For now - mg
-            foreach (var pair in list)
+
+            if (isPortrait)
             {
-                if (pair.Value)
+                foreach (var pair in list)
                 {
-                    pair.Key.SetActive(true);
-                    break;
+                    if (pair.Value)
+                    {
+                        pair.Key.SetActive(true);
+                        break;
+                    }
                 }
-            }*/
+            }
 
             GlowImage.gameObject.SetActive(false);
 
             // Show the rating if there is a rating
-            bool hasRatingValue = Data.Rating > 0f;
-
-            // Disabled Ratings for now -mg
-            hasRatingValue = false;
+            bool hasRatingValue = Data.Rating > 0f && isPortrait;
 
             ratingText.gameObject.SetActive(hasRatingValue);
             ratingStarsWidget.gameObject.SetActive(hasRatingValue);
