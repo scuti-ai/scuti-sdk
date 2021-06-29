@@ -27,11 +27,9 @@ namespace Scuti
         { 
             UIManager.Open(UIManager.Offers);
             UIManager.TopBar.Open();
-            Debug.Log("Splash");
             if (IsNewUser())
             {
                 bool shown = await ShowOffer();
-                Debug.Log("Shown " + shown);
                 if (!shown)
                     UIManager.Open(UIManager.Welcome);
             }

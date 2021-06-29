@@ -96,7 +96,7 @@ namespace Scuti.UI
                             },
                             error =>
                             {
-                                Debug.LogError("Failed to load: " + url + " for " + Title);
+                                ScutiLogger.LogError("Failed to load: " + url + " for " + Title);
                                 CurrentState = State.Failed;
                             }
                         );
@@ -309,7 +309,7 @@ namespace Scuti.UI
             }
             catch (Exception e)
             {
-                Debug.LogWarning(e);
+                ScutiLogger.LogWarning(e);
             }
         }
         #endregion
@@ -394,10 +394,8 @@ namespace Scuti.UI
 
         public void ResetTimer()
         {
-            Debug.Log("Reset timer "+this);
             if (!_isPortrait && !_destroyed && !_isStatic)
             {
-                Debug.Log("                Reset timer " + this);
                 timer.gameObject.SetActive(true);
                 timerCompleted = false;
                 timer.ResetTime(m_TimerDuration);
@@ -418,10 +416,8 @@ namespace Scuti.UI
 
         public void ResumeTimer()
         {
-            Debug.Log("Resume timer "+this);
             if (!_isPortrait && !_destroyed && timer != null && m_showing && !_isStatic)
             {
-                Debug.Log("                Resume timer " + this);
                 timer.gameObject.SetActive(true);
                 animator.speed = m_PriorSpeed;
                 timer.Begin();
@@ -444,7 +440,7 @@ namespace Scuti.UI
                         LoadCompleted();
                         break;
                     case Model.State.Failed:
-                        Debug.Log("Could not load summary image. Show some other animation here?");
+                        ScutiLogger.Log("Could not load summary image.");
                         Next = null;
                         break;
                 }

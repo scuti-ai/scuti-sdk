@@ -112,7 +112,6 @@ namespace Scuti.UI {
                 Instructions.color = Color.red;
                 if(_errorCount>1)
                 {
-                    Debug.Log("Error count: " + _errorCount);
                     UIManager.Alert.SetHeader("Select Categories").SetBody("You must select at least 2 categories before continuing.").SetButtonText("OK").Show(() => { });
                 }
                 _errorCount++;

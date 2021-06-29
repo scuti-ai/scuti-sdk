@@ -7677,6 +7677,7 @@ MonoBehaviour:
   addToCartLabel: {fileID: 114107520057497658}
   addToCartIcon: {fileID: 114939698590755174}
   shareButton: {fileID: 114912104449176702}
+  BuyNowButton: {fileID: 160346673572929437}
   ScrollContent: {fileID: 114081155038368860}
 --- !u!114 &114337682957816756
 MonoBehaviour:

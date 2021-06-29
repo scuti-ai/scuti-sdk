@@ -18,15 +18,11 @@ namespace Scuti.Examples.DataBinding {
                 string all = string.Empty;
                 foreach (var guid in Data.GUIDs)
                     all += guid + "\n";
-                
-                Debug.Log("Added : " + element + " \nTotal list: \n" + all);
             };
             Data.GUIDs.OnElementRemoved += element => {
                 string all = string.Empty;
                 foreach (var guid in Data.GUIDs)
                     all += guid + "\n";
-
-                Debug.Log("Removed : " + element + " \nTotal list: \n" + all);
             };
         } 
     }

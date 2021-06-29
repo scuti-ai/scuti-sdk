@@ -18,12 +18,11 @@ public class ScutiUtils  {
     {
         if (args == null || !args.Contains("/"))
         {
-            Debug.LogError("UIProxy.Open(string) should have a ViewSet ID and View ID separated by /.  Passed: "+args);
+            ScutiLogger.LogError("UIProxy.Open(string) should have a ViewSet ID and View ID separated by /.  Passed: "+args);
             return null;
         }
         var setID = args.Split('/')[0];
         var viewID = args.Split('/')[1];
-        Debug.Log("Open " + setID + " and  " + viewID);
         return new ScutiURL { SetID = setID, ViewID = viewID };
     }
 

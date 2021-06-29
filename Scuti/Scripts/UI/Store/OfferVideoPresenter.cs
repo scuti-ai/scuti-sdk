@@ -56,7 +56,7 @@ namespace Scuti.UI
                             },
                             error =>
                             {
-                                Debug.LogError("Failed to load video thumb: " + url + " for " + ID);
+                                ScutiLogger.LogError("Failed to load video thumb: " + url + " for " + ID);
                                 CurrentState = State.Failed;
                             }
                         );
@@ -92,15 +92,14 @@ namespace Scuti.UI
             switch (id)
             {
                 case ScutiConstants.SCUTI_IMPRESSION_ID:
-                    Debug.LogError("Record Video impression: " + this.gameObject);
                     try
                     {
                         ScutiAPI.RecordOfferImpression(Data.ID);
                     }
-                    catch
+                    catch(Exception e)
                     {
-
-                    }
+                        ScutiLogger.LogError("Failed to log video impression: " + e.Message);
+;                    }
                     break;
             }
         }

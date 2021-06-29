@@ -59,7 +59,7 @@ namespace Scuti.UI
                     if (authException.InnerException != null && authException.InnerException is GQLException)
                     {
                         var gqlException = authException.InnerException as GQLException;
-                        Debug.LogError(gqlException.error + " " + gqlException.responseCode);
+                        ScutiLogger.LogError(gqlException.error + " " + gqlException.responseCode);
 
                         message = "Error Response Code: " + gqlException.responseCode;
                         switch (gqlException.responseCode)

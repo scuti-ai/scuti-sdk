@@ -38,7 +38,7 @@ namespace Scuti.UI
             }
             catch (Exception e)
             {
-                Debug.LogError(e);
+                ScutiLogger.LogError(e);
             }
 
             ExchangeInstructions.gameObject.SetActive(false);

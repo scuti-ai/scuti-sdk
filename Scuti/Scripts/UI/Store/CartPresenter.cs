@@ -90,6 +90,12 @@ namespace Scuti.UI
         private UserCard _cachedCard = null;
         private bool _cachedAddress = false;
 
+        private bool _autoPurchase = false;
+        public void PurchaseOnLoad(bool value)
+        {
+            _autoPurchase = value;
+        }
+
         public bool IsEmpty
         {
             get { return Data.Items == null || Data.Items.Count == 0; }
@@ -115,26 +121,25 @@ namespace Scuti.UI
         {
             base.Open();
 
-            if (_cachedCard == null || !_cachedAddress) TryToLoadData();
-            else UpdatePriceBreakdown();
+            if (_cachedCard == null || !_cachedAddress) TryToLoadData(_autoPurchase);
+            else UpdatePriceBreakdown(_autoPurchase);
+            _autoPurchase = false;
         }
 
 
-        private async void TryToLoadData()
+        private async void TryToLoadData(bool checkout)
         {
             try
             {
                 if (_cachedCard == null)
                 {
-
-                    Debug.LogError("Requesting Payment... ");
                     var cards = await ScutiAPI.GetPayments();
                     if(cards!=null && cards.Count>0)
                     {
                         Data.Card = new CreditCardData();
                         Data.Card.Reset();
                         _cachedCard = cards.Last();
-                        Debug.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
+                        ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
                     } else
                     {
                         Data.Card = new CreditCardData();
@@ -171,11 +176,12 @@ namespace Scuti.UI
                         Debug.LogError("SHOULD RE LOG NOW");
                     }
                 }
+                checkout = false;
                 ScutiLogger.LogError(ex);
 
             }
 
-            UpdatePriceBreakdown();
+            UpdatePriceBreakdown(checkout);
         }
 
         // ================================================
@@ -302,7 +308,7 @@ namespace Scuti.UI
             }
         }
 
-        public async void UpdatePriceBreakdown()
+        public async void UpdatePriceBreakdown(bool checkout = false)
         {
             itemCountText1.text = $"({Data.Items.Count}  ITEMS)";
             itemCountText2.text = $"({Data.Items.Count}  ITEMS)";
@@ -362,6 +368,10 @@ namespace Scuti.UI
                 subtotalAmountText.text = "Login Required";
             }
             RefreshText();
+            if(checkout)
+            {
+                Checkout();
+            }
         }
 
         public void Clear()
@@ -393,7 +403,6 @@ namespace Scuti.UI
                     if (_cachedCard != null)
                     {
                         paymentSource = new PaymentSource() { Type = PaymentSourceType.StoredCard, Id = _cachedCard.Id };
-                        Debug.LogError("Using cached card, should fail without CVV");
                     } else if (Data.Card!=null && Data.Card.IsValid())
                     { 
                         paymentSource = new PaymentSource() { Type = PaymentSourceType.Card, Card = new CreditCard() {  BillingAddress = GetBillingAddress(),    Encrypted = Data.Card.Encrypted, ExpiryMonth = Data.Card.ExpirationMonth, ExpiryYear = Data.Card.ExpirationYear, Name = Data.Card.Name  }, Persist = Data.Card.SaveCard };
@@ -478,6 +487,12 @@ namespace Scuti.UI
 
         }
 
+        public override void Close()
+        {
+            base.Close();
+            PurchaseOnLoad(false);
+
+        }
         private ShippingInfo GetAddress()
         {
             ShippingInfo address = null;
@@ -510,12 +525,7 @@ namespace Scuti.UI
                     State = Data.BillingAddress.State,
                     ZipCode = Data.BillingAddress.Zip
                 };
-            } else
-            {
-                Debug.LogError(Data.BillingAddress.ToJson());
-                Debug.LogError(Data.BillingAddress.IsValid());
-            }
-
+            }  
             return address;
         }
 

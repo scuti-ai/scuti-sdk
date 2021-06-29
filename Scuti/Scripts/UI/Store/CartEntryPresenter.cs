@@ -92,13 +92,13 @@ namespace Scuti.UI {
                         },
                         error =>
                         {
-                            Debug.LogError("Failed to load: " + Data.imageUrlFallback + " for cart.");
+                            ScutiLogger.LogError("Failed to load: " + Data.imageUrlFallback + " for cart.");
                         }
                     );
                 }
                 else
                 {
-                    Debug.LogError("Sprite null " + this + "  and no fallback image.");
+                    ScutiLogger.LogError("Sprite null " + this + "  and no fallback image.");
                 }
             }
 

@@ -67,7 +67,7 @@ namespace Scuti.UI {
                     PopulateImageFromVariant(Data.product.Variant);
                 } else
                 {
-                    Debug.Log("No image for " + Data.product.Name);
+                    ScutiLogger.Log("No image for " + Data.product.Name);
                 }
 
                 StatusLabel.text = Data.orderStatus;
@@ -109,7 +109,7 @@ namespace Scuti.UI {
                 ImageDisplay.sprite = tex.ToSprite();
             } else
             {
-                Debug.LogError("variant image is null");
+                ScutiLogger.LogError("variant image is null");
             }
         }
     }

@@ -12,7 +12,5 @@ public class TopBarView : View {
     {
         if (Wallet)
             Wallet.DoRefresh();
-        else
-            Debug.LogWarning("Trying to refresh wallet but reference not found");
     }
 }

@@ -25,7 +25,6 @@ namespace Scuti {
 
         public void Submit() {
             if (!Evaluate()) {
-                Debug.LogError("Selecter is not valid");
                 return;
             }
 

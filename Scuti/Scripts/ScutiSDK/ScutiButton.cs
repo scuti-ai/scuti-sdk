@@ -43,7 +43,6 @@ public class ScutiButton : MonoBehaviour
                 NotificationIcon.SetActive(true);
                 return;
             }
-            Debug.Log(reward.Activated);
         }
         NotificationIcon.SetActive(false);
     }

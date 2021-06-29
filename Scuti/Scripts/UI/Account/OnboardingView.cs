@@ -30,7 +30,6 @@ namespace Scuti.UI
 
             credentials.OnSubmit += creds =>
             {
-                Debug.Log($"Credentials : {creds.Email} {creds.Password}");
                 ShowAccountVerification(creds.Email, creds.Password);
             };
 
@@ -62,7 +61,6 @@ namespace Scuti.UI
 
             addressForm.OnSubmit += address =>
             {
-                Debug.Log($"Address : {address}");
                 if (!ScutiNetClient.Instance.FinishedOnBoarding)
                     ShowCategories();
                 else

@@ -150,7 +150,7 @@ public class BannerWidget : MonoBehaviour {
                         },
                         error =>
                         {
-                            Debug.LogError("Failed to load: " + _banner.Media.Banner.BigUrl);
+                            ScutiLogger.LogError("Failed to load: " + _banner.Media.Banner.BigUrl);
                             _loading = false;
                             _timePassed = 0;
                         }

@@ -346,7 +346,7 @@ namespace Scuti.UI
                 actualCount = offers.Count;
             } catch (Exception e)
             {
-                Debug.LogException(e);
+                ScutiLogger.LogException(e);
                 //Debug.LogError("TODO: show error message");
                 return offers;
             }
@@ -396,7 +396,6 @@ namespace Scuti.UI
             loadedWidgetQueue.Clear();
             if (clearInitialElements)
             {
-                Debug.LogWarning("Clearing all");
                 foreach (Transform child in container_Large)
                     Destroy(child.gameObject);
 
@@ -406,7 +405,6 @@ namespace Scuti.UI
             {
                 int children = container_Large.childCount;
                 int index = 0;
-                Debug.LogWarning("Clearing:: "+ children);
                 for (int i = 0; i < children; ++i)
                 {
                     if(initialElements.Contains(container_Large.GetChild(index).gameObject))

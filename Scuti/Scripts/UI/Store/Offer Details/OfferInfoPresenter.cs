@@ -73,7 +73,7 @@ namespace Scuti.UI {
                 displayPrice.text = $"${productVariant.Price.Amount.Value.ToString("F2")}".ToUpper();
             } else
             {
-                Debug.LogError("Missing product variant or price: " + productVariant);
+                ScutiLogger.LogError("Missing product variant or price: " + productVariant);
                 displayPrice.gameObject.SetActive(false);
             }
         }

@@ -36,6 +36,7 @@ namespace Scuti.UI
         [SerializeField] Text addToCartLabel;
         [SerializeField] Image addToCartIcon;
         [SerializeField] Button shareButton;
+        [SerializeField] GameObject BuyNowButton;
 
         public ScrollRect ScrollContent;
 
@@ -88,11 +89,13 @@ namespace Scuti.UI
             _isVideo = isVideo;
             if (isVideo)
             {
+                BuyNowButton.SetActive(false);
                 addToCartLabel.text = "WATCH VIDEO";
                 addToCartIcon.gameObject.SetActive(false);
             }
             else
             {
+                BuyNowButton.SetActive(true);
                 addToCartLabel.text = "ADD TO CART";
                 addToCartIcon.gameObject.SetActive(true);
             }
@@ -103,7 +106,17 @@ namespace Scuti.UI
 
         public void BuyNow()
         {
+            if (!ScutiNetClient.Instance.IsAuthenticated)
+            {
+                UIManager.Open(UIManager.PromoAccount);
+                UIManager.PromoAccount.SetMessage("Create Account to Before Purchasing.");
+                return;
+            }
 
+
+            AddToCartHelper();
+            UIManager.Cart.PurchaseOnLoad(true);
+            UIManager.Open(UIManager.Cart);
         }
         public void AddToCart()
         {
@@ -120,13 +133,20 @@ namespace Scuti.UI
             }
             else
             {
-                var model = Mappers.CartEntryWidgetFrom(Data);
-                model.quantity = Data.Customization.Quantity;
-                //GetVariantId(model);
-                model.campaignId = Data.Info.ID;
-                UIManager.Cart.GetData().AddItem(model);
+                AddToCartHelper();
+                UIManager.Cart.PurchaseOnLoad(false);
                 UIManager.Open(UIManager.Cart);
             }
+        }
+
+        private void AddToCartHelper()
+        {
+
+            var model = Mappers.CartEntryWidgetFrom(Data);
+            model.quantity = Data.Customization.Quantity;
+            //GetVariantId(model);
+            model.campaignId = Data.Info.ID;
+            UIManager.Cart.GetData().AddItem(model);
         }
 
         //private void GetVariantId(CartEntryPresenter.Model model)

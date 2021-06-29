@@ -32,7 +32,6 @@ namespace Scuti {
         {
             var now = DateTime.Now;
             var diff = now.Year - Date.Year;
-            Debug.Log(diff);
             if(diff>Age)
             {
                 SetValid();
