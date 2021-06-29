@@ -464,12 +464,24 @@ namespace Scuti.UI
 
                 if (cancelToken.IsCancellationRequested) return;
 
-                // Based on the index, the template and container are chosen.
-                // Currently, the first two offers are large, the other are small
-                var index = i;
-                var template = GetTemplateForIndex(index);
-                var container = GetContainerForIndex(index);
+                OfferSummaryPresenter template;
+                Transform container;
 
+                var index = i;
+                if(ScutiUtils.IsPortrait() && i<Data.Items.Count)
+                {
+                     var widgetData = Data.Items[index];
+                    var isTall = !string.IsNullOrEmpty(widgetData.TallURL);
+                    template  = (isTall)?  widgetPrefab_Large : widgetPrefab_Small;
+                    container  = (isTall)?  container_Large : container_Small;
+
+
+                } else {
+                    // Based on the index, the template and container are chosen.
+                    // Currently, the first two offers are large, the other are small
+                    template = GetTemplateForIndex(index);
+                    container = GetContainerForIndex(index);
+                }
                 var widget = Instantiate(template, container);
                 m_Instantiated.Add(widget);
                 widget.gameObject.hideFlags = HideFlags.DontSave;
@@ -495,6 +507,7 @@ namespace Scuti.UI
                 widget.Data.IsTall = widget.IsTall;
                 widget.Data.LoadImage();
                 widget.OnLoaded += OnWidgetLoaded;
+            
 
                 widget.OnClick += async () =>
                 {

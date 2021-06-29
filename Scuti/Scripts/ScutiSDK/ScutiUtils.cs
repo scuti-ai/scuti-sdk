@@ -38,6 +38,20 @@ public class ScutiUtils  {
         return wallet.Promotional.Value + wallet.Purchase.Value;
     }
 
+    public static bool IsPortrait()
+    {
+        float pixelsWide = Camera.main.pixelWidth;
+        float pixelsHigh = Camera.main.pixelHeight;
+
+        bool portrait = pixelsHigh > pixelsWide;
+        if(ScutiConstants.FORCE_LANDSCAPE)
+        {
+            portrait = false;
+        }
+
+        return portrait;
+    }
+
     internal static int RequiredAdsPerCategory()
     {
         // TODO: Modify for PC layout and Portrait

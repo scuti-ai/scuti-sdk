@@ -22,15 +22,8 @@ namespace Scuti {
 
         public View Instantiate() {
 
-            float pixelsWide = Camera.main.pixelWidth;
-            float pixelsHigh = Camera.main.pixelHeight;
 
-            bool portrait = pixelsHigh > pixelsWide;
-            if(ScutiConstants.FORCE_LANDSCAPE)
-            {
-                portrait = false;
-            }
-
+            bool portrait = ScutiUtils.IsPortrait();
             var v = portrait && view_portrait != null ? view_portrait : (UIManager.IsLargeDisplay() && view_pc!=null) ? view_pc :  view;
             instance = MonoBehaviour.Instantiate(v, parent);
             instance.gameObject.hideFlags = HideFlags.DontSave;
