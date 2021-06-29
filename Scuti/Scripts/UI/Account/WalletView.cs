@@ -103,6 +103,12 @@ namespace Scuti.UI
 
         public async void Convert()
         {
+            if (string.IsNullOrEmpty(ScutiInput.text))
+            {
+                UIManager.Alert.SetHeader("Invalid Field").SetBody($"Please enter a number of SCUTIS to convert.").SetButtonText("OK").Show(() => { });
+                return;
+            }
+
             ConvertButton.enabled = false;
             try
             {

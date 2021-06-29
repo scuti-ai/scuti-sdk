@@ -168,6 +168,7 @@ namespace Scuti.UI
         private bool timerCompleted = false;
         private bool loadingNextCompleted = false;
         private bool _isStatic = false;
+        private bool _isPortrait = false;
 
         [Serializable]
         public struct VisualRules
@@ -194,6 +195,16 @@ namespace Scuti.UI
         protected override void Awake()
         {
             base.Awake();
+
+            float pixelsWide = Camera.main.pixelWidth;
+            float pixelsHigh = Camera.main.pixelHeight;
+
+            _isPortrait = pixelsHigh > pixelsWide;
+            if (ScutiConstants.FORCE_LANDSCAPE)
+            {
+                _isPortrait = false;
+            }
+
             timer.gameObject.SetActive(false);
             AdContainer.SetActive(false);
             timerCompleted = false;
@@ -366,7 +377,7 @@ namespace Scuti.UI
 
         public void CheckReady()
         {
-            if (!_destroyed)
+            if (!_isPortrait && !_destroyed)
             {
                 if (loadingNextCompleted && timerCompleted)
                 {
@@ -383,8 +394,10 @@ namespace Scuti.UI
 
         public void ResetTimer()
         {
-            if (!_destroyed && !_isStatic)
+            Debug.Log("Reset timer "+this);
+            if (!_isPortrait && !_destroyed && !_isStatic)
             {
+                Debug.Log("                Reset timer " + this);
                 timer.gameObject.SetActive(true);
                 timerCompleted = false;
                 timer.ResetTime(m_TimerDuration);
@@ -395,7 +408,7 @@ namespace Scuti.UI
 
         public void PauseTimer()
         {
-            if (!_destroyed && timer != null)
+            if (!_isPortrait && !_destroyed && timer != null)
             {
                 if (animator.speed != 0) m_PriorSpeed = animator.speed;
                 animator.speed = 0;
@@ -406,8 +419,9 @@ namespace Scuti.UI
         public void ResumeTimer()
         {
             Debug.Log("Resume timer "+this);
-            if (!_destroyed && timer != null && m_showing && !_isStatic)
+            if (!_isPortrait && !_destroyed && timer != null && m_showing && !_isStatic)
             {
+                Debug.Log("                Resume timer " + this);
                 timer.gameObject.SetActive(true);
                 animator.speed = m_PriorSpeed;
                 timer.Begin();

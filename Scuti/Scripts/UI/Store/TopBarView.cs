@@ -8,5 +8,11 @@ public class TopBarView : View {
 
     public WalletWidget Wallet;
 
-    
+    public void Refresh()
+    {
+        if (Wallet)
+            Wallet.DoRefresh();
+        else
+            Debug.LogWarning("Trying to refresh wallet but reference not found");
+    }
 }

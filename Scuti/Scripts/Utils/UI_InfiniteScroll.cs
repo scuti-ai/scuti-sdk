@@ -81,6 +81,10 @@ namespace UnityEngine.UI.Extensions
 
         public void Init()
         {
+            //Debug.LogWarning("-------------------------------------------- INIT --------------------------------------------");
+            //Debug.LogWarning(" ==== childCount::  " + items.Count);
+            //Debug.LogWarning("--------------------------------------- POST INIT ---------------------------------------");
+
             if (GetComponent<ScrollRect>() != null)
             {
                 _scrollRect = GetComponent<ScrollRect>();
@@ -113,6 +117,9 @@ namespace UnityEngine.UI.Extensions
                 }
 
                 SetItems();
+
+                CleanupItems();
+                EnableGridComponents();
             }
             else
             {
@@ -122,19 +129,33 @@ namespace UnityEngine.UI.Extensions
 
         void DisableGridComponents()
         {
-            if (items.Count < 2)
-                return;
-
+            //Debug.LogWarning(" DisableGridComponents");
             try
             {
                 if (_isVertical)
                 {
+                    _recordOffsetY = 0;
+                    for (int i = 0; i < items.Count; i++)
+                    {
+                        _recordOffsetY += items[i].GetComponent<RectTransform>().sizeDelta.y;
+                    }
+
+                    if (_verticalLayoutGroup)
+                    {
+                        _recordOffsetY += _verticalLayoutGroup.padding.bottom;
+                        _recordOffsetY += _verticalLayoutGroup.padding.top;
+                        _recordOffsetY += _verticalLayoutGroup.spacing * items.Count;
+                    }
+                    _disableMarginY = _recordOffsetY / 2;
+                    _recordOffsetY /= items.Count;
+                    /*Debug.LogWarning("       "+ items[1].name+" ** "+ items[0].name);
                     _recordOffsetY = items[1].GetComponent<RectTransform>().anchoredPosition.y - items[0].GetComponent<RectTransform>().anchoredPosition.y;
                     if (_recordOffsetY < 0)
                     {
                         _recordOffsetY *= -1;
-                    }
-                    _disableMarginY = _recordOffsetY * _itemCount / 2;
+                    }*/
+                    //_disableMarginY = _recordOffsetY * _itemCount / 2;
+                    //Debug.LogWarning(" _isVertical "+ _disableMarginY + "  "+ _recordOffsetY);
                 }
                 if (_isHorizontal)
                 {
@@ -145,13 +166,7 @@ namespace UnityEngine.UI.Extensions
                     }
                     _disableMarginX = _recordOffsetX * _itemCount / 2;
                 }
-            }
-            catch (System.Exception)
-            {
-                _scrollRect.onValueChanged.RemoveAllListeners();
-                RemoveItems();
-                EnableGridComponents();
-            }
+            
 
             if (_verticalLayoutGroup)
                 {
@@ -170,7 +185,13 @@ namespace UnityEngine.UI.Extensions
                     _gridLayoutGroup.enabled = false;
                 }
                 _hasDisabledGridComponents = true;
-            
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogWarning("ERROR  DisableGridComponents:: " + e.Message);
+                ResetItems();
+                EnableGridComponents();
+            }
         }
 
         void EnableGridComponents()
@@ -240,26 +261,61 @@ namespace UnityEngine.UI.Extensions
                     }
                 }
             }
-            catch (System.Exception)
+            catch (System.Exception e)
             {
-                _scrollRect.onValueChanged.RemoveAllListeners();
-                RemoveItems();
+                Debug.LogWarning("ERROR  OnScroll:: " + e.Message);
+                ResetItems();
+                CleanupItems();
                 EnableGridComponents();
             }
             
         }
 
-        private void RemoveItems()
+        public void CleanupItems()
         {
-            print(" RemoveItems");
+            int childCount = _scrollRect.content.childCount;
+            //Debug.LogWarning(" **** childCount::" + childCount + "  " + items.Count);
+            for (int i = childCount - 1; i >= 0; i--)
+            {
+                if(!items.Contains(_scrollRect.content.GetChild(i).GetComponent<RectTransform>()))
+                {
+                    Transform child = _scrollRect.content.GetChild(i);
+                    child.SetParent(null);
+                    GameObject.DestroyImmediate(child.gameObject);
+                }else
+                {
+
+                }
+                
+            }
+        }
+
+        public void ResetItems()
+        {
+            if (_scrollRect != null && _scrollRect.content != null)
+            {
+                _scrollRect.onValueChanged.RemoveAllListeners();
+                _scrollRect.StopMovement();
+                _scrollRect.content.anchoredPosition = Vector2.zero;
+                _newAnchoredPosition = Vector2.zero;
+            }
+            //Debug.LogWarning(" ResetItems");
             if (items != null)
             {
                 items.Clear();
             }
+        }
+
+        public void RemoveItems()
+        {
+            //Debug.LogWarning(" RemoveItems");
+            ResetItems();
+
+            if (_scrollRect == null || _scrollRect.content == null)
+                return;
 
             for (int i = _scrollRect.content.childCount - 1; i >= 0; i--)
             {
-            print(i+" Remove...  ");
                 Transform child = _scrollRect.content.GetChild(i);
                 child.SetParent(null);
                 GameObject.DestroyImmediate(child.gameObject);

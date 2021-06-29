@@ -36,7 +36,7 @@ namespace Scuti.UI
                 #if UNITY_EDITOR
 		        _landscape = Camera.main.pixelWidth > Camera.main.pixelHeight;
                 #endif
-	            
+
                 return _landscape;
             }
         }
@@ -56,7 +56,7 @@ namespace Scuti.UI
         {
 	        canvas.referenceResolution = Landscape ? new Vector2(1920, 1080) : new Vector2(1080, 1920);
 	        var dynamicScale = scale;
-            canvas.matchWidthOrHeight = AspectRatio < 1.7f ? dynamicScale : 1;
+            canvas.matchWidthOrHeight = Landscape ? (AspectRatio < 1.7f ? dynamicScale : 1) : 1;
         }
 
         private void OnValidate()
