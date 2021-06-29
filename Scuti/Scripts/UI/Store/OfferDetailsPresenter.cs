@@ -101,6 +101,10 @@ namespace Scuti.UI
             customizationWidget.gameObject.SetActive(!isVideo);
         }
 
+        public void BuyNow()
+        {
+
+        }
         public void AddToCart()
         {
             if (!ScutiNetClient.Instance.IsAuthenticated)

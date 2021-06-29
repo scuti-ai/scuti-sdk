@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace Scuti.UI {
     // NOTE: This class is quite unclear at the moment. Further work should be done
     // only after the requirements are certain.
@@ -52,8 +53,15 @@ namespace Scuti.UI {
         }
 
         [SerializeField] IntegerStepperWidget quantityStepper;
-        [SerializeField] Dropdown variantOptions;
-        [SerializeField] Dropdown subOptions;
+
+
+        [SerializeField] Text firstVariantLabel;
+        [SerializeField] Dropdown firstVariant;
+        [SerializeField] Text secondVariantLabel;
+        [SerializeField] Dropdown secondVariant;
+        [SerializeField] Text thirdVariantLabel;
+        [SerializeField] Dropdown thirdVariant;
+
 
         public Action VariantChanged;
 
@@ -68,8 +76,8 @@ namespace Scuti.UI {
                 value = Mathf.Clamp(value, 1, int.MaxValue);
                 Data.Quantity = value;
             };
-            variantOptions.onValueChanged.AddListener(OnVariantChanged);
-            subOptions.onValueChanged.AddListener(OnSubOptionChanged);
+            firstVariant.onValueChanged.AddListener(OnFirstVariantChanged);
+            secondVariant.onValueChanged.AddListener(OnSecondVariantChanged);
         }
 
         public void SetIsVideo(bool value)
@@ -77,17 +85,18 @@ namespace Scuti.UI {
             quantityStepper.gameObject.SetActive(!value);
         }
 
-        private void OnSubOptionChanged(int value)
+        private void OnSecondVariantChanged(int value)
         {
             Data.SelectedOption = value;
             VariantChanged?.Invoke();
         }
 
-        private void OnVariantChanged(int value)
+        private void OnFirstVariantChanged(int value)
         {
             Data.SelectedVariant = value;
             Data.SelectedOption = 0;
-            Populate(subOptions, Data.GetOptions(), 1);
+            Populate(secondVariant, Data.GetOptions(), 1, secondVariantLabel);
+            Populate(thirdVariant, null, 1, thirdVariantLabel);
             VariantChanged?.Invoke();
         }
 
@@ -96,25 +105,29 @@ namespace Scuti.UI {
             Data.SelectedOption = 0;
             Data.SelectedVariant = 0;
 
-            Populate(variantOptions, Data.Variants, 2);
-            Populate(subOptions, Data.GetOptions(), 1);
+            Populate(firstVariant, Data.Variants, 2, firstVariantLabel);
+            Populate(secondVariant, Data.GetOptions(), 1, secondVariantLabel);
+            Populate(thirdVariant, null, 1, thirdVariantLabel);
 
             VariantChanged?.Invoke();
         }
 
-        private void Populate(Dropdown dropdown, ProductVariant[] options, int min)
+        private void Populate(Dropdown dropdown, ProductVariant[] options, int min, Text title)
         {
             dropdown.Hide();
             dropdown.ClearOptions();
-            if (options == null || options.Length < min) dropdown.gameObject.SetActive(false);
+            if (options == null || options.Length < min)
+            {
+                dropdown.gameObject.SetActive(false);
+            }
             else
             {
                 dropdown.gameObject.SetActive(true);
-
+                title.text = string.Empty; // TODO: Populate once we get data from server -mg
                 var optionList = new List<string>();
                 foreach (var variant in options)
                 {
-                    if(variant!=null && variant.InStock.Value>0)
+                    if (variant != null && variant.InStock.Value > 0)
                         optionList.Add(variant.Name);
                 }
                 dropdown.AddOptions(optionList);
