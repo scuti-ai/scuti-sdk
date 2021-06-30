@@ -6077,7 +6077,7 @@ MonoBehaviour:
   quantityStepper: {fileID: 114965301880506828}
   firstVariantLabel: {fileID: 2658958104028628608}
   firstVariant: {fileID: 114419207675328924}
-  secondVariantLabel: {fileID: 2658958104028628608}
+  secondVariantLabel: {fileID: 2205451300324085903}
   secondVariant: {fileID: 114700977697977006}
   thirdVariantLabel: {fileID: 8644352282028736030}
   thirdVariant: {fileID: 6526515992432331513}
@@ -8518,29 +8518,7 @@ MonoBehaviour:
   container: {fileID: 3496223140924832296}
   OnPopulateFinished:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: Init
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1345526790490755102}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!225 &225317831492795988
 CanvasGroup:
   m_ObjectHideFlags: 0

@@ -464,22 +464,11 @@ namespace Scuti.UI
             }
         }
 
-	    string FormatPrice(string price)
-        {
-	        var strings = price.Split('.');
-	        const string SuperscriptDigits =
-		        "\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\u2078\u2079";
-
-	        string superscript = new string(strings[1].Select(x => SuperscriptDigits[x - '0'])
-		        .ToArray());
-	        return strings[0] + superscript;
-        }
-
         // Updates UI based on values on View.Data
         void UpdateUI()
         {
             titleText.text = Data.Title;
-            displayPriceText.text = FormatPrice(Data.DisplayPrice);
+            displayPriceText.text = ScutiUtils.FormatPrice(Data.DisplayPrice);
             
             // New and Hot Badges only in portrait
             if (_isPortrait)
