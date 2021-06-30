@@ -160,9 +160,14 @@ namespace Scuti.UI
             if(address!=null)
             {
                 Data.Address = address;
-                Refresh();
 
             }
+
+            //if (cachedCard != null)
+            //{
+            //    Data.Card = new CreditCardData() { CardType = cachedCard.;
+            //}
+                Refresh();
         }
     }
 }

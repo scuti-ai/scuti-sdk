@@ -129,6 +129,7 @@ namespace Scuti.UI
 
         private async void TryToLoadData(bool checkout)
         {
+            Debug.Log("Trying to load data...  Is card null? " + Data.Card +" or "+ _cachedCard);
             try
             {
                 if (_cachedCard == null)
@@ -140,7 +141,7 @@ namespace Scuti.UI
                         Data.Card.Reset();
                         _cachedCard = cards.Last();
                         ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
-                    } else
+                    } else if(Data.Card==null)
                     {
                         Data.Card = new CreditCardData();
                         Data.Card.Reset();
@@ -368,6 +369,7 @@ namespace Scuti.UI
                 subtotalAmountText.text = "Login Required";
             }
             RefreshText();
+            Debug.Log("Checkout? " + checkout);
             if(checkout)
             {
                 Checkout();
@@ -398,11 +400,13 @@ namespace Scuti.UI
                 }
                 else
                 {
-
+                    Debug.Log("Card? " + Data.Card);
                     PaymentSource paymentSource = null; 
                     if (_cachedCard != null)
                     {
-                        paymentSource = new PaymentSource() { Type = PaymentSourceType.StoredCard, Id = _cachedCard.Id };
+                        paymentSource = new PaymentSource() { Type = PaymentSourceType.StoredCard, Id = _cachedCard.Id, Encrypted = new EncryptedInput() };
+                        //paymentSource.Encrypted.EncryptedData = "123";
+
                     } else if (Data.Card!=null && Data.Card.IsValid())
                     { 
                         paymentSource = new PaymentSource() { Type = PaymentSourceType.Card, Card = new CreditCard() {  BillingAddress = GetBillingAddress(),    Encrypted = Data.Card.Encrypted, ExpiryMonth = Data.Card.ExpirationMonth, ExpiryYear = Data.Card.ExpirationYear, Name = Data.Card.Name  }, Persist = Data.Card.SaveCard };
@@ -567,6 +571,7 @@ namespace Scuti.UI
 
 
             Data.Card = data.Card;
+            Debug.LogError("Data.Card: " + Data.Card);
             Data.BillingAddress = data.Address;
             RefreshText();
         }
