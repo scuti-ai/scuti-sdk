@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Scuti;
 using Scuti.GraphQL.Generated;
 using UnityEngine;
@@ -35,6 +36,17 @@ public class ScutiUtils  {
     internal static decimal GetTotalWallet(Wallet wallet)
     {
         return wallet.Promotional.Value + wallet.Purchase.Value;
+    }
+
+    public static string FormatPrice(string price)
+    {
+        var strings = price.Split('.');
+        const string SuperscriptDigits =
+            "\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\u2078\u2079";
+
+        string superscript = new string(strings[1].Select(x => SuperscriptDigits[x - '0'])
+            .ToArray());
+        return strings[0] + superscript;
     }
 
     public static bool IsPortrait()
