@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Scuti.Net;
@@ -116,7 +116,7 @@ namespace Scuti.UI
         }
 
         /// <summary>
-        /// Fired when the model loads an image. True if this is the 
+        /// Fired when the model loads an image. True if this is the
         /// first model that the instance loads.
         /// </summary>
         public event Action<bool, OfferSummaryPresenter> OnLoaded;
@@ -222,9 +222,9 @@ namespace Scuti.UI
         {
             switch(id)
             {
-                case ScutiConstants.SCUTI_IMPRESSION_ID: 
+                case ScutiConstants.SCUTI_IMPRESSION_ID:
                     try
-                    { 
+                    {
                         ScutiAPI.RecordOfferImpression(Data.ID);
                     }
                     catch
@@ -432,7 +432,7 @@ namespace Scuti.UI
         {
             gameObject.name = Data.Title;
             UpdateUI();
-#pragma warning disable 
+#pragma warning disable
             Data.OnStateChanged += async state => {
                 switch (state)
                 {
@@ -445,7 +445,7 @@ namespace Scuti.UI
                         break;
                 }
             };
-#pragma warning restore 
+#pragma warning restore
         }
 
         private void OnNextStateChanged(Model.State state)
@@ -462,11 +462,22 @@ namespace Scuti.UI
             }
         }
 
+	    string FormatPrice(string price)
+        {
+	        var strings = price.Split('.');
+	        const string SuperscriptDigits =
+		        "\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\u2078\u2079";
+
+	        string superscript = new string(strings[1].Select(x => SuperscriptDigits[x - '0'])
+		        .ToArray());
+	        return strings[0] + superscript;
+        }
+
         // Updates UI based on values on View.Data
         void UpdateUI()
         {
             titleText.text = Data.Title;
-            displayPriceText.text = Data.DisplayPrice;
+            displayPriceText.text = FormatPrice(Data.DisplayPrice);
             var isPortrait = ScutiUtils.IsPortrait();
 
             // New and Hot Badges only in portrait

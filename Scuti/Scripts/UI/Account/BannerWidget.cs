@@ -40,7 +40,7 @@ public class BannerWidget : MonoBehaviour {
     public void Play()
     {
         _paused = false;
-        Rounded.Refresh();
+        if(Rounded != null) Rounded.Refresh();
     }
 
 
@@ -54,7 +54,7 @@ public class BannerWidget : MonoBehaviour {
                 Rotate();
             }
         }
-    } 
+    }
 
     public void OnClick()
     {
@@ -126,13 +126,13 @@ public class BannerWidget : MonoBehaviour {
         {
 
             _banner = offers[0];
-        } 
+        }
 
         if (_banner == null || string.IsNullOrEmpty(_banner.Media.Banner.BigUrl))
         {
             if(_index==0)
                 _timePassed = 0; // give it a break before trying again
-            else 
+            else
                 _index = 0;
 
             _loading = false;
@@ -161,6 +161,6 @@ public class BannerWidget : MonoBehaviour {
 
     internal void Open()
     {
-        Rounded.Refresh();
+	    if(Rounded != null) Rounded.Refresh();
     }
 }

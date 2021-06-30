@@ -623,7 +623,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224086215422749030}
   - component: {fileID: 222952725660115450}
-  - component: {fileID: 114843887134916642}
   - component: {fileID: 114448841201104566}
   - component: {fileID: 114201478665525630}
   m_Layer: 5
@@ -660,20 +659,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105485837260914}
   m_CullTransparentMesh: 0
---- !u!114 &114843887134916642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1105485837260914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 529c64cdbcb9a1e4b9d77f11ceba8acd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: Currently the Image component uses a default knob sprite. Change this to
-    the right one later.
 --- !u!114 &114448841201104566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2168,7 +2153,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224604300387295650}
   - component: {fileID: 222260891118713006}
-  - component: {fileID: 114398510674599946}
   - component: {fileID: 114208793451550676}
   m_Layer: 5
   m_Name: TimerLine
@@ -2204,20 +2188,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469108435540904}
   m_CullTransparentMesh: 0
---- !u!114 &114398510674599946
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1469108435540904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 529c64cdbcb9a1e4b9d77f11ceba8acd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: Currently the Image component uses a default knob sprite. Change this to
-    the right one later.
 --- !u!114 &114208793451550676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12283,7 +12253,6 @@ GameObject:
   m_Component:
   - component: {fileID: 224651026953260364}
   - component: {fileID: 222559324968044402}
-  - component: {fileID: 114071061124872246}
   - component: {fileID: 114790902373089072}
   - component: {fileID: 114777679872535036}
   m_Layer: 5
@@ -12322,20 +12291,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614521130007918}
   m_CullTransparentMesh: 0
---- !u!114 &114071061124872246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1614521130007918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 529c64cdbcb9a1e4b9d77f11ceba8acd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: Currently the Image component uses a default knob sprite. Change this to
-    the right one later.
 --- !u!114 &114790902373089072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12552,6 +12507,7 @@ MonoBehaviour:
   onClosed:
     m_PersistentCalls:
       m_Calls: []
+  Transitions: []
   animator: {fileID: 95632857775711146}
   timer: {fileID: 114777679872535036}
   backgroundImage: {fileID: 114637495704784384}
