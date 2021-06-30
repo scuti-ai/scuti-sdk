@@ -43,6 +43,8 @@ namespace UnityEngine.UI.Extensions
         private float _recordOffsetX = 0;
         private float _recordOffsetY = 0;
 
+        private int _count = 0;
+
         protected virtual void Awake()
         {
             if (!InitByUser)
@@ -83,7 +85,16 @@ namespace UnityEngine.UI.Extensions
         {
             //Debug.LogWarning("-------------------------------------------- INIT --------------------------------------------");
             //Debug.LogWarning(" ==== childCount::  " + items.Count);
+            _count = 0;
             //Debug.LogWarning("--------------------------------------- POST INIT ---------------------------------------");
+
+            if (_scrollRect != null && _scrollRect.content != null)
+            {
+                _scrollRect.onValueChanged.RemoveAllListeners();
+                _scrollRect.StopMovement();
+                _scrollRect.content.anchoredPosition = Vector2.zero;
+                _newAnchoredPosition = Vector2.zero;
+            }
 
             if (GetComponent<ScrollRect>() != null)
             {
@@ -196,6 +207,7 @@ namespace UnityEngine.UI.Extensions
 
         void EnableGridComponents()
         {
+            //Debug.LogWarning("     EnableGridComponents:: ");
             if (_verticalLayoutGroup)
             {
                 _verticalLayoutGroup.enabled = true;
@@ -217,8 +229,16 @@ namespace UnityEngine.UI.Extensions
 
         public void OnScroll(Vector2 pos)
         {
+            _count++;
+            if (_count < 5)
+                return;
+
+            //Debug.LogWarning(" --==*==-- OnScroll::  ");
             if (!_hasDisabledGridComponents)
+            {
+                //Debug.LogWarning("     OnScroll::DisableGridComponents ");
                 DisableGridComponents();
+            }
 
             try
             {
@@ -303,6 +323,11 @@ namespace UnityEngine.UI.Extensions
             if (items != null)
             {
                 items.Clear();
+            }
+
+            if (_scrollRect != null && _scrollRect.content != null)
+            {
+                CleanupItems();
             }
         }
 
