@@ -462,35 +462,27 @@ namespace Scuti.UI
             }
         }
 
-	    string FormatPrice(string price)
-        {
-	        var strings = price.Split('.');
-	        const string SuperscriptDigits =
-		        "\u2070\u00b9\u00b2\u00b3\u2074\u2075\u2076\u2077\u2078\u2079";
-
-	        string superscript = new string(strings[1].Select(x => SuperscriptDigits[x - '0'])
-		        .ToArray());
-	        return strings[0] + superscript;
-        }
+	    
+	    
 
         // Updates UI based on values on View.Data
         void UpdateUI()
         {
             titleText.text = Data.Title;
-            displayPriceText.text = FormatPrice(Data.DisplayPrice);
+            displayPriceText.text = ScutiUtils.FormatPrice(Data.DisplayPrice);
             var isPortrait = ScutiUtils.IsPortrait();
 
             // New and Hot Badges only in portrait
-            if (isPortrait)
-            {
-                newBadge.SetActive(Data.IsNew);
-                hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
-            }
-            else
-            {
+            //if (isPortrait)
+            //{
+            //    newBadge.SetActive(Data.IsNew);
+            //    hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
+            //}
+            //else
+            //{
                 newBadge.SetActive(false);
                 hotBadge.SetActive(false);
-            }
+            //}
 
             // Show ONLY THE FIRST promo that is applicable
             var list = new List<KeyValuePair<GameObject, bool>> {

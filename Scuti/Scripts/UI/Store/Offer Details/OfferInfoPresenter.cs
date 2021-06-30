@@ -70,7 +70,7 @@ namespace Scuti.UI {
             if (productVariant != null && productVariant.Price != null)
             {
                 displayPrice.gameObject.SetActive(productVariant.Price.Amount > 0);
-                displayPrice.text = $"${productVariant.Price.Amount.Value.ToString("F2")}".ToUpper();
+                displayPrice.text = $"${ScutiUtils.FormatPrice(productVariant.Price.Amount.Value.ToString("F2"))}";
             } else
             {
                 ScutiLogger.LogError("Missing product variant or price: " + productVariant);
