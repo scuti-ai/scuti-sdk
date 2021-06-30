@@ -316,7 +316,9 @@ namespace UnityEngine.UI.Extensions
             {
                 _scrollRect.onValueChanged.RemoveAllListeners();
                 _scrollRect.StopMovement();
-                _scrollRect.content.anchoredPosition = Vector2.zero;
+                Vector2 npos = Vector2.zero;
+                npos.x = _scrollRect.content.sizeDelta.x/2;
+                _scrollRect.content.anchoredPosition = npos;
                 _newAnchoredPosition = Vector2.zero;
             }
             //Debug.LogWarning(" ResetItems");
