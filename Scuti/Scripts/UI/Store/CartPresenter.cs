@@ -9,6 +9,7 @@ using Scuti.GraphQL.Generated;
 using Scuti.GraphQL;
 using Org.BouncyCastle.Bcpg.OpenPgp;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace Scuti.UI
 {
@@ -439,8 +440,11 @@ namespace Scuti.UI
 
         private async Task CVVHelper(string cvv)
         {
+            JObject data = new JObject();
+            data["cvv"] = cvv;
+
             var paymentSource = new PaymentSource() { Type = PaymentSourceType.StoredCard, Id = _cachedCard.Id };
-            paymentSource.Encrypted = await ScutiUtils.Encrypt(cvv.ToUTF8Bytes());
+            paymentSource.Encrypted = await ScutiUtils.Encrypt(data.ToJson().ToUTF8Bytes());
             CheckoutHelper(paymentSource);
         }
 
