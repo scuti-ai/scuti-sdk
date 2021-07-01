@@ -117,19 +117,12 @@ namespace Scuti.UI
             saveButton.interactable = false;
             try
             {
-                var encryption = await ScutiAPI.GetPublicKey();
-           
-                var encryptedInput = new EncryptedInput();
 
-                encryptedInput.KeyId = encryption.KeyId;
-
-                var pgp = new Pgp();
                 JObject cardDetails = new JObject();
                 cardDetails["number"] = Data.Card.Number;
-                cardDetails["cvv"] = Data.Card.CVV; 
-                var key64 = Convert.FromBase64String(encryption.PublicKey);
-                var decodedPublicKey = Encoding.UTF8.GetString(key64);
-                encryptedInput.EncryptedData = Convert.ToBase64String( pgp.Encrypt(cardDetails.ToJson().ToUTF8Bytes(), decodedPublicKey.ToUTF8Bytes()));
+                cardDetails["cvv"] = Data.Card.CVV;
+                EncryptedInput encryptedInput = await ScutiUtils.Encrypt(cardDetails.ToJson().ToUTF8Bytes());
+               
                 Data.Card.Encrypted = encryptedInput; 
 
                 Submit();

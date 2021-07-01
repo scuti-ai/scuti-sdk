@@ -2,8 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Scuti;
 using Scuti.GraphQL.Generated;
+using Scuti.Net;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -69,4 +72,18 @@ public class ScutiUtils  {
         return 12;
     }
 
+    internal static async Task<EncryptedInput> Encrypt(byte[] data)
+    {
+        var encryption = await ScutiAPI.GetPublicKey();
+
+        var encryptedInput = new EncryptedInput();
+        encryptedInput.KeyId = encryption.KeyId;
+
+        var pgp = new Pgp();
+        var key64 = Convert.FromBase64String(encryption.PublicKey);
+        var decodedPublicKey = Encoding.UTF8.GetString(key64);
+        encryptedInput.EncryptedData = Convert.ToBase64String(pgp.Encrypt(data, decodedPublicKey.ToUTF8Bytes()));
+
+        return encryptedInput;
+    }
 }

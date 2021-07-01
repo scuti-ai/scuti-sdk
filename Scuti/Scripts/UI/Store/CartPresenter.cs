@@ -8,6 +8,7 @@ using Scuti.Net;
 using Scuti.GraphQL.Generated;
 using Scuti.GraphQL;
 using Org.BouncyCastle.Bcpg.OpenPgp;
+using System.Threading.Tasks;
 
 namespace Scuti.UI
 {
@@ -23,6 +24,7 @@ namespace Scuti.UI
             public decimal ShippingFee;
             public decimal SalesTax;
             public List<CartEntryPresenter.Model> Items = new List<CartEntryPresenter.Model>();
+
 
             public decimal GetCalculatedSubtotal()
             {
@@ -328,6 +330,10 @@ namespace Scuti.UI
                     {
                         var items = Data.Items;
                         CheckoutItemInput[] orders = new CheckoutItemInput[items.Count];
+
+                        // cancel the auto checkout if they have more than 1 item already in their cart. Eventually could try to treat that as a separate cart. -mg 
+                        if (items.Count > 1) checkout = false;
+
                         for (int i = 0; i < orders.Length; ++i)
                         {
                             var item = items[i];
@@ -387,7 +393,7 @@ namespace Scuti.UI
         // ================================================
         // HANDLERS
         // ================================================
-        public async void Checkout()
+        public void Checkout()
         {
 
             //UIManager.ShowLoading();
@@ -404,83 +410,18 @@ namespace Scuti.UI
                     PaymentSource paymentSource = null; 
                     if (_cachedCard != null)
                     {
-                        paymentSource = new PaymentSource() { Type = PaymentSourceType.StoredCard, Id = _cachedCard.Id, Encrypted = new EncryptedInput() };
-                        //paymentSource.Encrypted.EncryptedData = "123";
+                        UIManager.Open(UIManager.TextInput);
+                        UIManager.TextInput.SetBody("Please confirm your credit card's CVV").SetButtonText("CONFIRM").Show(OnCVV);
+                       
 
                     } else if (Data.Card!=null && Data.Card.IsValid())
                     { 
                         paymentSource = new PaymentSource() { Type = PaymentSourceType.Card, Card = new CreditCard() {  BillingAddress = GetBillingAddress(),    Encrypted = Data.Card.Encrypted, ExpiryMonth = Data.Card.ExpirationMonth, ExpiryYear = Data.Card.ExpirationYear, Name = Data.Card.Name  }, Persist = Data.Card.SaveCard };
-                    }
-
-
-                    if(paymentSource!=null)
-                    {
-                        bool success = false;
-                        try
-                        {
-
-                            UIManager.Open(UIManager.Alert);
-
-                            var items = Data.Items;
-                            CheckoutItemInput[] orders = new CheckoutItemInput[items.Count];
-                            for (int i = 0; i < orders.Length; ++i)
-                            {
-                                var item = items[i];
-                                orders[i] = new CheckoutItemInput
-                                {
-                                    OfferId = item.campaignId,
-                                    VariantId = item.variant.ToString(),
-                                    Quantity = item.quantity
-                                };
-                            }
-
-
-                            UIManager.Alert.SetHeader("Please Wait").SetBody("Processing your order...").SetButtonText("Ok").SetButtonsEnabled(false).Show(() => { });
-                            await ScutiAPI.Checkout(paymentSource, orders, GetAddress());
-                            UIManager.Alert.Close();
-                            success = true;
-
-                        }
-                        catch(Exception ex)
-                        {
-                            UIManager.Alert.Close();
-                            ScutiLogger.LogException(ex);
-                            UIManager.Open(UIManager.Alert);
-                            UIManager.Alert.SetHeader("Failed To Checkout").SetBody($"Failed to checkout with error: {ex.Message}").SetButtonText("Ok").Show(() => { });
-                        }
-
-                        if(success)
-                        {
-                            Data.Items.Clear();
-                            Clear();
-
-                            UIManager.Open(UIManager.Offers);
-                            try
-                            {
-                               
-                                var diff = await ScutiNetClient.TryToActivateRewards();
-
-                                if (diff > 0)
-                                {
-                                    UIManager.Rewards.SetData(new RewardPresenter.Model() { reward = (int)diff, subtitle = "Collect your rewards from your purchase!", title = "CONGRATULATIONS!" });
-                                    UIManager.Open(UIManager.Rewards);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                ScutiLogger.LogException(ex);
-                                UIManager.Open(UIManager.Alert);
-                                UIManager.Alert.SetHeader("Purchase Completed").SetButtonText("Ok").SetBody($"Your rewards are pending and will be activated on your next login.");
-                            }
-                        }
-                    }
-                    else
+                        CheckoutHelper(paymentSource);
+                    } else
                     {
                         EditCard();
-                        //UIManager.Open(UIManager.Alert);
-                        //UIManager.Alert.SetHeader("Missing Information").SetBody("Please set your credit card information.").SetButtonText("Ok").Show(() => { });
                     }
-
                 }
             }
 
@@ -489,6 +430,89 @@ namespace Scuti.UI
             //MetricsAPI.AdImpressionPriorToBuyingMetric(historyData.Path, historyData.Count); 
 
 
+        }
+
+        private void OnCVV(string cvv)
+        {
+            CVVHelper(cvv);
+        }
+
+        private async Task CVVHelper(string cvv)
+        {
+            var paymentSource = new PaymentSource() { Type = PaymentSourceType.StoredCard, Id = _cachedCard.Id };
+            paymentSource.Encrypted = await ScutiUtils.Encrypt(cvv.ToUTF8Bytes());
+            CheckoutHelper(paymentSource);
+        }
+
+        private async Task CheckoutHelper(PaymentSource paymentSource)
+        {
+            if (paymentSource != null)
+            {
+                bool success = false;
+                try
+                {
+
+                    UIManager.Open(UIManager.Alert);
+
+                    var items = Data.Items;
+                    CheckoutItemInput[] orders = new CheckoutItemInput[items.Count];
+                    for (int i = 0; i < orders.Length; ++i)
+                    {
+                        var item = items[i];
+                        orders[i] = new CheckoutItemInput
+                        {
+                            OfferId = item.campaignId,
+                            VariantId = item.variant.ToString(),
+                            Quantity = item.quantity
+                        };
+                    }
+
+
+                    UIManager.Alert.SetHeader("Please Wait").SetBody("Processing your order...").SetButtonText("Ok").SetButtonsEnabled(false).Show(() => { });
+                    await ScutiAPI.Checkout(paymentSource, orders, GetAddress());
+                    UIManager.Alert.Close();
+                    success = true;
+
+                }
+                catch (Exception ex)
+                {
+                    UIManager.Alert.Close();
+                    ScutiLogger.LogException(ex);
+                    UIManager.Open(UIManager.Alert);
+                    UIManager.Alert.SetHeader("Failed To Checkout").SetBody($"Failed to checkout with error: {ex.Message}").SetButtonText("Ok").Show(() => { });
+                }
+
+                if (success)
+                {
+                    Data.Items.Clear();
+                    Clear();
+
+                    UIManager.Open(UIManager.Offers);
+                    try
+                    {
+
+                        var diff = await ScutiNetClient.TryToActivateRewards();
+
+                        if (diff > 0)
+                        {
+                            UIManager.Rewards.SetData(new RewardPresenter.Model() { reward = (int)diff, subtitle = "Collect your rewards from your purchase!", title = "CONGRATULATIONS!" });
+                            UIManager.Open(UIManager.Rewards);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ScutiLogger.LogException(ex);
+                        UIManager.Open(UIManager.Alert);
+                        UIManager.Alert.SetHeader("Purchase Completed").SetButtonText("Ok").SetBody($"Your rewards are pending and will be activated on your next login.");
+                    }
+                }
+            }
+            else
+            {
+                EditCard();
+                //UIManager.Open(UIManager.Alert);
+                //UIManager.Alert.SetHeader("Missing Information").SetBody("Please set your credit card information.").SetButtonText("Ok").Show(() => { });
+            }
         }
 
         public override void Close()
