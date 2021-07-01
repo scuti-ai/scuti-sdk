@@ -169,7 +169,7 @@ namespace Scuti.UI
         private bool loadingNextCompleted = false;
         private bool _isStatic = false;
         private bool _isPortrait = false;
-
+        
         [Serializable]
         public struct VisualRules
         {
@@ -196,14 +196,16 @@ namespace Scuti.UI
         {
             base.Awake();
 
-            float pixelsWide = Camera.main.pixelWidth;
+            _isPortrait = ScutiUtils.IsPortrait();
+
+            /*float pixelsWide = Camera.main.pixelWidth;
             float pixelsHigh = Camera.main.pixelHeight;
 
             _isPortrait = pixelsHigh > pixelsWide;
             if (ScutiConstants.FORCE_LANDSCAPE)
             {
                 _isPortrait = false;
-            }
+            }*/
 
             timer.gameObject.SetActive(false);
             AdContainer.SetActive(false);
@@ -462,27 +464,23 @@ namespace Scuti.UI
             }
         }
 
-	    
-	    
-
         // Updates UI based on values on View.Data
         void UpdateUI()
         {
             titleText.text = Data.Title;
             displayPriceText.text = ScutiUtils.FormatPrice(Data.DisplayPrice);
-            var isPortrait = ScutiUtils.IsPortrait();
-
+            
             // New and Hot Badges only in portrait
-            //if (isPortrait)
-            //{
-            //    newBadge.SetActive(Data.IsNew);
-            //    hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
-            //}
-            //else
-            //{
+            if (_isPortrait)
+            {
+                newBadge.SetActive(Data.IsNew);
+                hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
+            }
+            else
+            {
                 newBadge.SetActive(false);
                 hotBadge.SetActive(false);
-            //}
+            }
 
             // Show ONLY THE FIRST promo that is applicable
             var list = new List<KeyValuePair<GameObject, bool>> {
@@ -495,7 +493,7 @@ namespace Scuti.UI
 
             list.ForEach(x => x.Key.SetActive(false));
 
-            if (isPortrait)
+            if (_isPortrait)
             {
                 foreach (var pair in list)
                 {
@@ -510,7 +508,7 @@ namespace Scuti.UI
             GlowImage.gameObject.SetActive(false);
 
             // Show the rating if there is a rating
-            bool hasRatingValue = Data.Rating > 0f && isPortrait;
+            bool hasRatingValue = Data.Rating > 0f && _isPortrait;
 
             ratingText.gameObject.SetActive(hasRatingValue);
             ratingStarsWidget.gameObject.SetActive(hasRatingValue);
@@ -519,6 +517,12 @@ namespace Scuti.UI
                 ratingText.text = Data.Rating.ToString("0.0");
                 ratingStarsWidget.Value = Data.Rating / ratingStarsWidget.Levels;
             }
+        }
+
+        private void OnEnable()
+        {
+            if(m_showing)
+                animator?.SetTrigger("LoadingFinished");
         }
         #endregion
     }
