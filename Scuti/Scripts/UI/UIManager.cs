@@ -140,6 +140,11 @@ namespace Scuti.UI {
             get { return Overlay["SHIPPING"] as AddressForm; }
         }
 
+        public static TextInputView CVV
+        {
+            get { return Overlay["CVV"] as TextInputView; }
+        }
+
         // ACCOUNT
         public static ViewSet Account {
             get { return instance.generator["ACCOUNT", true]; }

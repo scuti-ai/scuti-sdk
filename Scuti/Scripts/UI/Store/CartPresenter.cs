@@ -411,8 +411,8 @@ namespace Scuti.UI
                     PaymentSource paymentSource = null; 
                     if (_cachedCard != null)
                     {
-                        UIManager.Open(UIManager.TextInput);
-                        UIManager.TextInput.SetBody("Please confirm your credit card's CVV").SetButtonText("CONFIRM").Show(OnCVV);
+                        UIManager.Open(UIManager.CVV);
+                        UIManager.CVV.SetButtonText("CONFIRM").Show(OnCVV);
                        
 
                     } else if (Data.Card!=null && Data.Card.IsValid())

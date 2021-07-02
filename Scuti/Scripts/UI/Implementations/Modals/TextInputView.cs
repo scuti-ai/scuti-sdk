@@ -27,7 +27,7 @@ namespace Scuti
         public TextInputView Clear()
         {
             inputField.text = string.Empty;
-            bodyText.text = string.Empty;
+            if(bodyText!=null) bodyText.text = string.Empty;
             buttonText.text = string.Empty;
             return this;
         }
