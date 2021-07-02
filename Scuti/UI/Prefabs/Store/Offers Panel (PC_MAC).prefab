@@ -1229,7 +1229,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Category
+  m_Text: 
 --- !u!1 &1945689034160874
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,6 +1342,7 @@ MonoBehaviour:
   showDuration: 10
   instantiationInterval: 0.01
   showInterval: 0.35
+  clearInitialElements: 1
   widgetPrefab_Large: {fileID: 114178399014625492, guid: 61af55e0715afc94cae432533625df73,
     type: 3}
   widgetPrefab_Small: {fileID: 114614813051614540, guid: ef27822b30c6e064caea45ab3de93508,
@@ -1385,6 +1386,12 @@ MonoBehaviour:
       rgba: 4282029311
   Banner: {fileID: 114633955739908672}
   TimeoutTimer: {fileID: 114597130033440714}
+  OnPopulateFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClearFinished:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!225 &225184209042001672
 CanvasGroup:
   m_ObjectHideFlags: 0

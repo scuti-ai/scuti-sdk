@@ -471,16 +471,16 @@ namespace Scuti.UI
             displayPriceText.text = ScutiUtils.FormatPrice(Data.DisplayPrice);
             
             // New and Hot Badges only in portrait
-            if (_isPortrait)
-            {
-                newBadge.SetActive(Data.IsNew);
-                hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
-            }
-            else
-            {
+            //if (_isPortrait)
+            //{
+            //    newBadge.SetActive(Data.IsNew);
+            //    hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
+            //}
+            //else
+            //{
                 newBadge.SetActive(false);
                 hotBadge.SetActive(false);
-            }
+            //}
 
             // Show ONLY THE FIRST promo that is applicable
             var list = new List<KeyValuePair<GameObject, bool>> {
