@@ -64,7 +64,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 58e81dec8b5545d4a8e535db1ec50eee, type: 3}
-    totalSpriteSurfaceArea: 1698675
+    totalSpriteSurfaceArea: 1706227
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -131,6 +131,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: cfea9f37698eb1f4393d15248592de9b, type: 3}
   - {fileID: 21300000, guid: 0b8eab479dd1d144381e39cac96a56b5, type: 3}
   - {fileID: 21300000, guid: e3821d4776f23974db85fabcf6948a10, type: 3}
+  - {fileID: 21300000, guid: f1172b57bb072de4b8e5a0cd075bc67c, type: 3}
   - {fileID: 21300000, guid: 94704167fb10ced40a2aa474909df3f5, type: 3}
   - {fileID: 21300000, guid: 06335c77113197b4382d592cd127b419, type: 3}
   - {fileID: 21300000, guid: 50e514c7c21edc147bd52067e12b28d0, type: 3}
@@ -147,6 +148,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 11cb9a8add3941f4cb6ee581f2b7b930, type: 3}
   - {fileID: 21300000, guid: ea13a8aa58c0c6147bbd5f5ce8f9c0c5, type: 3}
   - {fileID: 21300000, guid: 62ea85cae7e224e4196be40978e52756, type: 3}
+  - {fileID: 21300000, guid: 0c3a69fafdfeecc4dbb17c32e8b3ee92, type: 3}
   - {fileID: 21300000, guid: dad5c9fa3bb1b5747a29a8283c88b6ab, type: 3}
   - {fileID: 21300000, guid: 473db20bd5a124849a9b060cddc62f7c, type: 3}
   - {fileID: 21300000, guid: 83a2226b964a59c428b5fed1e10287da, type: 3}
@@ -239,6 +241,7 @@ SpriteAtlas:
   - Food
   - colorblack@3x3
   - navstepperinactive@3x
+  - CVV
   - scuti_brand_white2
   - Cosmetic Jewelry
   - BG
@@ -255,6 +258,7 @@ SpriteAtlas:
   - Energy Drinks
   - icon24star_1
   - scuti_navigation_button_menu
+  - Card
   - Apparel
   - ScutiCoin_1
   - loading_background
