@@ -100,14 +100,15 @@ namespace Scuti.UI
                 return;
             }
 
-            if (string.IsNullOrEmpty(fullName))
+            //TODO: Check if user profile is completed after user make a purchase not before
+            /*if (string.IsNullOrEmpty(fullName))
             {
                 UIManager.Open(UIManager.Onboarding);
                 UIManager.Onboarding.ShowDetails();
                 UIManager.Alert.SetHeader("Finish Creating Account").SetBody("Please finish creating your account on the following screen.").SetButtonText("OK").Show(() => { });
             }
             else
-            {
+            {*/
                 try
                 {
                     var diff = await ScutiNetClient.TryToActivateRewards();
@@ -120,7 +121,7 @@ namespace Scuti.UI
                    
                 } catch { }
 
-            }
+            //}
 
             Submit();
             loginButton.interactable = true;
