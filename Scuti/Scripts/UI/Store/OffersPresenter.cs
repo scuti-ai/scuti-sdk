@@ -412,7 +412,6 @@ namespace Scuti.UI
                         index++;
                     }else
                     {
-                        //Debug.LogWarning("     Removing:: "+ container_Large.GetChild(index).gameObject);
                         Transform child = container_Large.GetChild(index);
                         child.SetParent(null);
                         Destroy(child.gameObject);
@@ -421,7 +420,6 @@ namespace Scuti.UI
 
                 children = container_Small.childCount;
                 index = 0;
-                //Debug.LogWarning("  Small:: "+ children);
                 for (int i = 0; i < children; ++i)
                 {
                     if (initialElements.Contains(container_Small.GetChild(index).gameObject))
@@ -430,7 +428,6 @@ namespace Scuti.UI
                     }
                     else
                     {
-                        //Debug.LogWarning("     Removing small :: "+ container_Large.GetChild(index).gameObject);
                         Transform child = container_Large.GetChild(index);
                         child.SetParent(null);
                         Destroy(child.gameObject);

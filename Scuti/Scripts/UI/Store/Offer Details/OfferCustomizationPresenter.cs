@@ -15,45 +15,99 @@ namespace Scuti.UI {
     public class OfferCustomizationPresenter : Presenter<OfferCustomizationPresenter.Model> {
         [Serializable]
         public class Model : Presenter.Model {
-            public int Quantity;
-            public ProductVariant[] Variants;
 
-            [NonSerialized]
-            public int SelectedVariant;
-            public int SelectedOption;
-            internal ProductVariant GetVariant()
+            private static string DEFAULT = "null";
+
+            public int Quantity;
+            public ProductVariant[] Variants
             {
-                if(SelectedVariant>-1 && Variants.Length > SelectedVariant)
+                set
                 {
-                    var variant = Variants[SelectedVariant];
-                    if (SelectedOption > -1 && variant.Options!=null && variant.Options.Count > SelectedOption)
+                    _variantMap.Clear();
+                    _selectedOption1 = _selectedOption2 = _selectedOption3 = null;
+                    if (value != null)
                     {
-                        int i = 0;
-                        foreach(var opt in variant.Options)
+                        foreach (var variant in value)
                         {
-                            if (i == SelectedOption) return opt;
-                            i++;
+                            if (variant.InStock.GetValueOrDefault(0)>0)
+                            {
+
+                                var opt1 = (string.IsNullOrEmpty(variant.Option1)) ? DEFAULT : variant.Option1;
+                                var opt2 = (string.IsNullOrEmpty(variant.Option2)) ? DEFAULT : variant.Option2;
+                                var opt3 = (string.IsNullOrEmpty(variant.Option3)) ? DEFAULT : variant.Option3;
+
+                                if (_selectedOption1.IsNullOrEmpty()) _selectedOption1 = opt1;
+                                if (_selectedOption2.IsNullOrEmpty()) _selectedOption2 = opt2;
+                                if (_selectedOption3.IsNullOrEmpty()) _selectedOption3 = opt3;
+
+                                if (!_variantMap.ContainsKey(opt1))
+                                {
+                                    _variantMap[opt1] = new Dictionary<string, Dictionary<string, ProductVariant>>();
+                                }
+
+                                var innerMap = _variantMap[opt1];
+                                if (!innerMap.ContainsKey(opt2))
+                                {
+                                    innerMap[opt2] = new Dictionary<string, ProductVariant>();
+                                }
+
+                                var finalMap = innerMap[opt2];
+                                finalMap[opt3] = variant;
+                            }
+
+
                         }
                     }
-                    return variant;
                 }
-                return null;
             }
 
-            internal ProductVariant[] GetOptions()
+            public string Option1;
+            public string Option2;
+            public string Option3;
+            private Dictionary<string, Dictionary<string, Dictionary<string, ProductVariant>>> _variantMap = new Dictionary<string, Dictionary<string, Dictionary<string, ProductVariant>>>();
+
+            private string _selectedOption1;
+            private string _selectedOption2;
+            private string _selectedOption3;
+
+            public void SelectOption1(string value)
             {
-                if (SelectedVariant > -1 && Variants.Length > SelectedVariant)
-                {
-                    var variant = Variants[SelectedVariant];
-                    if(variant !=null && variant.Options!=null)
-                        return variant.Options.ToArray();
-                }
-                return null;
+                _selectedOption1 = (string.IsNullOrEmpty(value)) ? DEFAULT : value;
             }
+
+            public void SelectOption2(string value)
+            {
+                _selectedOption2 = (string.IsNullOrEmpty(value)) ? DEFAULT : value;
+            }
+            public void SelectOption3(string value)
+            {
+                _selectedOption3 = (string.IsNullOrEmpty(value)) ? DEFAULT : value; 
+            }
+
+            internal ProductVariant GetSelectedVariant()
+            {
+                return _variantMap[_selectedOption1][_selectedOption2][_selectedOption3];
+            }
+
+            internal string[] GetOption1DropDowns()
+            {
+                return _variantMap.Keys.ToArray();
+            }
+
+            internal string[] GetOption2DropDowns()
+            {
+                return _variantMap[_selectedOption1].Keys.ToArray();
+            }
+
+            internal string[] GetOption3DropDowns()
+            {
+                return _variantMap[_selectedOption1][_selectedOption2].Keys.ToArray();
+            }
+
+
         }
 
         [SerializeField] IntegerStepperWidget quantityStepper;
-
 
         [SerializeField] Text firstVariantLabel;
         [SerializeField] Dropdown firstVariant;
@@ -61,7 +115,6 @@ namespace Scuti.UI {
         [SerializeField] Dropdown secondVariant;
         [SerializeField] Text thirdVariantLabel;
         [SerializeField] Dropdown thirdVariant;
-
 
         public Action VariantChanged;
 
@@ -78,6 +131,7 @@ namespace Scuti.UI {
             };
             firstVariant.onValueChanged.AddListener(OnFirstVariantChanged);
             secondVariant.onValueChanged.AddListener(OnSecondVariantChanged);
+            thirdVariant.onValueChanged.AddListener(OnThirdVariantChanged);
         }
 
         public void SetIsVideo(bool value)
@@ -85,34 +139,42 @@ namespace Scuti.UI {
             quantityStepper.gameObject.SetActive(!value);
         }
 
+        private void OnThirdVariantChanged(int value)
+        {
+            Data.SelectOption3(thirdVariant.options[value].text);
+            VariantChanged?.Invoke();
+        }
+
         private void OnSecondVariantChanged(int value)
         {
-            Data.SelectedOption = value;
+            Data.SelectOption2(secondVariant.options[value].text);
+            Populate(thirdVariant, Data.GetOption3DropDowns(), 1);
             VariantChanged?.Invoke();
         }
 
         private void OnFirstVariantChanged(int value)
         {
-            Data.SelectedVariant = value;
-            Data.SelectedOption = 0;
-            Populate(secondVariant, Data.GetOptions(), 1, secondVariantLabel);
-            Populate(thirdVariant, null, 1, thirdVariantLabel);
+            Data.SelectOption1(firstVariant.options[value].text);
+            Populate(secondVariant, Data.GetOption2DropDowns(), 1);
+            Populate(thirdVariant, Data.GetOption3DropDowns(), 1);
             VariantChanged?.Invoke();
         }
 
         protected override void OnSetState() {
             quantityStepper.Value = Data.Quantity;
-            Data.SelectedOption = 0;
-            Data.SelectedVariant = 0;
 
-            Populate(firstVariant, Data.Variants, 2, firstVariantLabel);
-            Populate(secondVariant, Data.GetOptions(), 1, secondVariantLabel);
-            Populate(thirdVariant, null, 1, thirdVariantLabel);
+            firstVariantLabel.text = string.IsNullOrEmpty(Data.Option1) ? string.Empty : Data.Option1;
+            secondVariantLabel.text = string.IsNullOrEmpty(Data.Option2) ? string.Empty : Data.Option2;
+            thirdVariantLabel.text = string.IsNullOrEmpty(Data.Option3) ? string.Empty : Data.Option3;
+
+            Populate(firstVariant, Data.GetOption1DropDowns(), 2);
+            Populate(secondVariant, Data.GetOption2DropDowns(), 1);
+            Populate(thirdVariant, Data.GetOption3DropDowns(), 1);
 
             VariantChanged?.Invoke();
         }
 
-        private void Populate(Dropdown dropdown, ProductVariant[] options, int min, Text title)
+        private void Populate(Dropdown dropdown, string[] options, int min)
         {
             dropdown.Hide();
             dropdown.ClearOptions();
@@ -123,14 +185,7 @@ namespace Scuti.UI {
             else
             {
                 dropdown.gameObject.SetActive(true);
-                title.text = string.Empty; // TODO: Populate once we get data from server -mg
-                var optionList = new List<string>();
-                foreach (var variant in options)
-                {
-                    if (variant != null && variant.InStock.Value > 0)
-                        optionList.Add(variant.Name);
-                }
-                dropdown.AddOptions(optionList);
+                dropdown.AddOptions(options.ToList());
             }
             dropdown.RefreshShownValue();
         }

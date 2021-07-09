@@ -168,6 +168,9 @@ namespace Scuti
                 Customization = new OfferCustomizationPresenter.Model
                 {
                     Quantity = 1,
+                     Option1 = offer.Product.Option1,
+                     Option2 = offer.Product.Option2,
+                     Option3 = offer.Product.Option3,
                     Variants = offer.Product.Variants.ToArray()
                 }
             };
@@ -207,7 +210,7 @@ namespace Scuti
                 copy.Apply();
             }
 
-            ProductVariant variant = data.Customization.GetVariant();
+            ProductVariant variant = data.Customization.GetSelectedVariant();
 
             string firstImage = null;
             if (data.Showcase.URLs.Count > 0) firstImage = data.Showcase.URLs[0];

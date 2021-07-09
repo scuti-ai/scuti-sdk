@@ -35,7 +35,8 @@ namespace Scuti.UI
 
             verifyEmail.VerificationConfirmed += () =>
             {
-                ShowDetails();
+                //ShowDetails();
+                Close();
             };
             credentials.OnCancel += () =>
             {
