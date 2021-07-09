@@ -86,15 +86,15 @@ namespace Scuti.UI {
 
             var productName = product.Name;
 
-
-            if (Data.product.Variant != null)
-            {
-                productName += ": " + Data.product.Variant.Name;
-            }
-            if (Data.product.Option != null)
-            {
-                productName += ": " + Data.product.Option.Name;
-            }
+            Debug.LogError("TODO: Add variants back in here. -mg");
+            //if (Data.product.Variant != null)
+            //{
+            //    productName += ": " + Data.product.Variant.Op;
+            //}
+            //if (Data.product.Option != null)
+            //{
+            //    productName += ": " + Data.product.Option.Name;
+            //}
             return productName;
 
         }

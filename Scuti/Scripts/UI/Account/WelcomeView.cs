@@ -22,7 +22,7 @@ namespace Scuti.UI
         protected Coroutine _currencyRoutine;
         private int retryCount = 0;
 
-        public GameObject ExchangeInstructions;
+        //public GameObject ExchangeInstructions;
         public Image ExchangeIcon;
 
         //public List<ChildrenInfo> Pages = new List<ChildrenInfo>();
@@ -41,30 +41,31 @@ namespace Scuti.UI
                 ScutiLogger.LogError(e);
             }
 
-            ExchangeInstructions.gameObject.SetActive(false);
-#if !UNITY_IOS
-            _currencyRoutine = StartCoroutine(LoadCurrencyIcon());
-        }
+            //if (ExchangeInstructions) ExchangeInstructions.gameObject.SetActive(false);
+            //#if !UNITY_IOS
+            //            _currencyRoutine = StartCoroutine(LoadCurrencyIcon());
+            //        }
 
-        private IEnumerator LoadCurrencyIcon()
-        {
-            Sprite sprite = null;
+            //        private IEnumerator LoadCurrencyIcon()
+            //        {
+            //            Sprite sprite = null;
 
-            while (sprite == null && retryCount < 10)
-            {
-                sprite = ScutiNetClient.Instance.CurrencyIconToSprite();
-                if (sprite != null)
-                {
-                    ExchangeIcon.sprite = sprite;
-                    ExchangeInstructions.gameObject.SetActive(true);
-                }
-                retryCount++;
-                yield return new WaitForSeconds(0.5f);
-            }
+            //            while (sprite == null && retryCount < 10)
+            //            {
+            //                sprite = ScutiNetClient.Instance.CurrencyIconToSprite();
+            //                if (sprite != null)
+            //                {
+            //                    ExchangeIcon.sprite = sprite;
+            //                    ExchangeInstructions.gameObject.SetActive(true);
+            //                }
+            //                retryCount++;
+            //                yield return new WaitForSeconds(0.5f);
+            //            }
+            //        }
+            //#else
+            //        }
+            //#endif
         }
-#else
-        }
-#endif
 
         //public void TogglePage()
         //{
