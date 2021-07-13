@@ -392,7 +392,7 @@ MonoBehaviour:
       m_Calls: []
   Transitions: []
   id: default
-  defaultGraphic: {fileID: 21300000, guid: 94704167fb10ced40a2aa474909df3f5, type: 3}
+  defaultGraphic: {fileID: 21300000, guid: 7f359e61916267444b40275b9dc4bb16, type: 3}
   graphicImage: {fileID: 114011286070919190}
   headerText: {fileID: 114874871295846188}
   bodyText: {fileID: 114681470558594094}
@@ -948,7 +948,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 94704167fb10ced40a2aa474909df3f5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7f359e61916267444b40275b9dc4bb16, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

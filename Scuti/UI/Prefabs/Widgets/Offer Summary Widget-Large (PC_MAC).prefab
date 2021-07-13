@@ -808,7 +808,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 94704167fb10ced40a2aa474909df3f5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7f359e61916267444b40275b9dc4bb16, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -7527,6 +7527,7 @@ MonoBehaviour:
   onClosed:
     m_PersistentCalls:
       m_Calls: []
+  Transitions: []
   animator: {fileID: 95558460715346794}
   timer: {fileID: 114364661255230726}
   backgroundImage: {fileID: 114781347223533178}
