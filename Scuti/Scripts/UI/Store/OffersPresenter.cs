@@ -337,6 +337,7 @@ namespace Scuti.UI
         /// </summary>
         public async Task<List<Offer>> GetRange(int index, int maxCount, bool retry = true, bool resetOverride = false)
         {
+            Debug.Log("Requesting Range " + retry);
             m_Pagination.Index += maxCount;
             List<Offer> offers = null;
             int actualCount = 0;
@@ -521,9 +522,17 @@ namespace Scuti.UI
 
                     var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
                     var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
-                    UIManager.OfferDetails.SetData(panelModel);
-                    UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(widget.Data.VideoURL));
-                    UIManager.Open(UIManager.OfferDetails);
+                    try
+                    {
+                        UIManager.OfferDetails.SetData(panelModel); 
+                        UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(widget.Data.VideoURL));
+                        UIManager.Open(UIManager.OfferDetails);
+                    } catch(Exception e)
+                    {
+                        ScutiLogger.LogException(e);
+                        UIManager.Alert.SetHeader("Out of Stock").SetBody("This item is out of stock. Please try again later.").SetButtonText("OK").Show(() => { });
+                        //UIManager.Open(UIManager.Offers);
+                    }
 
                 };
             }

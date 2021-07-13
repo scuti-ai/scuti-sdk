@@ -6,6 +6,8 @@ using UnityEngine;
 using Scuti.GraphQL.Generated;
 using Scuti.UI;
 using System;
+using UnityEngine.Networking;
+using System.Net;
 
 namespace Scuti
 {
@@ -130,6 +132,7 @@ namespace Scuti
                 rating = offer.Review.Score.Value;
                 count = offer.Review.Count.Value;
             }
+
             var sm = new OfferDetailsPresenter.Model
             {
                 ShopName = offer.Shop.Name,
@@ -138,7 +141,7 @@ namespace Scuti
                     ID = offer.Id.ToString(),
                     Title = offer.Product.Name,
                     Subtitle = subtitle,
-                    Description = offer.Product.Description,
+                    Description = ScutiUtils.HtmlDecode(offer.Product.Description), // intentionally escaped twice for now
                     //DisplayPrice = $"${offer.Product.Price.Amount.Value.ToString("F2")}",
                     //Price = (float)offer.Product.Price.Amount.Value,
                     IsHotPrice = offer.Promotions.IsHotPrice.Value,
