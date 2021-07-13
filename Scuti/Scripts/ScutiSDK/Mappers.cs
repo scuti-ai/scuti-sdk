@@ -141,7 +141,7 @@ namespace Scuti
                     ID = offer.Id.ToString(),
                     Title = offer.Product.Name,
                     Subtitle = subtitle,
-                    Description = WebUtility.HtmlDecode(WebUtility.HtmlDecode(offer.Product.Description)), // intentionally escaped twice for now
+                    Description = ScutiUtils.HtmlDecode(offer.Product.Description), // intentionally escaped twice for now
                     //DisplayPrice = $"${offer.Product.Price.Amount.Value.ToString("F2")}",
                     //Price = (float)offer.Product.Price.Amount.Value,
                     IsHotPrice = offer.Promotions.IsHotPrice.Value,

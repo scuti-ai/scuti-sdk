@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Scuti;
 using Scuti.GraphQL.Generated;
@@ -66,6 +68,12 @@ public class ScutiUtils  {
         return portrait;
     }
 
+    public static string StripHTML(string HTMLText)
+    {
+        Regex reg = new Regex("<[^>]+>", RegexOptions.IgnoreCase);
+        return reg.Replace(HTMLText, "");
+    }
+
     internal static int RequiredAdsPerCategory()
     {
         // TODO: Modify for PC layout and Portrait
@@ -85,5 +93,11 @@ public class ScutiUtils  {
         encryptedInput.EncryptedData = Convert.ToBase64String(pgp.Encrypt(data, decodedPublicKey.ToUTF8Bytes()));
 
         return encryptedInput;
+    }
+
+    internal static string HtmlDecode(string text)
+    {
+        text = WebUtility.HtmlDecode(WebUtility.HtmlDecode(text));
+        return  StripHTML(text);
     }
 }

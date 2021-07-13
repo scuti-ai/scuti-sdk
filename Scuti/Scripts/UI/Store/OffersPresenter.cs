@@ -337,6 +337,7 @@ namespace Scuti.UI
         /// </summary>
         public async Task<List<Offer>> GetRange(int index, int maxCount, bool retry = true, bool resetOverride = false)
         {
+            Debug.Log("Requesting Range " + retry);
             m_Pagination.Index += maxCount;
             List<Offer> offers = null;
             int actualCount = 0;

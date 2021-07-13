@@ -29,7 +29,7 @@ namespace Scuti.UI {
                     {
                         foreach (var variant in value)
                         {
-                            if (variant.InStock.GetValueOrDefault(0)>0)
+                            //if (variant.InStock.GetValueOrDefault(0)>0)
                             {
 
                                 var opt1 = (string.IsNullOrEmpty(variant.Option1)) ? DEFAULT : variant.Option1;
@@ -148,15 +148,15 @@ namespace Scuti.UI {
         private void OnSecondVariantChanged(int value)
         {
             Data.SelectOption2(secondVariant.options[value].text);
-            Populate(thirdVariant, Data.GetOption3DropDowns(), 1);
+            Populate(thirdVariant, Data.GetOption3DropDowns(), 2);
             VariantChanged?.Invoke();
         }
 
         private void OnFirstVariantChanged(int value)
         {
             Data.SelectOption1(firstVariant.options[value].text);
-            Populate(secondVariant, Data.GetOption2DropDowns(), 1);
-            Populate(thirdVariant, Data.GetOption3DropDowns(), 1);
+            Populate(secondVariant, Data.GetOption2DropDowns(), 2);
+            Populate(thirdVariant, Data.GetOption3DropDowns(), 2);
             VariantChanged?.Invoke();
         }
 
@@ -168,8 +168,8 @@ namespace Scuti.UI {
             thirdVariantLabel.text = string.IsNullOrEmpty(Data.Option3) ? string.Empty : Data.Option3;
 
             Populate(firstVariant, Data.GetOption1DropDowns(), 2);
-            Populate(secondVariant, Data.GetOption2DropDowns(), 1);
-            Populate(thirdVariant, Data.GetOption3DropDowns(), 1);
+            Populate(secondVariant, Data.GetOption2DropDowns(), 2);
+            Populate(thirdVariant, Data.GetOption3DropDowns(), 2);
 
             VariantChanged?.Invoke();
         }
