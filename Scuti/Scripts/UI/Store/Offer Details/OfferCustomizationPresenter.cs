@@ -29,7 +29,7 @@ namespace Scuti.UI {
                     {
                         foreach (var variant in value)
                         {
-                            //if (variant.InStock.GetValueOrDefault(0)>0)
+                            if (variant.InStock.GetValueOrDefault(0) > 0)
                             {
 
                                 var opt1 = (string.IsNullOrEmpty(variant.Option1)) ? DEFAULT : variant.Option1;

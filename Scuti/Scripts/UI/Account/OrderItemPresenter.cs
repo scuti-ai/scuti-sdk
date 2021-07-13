@@ -59,10 +59,8 @@ namespace Scuti.UI {
                 }
 
                 ItemLabel.text = GetProductName(Data.product);
-                if (Data.product.Option!=null && !string.IsNullOrEmpty(Data.product.Option.Image))
-                {
-                    PopulateImageFromVariant(Data.product.Option);
-                } else if(Data.product.Variant!=null && !string.IsNullOrEmpty(Data.product.Variant.Image))
+                
+                if (Data.product.Variant!=null && !string.IsNullOrEmpty(Data.product.Variant.Image))
                 {
                     PopulateImageFromVariant(Data.product.Variant);
                 } else
@@ -85,16 +83,22 @@ namespace Scuti.UI {
         {
 
             var productName = product.Name;
+            var variant = product.Variant;
 
-            Debug.LogError("TODO: Add variants back in here. -mg");
-            //if (Data.product.Variant != null)
-            //{
-            //    productName += ": " + Data.product.Variant.Op;
-            //}
-            //if (Data.product.Option != null)
-            //{
-            //    productName += ": " + Data.product.Option.Name;
-            //}
+            if(!string.IsNullOrEmpty(variant.Option1))
+            {
+                productName += ": " + variant.Option1;
+
+                if (!string.IsNullOrEmpty(variant.Option2))
+                {
+                    productName += ": " + variant.Option2;
+                    if (!string.IsNullOrEmpty(variant.Option3))
+                    {
+                        productName += ": " + variant.Option3;
+                    }
+
+                }
+            }
             return productName;
 
         }
