@@ -64,7 +64,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 58e81dec8b5545d4a8e535db1ec50eee, type: 3}
-    totalSpriteSurfaceArea: 1667187
+    totalSpriteSurfaceArea: 1584202
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -78,7 +78,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: ef8bf440cdc215147b0a44ce7ae2db8b, type: 3}
   - {fileID: 21300000, guid: 88f8366078514ab4f8a6866ac339aa22, type: 3}
   - {fileID: 21300000, guid: 46242ea0f0dd958488f0dd9498034504, type: 3}
-  - {fileID: 21300000, guid: a9eae7b0b35e1864b8948586220cf8af, type: 3}
   - {fileID: 21300000, guid: 44d0f9d01b1511946a6631cde3a033b1, type: 3}
   - {fileID: 21300000, guid: 36da8b111185c4f4bb26a50433637026, type: 3}
   - {fileID: 21300000, guid: cbf0ef11f5364464b83ac03406659f4b, type: 3}
@@ -111,7 +110,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 77c68e742dd8774489a4badde641437a, type: 3}
   - {fileID: 21300000, guid: 7d68cf748bf548b4d955abe7316edd4d, type: 3}
   - {fileID: 21300000, guid: 9d559c8455cbe184690fa35cb6d6df14, type: 3}
-  - {fileID: 21300000, guid: d00462c4a5354be44a4360032ca3e500, type: 3}
   - {fileID: 21300000, guid: 4912adc423f809f489d69d1562920653, type: 3}
   - {fileID: 21300000, guid: 272efec4a2c76a4408f9f2eeedbf5a68, type: 3}
   - {fileID: 21300000, guid: 5c4d01e49f4ddef4ebccd27d3222c411, type: 3}
@@ -162,7 +160,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 874551ac6b21ba544a0b55f24d74ad92, type: 3}
   - {fileID: 21300000, guid: 055c55ac0788c074799464fe882df1f1, type: 3}
   - {fileID: 21300000, guid: da59a6cca9d1e684788f70a6b7ea7ebc, type: 3}
-  - {fileID: 21300000, guid: efcbe96d525153847b9736a0ce995498, type: 3}
   - {fileID: 21300000, guid: 477c6f7d439bd5c458911d94f408557f, type: 3}
   - {fileID: 21300000, guid: f3b703addf1ada14dbfe19e22697e904, type: 3}
   - {fileID: 21300000, guid: 94a3f1dd7e9f8374f843aff27d0ad7ee, type: 3}
@@ -188,7 +185,6 @@ SpriteAtlas:
   - wallet@3x
   - GlowFrame
   - buttonmenudefault@3x_red
-  - cardmodalmenu@3x2
   - PhoneImage
   - scuti_brand_background
   - buttonapple-pay@3x
@@ -221,7 +217,6 @@ SpriteAtlas:
   - Books
   - Games
   - navstepperinactive@4x
-  - roundRect
   - scuti_offer_card_bg-color_large
   - colorblack@3x5
   - componentquantitySM@3x2
@@ -272,7 +267,6 @@ SpriteAtlas:
   - CBD Products
   - icon24hot@3x
   - Pet Supply
-  - cardSMstoreproducts@3x2
   - color-block@3xgradient
   - navstepperchecked)@3x
   - cardSMstoreproducts@3x
