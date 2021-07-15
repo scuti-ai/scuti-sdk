@@ -16,7 +16,7 @@ namespace Scuti.UI {
         [Serializable]
         public class Model : Presenter.Model {
 
-            private static string DEFAULT = "null";
+            public static string DEFAULT = "null";
 
             public int Quantity;
             public ProductVariant[] Variants
@@ -148,15 +148,15 @@ namespace Scuti.UI {
         private void OnSecondVariantChanged(int value)
         {
             Data.SelectOption2(secondVariant.options[value].text);
-            Populate(thirdVariant, Data.GetOption3DropDowns(), 2);
+            Populate(thirdVariant, Data.GetOption3DropDowns());
             VariantChanged?.Invoke();
         }
 
         private void OnFirstVariantChanged(int value)
         {
             Data.SelectOption1(firstVariant.options[value].text);
-            Populate(secondVariant, Data.GetOption2DropDowns(), 2);
-            Populate(thirdVariant, Data.GetOption3DropDowns(), 2);
+            Populate(secondVariant, Data.GetOption2DropDowns());
+            Populate(thirdVariant, Data.GetOption3DropDowns());
             VariantChanged?.Invoke();
         }
 
@@ -167,18 +167,18 @@ namespace Scuti.UI {
             secondVariantLabel.text = string.IsNullOrEmpty(Data.Option2) ? string.Empty : Data.Option2;
             thirdVariantLabel.text = string.IsNullOrEmpty(Data.Option3) ? string.Empty : Data.Option3;
 
-            Populate(firstVariant, Data.GetOption1DropDowns(), 2);
-            Populate(secondVariant, Data.GetOption2DropDowns(), 2);
-            Populate(thirdVariant, Data.GetOption3DropDowns(), 2);
+            Populate(firstVariant, Data.GetOption1DropDowns());
+            Populate(secondVariant, Data.GetOption2DropDowns());
+            Populate(thirdVariant, Data.GetOption3DropDowns());
 
             VariantChanged?.Invoke();
         }
 
-        private void Populate(Dropdown dropdown, string[] options, int min)
+        private void Populate(Dropdown dropdown, string[] options)
         {
             dropdown.Hide();
             dropdown.ClearOptions();
-            if (options == null || options.Length < min)
+            if (options == null || options.Length < 1 || options[0].Equals(Model.DEFAULT))
             {
                 dropdown.gameObject.SetActive(false);
             }
