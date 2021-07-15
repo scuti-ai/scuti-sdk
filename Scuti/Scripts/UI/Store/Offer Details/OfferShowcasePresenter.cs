@@ -113,7 +113,7 @@ namespace Scuti.UI {
              
 
             Data.URLs.ForEach(x => downloads.Add(downloader.Download(x)));
-
+            thumbnailParent.gameObject.SetActive(false);
             // Downloads the iamges together and process as they finish
             try
             {
@@ -155,6 +155,8 @@ namespace Scuti.UI {
             var index = m_Thumbs.Count;
             m_Thumbs.Add(instance);
 
+            if(m_Thumbs.Count>1)
+                thumbnailParent.gameObject.SetActive(true);
             var image = instance.GetComponent<Image>();
             image.sprite = texture2D.ToSprite();
             var button = instance.GetComponent<Button>();
