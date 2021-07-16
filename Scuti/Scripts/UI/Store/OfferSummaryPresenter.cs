@@ -62,6 +62,7 @@ namespace Scuti.UI
 
             [SerializeField] Texture2D texture;
             public Texture2D Texture { get { return texture; } }
+            string[] separator = { "?v=" };
 
             public void LoadImage()
             {
@@ -70,6 +71,7 @@ namespace Scuti.UI
                     CurrentState = State.Loading;
 
                     var url = ImageURL;
+                    url = url.Insert(url.LastIndexOf("."), "_large");
                     if (!string.IsNullOrEmpty(url))
                     {
                         if (DisplayAd)
@@ -363,7 +365,7 @@ namespace Scuti.UI
                     {
                         p.Visual.SetActive(false);
                     }
-                    AdImage.sprite = Data.Texture.ToSprite();
+                    if(Data.Texture) AdImage.sprite = Data.Texture.ToSprite();
                 }
                 else
                 {
@@ -372,7 +374,7 @@ namespace Scuti.UI
                     {
                         p.Visual.SetActive(!_isStatic || !p.HideIfStatic);
                     }
-                    displayImage.sprite = Data.Texture.ToSprite();
+                    if (Data.Texture) displayImage.sprite = Data.Texture.ToSprite();
                 }
             }
         }
