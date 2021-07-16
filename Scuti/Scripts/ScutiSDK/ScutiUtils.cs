@@ -98,6 +98,8 @@ public class ScutiUtils  {
     internal static string HtmlDecode(string text)
     {
         text = WebUtility.HtmlDecode(WebUtility.HtmlDecode(text));
+        text = text.Replace("</style>\n", string.Empty);
+        var stripped = StripHTML(text);
         return  StripHTML(text);
     }
 }
