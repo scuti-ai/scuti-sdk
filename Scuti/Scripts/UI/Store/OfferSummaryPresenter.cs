@@ -74,7 +74,7 @@ namespace Scuti.UI
                    
                     if (!string.IsNullOrEmpty(url))
                     {
-                        print("Image URL: " + url);
+                        //TODO: review this, had to check if image was from shopify because some images wasn't from shopify and I was getting an error
                         if (url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1)
                             url = url.Insert(url.LastIndexOf("."), "_large");
                         if (DisplayAd)
