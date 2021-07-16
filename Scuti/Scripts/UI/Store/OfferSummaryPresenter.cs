@@ -75,7 +75,7 @@ namespace Scuti.UI
                     if (!string.IsNullOrEmpty(url))
                     {
                         print("Image URL: " + url);
-                        if (url.LastIndexOf(".") != -1)
+                        if (url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1)
                             url = url.Insert(url.LastIndexOf("."), "_large");
                         if (DisplayAd)
                         {
