@@ -71,7 +71,10 @@ namespace Scuti.UI
                     CurrentState = State.Loading;
 
                     var url = ImageURL;
-                    url = url.Insert(url.LastIndexOf("."), "_large");
+                    print("Image URL: " + url);
+                    if(url.LastIndexOf(".") != -1)
+                        url = url.Insert(url.LastIndexOf("."), "_large");
+
                     if (!string.IsNullOrEmpty(url))
                     {
                         if (DisplayAd)
