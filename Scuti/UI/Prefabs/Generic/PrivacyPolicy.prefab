@@ -1,0 +1,854 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1007147169928863202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4622084170653375825}
+  - component: {fileID: 3447260749342776647}
+  - component: {fileID: 5707153526539198552}
+  m_Layer: 5
+  m_Name: Content
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4622084170653375825
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007147169928863202}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 651763794106404730}
+  m_Father: {fileID: 7611821114139195677}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -0.000015258789}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &3447260749342776647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007147169928863202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+--- !u!114 &5707153526539198552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007147169928863202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
+--- !u!1 &3580643355822393306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3650982225650841342}
+  - component: {fileID: 3650849844013092318}
+  - component: {fileID: 3468817519860186242}
+  - component: {fileID: 3471577859187309628}
+  m_Layer: 5
+  m_Name: PrivacyPolicy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3650982225650841342
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580643355822393306}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3650975917470734600}
+  - {fileID: 3651012349075350022}
+  - {fileID: 8189552800640600823}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &3650849844013092318
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580643355822393306}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &3468817519860186242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580643355822393306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f4aece8af11eef4c9236ad1445d4df7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isModal: 0
+  m_State: 3
+  requiresLogin: 0
+  alwaysEnabled: 0
+  displayEvents: 1
+  onStartOpening:
+    m_PersistentCalls:
+      m_Calls: []
+  onOpened:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3471577859187309628}
+        m_MethodName: TransitionIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStartClosing:
+    m_PersistentCalls:
+      m_Calls: []
+  onClosed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3471577859187309628}
+        m_MethodName: TransitionIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Transitions:
+  - {fileID: 3471577859187309628}
+--- !u!114 &3471577859187309628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580643355822393306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a6e9625b8180f04691561c107b32e6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowFields: 0
+  m_UseUnscaledTime: 0
+  m_ReferenceScreenResolution: {x: 1920, y: 1080}
+  m_State: 2
+  m_TransitionOnStart: 0
+  displayEvents: 0
+  onStartTransitionIn:
+    m_PersistentCalls:
+      m_Calls: []
+  onEndTransitionIn:
+    m_PersistentCalls:
+      m_Calls: []
+  onStartTransitionOut:
+    m_PersistentCalls:
+      m_Calls: []
+  onEndTransitionOut:
+    m_PersistentCalls:
+      m_Calls: []
+  group: {fileID: 3650849844013092318}
+  m_FadeInDuration: 0.2
+  m_FadeOutDuration: 0.2
+--- !u!1 &3580803581252720366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3651012349075350022}
+  - component: {fileID: 3648523222188825268}
+  - component: {fileID: 3468866939695662096}
+  m_Layer: 5
+  m_Name: TitleText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3651012349075350022
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580803581252720366}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3650982225650841342}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -350}
+  m_SizeDelta: {x: -120, y: 66.5}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!222 &3648523222188825268
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580803581252720366}
+  m_CullTransparentMesh: 0
+--- !u!114 &3468866939695662096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580803581252720366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: be182312a97d2ff4ebb2fc6154da15c1, type: 3}
+    m_FontSize: 46
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 46
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Terms of Service
+--- !u!1 &3580900296138648120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3650975917470734600}
+  - component: {fileID: 3648934125930643666}
+  - component: {fileID: 3468638194716656214}
+  - component: {fileID: 3468667050038973042}
+  - component: {fileID: 3523759467280967284}
+  m_Layer: 5
+  m_Name: CloseButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3650975917470734600
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580900296138648120}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3650982225650841342}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -100, y: -167}
+  m_SizeDelta: {x: 80, y: 80}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3648934125930643666
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580900296138648120}
+  m_CullTransparentMesh: 0
+--- !u!114 &3468638194716656214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580900296138648120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: b726d704b0d590b4dba91588789215b1, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!114 &3468667050038973042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580900296138648120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 3
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 3468638194716656214}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: Cancel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!95 &3523759467280967284
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580900296138648120}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 49e4f4529e0a4244893c8093b5418563, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &4248138748707656673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8189552800640600823}
+  - component: {fileID: 6254841982305156423}
+  - component: {fileID: 8757022580328281814}
+  m_Layer: 5
+  m_Name: Scroll View
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8189552800640600823
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4248138748707656673}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 7611821114139195677}
+  m_Father: {fileID: 3650982225650841342}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -182.8}
+  m_SizeDelta: {x: -120, y: -436.4392}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6254841982305156423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4248138748707656673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1367256648, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Content: {fileID: 4622084170653375825}
+  m_Horizontal: 0
+  m_Vertical: 1
+  m_MovementType: 1
+  m_Elasticity: 0.1
+  m_Inertia: 1
+  m_DecelerationRate: 0.135
+  m_ScrollSensitivity: 1
+  m_Viewport: {fileID: 7611821114139195677}
+  m_HorizontalScrollbar: {fileID: 0}
+  m_VerticalScrollbar: {fileID: 0}
+  m_HorizontalScrollbarVisibility: 2
+  m_VerticalScrollbarVisibility: 2
+  m_HorizontalScrollbarSpacing: -3
+  m_VerticalScrollbarSpacing: -3
+  m_OnValueChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!222 &8757022580328281814
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4248138748707656673}
+  m_CullTransparentMesh: 0
+--- !u!1 &7327818569698818142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7611821114139195677}
+  - component: {fileID: 751487068691702490}
+  - component: {fileID: 1946467224916177548}
+  - component: {fileID: 3464552714796980604}
+  m_Layer: 5
+  m_Name: Viewport
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7611821114139195677
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7327818569698818142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4622084170653375825}
+  m_Father: {fileID: 8189552800640600823}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 1}
+--- !u!114 &751487068691702490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7327818569698818142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowMaskGraphic: 0
+--- !u!222 &1946467224916177548
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7327818569698818142}
+  m_CullTransparentMesh: 0
+--- !u!114 &3464552714796980604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7327818569698818142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+--- !u!1 &8392022250525140653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 651763794106404730}
+  - component: {fileID: 4221361517451691069}
+  - component: {fileID: 3297743261136876984}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &651763794106404730
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8392022250525140653}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4622084170653375825}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!222 &4221361517451691069
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8392022250525140653}
+  m_CullTransparentMesh: 0
+--- !u!114 &3297743261136876984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8392022250525140653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 2ad97b1dcde7187459fbce9b9a0d20e1, type: 3}
+    m_FontSize: 28
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 46
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "Scuti\u2122 Privacy Notice\r\nLast updated: January 01, 2020.\r\nScuti.com
+    cares about your privacy and knows that you also care about how information about
+    you is used and shared, and we appreciate your trust that we will do so carefully
+    and sensibly. This notice describes our privacy policy. By visiting Scuti.store,
+    you are accepting the practices described in this Privacy Notice.\r\n\r\nWhat
+    Personal Information About Customers Does Scuti.com Gather?\r\nWhat About Cookies?\r\nDoes
+    Scuti.com Share the Information It Receives?\r\nHow Secure Is Information About
+    Me?\r\nWhat About Third-Party Advertisers and Links to Other Websites?\r\nWhich
+    Information Can I Access?\r\nWhat Choices Do I Have?\r\nAre Children Allowed to
+    Use Scuti.com?\r\nEU-US and Swiss-US Privacy Shield\r\nConditions of Use, Notices,
+    and Revisions\r\nExamples of Information Collected\r\nWhat Personal Information
+    About Customers Does Scuti.com Gather?\r\nThe information we learn from customers
+    helps us personalize and continually improve your Scuti\u2122 experience. Here
+    are the types of information we gather.\r\n\r\nInformation You Give Us: We receive
+    and store any information you enter on our Web site, Scuti\u2122 store, or give
+    us in any other way. You can choose not to provide certain information, but then
+    you might not be able to take advantage of many of our features and the specific
+    products and deals based on your preferences. We use the information that you
+    provide for such purposes as responding to your requests, customizing future shopping
+    for you, improving the deals and offers our vendors will offer, and communicating
+    with you.\r\nAutomatic Information: We receive and store certain types of information
+    whenever you interact with us. For example, like many Web sites and Apps, we use
+    \"cookies,\" and we obtain certain types of information when your Web browser
+    accesses Scuti.store or advertisements and other content served by or on behalf
+    of Scuti.store on other Web sites.\r\nMobile: When you download or use the Scuti\u2122
+    app or shop from games with the Scuti\u2122 API, we may receive information about
+    your location and your mobile device, including a unique identifier for your device.
+    We may use this information to provide you with location-based services, such
+    as advertising, search results, and other personalized content. Most mobile devices
+    allow you to turn off location services.\r\nE-mail Communications: To help us
+    make e-mails more useful and interesting, we often receive a confirmation when
+    you open e-mail from Scuti.store if your computer supports such capabilities.
+    We also compare our customer list to lists received from other companies, in an
+    effort to avoid sending unnecessary messages to our customers. If you do not want
+    to receive e-mail or other mail from us, please adjust your Customer Communication
+    Preferences.\r\nInformation from Other Sources: We might receive information about
+    you from other sources and add it to our account information.\r\nWhat About Cookies?\r\nCookies
+    are unique identifiers that we transfer to your device to enable our systems to
+    recognize your device and to provide features such as one-step purchasing, deals
+    and products recommended for you, personalized advertisements and storage of items
+    in your Shopping Cart between visits.\r\nThe Help feature on most browsers will
+    tell you how to prevent your browser from accepting new cookies, how to have the
+    browser notify you when you receive a new cookie, or how to disable cookies altogether.
+    Additionally, you can disable or delete similar data used by browser add-ons,
+    such as Flash cookies, by changing the add-on's settings or visiting the Web site
+    of its manufacturer. Because cookies allow you to take advantage of some of Scuti.com's
+    essential features, we recommend that you leave them turned on. For instance,
+    if you block or otherwise reject our cookies, you will not be able to add items
+    to your Shopping Cart, proceed to Checkout, or use any Scuti.com products and
+    services that require you to Sign in.\r\nDoes Scuti.com Share the Information
+    It Receives?\r\nInformation about our customers is an important part of our business,
+    and we are not in the business of selling it to others. Scuti\u2122 shares and
+    sells aggregated data of all the activity on our site to vendors and other third
+    parties so they can offer our shoppers the best deals. No personally identifiable
+    information is ever shared with any third party.\r\n\r\nAffiliated Businesses
+    We Do Not Control: We work closely with affiliated businesses. In some cases,
+    such as Marketplace vendors, these businesses operate sell offerings to you at
+    Scuti.store. Scuti\u2122 only shares aggregated store data with these third parties
+    and never personally identifiable information, other than the specifics needed
+    to fulfill your orders, such as items purchased and delivery address.\r\nThird-Party
+    Service Providers: We employ other companies and individuals to perform functions
+    on our behalf. Examples include e-mail, removing repetitive information from customer
+    lists, analyzing data, providing marketing assistance, processing credit card
+    payments, and providing customer service. They have access to personal information
+    needed to perform their functions, but may not use it for other purposes.\r\nPromotional
+    Offers: We send offers to selected groups of Scuti.store customers on behalf of
+    other businesses. When we do this, we do not give that business your name and
+    address. If you do not want to receive such offers, please adjust your Customer
+    Communication Preferences.\r\nProtection of Scuti.store and Others: We release
+    account and other personal information when we believe release is appropriate
+    to comply with the law; enforce or apply our Conditions of Use and other agreements;
+    or protect the rights, property, or safety of Scuti.store, our users, or others.
+    This includes exchanging information with other companies and organizations for
+    fraud protection and credit risk reduction. Obviously, however, this does not
+    include selling, renting, sharing, or otherwise disclosing personally identifiable
+    information from customers for commercial purposes in violation of the commitments
+    set forth in this Privacy Notice.\r\nWith Your Consent: Other than as set out
+    above, you will receive notice when information about you might go to third parties,
+    and you will have an opportunity to choose not to share the information.\r\nHow
+    Secure Is Information About Me?\r\nWe work to protect the security of your information
+    during transmission by using Secure Sockets Layer (SSL) software, which encrypts
+    information you input.\r\nWe reveal only the last four digits of your credit card
+    numbers when confirming an order. Of course, we transmit the entire credit card
+    number to the appropriate credit card company during order processing.\r\nIt is
+    important for you to protect against unauthorized access to your password and
+    to your computer. Be sure to sign off when finished using a shared computer.\r\nWhich
+    Information Can I Access?\r\nScuti.store gives you access to a broad range of
+    information about your account and your interactions with Scuti.store for the
+    limited purpose of viewing and, in certain cases, updating that information.\r\n\r\nWhat
+    Choices Do I Have?\r\nYou can always choose not to provide information, even though
+    it might be needed to make a purchase or to take advantage of such Scuti.store
+    features as Your Profile, Wish Lists , Customer Reviews, and Scuti\u2122 Rewards.\r\nYou
+    can add or update certain information on pages such as those referenced in the
+    Account section. When you update information, we usually keep a copy of the prior
+    version for our records.\r\nIf you do not want to receive e-mail or other mail
+    from us, please adjust your Customer Communication Preferences . (If you do not
+    want to receive Conditions of Use and other legal notices from us, such as this
+    Privacy Notice, those notices will still govern your use of Scuti.store, and it
+    is your responsibility to review them for changes.)\r\nIf you do not want us to
+    use personal information that we gather to allow third parties to personalize
+    advertisements and product promotions and deals we display to you, please adjust
+    your Advertising Preferences.\r\nThe Help feature on most browsers will tell you
+    how to prevent your browser from accepting new cookies, how to have the browser
+    notify you when you receive a new cookie, or how to disable cookies altogether.
+    Additionally, you can disable or delete similar data used by browser add-ons,
+    such as Flash cookies, by changing the add-on's settings or visiting the Web site
+    of its manufacturer. Because cookies allow you to take advantage of some of Scuti.store's
+    essential features, we recommend that you leave them turned on. For instance,
+    if you block or otherwise reject our cookies, you will not be able to add items
+    to your Shopping Cart, proceed to Checkout, or use any Scuti.store products and
+    services that require you to Sign in.\r\nAre Children Allowed to Use Scuti.com?\r\nScuti.com
+    does not sell products for purchase by children. We sell children's products for
+    purchase by adults. If you are under 18, you may use Scuti.store only with the
+    involvement of a parent or guardian. We do not knowingly collect personal information
+    from children under the age of 13 without the consent of the child's parent or
+    guardian.\r\n\r\nEU-US and Swiss-US Privacy Shield\r\nScuti\u2122 LLC. participates
+    in the EU-US and Swiss-US Privacy Shield frameworks.\r\n\r\nConditions of Use,
+    Notices, and Revisions\r\nIf you choose to visit Scuti.store, your visit and any
+    dispute over privacy is subject to this Notice and our Conditions of Use, including
+    limitations on damages, resolution of disputes, and application of the law of
+    the state of Connecticut. If you have any concern about privacy at Scuti.store,
+    please contact us with a thorough description, and we will try to resolve it.
+    Our business changes constantly, and our Privacy Notice and the Conditions of
+    Use will change also. We may e-mail periodic reminders of our notices and conditions,
+    but you should check our Web site frequently to see recent changes. Unless stated
+    otherwise, our current Privacy Notice applies to all information that we have
+    about you and your account. We stand behind the promises we make, however, and
+    will never materially change our policies and practices to make them less protective
+    of customer information collected in the past without the consent of affected
+    customers.\r\n\r\nExamples of Information Collected Information You Give Us\r\nYou
+    provide most such information when you search, buy, post a review, log in, participate
+    in a contest or questionnaire, or communicate with customer service. For example,
+    you provide information when you search for a product; place an order through
+    Scuti.store; provide information in Your Account (and you might have more than
+    one if you have used more than one e-mail address when shopping with us) or Your
+    Profile ; communicate with us by phone, e-mail, or otherwise; complete a questionnaire
+    or a contest entry form; view videos which provide Scuti\u2122 Crypto Rewards;
+    compile Wish Lists of brands; gift Scuti\u2122 Crypto Rewards; participate in
+    community features; provide and rate Reviews. As a result of those actions, you
+    might supply us with such information as your name, address, and phone numbers;
+    credit card information; people to whom purchases have been shipped, including
+    addresses and phone number; content of reviews and e-mails to us; and personal
+    profile information.\r\n\r\nAutomatic Information\r\nExamples of the information
+    we collect and analyze include the Internet protocol (IP) address used to connect
+    your computer to the Internet; login; e-mail address; password; computer and connection
+    information such as browser type, version, and time zone setting, browser plug-in
+    types and versions, operating system, and platform; purchase history, which we
+    sometimes aggregate with similar information from other customers to create features
+    like Top Sellers ; the full Uniform Resource Locator (URL) clickstream to, through,
+    and from our Web site, including date and time; cookie number; products you viewed
+    or searched for. We may also use browser data such as cookies, Flash cookies (also
+    known as Flash Local Shared Objects), or similar data on certain parts of our
+    Web site for fraud prevention and other purposes. During some visits we may use
+    software tools such as JavaScript to measure and collect session information,
+    including page response times, download errors, length of visits to certain pages,
+    page interaction information (such as scrolling, clicks, and mouse-overs), and
+    methods used to browse away from the page. We may also collect technical information
+    to help us identify your device for fraud prevention and diagnostic purposes.\r\n\r\nMobile\r\nMost
+    mobile devices provide users with the ability to disable location services. Most
+    likely, these controls are located in the device's settings menu. If you have
+    questions about how to disable your device's location services, we recommend you
+    contact your mobile service carrier or your device manufacturer.\r\n\r\nInformation
+    from Other Sources\r\nExamples of information we receive from other sources include
+    updated delivery and address information from our vendors, which we use to correct
+    our records and deliver your next purchase or communication more easily; account
+    information, purchase or redemption information, and page-view information from
+    some merchants with which we operate co-branded businesses or for which we provide
+    technical, fulfillment, advertising, or other services; search term and search
+    result information from some searches conducted through the Web search features.\r\n\r\nInformation
+    You Can Access\r\nExamples of information you can access easily at Scuti.store
+    include up-to-date information regarding recent orders; personally identifiable
+    information (including name, e-mail, password, communications and personalized
+    advertising preferences); payment settings (including credit card information
+    and promotional certificate and Scuti\u2122 Crypto balances); e-mail notification
+    settings (including Delivery status and newsletters); Recommendations (including
+    Recommended for You and Staff Recommendations); Scuti\u2122 rewads gifting; Vendor
+    Accounts; and Your Profile (including your product Reviews, Recommendations, personal
+    profile, and Wish List)."
