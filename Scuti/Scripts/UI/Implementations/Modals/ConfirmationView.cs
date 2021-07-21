@@ -42,8 +42,8 @@ namespace Scuti {
             graphic.sprite = null;
             headerText.text = string.Empty;
             bodyText.text = string.Empty;
-            negativeText.text = string.Empty;
-            positiveText.text = string.Empty;
+            if (negativeText) negativeText.text = string.Empty;
+            if (positiveButton) positiveText.text = string.Empty;
             return this;
         }
 
@@ -56,8 +56,8 @@ namespace Scuti {
             m_ButtonFlags = flags;
 
             crossButton.SetActive(flags.HasFlag(ButtonFlags.Cross));
-            negativeButton.SetActive(flags.HasFlag(ButtonFlags.Negative));
-            positiveButton.SetActive(flags.HasFlag(ButtonFlags.Positive));
+            if (positiveButton) negativeButton.SetActive(flags.HasFlag(ButtonFlags.Negative));
+            if(positiveButton) positiveButton.SetActive(flags.HasFlag(ButtonFlags.Positive));
             return this;
         }
 
@@ -119,9 +119,9 @@ namespace Scuti {
             else
                 instances[id] = this;
             onClosed.AddListener(() => m_Callback = null);
-            negativeButton.GetComponent<Button>().onClick.AddListener(OnClickNegative);
-            positiveButton.GetComponent<Button>().onClick.AddListener(OnClickPositive);
-            crossButton.GetComponent<Button>().onClick.AddListener(OnClickNegative);
+            if (negativeButton) negativeButton.GetComponent<Button>().onClick.AddListener(OnClickNegative);
+            if (positiveButton) positiveButton.GetComponent<Button>().onClick.AddListener(OnClickPositive);
+            if (crossButton) crossButton.GetComponent<Button>().onClick.AddListener(OnClickNegative);
         }
 
         void OnClickNegative() {
@@ -144,15 +144,15 @@ namespace Scuti {
                 graphic.sprite = defaultGraphic;
 
             // Ensure a header
-            if (headerText.text.IsNullOrEmpty())
+            if (headerText && headerText.text.IsNullOrEmpty())
                 headerText.text = "Confirmation required...";
 
             // Ensure a positive text. There should ALWAYS be a positive text
-            if (positiveText.text.IsNullOrEmpty())
+            if (positiveText && positiveText.text.IsNullOrEmpty())
                 positiveText.text = "Yes";
 
             // Ensure a negative text if the flags contain negative button and no text has been set
-            if (negativeText.text.IsNullOrEmpty() && m_ButtonFlags.HasFlag(ButtonFlags.Negative))
+            if (negativeText && negativeText.text.IsNullOrEmpty() && m_ButtonFlags.HasFlag(ButtonFlags.Negative))
                 negativeText.text = "No";
 
             await Task.WhenAll(
@@ -161,11 +161,11 @@ namespace Scuti {
             );
 
             await Task.WhenAll(
-                negativeButton.Refresh(),
-                positiveButton.Refresh()
+                negativeButton?.Refresh(),
+                positiveButton?.Refresh()
             );
 
-            await negativeButton.transform.parent.gameObject.Refresh();
+            await negativeButton?.transform.parent.gameObject.Refresh();
         }
     }
 } 

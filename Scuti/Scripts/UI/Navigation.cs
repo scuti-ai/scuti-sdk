@@ -145,7 +145,8 @@ namespace Scuti {
                 // may happen if we do deep linking or ads
                 if (CurrentNonModal == UIManager.OfferDetails) Open(UIManager.Offers);
                 else
-                    ScutiSDK.Instance.UnloadUI();
+                    UIManager.LogoutPopup.Show(OnClosePopUp);
+                
                 return;
             }
             else
@@ -157,6 +158,11 @@ namespace Scuti {
 
         public void Clear() {
             history.Clear();
+        }
+
+        private void OnClosePopUp(bool val)
+        {
+            ScutiSDK.Instance.UnloadUI();
         }
 
         internal BreadCrumbs GetHistory()
