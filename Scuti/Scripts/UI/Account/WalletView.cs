@@ -66,7 +66,7 @@ namespace Scuti.UI
                 if ((ScutiNetClient.Instance.gameInfo != null))
                 {
                     ExchangeRate = ScutiNetClient.Instance.gameInfo.Currency.ScutiExchangeRate.Value;
-                    ExchangeInstructions.text = "Exchange SCUTIS for " + ScutiNetClient.Instance.gameInfo.Currency.Name;
+                    ExchangeInstructions.text = "Exchange SCUTI for " + ScutiNetClient.Instance.gameInfo.Currency.Name;
                 }
                 else
                 {
@@ -105,7 +105,7 @@ namespace Scuti.UI
         {
             if (string.IsNullOrEmpty(ScutiInput.text))
             {
-                UIManager.Alert.SetHeader("Invalid Field").SetBody($"Please enter a number of SCUTIS to convert.").SetButtonText("OK").Show(() => { });
+                UIManager.Alert.SetHeader("Invalid Field").SetBody($"Please enter a number of SCUTI to convert.").SetButtonText("OK").Show(() => { });
                 return;
             }
 
@@ -136,13 +136,13 @@ namespace Scuti.UI
                     }
                     else
                     {
-                        UIManager.Alert.SetHeader("Not enough Scutis").SetBody($"You need to convert more Scutis in order to at least get 1 {ScutiNetClient.Instance.gameInfo.Currency.Name} ").SetButtonText("OK").Show(() => { });
+                        UIManager.Alert.SetHeader("Not enough Scutis").SetBody($"You need to convert more Scuti in order to at least get 1 {ScutiNetClient.Instance.gameInfo.Currency.Name} ").SetButtonText("OK").Show(() => { });
                     }
                 }
             }
             catch (Exception ex)
             {
-                UIManager.Alert.SetHeader("Failed to exchange").SetBody($"Failed to exchange {ScutiInput.text} scutis {ex.Message}").SetButtonText("OK").Show(() => { });
+                UIManager.Alert.SetHeader("Failed to exchange").SetBody($"Failed to exchange {ScutiInput.text} scuti {ex.Message}").SetButtonText("OK").Show(() => { });
                 ScutiLogger.LogException(ex);
             }
 
