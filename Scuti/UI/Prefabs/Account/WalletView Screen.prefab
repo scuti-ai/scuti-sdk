@@ -76,7 +76,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: SCUTIS OWNED
+  m_Text: SCUTI OWNED
 --- !u!1 &1023670604988128
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,7 +447,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: SCUTIS
+  m_Text: SCUTI
 --- !u!1 &1258425153459322
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,7 +524,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Enter # of SCUTIS to convert...'
+  m_Text: 'Enter # of SCUTI to convert...'
 --- !u!1 &1285044106125840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,7 +1480,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Exchange SCUTIS for in-game Currency
+  m_Text: Exchange SCUTI for in-game Currency
 --- !u!1 &1610883833325494
 GameObject:
   m_ObjectHideFlags: 0
