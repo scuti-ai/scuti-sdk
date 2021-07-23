@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Scuti;
+using Scuti.Net;
 
 namespace Scuti.UI {
     public class CartEntryPresenter : Presenter<CartEntryPresenter.Model> {
@@ -118,9 +119,24 @@ namespace Scuti.UI {
                     }
                 }
             };
+
+            
         }
 
-        private void RefreshVisuals()
+        public void Click()
+        {
+            OnClick();
+        }
+
+        private async void OnClick()
+        {
+            var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(state.campaignId);
+            var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
+            UIManager.OfferDetails.SetData(panelModel);
+            UIManager.Open(UIManager.OfferDetails);
+        }
+
+    private void RefreshVisuals()
         {
             titleText.text = Data.title;
             displayPriceText.text = "$ " + (Data.price.Value* Data.quantity).ToString("F2");

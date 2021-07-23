@@ -145,6 +145,11 @@ namespace Scuti.UI {
             get { return Overlay["CVV"] as TextInputView; }
         }
 
+        public static ConfirmationView LogoutPopup
+        {
+            get { return Overlay["LOGOUT-POPUP"] as ConfirmationView; }
+        }
+
         // ACCOUNT
         public static ViewSet Account {
             get { return instance.generator["ACCOUNT", true]; }

@@ -45,7 +45,10 @@ namespace Scuti.UI {
             title.text = Data.Title;
             subtitle.text = Data.Subtitle.ToUpper();
             subtitle.gameObject.SetActive(!string.IsNullOrWhiteSpace(subtitle.text));
-;            description.text = Data.Description;
+            //Debug.Log("----**----");
+            //Debug.Log(Data.Description);
+            //Debug.Log(Data.Description.Trim('\r', '\n', ' '));
+            description.text = Data.Description.Trim('\r', '\n', ' ');
 
             // Show ONLY THE FIRST promo that is applicable
             var list = new List<KeyValuePair<GameObject, bool>> {
