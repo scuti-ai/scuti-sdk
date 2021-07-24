@@ -477,7 +477,7 @@ namespace Scuti.UI
                 if(ScutiUtils.IsPortrait() && i<Data.Items.Count)
                 {
                      var widgetData = Data.Items[index];
-                    var isTall = !string.IsNullOrEmpty(widgetData.TallURL);
+                    var isTall = false;// !string.IsNullOrEmpty(widgetData.TallURL);
                     template  = (isTall)?  widgetPrefab_Large : widgetPrefab_Small;
                     container  = (isTall)?  container_Large : container_Small;
 
