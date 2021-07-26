@@ -253,7 +253,7 @@ namespace Scuti.UI
 
                 if(container_Video!=null && videoWidget!=null) 
                 {
-                    var videoOffers = await ScutiNetClient.Instance.Offer.GetOffers(CampaignType.Video, m_Pagination.Category, null, null, m_Pagination.VideoIndex, 1);
+                    var videoOffers = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Video }, FILTER_TYPE.Eq, m_Pagination.Category, null, null, m_Pagination.VideoIndex, 1);
                     if (videoOffers!=null && videoOffers.Count>0)
                     {
                         m_Pagination.VideoIndex++;
@@ -343,7 +343,7 @@ namespace Scuti.UI
             int actualCount = 0;
             try
             {
-                offers = await ScutiNetClient.Instance.Offer.GetOffers(CampaignType.Product, m_Pagination.Category, null, null, index, maxCount);
+                offers = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.Eq, m_Pagination.Category, null, null, index, maxCount);
                 actualCount = offers.Count;
             } catch (Exception e)
             {
@@ -364,7 +364,7 @@ namespace Scuti.UI
                     // Attempt to wrap back to the start
                     index = m_Pagination.Index;
                     m_Pagination.Index += maxCount;
-                    var results = await ScutiNetClient.Instance.Offer.GetOffers(CampaignType.Product, m_Pagination.Category, null, null, index, maxCount - actualCount);
+                    var results = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, maxCount - actualCount);
                     offers.AddRange(results);
                 }
             }

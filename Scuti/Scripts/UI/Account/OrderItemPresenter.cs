@@ -59,10 +59,10 @@ namespace Scuti.UI {
                 }
 
                 ItemLabel.text = GetProductName(Data.product);
-                if (Data.product.Option!=null && !string.IsNullOrEmpty(Data.product.Option.Image))
+                /*if (Data.product.Option!=null && !string.IsNullOrEmpty(Data.product.Option.Image))
                 {
                     PopulateImageFromVariant(Data.product.Option);
-                } else if(Data.product.Variant!=null && !string.IsNullOrEmpty(Data.product.Variant.Image))
+                } else */if(Data.product.Variant!=null && !string.IsNullOrEmpty(Data.product.Variant.Image))
                 {
                     PopulateImageFromVariant(Data.product.Variant);
                 } else
