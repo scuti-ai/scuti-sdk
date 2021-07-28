@@ -154,7 +154,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Conditions
+  m_Text: Terms of Service
 --- !u!1 &2560119430113578621
 GameObject:
   m_ObjectHideFlags: 0
