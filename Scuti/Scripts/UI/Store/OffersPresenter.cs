@@ -195,6 +195,7 @@ namespace Scuti.UI
         LoadedWidgetQueue loadedWidgetQueue = new LoadedWidgetQueue();
         async void ProcessLoadedWidgetQueue()
         {
+            Debug.LogError("=========== ProcessLoadedWidgetQueue ===========");
             while (true)
             {
                 if (!m_Paused && !m_ChangingCategories  && loadedWidgetQueue.Count > 0)
@@ -229,6 +230,7 @@ namespace Scuti.UI
             if (!m_Paused && GetNextRequestQueue.Count != 0)
             {
                 var request = GetNextRequestQueue.Dequeue();
+                Debug.LogError("=========== ProcessGetNextRequestQueue =========== "+ m_Pagination.Index);
                 var offers = await GetRange(m_Pagination.Index, 1, true);
                 OfferSummaryPresenter.Model model = null;
                 if (offers!=null && offers.Count > 0)
@@ -338,25 +340,28 @@ namespace Scuti.UI
         public async Task<List<Offer>> GetRange(int index, int maxCount, bool retry = true, bool resetOverride = false)
         {
             Debug.Log("Requesting Range " + retry);
+            //Debug.LogWarning("Requesting Range   index:" + index + "  m_Pagination.Index:" + m_Pagination.Index + "  maxcount:" + maxCount + "  retry:" + retry);
             m_Pagination.Index += maxCount;
             List<Offer> offers = null;
             int actualCount = 0;
             try
             {
-                offers = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.Eq, m_Pagination.Category, null, null, index, maxCount);
+                offers = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, maxCount);
                 actualCount = offers.Count;
             } catch (Exception e)
             {
                 ScutiLogger.LogException(e);
-                //Debug.LogError("TODO: show error message");
+                //Debug.LogError("TODO: show error message ");
                 return offers;
             }
+            //Debug.LogWarning("      actualCount" + actualCount  + "  maxcount:" + maxCount );
             if (actualCount < maxCount)
             {
                 if (m_Pagination.Index > index || resetOverride) m_Pagination.Index = 0; // only reset if it hasn't been already by another offer
 
                 if (actualCount == 0 && retry)
                 {
+                    //Debug.LogError("      *--* m_Pagination.Index:" + m_Pagination.Index);
                     return await GetRange(index, maxCount, false);
                 }
                 else
@@ -364,7 +369,9 @@ namespace Scuti.UI
                     // Attempt to wrap back to the start
                     index = m_Pagination.Index;
                     m_Pagination.Index += maxCount;
+                    //Debug.LogError("      ** m_Pagination.Index:" + m_Pagination.Index);
                     var results = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, maxCount - actualCount);
+                    //Debug.LogError("            ** results -->:" + results.Count);
                     offers.AddRange(results);
                 }
             }
