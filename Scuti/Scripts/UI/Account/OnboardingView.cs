@@ -111,9 +111,11 @@ namespace Scuti.UI
             navigation.Open(addressForm);
         }
 
+
         public void Cancel()
         {
-            UIManager.Open(UIManager.Offers);
+            UIManager.RefreshLoading();
+            Close();
         }
 
         public void ShowPrivacy()

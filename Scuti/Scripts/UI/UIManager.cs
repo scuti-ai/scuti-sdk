@@ -27,15 +27,33 @@ namespace Scuti.UI {
             LoadingBlocker.Close();
         }
 
-
-        public static void ShowLoading(string message = null)
+        protected int _loadingCount = 0;
+        public static void ShowLoading(bool useCount)
         {
+            if (useCount) instance._loadingCount++;
             instance.LoadingBlocker.Open();
         }
 
-        public static void HideLoading()
+        public static void HideLoading(bool useCount)
         {
-            instance.LoadingBlocker.Close();
+            if (useCount)
+            {
+                instance._loadingCount = Math.Max(instance._loadingCount-1, 0);
+                RefreshLoading();
+            }
+            else 
+                instance.LoadingBlocker.Close();
+        }
+
+        public static void RefreshLoading()
+        {
+            if (instance._loadingCount>0)
+            {
+                instance.LoadingBlocker.Open();
+            } else
+            {
+                instance.LoadingBlocker.Close();
+            }
         }
         
 

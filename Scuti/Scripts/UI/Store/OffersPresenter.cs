@@ -118,9 +118,11 @@ namespace Scuti.UI
         {
             var first = (firstOpen);// && !(Services.Offer is MockOfferService));
             base.Open();
-
             if (first)
+            {
+                UIManager.ShowLoading(true);
                 categoryNavigator.OpenCurrent();
+            }
             else
             {
                 ResumeAds();
@@ -230,13 +232,13 @@ namespace Scuti.UI
             if (!m_Paused && GetNextRequestQueue.Count != 0)
             {
                 var request = GetNextRequestQueue.Dequeue();
-                Debug.LogError("=========== ProcessGetNextRequestQueue =========== "+ m_Pagination.Index);
+                Debug.LogError("=========== ProcessGetNextRequestQueue =========== " + m_Pagination.Index);
                 var offers = await GetRange(m_Pagination.Index, 1, true);
                 OfferSummaryPresenter.Model model = null;
                 if (offers!=null && offers.Count > 0)
                 {
                     // TODO: make ads more precise here - mg. Request ad vs non-ad from server
-                    model = Mappers.GetOfferSummaryPresenterModel(offers[0], UnityEngine.Random.value < 0.2f);
+                    model = Mappers.GetOfferSummaryPresenterModel(offers[0], true);// UnityEngine.Random.value < 0.2f);
                 }
                 request?.Invoke(model);
             }
@@ -248,8 +250,9 @@ namespace Scuti.UI
         // ================================================
         public async void ShowCategory(string category)
         {
+
             if (TrySetCategory(category))
-            {
+            { 
                 m_ChangingCategories = true;
                 Clear();
 
@@ -269,7 +272,8 @@ namespace Scuti.UI
 
                 var offers = await GetRange(m_Pagination.Index, GetActiveMax(), true, true);
                 Data = Mappers.GetOffersPresenterModel(offers);
-            }
+            } 
+            UIManager.HideLoading(true);
         }
 
         private int GetActiveLarge()
@@ -524,11 +528,11 @@ namespace Scuti.UI
 
                 widget.OnClick += async () =>
                 {
+                    UIManager.ShowLoading(false);
                     var id = widget.Data.ID;
-
-
                     var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
                     var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
+
                     try
                     {
                         UIManager.OfferDetails.SetData(panelModel); 
@@ -541,6 +545,7 @@ namespace Scuti.UI
                         //UIManager.Open(UIManager.Offers);
                     }
 
+                    UIManager.HideLoading(false);
                 };
             }
 

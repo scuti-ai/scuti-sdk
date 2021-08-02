@@ -16,6 +16,10 @@ namespace Scuti
 
         void Start()
         {
+
+            UIManager.Open(UIManager.Offers);
+            UIManager.HideLoading(false);
+            UIManager.TopBar.Open();
             UIManager.Splash.ShowSplash(() =>
             {
                 OnSplashCompleted();
@@ -25,24 +29,27 @@ namespace Scuti
 
         private async void OnSplashCompleted()
         { 
-            UIManager.Open(UIManager.Offers);
-            UIManager.TopBar.Open();
             if (IsNewUser())
             {
                 bool shown = await ShowOffer();
                 if (!shown)
+                {
+                    UIManager.HideLoading(false);
                     UIManager.Open(UIManager.Welcome);
+                }
             }
             else
             {
-                UIManager.Open(UIManager.Offers);
-
                 var diff = await ScutiNetClient.TryToActivateRewards();
 
                 if (diff > 0)
                 {
+                    UIManager.HideLoading(false);
                     UIManager.Rewards.SetData(new RewardPresenter.Model() { reward = (int)diff, subtitle = "Collect your rewards!", title = "CONGRATULATIONS!" });
                     UIManager.Open(UIManager.Rewards);
+                } else
+                {
+                    UIManager.RefreshLoading();
                 }
                 await ShowOffer();
             }

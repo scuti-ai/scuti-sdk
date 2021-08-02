@@ -50,7 +50,7 @@ namespace Scuti.UI
             }
 
 
-            UIManager.ShowLoading();
+            UIManager.ShowLoading(false);
             string fullName = null;
             try
             {
@@ -59,11 +59,11 @@ namespace Scuti.UI
                 var response = await ScutiNetClient.Instance.GetAccountInfo();
                 fullName = response.fullName;
                 UIManager.TopBar.Refresh();
-                UIManager.HideLoading();
+                UIManager.HideLoading(false);
             }
             catch(Exception ex)
             {
-                UIManager.HideLoading();
+                UIManager.HideLoading(false);
                 ScutiLogger.LogError(ex);
                 loginButton.interactable = true;
                 string message = ex.Message;
@@ -131,7 +131,8 @@ namespace Scuti.UI
         public override void Cancel()
         {
             base.Cancel();
-            UIManager.Open(UIManager.Offers);
+            UIManager.RefreshLoading();
+            Close();
         }
     }
 }

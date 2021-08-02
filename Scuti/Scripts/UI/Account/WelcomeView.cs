@@ -90,7 +90,7 @@ namespace Scuti.UI
 
         public void ContinueWithoutRegistering()
         {
-            UIManager.Open("STORE", "OFFERS");
+            UIManager.RefreshLoading();
             Close();
         }
 

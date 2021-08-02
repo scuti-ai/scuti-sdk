@@ -23,13 +23,13 @@ namespace Scuti
         public static OffersPresenter.Model GetOffersPresenterModel(List<Offer> offers)
         {
             var result = new OffersPresenter.Model();
-            var allowAd = UIManager.IsLargeDisplay() ? 5 : 2;
+            //var allowAd = UIManager.IsLargeDisplay() ? 5 : 2;
             if (offers != null)
             {
                 offers.ToList().ForEach(offer =>
                 {
-                    var element = GetOfferSummaryPresenterModel(offer, allowAd > 0);
-                    if (element.DisplayAd) allowAd--;
+                var element = GetOfferSummaryPresenterModel(offer, true);// allowAd > 0);
+                    //if (element.DisplayAd) allowAd--;
                     result.Items.Add(element);
                 });
             }
@@ -65,7 +65,7 @@ namespace Scuti
             bool displayAd = allowAd;
             if (displayAd || !string.IsNullOrEmpty(offer.Media.VideoUrl) && offer.Media.Banner!=null)
             {
-                displayAd = !string.IsNullOrEmpty(offer.Media.Banner.TallUrl) || !string.IsNullOrEmpty(offer.Media.Banner.SmallUrl);
+                displayAd = (!ScutiUtils.IsPortrait() && !string.IsNullOrEmpty(offer.Media.Banner.TallUrl)) || !string.IsNullOrEmpty(offer.Media.Banner.SmallUrl);
             }
             if (offer.Product == null)
             {
