@@ -71,7 +71,7 @@ namespace Scuti.UI
                     CurrentState = State.Loading;
 
                     var url = ImageURL;
-                   
+
                     if (!string.IsNullOrEmpty(url))
                     {
                         //TODO: review this, had to check if image was from shopify because some images wasn't from shopify and I was getting an error
@@ -174,7 +174,7 @@ namespace Scuti.UI
         private bool loadingNextCompleted = false;
         private bool _isStatic = false;
         private bool _isPortrait = false;
-        
+
         [Serializable]
         public struct VisualRules
         {
@@ -472,7 +472,7 @@ namespace Scuti.UI
         // Updates UI based on values on View.Data
         void UpdateUI()
         {
-            titleText.text = Data.Title;
+            titleText.text = TextElipsis(Data.Title);
             displayPriceText.text = ScutiUtils.FormatPrice(Data.DisplayPrice);
 
             //  New and Hot Badges only in portrait
@@ -524,6 +524,11 @@ namespace Scuti.UI
             }
         }
 
+        private string TextElipsis(string text, int truncateSize = 26)
+        {
+	        if(text.Length > truncateSize) return text.Remove(truncateSize) + "...";
+	        return text;
+        }
         private void OnEnable()
         {
             if(m_showing)
