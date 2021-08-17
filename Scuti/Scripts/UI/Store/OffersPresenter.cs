@@ -35,6 +35,8 @@ namespace Scuti.UI
                 get { return _index; }
                 set { _index = value; }
             }
+
+            public int TotalCount;
         }
 
         [SerializeField] CategoryNavigator categoryNavigator;
@@ -63,6 +65,7 @@ namespace Scuti.UI
         [Header("Instantiation")]
         [SerializeField] OfferSummaryPresenter widgetPrefab_Large;
         [SerializeField] OfferSummaryPresenter widgetPrefab_Small;
+        [SerializeField] OfferSummaryRowPresenter widgetPrefab_Double;
         [SerializeField] Transform container_Large;
         [SerializeField] Transform container_Small;
         [SerializeField] Transform container_Video;
@@ -75,6 +78,8 @@ namespace Scuti.UI
             public Color32 Glow;
         }
 
+
+        public ScutiInfiniteScroll InfinityScroll;
 
         [Header("Customization")]
         [SerializeField] Image bannerImage;
@@ -93,7 +98,10 @@ namespace Scuti.UI
 
         private Vector3 _largeContainerDefaultPosition;
 
+        GetNextRequestQueue GetNextRequestQueue = new GetNextRequestQueue();
+        bool m_requestOffersInProgress = false;
         Pagination m_Pagination;
+        int m_offerIndex;
         Dictionary<string, Pagination> m_PaginationMap = new Dictionary<string, Pagination>();
         List<OfferSummaryPresenter> m_Instantiated = new List<OfferSummaryPresenter>();
 
@@ -222,27 +230,7 @@ namespace Scuti.UI
                 m_Pagination.VideoIndex = 0;
         }
 
-        GetNextRequestQueue GetNextRequestQueue = new GetNextRequestQueue();
-        async void ProcessGetNextRequestQueue()
-        {
-            bool shouldUpdate = ShouldUpdateOffers;
-            if (shouldUpdate && m_Paused) ResumeAds();
-            else if (!shouldUpdate && !m_Paused) PauseAds();
-
-            if (!m_Paused && GetNextRequestQueue.Count != 0)
-            {
-                var request = GetNextRequestQueue.Dequeue();
-                Debug.LogError("=========== ProcessGetNextRequestQueue =========== " + m_Pagination.Index);
-                var offers = await GetRange(m_Pagination.Index, 1, true);
-                OfferSummaryPresenter.Model model = null;
-                if (offers!=null && offers.Count > 0)
-                {
-                    // TODO: make ads more precise here - mg. Request ad vs non-ad from server
-                    model = Mappers.GetOfferSummaryPresenterModel(offers[0], true);// UnityEngine.Random.value < 0.2f);
-                }
-                request?.Invoke(model);
-            }
-        }
+       
 #endregion
 
         // ================================================
@@ -258,20 +246,18 @@ namespace Scuti.UI
 
                 if(container_Video!=null && videoWidget!=null) 
                 {
-                    var videoOffers = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Video }, FILTER_TYPE.Eq, m_Pagination.Category, null, null, m_Pagination.VideoIndex, 1);
-                    if (videoOffers!=null && videoOffers.Count>0)
+                    var offersPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Video }, FILTER_TYPE.Eq, m_Pagination.Category, null, null, m_Pagination.VideoIndex, 1);
+                    if (offersPage != null && offersPage.Nodes != null && offersPage.Nodes.Count>0)
                     {
                         m_Pagination.VideoIndex++;
-                        ShowVideo(videoOffers[0]);
+                        ShowVideo((offersPage.Nodes as List<Offer>)[0]);
                     } else
                     {
                         m_Pagination.VideoIndex=0;
                         HideVideo();
                     }
                 }
-
-                var offers = await GetRange(m_Pagination.Index, GetActiveMax(), true, true);
-                Data = Mappers.GetOffersPresenterModel(offers);
+                await RequestMoreOffers(true);
             } 
             UIManager.HideLoading(true);
         }
@@ -341,45 +327,66 @@ namespace Scuti.UI
         /// <summary>
         /// Returns a list of offers, based on the current paginataion status
         /// </summary>
-        public async Task<List<Offer>> GetRange(int index, int maxCount, bool retry = true, bool resetOverride = false)
+        public async Task RequestMoreOffers(bool replaceData)
         {
-            Debug.Log("Requesting Range " + retry);
+            var index = m_Pagination.Index;
+            var maxCount = GetActiveMax() * 2;
+
             //Debug.LogWarning("Requesting Range   index:" + index + "  m_Pagination.Index:" + m_Pagination.Index + "  maxcount:" + maxCount + "  retry:" + retry);
             m_Pagination.Index += maxCount;
-            List<Offer> offers = null;
-            int actualCount = 0;
+            OfferPage offerPage = null;
             try
             {
-                offers = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, maxCount);
-                actualCount = offers.Count;
+                offerPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, maxCount);
             } catch (Exception e)
             {
                 ScutiLogger.LogException(e);
                 //Debug.LogError("TODO: show error message ");
-                return offers;
             }
-            //Debug.LogWarning("      actualCount" + actualCount  + "  maxcount:" + maxCount );
-            if (actualCount < maxCount)
-            {
-                if (m_Pagination.Index > index || resetOverride) m_Pagination.Index = 0; // only reset if it hasn't been already by another offer
 
-                if (actualCount == 0 && retry)
+            if (offerPage != null)
+            {
+                m_Pagination.TotalCount = offerPage.Paging.TotalCount.GetValueOrDefault(0);
+                if (replaceData)
                 {
-                    //Debug.LogError("      *--* m_Pagination.Index:" + m_Pagination.Index);
-                    return await GetRange(index, maxCount, false);
+                    Data = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>);
                 }
                 else
                 {
-                    // Attempt to wrap back to the start
-                    index = m_Pagination.Index;
-                    m_Pagination.Index += maxCount;
-                    //Debug.LogError("      ** m_Pagination.Index:" + m_Pagination.Index);
-                    var results = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, maxCount - actualCount);
-                    //Debug.LogError("            ** results -->:" + results.Count);
-                    offers.AddRange(results);
+                    var appendData = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>);
+                    Data.Items.AddRange(appendData.Items);
                 }
             }
-            return offers;
+            else
+            {
+                if (replaceData)
+                {
+                    m_Pagination.TotalCount = 0;
+                    Data = null;
+                }
+            }
+            //Debug.LogWarning("      actualCount" + actualCount  + "  maxcount:" + maxCount );
+            ////if (actualCount < maxCount)
+            ////{
+            ////    if (m_Pagination.Index > index || resetOverride) m_Pagination.Index = 0; // only reset if it hasn't been already by another offer
+
+            ////    if (actualCount == 0 && retry)
+            ////    {
+            ////        //Debug.LogError("      *--* m_Pagination.Index:" + m_Pagination.Index);
+            ////        return await GetRange(index, maxCount, false);
+            ////    }
+            ////    else
+            ////    {
+            ////        // Attempt to wrap back to the start
+            ////        index = m_Pagination.Index;
+            ////        m_Pagination.Index += maxCount;
+            ////        //Debug.LogError("      ** m_Pagination.Index:" + m_Pagination.Index);
+            ////        var results = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, maxCount - actualCount);
+            ////        //Debug.LogError("            ** results -->:" + results.Count);
+            ////        if(results!=null && results.Nodes.Count>0)
+            ////            offerPage.Nodes.AddRange(results.Nodes);
+            ////    }
+            ////}
         }
 
         // Maintains a queue of requests that fetches them one by one. This is 
@@ -395,6 +402,7 @@ namespace Scuti.UI
 
         public void Clear()
         {
+            m_offerIndex = 0;
             if (_loadingSource != null)
             {
                 _loadingSource.Cancel();
@@ -470,11 +478,182 @@ namespace Scuti.UI
             Clear();
 #pragma warning disable 4014
             _loadingSource = new CancellationTokenSource();
-            PopulateOffers(_loadingSource.Token);
+            if (ScutiUtils.IsPortrait())
+                PopulatePortraitOffers(_loadingSource.Token);
+            else 
+                PopulateLandscapeOffers(_loadingSource.Token);
 #pragma warning restore 4014
         }
 
-        async private Task PopulateOffers(CancellationToken cancelToken)
+        void ProcessGetNextRequestQueue()
+        {
+            bool shouldUpdate = ShouldUpdateOffers;
+            if (shouldUpdate && m_Paused) ResumeAds();
+            else if (!shouldUpdate && !m_Paused) PauseAds();
+
+            if (!m_Paused && GetNextRequestQueue.Count != 0)
+            {
+                if(m_offerIndex > m_Pagination.Index/2 && m_Pagination.Index<m_Pagination.TotalCount)
+                {
+                    Debug.Log("Requesting Data:" + m_offerIndex+ " vs " + Data.Items.Count + " index: " + m_Pagination.Index +" and " + m_Pagination.TotalCount);
+#pragma warning disable 4014
+                    RequestMoreOffers(false);
+#pragma warning restore 4014
+                }
+                if (m_offerIndex < Data.Items.Count)
+                {
+
+                    var request = GetNextRequestQueue.Dequeue();
+                    Debug.LogError("=========== ProcessGetNextRequestQueue =========== " + m_offerIndex);
+                    var model = Data.Items[m_offerIndex];
+                    model.Index = m_offerIndex;
+                    m_offerIndex++;
+                    request?.Invoke(model);
+                } else if(m_offerIndex >= m_Pagination.TotalCount)
+                {
+                    m_offerIndex = 0;
+                }
+            }
+        }
+
+        async private Task PopulatePortraitOffers(CancellationToken cancelToken)
+        {
+            var max = Math.Min(GetActiveMax(), Data.Items.Count);
+            int colorCount = 0;
+            int adTakeOverCount = 0;
+            int productCount = 0;
+            for (int i = 0; i < max; i++)
+            {
+
+                var widgetData = Data.Items[i];
+
+                if (widgetData.DisplayAd)
+                {
+                    adTakeOverCount++;
+                } else
+                {
+                    productCount++;
+                }
+            }
+            m_offerIndex = max;
+
+            // Sometimes in the 2 column ads we have to jump ahead. This stores which ones we have already shown so we can skip    
+            HashSet<int> skipIds = new HashSet<int>();
+
+            MonoBehaviour template;
+            Transform container = container_Small;
+            for (int i = 0; i < max; i++)
+            {
+                if (skipIds.Contains(i)) continue;
+
+                if (cancelToken.IsCancellationRequested) return;
+
+                var widgetData = Data.Items[i];
+                if(widgetData.DisplayAd)
+                {
+                    template = widgetPrefab_Small;
+                    adTakeOverCount--;
+                } else
+                {
+                    productCount--;
+                    if(productCount<1)
+                    {
+                        template = widgetPrefab_Small;
+                    } else
+                    {
+                        template = widgetPrefab_Double;
+                    }
+                }
+               
+                var mono = Instantiate(template, container);
+
+                List<OfferSummaryPresenter> offers = new List<OfferSummaryPresenter>();
+                List<OfferSummaryPresenter.Model> datas = new List<OfferSummaryPresenter.Model>();
+                if (template == widgetPrefab_Double)
+                {
+                    var multi = mono as OfferSummaryRowPresenter;
+                    offers.AddRange(multi.Presenters);
+                    datas.Add(widgetData);
+
+                    for(int n = i+1; n<max; n++)
+                    {
+
+                        var secondWidget = Data.Items[n];
+                        if (secondWidget.DisplayAd) continue;
+                        datas.Add(secondWidget);
+                        skipIds.Add(n);
+                        productCount--;
+                        break;
+                    }
+                }
+                else
+                {
+                    offers.Add(mono as OfferSummaryPresenter);
+                    datas.Add(widgetData);
+                }
+
+                for (var w = 0; w < offers.Count; w++)
+                {
+                    var widget = offers[w];
+                    widgetData = null;
+                    if (w < datas.Count)
+                    {
+                        widgetData = datas[w];
+                    }
+
+                    m_Instantiated.Add(widget);
+                    widget.gameObject.hideFlags = HideFlags.DontSave;
+                    widget.Inject(GetNext);
+                    var colorData = GetColorInfo(colorCount++);
+                    widget.SetColorData(colorData.Background, colorData.Glow);
+               
+
+                    await Task.Delay((int)(instantiationInterval * 1000));
+
+                    if (cancelToken.IsCancellationRequested) return;
+
+                    widgetData.Index = w+i;
+                    widget.Data = widgetData;
+                    widget.Data.IsTall = false;
+                    widget.Data.LoadImage();
+                    widget.OnLoaded += OnWidgetLoaded;
+
+                    widget.OnClick += async () =>
+                    {
+                        UIManager.ShowLoading(false);
+                        var id = widget.Data.ID;
+                        var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
+                        var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
+
+                        try
+                        {
+                            UIManager.OfferDetails.SetData(panelModel);
+                            UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(widget.Data.VideoURL));
+                            UIManager.Open(UIManager.OfferDetails);
+                        }
+                        catch (Exception e)
+                        {
+                            ScutiLogger.LogException(e);
+                            UIManager.Alert.SetHeader("Out of Stock").SetBody("This item is out of stock. Please try again later.").SetButtonText("OK").Show(() => { });
+                            //UIManager.Open(UIManager.Offers);
+                        }
+
+                        UIManager.HideLoading(false);
+                    };
+                }
+            }
+
+
+            await Task.Delay(250);
+            //Debug.LogWarning(container_Large.childCount+"   ++++++++++++++    "+ container_Small.childCount);
+            Debug.LogError("CHECK OUBND");
+            //InfinityScroll.CheckBounds();
+
+            OnPopulateFinished?.Invoke();
+            m_ChangingCategories = false;
+        }
+
+        async private Task PopulateLandscapeOffers(CancellationToken cancelToken)
         {
             for (int i = 0; i < GetActiveMax(); i++)
             {
@@ -485,20 +664,11 @@ namespace Scuti.UI
                 Transform container;
 
                 var index = i;
-                if(ScutiUtils.IsPortrait() && i<Data.Items.Count)
-                {
-                     var widgetData = Data.Items[index];
-                    var isTall = false;// !string.IsNullOrEmpty(widgetData.TallURL);
-                    template  = (isTall)?  widgetPrefab_Large : widgetPrefab_Small;
-                    container  = (isTall)?  container_Large : container_Small;
-
-
-                } else {
+                
                     // Based on the index, the template and container are chosen.
                     // Currently, the first two offers are large, the other are small
                     template = GetTemplateForIndex(index);
                     container = GetContainerForIndex(index);
-                }
                 var widget = Instantiate(template, container);
                 m_Instantiated.Add(widget);
                 widget.gameObject.hideFlags = HideFlags.DontSave;
@@ -521,6 +691,7 @@ namespace Scuti.UI
                 }
 
                 widget.Data = Data.Items[index];
+                widget.Data.Index = index;
                 widget.Data.IsTall = widget.IsTall;
                 widget.Data.LoadImage();
                 widget.OnLoaded += OnWidgetLoaded;

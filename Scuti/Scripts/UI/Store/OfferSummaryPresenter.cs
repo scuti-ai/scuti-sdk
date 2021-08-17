@@ -34,6 +34,8 @@ namespace Scuti.UI
             }
             public string ID;
 
+            public int Index;
+
             public string ImageURL;
             public string TallURL;
             public string SmallURL;
@@ -66,6 +68,7 @@ namespace Scuti.UI
 
             public void LoadImage()
             {
+                Debug.Log("LoadImage: " + Title +" : "+Index);
                 if (texture == null)
                 {
                     CurrentState = State.Loading;
@@ -248,8 +251,20 @@ namespace Scuti.UI
             CheckReady();
         }
 
+        public void OnScrollIndexJumped()
+        {
+            Debug.Log("Index jump "+Data.Index);
+            SwapToNext();
+        }
+
         public void OnRotateOutComplete()
         {
+            SwapToNext();
+        }
+
+        private void SwapToNext()
+        { 
+
             if (HasNext)
             {
                 Data = Next;
@@ -257,6 +272,9 @@ namespace Scuti.UI
                 DisplayCurrentImage();
                 ResetTimer();
                 LoadCompleted();
+            } else
+            {
+                Debug.Log("Does not have next! " + Data.Index);
             }
         }
 
@@ -267,11 +285,12 @@ namespace Scuti.UI
         }
 
         private async void LoadNext()
-        {
+        { 
             loadingNextCompleted = false;
             if (!_isStatic)
             {
                 Next = await m_NextRequest();
+                Debug.Log("Load Next from: " + gameObject + "  "+ Data.Index +"  to " + Next.Title +" : "+Next.Index);
                 if (Next != null)
                 {
                     Next.IsTall = IsTall;
@@ -388,7 +407,6 @@ namespace Scuti.UI
             {
                 if (loadingNextCompleted && timerCompleted)
                 {
-
                     animator.SetTrigger("Rotate");
                 }
             }
@@ -457,6 +475,7 @@ namespace Scuti.UI
 
         private void OnNextStateChanged(Model.State state)
         {
+            Debug.Log(gameObject + " state " + state);
             switch (state)
             {
                 case Model.State.Loaded:

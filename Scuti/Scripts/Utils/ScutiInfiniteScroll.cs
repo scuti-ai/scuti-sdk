@@ -237,6 +237,12 @@ namespace Scuti.UI
             if (_count < 5)
                 return;
 
+                CheckBounds();
+            
+        }
+
+        public void CheckBounds()
+        {
             //Debug.LogWarning(" --==*==-- OnScroll::  ");
             if (!_hasDisabledGridComponents)
             {
@@ -246,6 +252,7 @@ namespace Scuti.UI
 
             try
             {
+
                 for (int i = 0; i < items.Count; i++)
                 {
                     if (_isHorizontal)
@@ -287,12 +294,11 @@ namespace Scuti.UI
             }
             catch (System.Exception e)
             {
-                Debug.LogWarning("ERROR  OnScroll:: " + e.Message);
+                ScutiLogger.LogError("ERROR  OnScroll:: " + e.Message);
                 ResetItems();
                 CleanupItems();
                 EnableGridComponents();
             }
-            
         }
 
         public void CleanupItems()

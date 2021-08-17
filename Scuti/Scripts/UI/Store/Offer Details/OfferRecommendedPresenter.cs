@@ -36,10 +36,10 @@ namespace Scuti.UI {
             if (!string.IsNullOrEmpty(shopName))
             {
                 var offers = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, null, shopName, null, 0, MaxRecommendations+1);
-                if (offers.Count > 0)
+                if (offers.Nodes.Count > 0)
                 {
                     var tempData = new Model() { Items = new List<OfferSummaryPresenter.Model>() };
-                    foreach (var offer in offers)
+                    foreach (var offer in offers.Nodes)
                     {
                         if (offer.Id.ToString() != currentOfferId)
                         {
