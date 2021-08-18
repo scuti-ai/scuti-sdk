@@ -1402,7 +1402,7 @@ MonoBehaviour:
       m_Calls: []
   Transitions:
   - {fileID: 114249723547382024}
-  categoryNavigator: {fileID: 0}
+  categoryNavigator: {fileID: 114184712863313622}
   offerDataToRequest: 6
   instantiationInterval: 0.01
   showInterval: 0.35
