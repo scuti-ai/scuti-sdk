@@ -20,9 +20,9 @@ namespace Scuti
         // ================================================
         #region OFFERS
         // ================================================
-        public static OffersPresenter.Model GetOffersPresenterModel(List<Offer> offers)
+        public static OffersPresenterBase.Model GetOffersPresenterModel(List<Offer> offers)
         {
-            var result = new OffersPresenter.Model();
+            var result = new OffersPresenterBase.Model();
             //var allowAd = UIManager.IsLargeDisplay() ? 5 : 2;
             if (offers != null)
             {
@@ -57,7 +57,7 @@ namespace Scuti
         // ================================================
         #region OFFER SUMMARY
         // ================================================
-        public static OfferSummaryPresenter.Model GetOfferSummaryPresenterModel(Offer offer, bool allowAd)
+        public static OfferSummaryPresenterBase.Model GetOfferSummaryPresenterModel(Offer offer, bool allowAd)
         {
             List<string> images = new List<string>();
             if (offer != null && offer.Media?.Images != null) images = offer.Media.Images.ToList();
@@ -81,7 +81,7 @@ namespace Scuti
             if (offer.Reward != null) scutis = (int)offer.Reward.Scutis.Value;
             decimal rating = 0;
             if (offer.Review != null) rating = offer.Review.Score.Value;
-            return new OfferSummaryPresenter.Model
+            return new OfferSummaryPresenterBase.Model
             {
                 ID = offer.Id.ToString(),
                 ImageURL = images != null && images.Count > 0 ? images[0] : string.Empty,

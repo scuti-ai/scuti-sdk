@@ -8,8 +8,8 @@ using Scuti.Net;
 
 namespace Scuti.UI
 {
-    public class OfferSummaryRowPresenter : View
+    public class OfferSummaryPresenterPortrait : View
     {
-        public List<OfferSummaryPresenter> Presenters;
+        public List<OfferSummaryPresenterBase> Presenters;
     }
 }

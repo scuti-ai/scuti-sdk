@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 224690033223385222}
   - component: {fileID: 222989610099630442}
-  - component: {fileID: 114463846195168704}
   - component: {fileID: 225962566206600840}
   - component: {fileID: 114681755075516548}
   - component: {fileID: 114806180505998378}
+  - component: {fileID: 681615804673716591}
   m_Layer: 5
   m_Name: Offers Panel (Portrait)
   m_TagString: Untagged
@@ -51,140 +51,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388535844230700}
   m_CullTransparentMesh: 0
---- !u!114 &114463846195168704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388535844230700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf2abd582807f4d429c4bd58d783387d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isModal: 0
-  m_State: 3
-  requiresLogin: 0
-  alwaysEnabled: 1
-  displayEvents: 1
-  onStartOpening:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114681755075516548}
-        m_MethodName: TransitionIn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onOpened:
-    m_PersistentCalls:
-      m_Calls: []
-  onStartClosing:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114681755075516548}
-        m_MethodName: TransitionOut
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onClosed:
-    m_PersistentCalls:
-      m_Calls: []
-  Transitions:
-  - {fileID: 114681755075516548}
-  categoryNavigator: {fileID: 339773384690368085}
-  maxOffers: 12
-  videoOfferBackFill: 3
-  largeOffers: 0
-  showDuration: 10
-  instantiationInterval: 0.01
-  showInterval: 0.35
-  clearInitialElements: 1
-  widgetPrefab_Large: {fileID: 114999437136715084, guid: ebd9c7148f70262469779acab19fcc31,
-    type: 3}
-  widgetPrefab_Small: {fileID: 114538486965266772, guid: 8ff8e711ca86894419e5ca8a70d91d98,
-    type: 3}
-  widgetPrefab_Double: {fileID: 8649710524967610706, guid: e4c5d011896d7de4383b6ef9d9a88804,
-    type: 3}
-  container_Large: {fileID: 1937714000244129893}
-  container_Small: {fileID: 1937714000244129893}
-  container_Video: {fileID: 0}
-  videoWidget: {fileID: 0}
-  bannerImage: {fileID: 114112696992075480}
-  backgrounds:
-  - {fileID: 21300000, guid: 4912adc423f809f489d69d1562920653, type: 3}
-  - {fileID: 21300000, guid: 0d1a345edb09d7343b6219937bf55ea9, type: 3}
-  - {fileID: 21300000, guid: d1a5b6e72de2a0e4eb111c0ee8f1e3b2, type: 3}
-  - {fileID: 21300000, guid: 40036f13fb9675944b7650c48278109e, type: 3}
-  - {fileID: 21300000, guid: 279e6c333cbb2ca4c9ffc220c8d8979d, type: 3}
-  - {fileID: 21300000, guid: 625f4b7e87c954e4ebfa91341de0ac2d, type: 3}
-  colorInfo:
-  - Background: {fileID: 21300000, guid: 4912adc423f809f489d69d1562920653, type: 3}
-    Glow:
-      serializedVersion: 2
-      rgba: 4286792959
-  - Background: {fileID: 21300000, guid: 0d1a345edb09d7343b6219937bf55ea9, type: 3}
-    Glow:
-      serializedVersion: 2
-      rgba: 4294921385
-  - Background: {fileID: 21300000, guid: d1a5b6e72de2a0e4eb111c0ee8f1e3b2, type: 3}
-    Glow:
-      serializedVersion: 2
-      rgba: 4281658516
-  - Background: {fileID: 21300000, guid: 40036f13fb9675944b7650c48278109e, type: 3}
-    Glow:
-      serializedVersion: 2
-      rgba: 4294921728
-  - Background: {fileID: 21300000, guid: 279e6c333cbb2ca4c9ffc220c8d8979d, type: 3}
-    Glow:
-      serializedVersion: 2
-      rgba: 4293647360
-  - Background: {fileID: 21300000, guid: 625f4b7e87c954e4ebfa91341de0ac2d, type: 3}
-    Glow:
-      serializedVersion: 2
-      rgba: 4282029311
-  Banner: {fileID: 114088850072355282}
-  TimeoutTimer: {fileID: 114806180505998378}
-  OnPopulateFinished:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3382885436544687115}
-        m_MethodName: Init
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnClearFinished:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3382885436544687115}
-        m_MethodName: ResetItems
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!225 &225962566206600840
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -252,6 +118,62 @@ MonoBehaviour:
   mode: 0
   useUnscaledTime: 0
   m_State: 2
+--- !u!114 &681615804673716591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388535844230700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89d15b812437ae046afb7a9e62852f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isModal: 0
+  m_State: 3
+  requiresLogin: 0
+  alwaysEnabled: 0
+  displayEvents: 0
+  onStartOpening:
+    m_PersistentCalls:
+      m_Calls: []
+  onOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  onStartClosing:
+    m_PersistentCalls:
+      m_Calls: []
+  onClosed:
+    m_PersistentCalls:
+      m_Calls: []
+  Transitions: []
+  categoryNavigator: {fileID: 0}
+  offerDataToRequest: 6
+  instantiationInterval: 0.5
+  showInterval: 0.5
+  clearInitialElements: 1
+  bannerImage: {fileID: 0}
+  backgrounds: []
+  colorInfo: []
+  TimeoutTimer: {fileID: 0}
+  Banner: {fileID: 0}
+  OnPopulateFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClearFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  maxOffers: 6
+  videoOfferBackFill: 3
+  largeOffers: 2
+  showDuration: 10
+  widgetPrefab_Large: {fileID: 0}
+  widgetPrefab_Small: {fileID: 0}
+  container_Large: {fileID: 0}
+  container_Small: {fileID: 0}
+  container_Video: {fileID: 0}
+  videoWidget: {fileID: 0}
 --- !u!1 &1910263493052902
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,15 +762,3 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 369860965427138613}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &339773384690368085 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114028708058672736, guid: b332b56cb2338bb4aa1cea867241093f,
-    type: 3}
-  m_PrefabInstance: {fileID: 369860965427138613}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82524e26630a5ff42bf1a76c0149efd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

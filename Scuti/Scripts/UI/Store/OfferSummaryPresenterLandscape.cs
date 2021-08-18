@@ -8,126 +8,15 @@ using Scuti.Net;
 
 namespace Scuti.UI
 {
-    public class OfferSummaryPresenter : Presenter<OfferSummaryPresenter.Model>
+    public class OfferSummaryPresenterLandscape : OfferSummaryPresenterBase 
     {
-        [Serializable]
-        public class Model : Presenter.Model
-        {
-            public enum State
-            {
-                Loading,
-                Loaded,
-                Failed
-            }
-
-            public event Action<State> OnStateChanged;
-
-            [SerializeField] State state;
-            public State CurrentState
-            {
-                get { return state; }
-                private set
-                {
-                    state = value;
-                    OnStateChanged?.Invoke(state);
-                }
-            }
-            public string ID;
-
-            public int Index;
-
-            public string ImageURL;
-            public string TallURL;
-            public string SmallURL;
-            public string VideoURL;
-            public string Title;
-            public string DisplayPrice;
-            public string Description;
-            public float Rating;
-
-            public int Scutis;
-
-            public bool IsNew;
-            public bool IsHot;
-
-            public bool IsRecommended;
-            public bool IsHotPrice;
-            public bool IsBestSeller;
-            public bool IsFeatured;
-            public bool IsMoreExposure;
-            public bool IsSpecialOffer;
-            public bool IsScuti;
-
-            public bool DisplayAd = false;
-            public bool IsTall = false;
-
-
-            [SerializeField] Texture2D texture;
-            public Texture2D Texture { get { return texture; } }
-            string[] separator = { "?v=" };
-
-            public void LoadImage()
-            {
-                Debug.Log("LoadImage: " + Title +" : "+Index);
-                if (texture == null)
-                {
-                    CurrentState = State.Loading;
-
-                    var url = ImageURL;
-
-                    if (!string.IsNullOrEmpty(url))
-                    {
-                        //TODO: review this, had to check if image was from shopify because some images wasn't from shopify and I was getting an error
-                        if (url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1)
-                            url = url.Insert(url.LastIndexOf("."), "_large");
-                        if (DisplayAd)
-                        {
-                            if (IsTall && !string.IsNullOrEmpty(TallURL))
-                            {
-                                url = TallURL;
-                            }
-                            else if (!IsTall && !string.IsNullOrEmpty(SmallURL))
-                            {
-                                url = SmallURL;
-                            }
-                            else
-                            {
-                                DisplayAd = false;
-                            }
-                        }
-                        ImageDownloader.New().Download(url,
-                            result =>
-                            {
-                                texture = result;
-                                CurrentState = State.Loaded;
-
-                            },
-                            error =>
-                            {
-                                ScutiLogger.LogError("Failed to load: " + url + " for " + Title);
-                                CurrentState = State.Failed;
-                            }
-                        );
-                    }
-                    else
-                    {
-                        CurrentState = State.Failed;
-                    }
-                }
-            }
-
-            public override void Dispose()
-            {
-                base.Dispose();
-                if (texture != null) Destroy(texture);
-            }
-        }
+         
 
         /// <summary>
         /// Fired when the model loads an image. True if this is the
         /// first model that the instance loads.
         /// </summary>
-        public event Action<bool, OfferSummaryPresenter> OnLoaded;
+        public event Action<bool, OfferSummaryPresenterBase> OnLoaded;
 
         public event Action OnClick;
 
