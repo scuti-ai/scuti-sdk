@@ -30,10 +30,10 @@ namespace Scuti
                 {
                 var element = GetOfferSummaryPresenterModel(offer, true);// allowAd > 0);
                     //if (element.DisplayAd) allowAd--;
-                    result.Items.Add(element);
+                    result.NewItems.Add(element);
                 });
             }
-            result.Items.Shuffle();
+            result.NewItems.Shuffle();
             return result;
         }
 

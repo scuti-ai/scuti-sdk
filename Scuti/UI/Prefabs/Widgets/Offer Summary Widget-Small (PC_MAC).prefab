@@ -12374,10 +12374,10 @@ GameObject:
   - component: {fileID: 222432744373567228}
   - component: {fileID: 225029181537028104}
   - component: {fileID: 114011976974203336}
-  - component: {fileID: 114614813051614540}
   - component: {fileID: 95632857775711146}
   - component: {fileID: 114424354111781596}
   - component: {fileID: 114884802248826900}
+  - component: {fileID: 6396033189966339121}
   m_Layer: 5
   m_Name: Offer Summary Widget-Small (PC_MAC)
   m_TagString: Untagged
@@ -12467,7 +12467,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114614813051614540}
+      - m_Target: {fileID: 6396033189966339121}
         m_MethodName: Click
         m_Mode: 1
         m_Arguments:
@@ -12478,67 +12478,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &114614813051614540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1723939162736608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34288ee76b62ab248b88c5f790d004da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isModal: 0
-  m_State: 3
-  requiresLogin: 0
-  alwaysEnabled: 0
-  displayEvents: 0
-  onStartOpening:
-    m_PersistentCalls:
-      m_Calls: []
-  onOpened:
-    m_PersistentCalls:
-      m_Calls: []
-  onStartClosing:
-    m_PersistentCalls:
-      m_Calls: []
-  onClosed:
-    m_PersistentCalls:
-      m_Calls: []
-  Transitions: []
-  animator: {fileID: 95632857775711146}
-  timer: {fileID: 114777679872535036}
-  backgroundImage: {fileID: 114637495704784384}
-  displayImage: {fileID: 114924147159941888}
-  titleText: {fileID: 114144174741097514}
-  displayPriceText: {fileID: 114255324128772004}
-  ratingText: {fileID: 114522142483853654}
-  ratingStarsWidget: {fileID: 114281727541791450}
-  newBadge: {fileID: 1201673767169948}
-  hotBadge: {fileID: 1052972139891682}
-  hotPricePromo: {fileID: 1087065019494370}
-  recommendedPromo: {fileID: 1813170163733634}
-  specialOfferPromo: {fileID: 1051265205128758}
-  bestsellerPromo: {fileID: 1445690493425380}
-  scutiPromo: {fileID: 1448155102168032}
-  GlowImage: {fileID: 114016245324306696}
-  loadingVFX: {fileID: 1469412048964400}
-  AdContainer: {fileID: 1316604391438652}
-  ProductVisualRules:
-  - Visual: {fileID: 1757883363475846}
-    HideIfStatic: 0
-  - Visual: {fileID: 1804280178078030}
-    HideIfStatic: 0
-  - Visual: {fileID: 1913666291434694}
-    HideIfStatic: 0
-  - Visual: {fileID: 1252993933215984}
-    HideIfStatic: 0
-  - Visual: {fileID: 1614521130007918}
-    HideIfStatic: 1
-  AdImage: {fileID: 114827112811193916}
-  IsTall: 0
 --- !u!95 &95632857775711146
 Animator:
   serializedVersion: 3
@@ -12594,6 +12533,66 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &6396033189966339121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1723939162736608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10b80605b53c38d4bba01f6155183970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isModal: 0
+  m_State: 3
+  requiresLogin: 0
+  alwaysEnabled: 0
+  displayEvents: 0
+  onStartOpening:
+    m_PersistentCalls:
+      m_Calls: []
+  onOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  onStartClosing:
+    m_PersistentCalls:
+      m_Calls: []
+  onClosed:
+    m_PersistentCalls:
+      m_Calls: []
+  Transitions: []
+  animator: {fileID: 0}
+  timer: {fileID: 0}
+  backgroundImage: {fileID: 0}
+  displayImage: {fileID: 0}
+  titleText: {fileID: 0}
+  displayPriceText: {fileID: 0}
+  ratingText: {fileID: 0}
+  ratingStarsWidget: {fileID: 0}
+  newBadge: {fileID: 0}
+  hotBadge: {fileID: 0}
+  hotPricePromo: {fileID: 0}
+  recommendedPromo: {fileID: 0}
+  specialOfferPromo: {fileID: 0}
+  bestsellerPromo: {fileID: 0}
+  scutiPromo: {fileID: 0}
+  GlowImage: {fileID: 0}
+  AdContainer: {fileID: 0}
+  ProductVisualRules:
+  - Visual: {fileID: 0}
+    HideIfStatic: 0
+  - Visual: {fileID: 0}
+    HideIfStatic: 0
+  - Visual: {fileID: 0}
+    HideIfStatic: 0
+  - Visual: {fileID: 0}
+    HideIfStatic: 0
+  - Visual: {fileID: 0}
+    HideIfStatic: 1
+  AdImage: {fileID: 0}
+  IsTall: 0
 --- !u!1 &1757883363475846
 GameObject:
   m_ObjectHideFlags: 0

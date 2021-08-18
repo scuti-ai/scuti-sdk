@@ -1086,10 +1086,10 @@ GameObject:
   - component: {fileID: 222937045200042812}
   - component: {fileID: 225001684943708044}
   - component: {fileID: 114784705015416322}
-  - component: {fileID: 114538486965266772}
   - component: {fileID: 95641918555222256}
   - component: {fileID: 114852748479357536}
   - component: {fileID: 114024124276980294}
+  - component: {fileID: 6617197698747965883}
   m_Layer: 5
   m_Name: Offer Summary Widget-Small
   m_TagString: Untagged
@@ -1178,7 +1178,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114538486965266772}
+      - m_Target: {fileID: 6617197698747965883}
         m_MethodName: Click
         m_Mode: 1
         m_Arguments:
@@ -1189,67 +1189,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &114538486965266772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1232789725805728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34288ee76b62ab248b88c5f790d004da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isModal: 0
-  m_State: 3
-  requiresLogin: 0
-  alwaysEnabled: 0
-  displayEvents: 0
-  onStartOpening:
-    m_PersistentCalls:
-      m_Calls: []
-  onOpened:
-    m_PersistentCalls:
-      m_Calls: []
-  onStartClosing:
-    m_PersistentCalls:
-      m_Calls: []
-  onClosed:
-    m_PersistentCalls:
-      m_Calls: []
-  Transitions: []
-  animator: {fileID: 95641918555222256}
-  timer: {fileID: 114432455225790650}
-  backgroundImage: {fileID: 114740763463083730}
-  displayImage: {fileID: 114019555032766228}
-  titleText: {fileID: 114997808185844302}
-  displayPriceText: {fileID: 114374492702884502}
-  ratingText: {fileID: 114575226145977994}
-  ratingStarsWidget: {fileID: 114622562493505216}
-  newBadge: {fileID: 1662791525431388}
-  hotBadge: {fileID: 1597992693908690}
-  hotPricePromo: {fileID: 1731074414370216}
-  recommendedPromo: {fileID: 1066748463993122}
-  specialOfferPromo: {fileID: 1047668284505080}
-  bestsellerPromo: {fileID: 1647026476508324}
-  scutiPromo: {fileID: 1113423411047398}
-  GlowImage: {fileID: 114770090461563716}
-  loadingVFX: {fileID: 0}
-  AdContainer: {fileID: 1755216328285900}
-  ProductVisualRules:
-  - Visual: {fileID: 1572720323770944}
-    HideIfStatic: 0
-  - Visual: {fileID: 1021160203009856}
-    HideIfStatic: 0
-  - Visual: {fileID: 1526707172829468}
-    HideIfStatic: 0
-  - Visual: {fileID: 1523322735438136}
-    HideIfStatic: 0
-  - Visual: {fileID: 1869261115249192}
-    HideIfStatic: 1
-  AdImage: {fileID: 114472910378964086}
-  IsTall: 0
 --- !u!95 &95641918555222256
 Animator:
   serializedVersion: 3
@@ -1305,6 +1244,66 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &6617197698747965883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232789725805728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10b80605b53c38d4bba01f6155183970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isModal: 0
+  m_State: 3
+  requiresLogin: 0
+  alwaysEnabled: 0
+  displayEvents: 0
+  onStartOpening:
+    m_PersistentCalls:
+      m_Calls: []
+  onOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  onStartClosing:
+    m_PersistentCalls:
+      m_Calls: []
+  onClosed:
+    m_PersistentCalls:
+      m_Calls: []
+  Transitions: []
+  animator: {fileID: 95641918555222256}
+  timer: {fileID: 114432455225790650}
+  backgroundImage: {fileID: 114740763463083730}
+  displayImage: {fileID: 114019555032766228}
+  titleText: {fileID: 114997808185844302}
+  displayPriceText: {fileID: 114374492702884502}
+  ratingText: {fileID: 114575226145977994}
+  ratingStarsWidget: {fileID: 114622562493505216}
+  newBadge: {fileID: 1662791525431388}
+  hotBadge: {fileID: 1597992693908690}
+  hotPricePromo: {fileID: 1731074414370216}
+  recommendedPromo: {fileID: 1066748463993122}
+  specialOfferPromo: {fileID: 1047668284505080}
+  bestsellerPromo: {fileID: 1647026476508324}
+  scutiPromo: {fileID: 1113423411047398}
+  GlowImage: {fileID: 114770090461563716}
+  AdContainer: {fileID: 1755216328285900}
+  ProductVisualRules:
+  - Visual: {fileID: 1572720323770944}
+    HideIfStatic: 0
+  - Visual: {fileID: 1021160203009856}
+    HideIfStatic: 0
+  - Visual: {fileID: 1526707172829468}
+    HideIfStatic: 0
+  - Visual: {fileID: 1523322735438136}
+    HideIfStatic: 0
+  - Visual: {fileID: 1869261115249192}
+    HideIfStatic: 1
+  AdImage: {fileID: 114472910378964086}
+  IsTall: 0
 --- !u!1 &1319353244258924
 GameObject:
   m_ObjectHideFlags: 0

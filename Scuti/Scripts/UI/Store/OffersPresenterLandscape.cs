@@ -15,6 +15,7 @@ namespace Scuti.UI
     public class OffersPresenterLandscape : OffersPresenterBase
     {
 
+
         [Header("Settings")]
         [SerializeField] int maxOffers = 6;
         [SerializeField] int videoOfferBackFill = 3;
@@ -30,20 +31,6 @@ namespace Scuti.UI
         [SerializeField] OfferVideoPresenter videoWidget;
 
         private Vector3 _largeContainerDefaultPosition;
-
-
-        public void Start()
-        {
-            if(!clearInitialElements)
-            {
-
-                foreach (Transform child in container_Large)
-                    if(!initialElements.Contains(child.gameObject)) initialElements.Add(child.gameObject);
-
-                foreach (Transform child in container_Small)
-                    if (!initialElements.Contains(child.gameObject)) initialElements.Add(child.gameObject);
-            }
-        }
 
         // ================================================
         #region LIFECYCLE
@@ -125,48 +112,11 @@ namespace Scuti.UI
         public override void Clear()
         {
             base.Clear();
-            if (clearInitialElements)
-            {
-                foreach (Transform child in container_Large)
-                    Destroy(child.gameObject);
+            foreach (Transform child in container_Large)
+                Destroy(child.gameObject);
 
-                foreach (Transform child in container_Small)
-                    Destroy(child.gameObject);
-            }
-            else
-            {
-                int children = container_Large.childCount;
-                int index = 0;
-                for (int i = 0; i < children; ++i)
-                {
-                    if (initialElements.Contains(container_Large.GetChild(index).gameObject))
-                    {
-                        index++;
-                    }
-                    else
-                    {
-                        Transform child = container_Large.GetChild(index);
-                        child.SetParent(null);
-                        Destroy(child.gameObject);
-                    }
-                }
-
-                children = container_Small.childCount;
-                index = 0;
-                for (int i = 0; i < children; ++i)
-                {
-                    if (initialElements.Contains(container_Small.GetChild(index).gameObject))
-                    {
-                        index++;
-                    }
-                    else
-                    {
-                        Transform child = container_Large.GetChild(index);
-                        child.SetParent(null);
-                        Destroy(child.gameObject);
-                    }
-                }
-            }
+            foreach (Transform child in container_Small)
+                Destroy(child.gameObject);
         }
 
         private void ResetTimeout()
@@ -184,11 +134,12 @@ namespace Scuti.UI
 
         async protected override Task PopulateOffers(CancellationToken cancelToken)
         {
-            for (int i = 0; i < GetActiveMax(); i++)
+            var max = GetActiveMax();
+            for (int i = 0; i < max; i++)
             {
                 if (cancelToken.IsCancellationRequested) return;
 
-                OfferSummaryPresenterBase template;
+                OfferSummaryPresenterLandscape template;
                 Transform container;
 
                 var index = i;
@@ -212,13 +163,9 @@ namespace Scuti.UI
                 // If the index exceeds the count, we don't assign any data to it
                 // nor do we listen to the click event. The offer widget does get
                 // instantiated but it's just loading and doesn't do anything.
-                if (i >= Data.Items.Count)
-                {
-                    continue;
-
-                }
-
-                widget.Data = Data.Items[index];
+                var newData = Data.UseItem();
+                if (newData == null) continue;
+                widget.Data = newData;
                 widget.Data.Index = index;
                 widget.Data.IsTall = widget.IsTall;
                 widget.Data.LoadImage();
@@ -255,9 +202,9 @@ namespace Scuti.UI
             m_ChangingCategories = false;
         }
 
-      
 
-        OfferSummaryPresenterBase GetTemplateForIndex(int index)
+
+        OfferSummaryPresenterLandscape GetTemplateForIndex(int index)
         {
             return index < GetActiveLarge() ? widgetPrefab_Large : widgetPrefab_Small;
         }

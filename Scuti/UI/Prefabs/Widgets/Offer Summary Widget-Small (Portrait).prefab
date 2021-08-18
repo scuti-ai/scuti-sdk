@@ -1358,7 +1358,6 @@ MonoBehaviour:
   - Visual: {fileID: 1869261115249192}
     HideIfStatic: 1
   AdImage: {fileID: 114472910378964086}
-  IsTall: 0
 --- !u!95 &95641918555222256
 Animator:
   serializedVersion: 3
@@ -2940,7 +2939,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 432.79083, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &222697738918697638
 CanvasRenderer:

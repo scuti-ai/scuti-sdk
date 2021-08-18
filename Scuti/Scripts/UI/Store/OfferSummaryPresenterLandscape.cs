@@ -10,74 +10,19 @@ namespace Scuti.UI
 {
     public class OfferSummaryPresenterLandscape : OfferSummaryPresenterBase 
     {
-         
-
-        /// <summary>
-        /// Fired when the model loads an image. True if this is the
-        /// first model that the instance loads.
-        /// </summary>
-        public event Action<bool, OfferSummaryPresenterBase> OnLoaded;
-
-        public event Action OnClick;
 
         public delegate Task<Model> GetNext();
 
-        public Model Next { get; private set; }
+        public OfferSummaryPresenterBase.Model Next { get; private set; }
         public bool HasNext
         {
             get { return Next != null && !Next.ID.IsNullOrEmpty(); }
         }
 
-        public bool HasData
-        {
-            get { return Data != null && !Data.ID.IsNullOrEmpty(); }
-        }
-
-        [SerializeField] Animator animator;
-        [SerializeField] Timer timer;
-
-        [Header("Fields")]
-        [SerializeField] Image backgroundImage;
-        [SerializeField] Image displayImage;
-        [SerializeField] Text titleText;
-        [SerializeField] Text displayPriceText;
-        [SerializeField] Text ratingText;
-        [SerializeField] RatingStarsWidget ratingStarsWidget;
-
-        [Header("Badges")]
-        [SerializeField] GameObject newBadge;
-        [SerializeField] GameObject hotBadge;
-
-        [Header("Promos")]
-        [SerializeField] GameObject hotPricePromo;
-        [SerializeField] GameObject recommendedPromo;
-        [SerializeField] GameObject specialOfferPromo;
-        [SerializeField] GameObject bestsellerPromo;
-        [SerializeField] GameObject scutiPromo;
-        [SerializeField] Image GlowImage;
-        [SerializeField] GameObject loadingVFX = null;
-
-        float m_TimerDuration;
         GetNext m_NextRequest;
-        float m_PriorSpeed = 1;
-        private bool m_showing = false;
-
-        private bool timerCompleted = false;
         private bool loadingNextCompleted = false;
-        private bool _isStatic = false;
-        private bool _isPortrait = false;
 
-        [Serializable]
-        public struct VisualRules
-        {
-            public GameObject Visual;
-            public bool HideIfStatic;
-        }
 
-        public GameObject AdContainer;
-        public VisualRules[] ProductVisualRules;
-
-        public Image AdImage;
         public bool IsTall = false;
 
 
@@ -89,73 +34,22 @@ namespace Scuti.UI
             m_NextRequest = getNextMethod;
         }
 
-        protected override void Awake()
+        public override void SetData(Model data)
         {
-            base.Awake();
-
-            _isPortrait = ScutiUtils.IsPortrait();
-
-            /*float pixelsWide = Camera.main.pixelWidth;
-            float pixelsHigh = Camera.main.pixelHeight;
-
-            _isPortrait = pixelsHigh > pixelsWide;
-            if (ScutiConstants.FORCE_LANDSCAPE)
+            if (m_Data != null)
             {
-                _isPortrait = false;
-            }*/
-
-            timer.gameObject.SetActive(false);
-            AdContainer.SetActive(false);
-            timerCompleted = false;
-            timer.Pause();
-            timer.onFinished.AddListener(OnTimerCompleted);
-            timer.onCustomEvent += OnTimerCustomEvent;
-            GlowImage.gameObject.SetActive(false);
-
-            // hiding for now, I'm not a fan of it -mg
-            if (loadingVFX != null) loadingVFX.SetActive(false);
-        }
-
-
-        private void OnTimerCustomEvent(string id)
-        {
-            switch(id)
-            {
-                case ScutiConstants.SCUTI_IMPRESSION_ID:
-                    try
-                    {
-                        ScutiAPI.RecordOfferImpression(Data.ID);
-                    }
-                    catch
-                    {
-
-                    }
-                    break;
+                m_Data.OnStateChanged -= OnNextStateChanged;
             }
+            base.SetData(data);
         }
 
-        private void OnTimerCompleted()
+        protected override void SwapToNext()
         {
-            timerCompleted = true;
-            CheckReady();
-        }
 
-        public void OnScrollIndexJumped()
-        {
-            Debug.Log("Index jump "+Data.Index);
-            SwapToNext();
-        }
-
-        public void OnRotateOutComplete()
-        {
-            SwapToNext();
-        }
-
-        private void SwapToNext()
-        { 
-
+            Debug.Log("Swap to next: "+HasNext);
             if (HasNext)
             {
+                if (Next != null) Next.OnStateChanged -= OnNextStateChanged;
                 Data = Next;
                 Next = null;
                 DisplayCurrentImage();
@@ -167,10 +61,16 @@ namespace Scuti.UI
             }
         }
 
-        private void LoadCompleted()
+        protected override void LoadCompleted()
         {
-            OnLoaded?.Invoke(!HasNext, this);
+            Debug.LogError(">>> LoadCompleted!!");
+            base.LoadCompleted();
             LoadNext();
+        }
+
+        protected override bool IsFirstLoad()
+        {
+            return !HasNext;
         }
 
         private async void LoadNext()
@@ -179,7 +79,7 @@ namespace Scuti.UI
             if (!_isStatic)
             {
                 Next = await m_NextRequest();
-                Debug.Log("Load Next from: " + gameObject + "  "+ Data.Index +"  to " + Next.Title +" : "+Next.Index);
+                Debug.Log(">>>>> Load Next from: " + gameObject + "  "+ Data.Index +"  to " + Next.Title +" : "+Next.Index);
                 if (Next != null)
                 {
                     Next.IsTall = IsTall;
@@ -189,110 +89,15 @@ namespace Scuti.UI
             }
         }
 
-        public void Click()
+        protected override void OnTimerCompleted()
         {
-            OnClick?.Invoke();
-        }
-
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-            if (displayImage != null)
-            {
-                CleanUp(displayImage.sprite);
-                displayImage.sprite = null;
-            }
-            if (AdImage != null)
-            {
-                CleanUp(AdImage.sprite);
-                AdImage.sprite = null;
-            }
-        }
-
-        private void CleanUp(Sprite sprite)
-        {
-            try
-            {
-                if (sprite != null)
-                {
-                    Destroy(sprite.texture);
-#if !UNITY_EDITOR
-                    Destroy(sprite);
-#endif
-                    sprite = null;
-                }
-            }
-            catch (Exception e)
-            {
-                ScutiLogger.LogWarning(e);
-            }
-        }
-        #endregion
-
-        // ================================================
-        #region API
-        // ================================================
-        public void SetColorData(Sprite bg, Color32 color)
-        {
-            if (!_destroyed)
-            {
-                backgroundImage.sprite = bg;
-                GlowImage.color = color;
-            }
-        }
-
-        public void SetStatic()
-        {
-            _isStatic = true;
-        }
-
-
-        public void Show()
-        {
-            if (!_destroyed)
-            {
-                if (Data.IsMoreExposure && !_isStatic)
-                {
-                    GlowImage.gameObject.SetActive(true);
-                }
-                else
-                {
-                    GlowImage.gameObject.SetActive(false);
-                }
-                m_showing = true;
-                ResumeTimer();
-                animator?.SetTrigger("LoadingFinished");
-            }
-        }
-
-        public void DisplayCurrentImage()
-        {
-            if (!_destroyed)
-            {
-                if (Data.DisplayAd)
-                {
-                    AdContainer.SetActive(true);
-                    foreach (var p in ProductVisualRules)
-                    {
-                        p.Visual.SetActive(false);
-                    }
-                    if(Data.Texture) AdImage.sprite = Data.Texture.ToSprite();
-                }
-                else
-                {
-                    AdContainer.SetActive(false);
-                    foreach (var p in ProductVisualRules)
-                    {
-                        p.Visual.SetActive(!_isStatic || !p.HideIfStatic);
-                    }
-                    if (Data.Texture) displayImage.sprite = Data.Texture.ToSprite();
-                }
-            }
+            base.OnTimerCompleted();
+            CheckReady();
         }
 
         public void CheckReady()
         {
-            if (!_isPortrait && !_destroyed)
+            if (!_destroyed)
             {
                 if (loadingNextCompleted && timerCompleted)
                 {
@@ -301,73 +106,30 @@ namespace Scuti.UI
             }
         }
 
-        public void SetDuration(float duration)
-        {
-            m_TimerDuration = duration;
-        }
-
-        public void ResetTimer()
-        {
-            if (!_isPortrait && !_destroyed && !_isStatic)
-            {
-                timer.gameObject.SetActive(true);
-                timerCompleted = false;
-                timer.ResetTime(m_TimerDuration);
-                timer.AddCustomEvent(ScutiConstants.SCUTI_IMPRESSION_ID, ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
-                timer.Begin();
-            }
-        }
-
-        public void PauseTimer()
-        {
-            if (!_isPortrait && !_destroyed && timer != null)
-            {
-                if (animator.speed != 0) m_PriorSpeed = animator.speed;
-                animator.speed = 0;
-                timer.Pause();
-            }
-        }
-
-        public void ResumeTimer()
-        {
-            if (!_isPortrait && !_destroyed && timer != null && m_showing && !_isStatic)
-            {
-                timer.gameObject.SetActive(true);
-                animator.speed = m_PriorSpeed;
-                timer.Begin();
-            }
-        }
         #endregion
+
 
         // ================================================
         #region PRESENTER
         // ================================================
-        protected override void OnSetState()
-        {
-            gameObject.name = Data.Title;
-            UpdateUI();
-#pragma warning disable
-            Data.OnStateChanged += async state => {
-                switch (state)
-                {
-                    case Model.State.Loaded:
-                        LoadCompleted();
-                        break;
-                    case Model.State.Failed:
-                        ScutiLogger.Log("Could not load summary image.");
-                        Next = null;
-                        break;
-                }
-            };
-#pragma warning restore
-        }
+        protected override void OnSetDataState(Model.State state)
+        { 
+            switch (state)
+            {
+                case Model.State.Failed:
+                    Next = null;
+                    break;
+            }
+            base.OnSetDataState(state);
 
+        }
         private void OnNextStateChanged(Model.State state)
         {
-            Debug.Log(gameObject + " state " + state);
+            Debug.Log(gameObject + " NEXT <><><><><><><> state " + state);
             switch (state)
             {
                 case Model.State.Loaded:
+                    if (Next != null) Next.OnStateChanged -= OnNextStateChanged;
                     loadingNextCompleted = true;
                     CheckReady();
                     break;
@@ -378,24 +140,16 @@ namespace Scuti.UI
         }
 
         // Updates UI based on values on View.Data
-        void UpdateUI()
+        protected override void UpdateUI()
         {
             titleText.text = TextElipsis(Data.Title);
             displayPriceText.text = ScutiUtils.FormatPrice(Data.DisplayPrice);
 
             //  New and Hot Badges only in portrait
-            if (_isPortrait)
-            {
-                newBadge.SetActive(Data.IsNew);
-                hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
-            }
-            else
-            {
+           
                 newBadge.SetActive(false);
                 hotBadge.SetActive(false);
-            }
 
-            // Show ONLY THE FIRST promo that is applicable
             var list = new List<KeyValuePair<GameObject, bool>> {
                 new KeyValuePair<GameObject, bool>(hotPricePromo, Data.IsHotPrice),
                 new KeyValuePair<GameObject, bool>(recommendedPromo, Data.IsRecommended),
@@ -405,18 +159,6 @@ namespace Scuti.UI
             };
 
             list.ForEach(x => x.Key.SetActive(false));
-
-            if (_isPortrait)
-            {
-                foreach (var pair in list)
-                {
-                    if (pair.Value)
-                    {
-                        pair.Key.SetActive(true);
-                        break;
-                    }
-                }
-            }
 
             GlowImage.gameObject.SetActive(false);
 
@@ -432,16 +174,6 @@ namespace Scuti.UI
             }
         }
 
-        private string TextElipsis(string text, int truncateSize = 26)
-        {
-	        if(text.Length > truncateSize) return text.Remove(truncateSize) + "...";
-	        return text;
-        }
-        private void OnEnable()
-        {
-            if(m_showing)
-                animator?.SetTrigger("LoadingFinished");
-        }
         #endregion
     }
 }

@@ -21,7 +21,7 @@ namespace Scuti.UI
         [SerializeField] int maxSingleOffers = 4;
 
         [Header("Instantiation")]
-        [SerializeField] OfferSummaryPresenterPortrait widgetPrefab_Single;
+        [SerializeField] OfferSummaryPresenterBase widgetPrefab_Single;
         [SerializeField] OfferSummaryPresenterPortrait widgetPrefab_Double;
         [SerializeField] Transform container;
 
@@ -33,16 +33,6 @@ namespace Scuti.UI
       
 
 
-        public void Start()
-        {
-            if (!clearInitialElements)
-            {
-
-                foreach (Transform child in container)
-                    if (!initialElements.Contains(child.gameObject)) initialElements.Add(child.gameObject);
-            }
-        }
-
 
         // ================================================
 #region API
@@ -50,29 +40,8 @@ namespace Scuti.UI
         public override void Clear()
         {
             base.Clear();
-            if (clearInitialElements)
-            {
-                foreach (Transform child in container)
-                    Destroy(child.gameObject);
-            }
-            else
-            {
-                int children = container.childCount;
-                int index = 0;
-                for (int i = 0; i < children; ++i)
-                {
-                    if (initialElements.Contains(container.GetChild(index).gameObject))
-                    {
-                        index++;
-                    }
-                    else
-                    {
-                        Transform child = container.GetChild(index);
-                        child.SetParent(null);
-                        Destroy(child.gameObject);
-                    }
-                }
-            }
+            foreach (Transform child in container)
+                Destroy(child.gameObject);
         }
 
         private void ResetTimeout()
@@ -92,14 +61,14 @@ namespace Scuti.UI
 
         async protected override Task PopulateOffers(CancellationToken cancelToken)
         {
-            var max = Math.Min(1111111111, Data.Items.Count);
+            var max = Math.Min(1111111111, Data.NewItemsCount);
             int colorCount = 0;
             int adTakeOverCount = 0;
             int productCount = 0;
             for (int i = 0; i < max; i++)
             {
 
-                var widgetData = Data.Items[i];
+                var widgetData = Data.NewItems[i];
 
                 if (widgetData.DisplayAd)
                 {
@@ -109,7 +78,6 @@ namespace Scuti.UI
                     productCount++;
                 }
             }
-            m_offerIndex = max;
 
             // Sometimes in the 2 column ads we have to jump ahead. This stores which ones we have already shown so we can skip    
             HashSet<int> skipIds = new HashSet<int>();
@@ -117,11 +85,12 @@ namespace Scuti.UI
             MonoBehaviour template;
             for (int i = 0; i < max; i++)
             {
+                Debug.LogError("THIS SKIP WON'T WORK EITHER DAMN IT");
                 if (skipIds.Contains(i)) continue;
 
                 if (cancelToken.IsCancellationRequested) return;
 
-                var widgetData = Data.Items[i];
+                var widgetData = Data.UseItem();
                 if(widgetData.DisplayAd)
                 {
                     template = widgetPrefab_Single;
@@ -137,8 +106,7 @@ namespace Scuti.UI
                         template = widgetPrefab_Double;
                     }
                 }
-               
-                var mono = Instantiate(template, container);
+                 var mono = Instantiate(template, container);
 
                 List<OfferSummaryPresenterBase> offers = new List<OfferSummaryPresenterBase>();
                 List<OfferSummaryPresenterBase.Model> datas = new List<OfferSummaryPresenterBase.Model>();
@@ -150,8 +118,8 @@ namespace Scuti.UI
 
                     for(int n = i+1; n<max; n++)
                     {
-
-                        var secondWidget = Data.Items[n];
+                        Debug.LogError("THIS WILL FAIL");
+                        var secondWidget = Data.NewItems[n];
                         if (secondWidget.DisplayAd) continue;
                         datas.Add(secondWidget);
                         skipIds.Add(n);
@@ -176,7 +144,6 @@ namespace Scuti.UI
 
                     m_Instantiated.Add(widget);
                     widget.gameObject.hideFlags = HideFlags.DontSave;
-                    widget.Inject(GetNext);
                     var colorData = GetColorInfo(colorCount++);
                     widget.SetColorData(colorData.Background, colorData.Glow);
                

@@ -20,6 +20,7 @@ namespace Scuti.UI
                 Failed
             }
 
+            public event Action<Model> OnDispose;
             public event Action<State> OnStateChanged;
 
             [SerializeField] State state;
@@ -61,10 +62,25 @@ namespace Scuti.UI
             public bool DisplayAd = false;
             public bool IsTall = false;
 
+            //HashSet<OfferSummaryPresenterBase> References;
+
+            //public void AddReference(OfferSummaryPresenterBase r)
+            //{
+            //    References.Add(r);
+            //}
+
+            //public void RemoveReference(OfferSummaryPresenterBase r)
+            //{
+            //    References.Remove(r);
+            //    if(References.Count<1)
+            //    {
+            //        GarbageCollect();
+            //    }
+            //}
+
 
             [SerializeField] Texture2D texture;
             public Texture2D Texture { get { return texture; } }
-            string[] separator = { "?v=" };
 
             public void LoadImage()
             {
@@ -95,16 +111,18 @@ namespace Scuti.UI
                                 DisplayAd = false;
                             }
                         }
+                        Debug.Log("Loading: " + url);
                         ImageDownloader.New().Download(url,
                             result =>
                             {
                                 texture = result;
+                                Debug.LogError("COMPLETED LOAD for " + Title  );
                                 CurrentState = State.Loaded;
 
                             },
                             error =>
                             {
-                                ScutiLogger.LogError("Failed to load: " + url + " for " + Title);
+                                Debug.LogError("Failed to load: " + url + " for " + Title);
                                 CurrentState = State.Failed;
                             }
                         );
@@ -113,15 +131,39 @@ namespace Scuti.UI
                     {
                         CurrentState = State.Failed;
                     }
+                } else
+                {
+                    Debug.LogError("Texture is not null " + Title + " " + Index);
+                    CurrentState = State.Loaded;
                 }
             }
 
+            //private void GarbageCollect()
+            //{
+               
+            //}
+
             public override void Dispose()
             {
+                OnDispose?.Invoke(this);
                 base.Dispose();
+
+                OnStateChanged = null;
                 if (texture != null) Destroy(texture);
+                texture = null;
             }
         }
+
+        public override void SetData(Model data)
+        {
+            if(m_Data != null)
+            {
+                m_Data.OnStateChanged -= OnSetDataState;
+            }
+            base.SetData(data);
+        }
+
+        public event Action OnClick;
 
         /// <summary>
         /// Fired when the model loads an image. True if this is the
@@ -129,54 +171,41 @@ namespace Scuti.UI
         /// </summary>
         public event Action<bool, OfferSummaryPresenterBase> OnLoaded;
 
-        public event Action OnClick;
-
-        public delegate Task<Model> GetNext();
-
-        public Model Next { get; private set; }
-        public bool HasNext
-        {
-            get { return Next != null && !Next.ID.IsNullOrEmpty(); }
-        }
-
         public bool HasData
         {
             get { return Data != null && !Data.ID.IsNullOrEmpty(); }
         }
 
-        [SerializeField] Animator animator;
-        [SerializeField] Timer timer;
+        [SerializeField] protected Animator animator;
+        [SerializeField] protected Timer timer;
 
         [Header("Fields")]
-        [SerializeField] Image backgroundImage;
-        [SerializeField] Image displayImage;
-        [SerializeField] Text titleText;
-        [SerializeField] Text displayPriceText;
-        [SerializeField] Text ratingText;
-        [SerializeField] RatingStarsWidget ratingStarsWidget;
+        [SerializeField] protected Image backgroundImage;
+        [SerializeField] protected Image displayImage;
+        [SerializeField] protected Text titleText;
+        [SerializeField] protected Text displayPriceText;
+        [SerializeField] protected Text ratingText;
+        [SerializeField] protected RatingStarsWidget ratingStarsWidget;
 
         [Header("Badges")]
-        [SerializeField] GameObject newBadge;
-        [SerializeField] GameObject hotBadge;
+        [SerializeField] protected GameObject newBadge;
+        [SerializeField] protected GameObject hotBadge;
 
         [Header("Promos")]
-        [SerializeField] GameObject hotPricePromo;
-        [SerializeField] GameObject recommendedPromo;
-        [SerializeField] GameObject specialOfferPromo;
-        [SerializeField] GameObject bestsellerPromo;
-        [SerializeField] GameObject scutiPromo;
-        [SerializeField] Image GlowImage;
-        [SerializeField] GameObject loadingVFX = null;
+        [SerializeField] protected GameObject hotPricePromo;
+        [SerializeField] protected GameObject recommendedPromo;
+        [SerializeField] protected GameObject specialOfferPromo;
+        [SerializeField] protected GameObject bestsellerPromo;
+        [SerializeField] protected GameObject scutiPromo;
+        [SerializeField] protected Image GlowImage;
 
         float m_TimerDuration;
-        GetNext m_NextRequest;
         float m_PriorSpeed = 1;
-        private bool m_showing = false;
+        protected bool m_showing = false;
 
-        private bool timerCompleted = false;
-        private bool loadingNextCompleted = false;
-        private bool _isStatic = false;
-        private bool _isPortrait = false;
+        protected bool timerCompleted = false;
+        protected bool _isStatic = false;
+        protected bool _isPortrait = false;
 
         [Serializable]
         public struct VisualRules
@@ -189,16 +218,12 @@ namespace Scuti.UI
         public VisualRules[] ProductVisualRules;
 
         public Image AdImage;
-        public bool IsTall = false;
 
 
         // ================================================
         #region LICECYCLE
         // ================================================
-        public void Inject(GetNext getNextMethod)
-        {
-            m_NextRequest = getNextMethod;
-        }
+      
 
         protected override void Awake()
         {
@@ -222,12 +247,11 @@ namespace Scuti.UI
             timer.onFinished.AddListener(OnTimerCompleted);
             timer.onCustomEvent += OnTimerCustomEvent;
             GlowImage.gameObject.SetActive(false);
-
-            // hiding for now, I'm not a fan of it -mg
-            if (loadingVFX != null) loadingVFX.SetActive(false);
+             
         }
 
 
+    
         private void OnTimerCustomEvent(string id)
         {
             switch(id)
@@ -245,10 +269,9 @@ namespace Scuti.UI
             }
         }
 
-        private void OnTimerCompleted()
+        protected virtual void OnTimerCompleted()
         {
             timerCompleted = true;
-            CheckReady();
         }
 
         public void OnScrollIndexJumped()
@@ -262,43 +285,23 @@ namespace Scuti.UI
             SwapToNext();
         }
 
-        private void SwapToNext()
+        protected virtual void SwapToNext()
         { 
-
-            if (HasNext)
-            {
-                Data = Next;
-                Next = null;
-                DisplayCurrentImage();
-                ResetTimer();
-                LoadCompleted();
-            } else
-            {
-                Debug.Log("Does not have next! " + Data.Index);
-            }
+            // TODO
+            //if (HasNext)
+            //{
+            //    Data = Next;
+            //    Next = null;
+            //    DisplayCurrentImage();
+            //    ResetTimer();
+            //    LoadCompleted();
+            //} else
+            //{
+            //    Debug.Log("Does not have next! " + Data.Index);
+            //}
         }
 
-        private void LoadCompleted()
-        {
-            OnLoaded?.Invoke(!HasNext, this);
-            LoadNext();
-        }
-
-        private async void LoadNext()
-        { 
-            loadingNextCompleted = false;
-            if (!_isStatic)
-            {
-                Next = await m_NextRequest();
-                Debug.Log("Load Next from: " + gameObject + "  "+ Data.Index +"  to " + Next.Title +" : "+Next.Index);
-                if (Next != null)
-                {
-                    Next.IsTall = IsTall;
-                    Next.OnStateChanged += OnNextStateChanged;
-                    Next.LoadImage();
-                }
-            }
-        }
+       
 
         public void Click()
         {
@@ -338,6 +341,17 @@ namespace Scuti.UI
                 ScutiLogger.LogWarning(e);
             }
         }
+
+        protected virtual void LoadCompleted()
+        {
+            if (OnLoaded != null) OnLoaded.Invoke(IsFirstLoad(), this);
+        }
+
+        protected virtual bool IsFirstLoad()
+        {
+            return true;
+        }
+
         #endregion
 
         // ================================================
@@ -401,16 +415,7 @@ namespace Scuti.UI
             }
         }
 
-        public void CheckReady()
-        {
-            if (!_isPortrait && !_destroyed)
-            {
-                if (loadingNextCompleted && timerCompleted)
-                {
-                    animator.SetTrigger("Rotate");
-                }
-            }
-        }
+        
 
         public void SetDuration(float duration)
         {
@@ -458,38 +463,27 @@ namespace Scuti.UI
             gameObject.name = Data.Title;
             UpdateUI();
 #pragma warning disable
-            Data.OnStateChanged += async state => {
-                switch (state)
-                {
-                    case Model.State.Loaded:
-                        LoadCompleted();
-                        break;
-                    case Model.State.Failed:
-                        ScutiLogger.Log("Could not load summary image.");
-                        Next = null;
-                        break;
-                }
-            };
+            Data.OnStateChanged += OnSetDataState;
 #pragma warning restore
         }
 
-        private void OnNextStateChanged(Model.State state)
+        protected virtual void OnSetDataState(Model.State state)
         {
-            Debug.Log(gameObject + " state " + state);
             switch (state)
             {
                 case Model.State.Loaded:
-                    loadingNextCompleted = true;
-                    CheckReady();
+                    LoadCompleted();
                     break;
                 case Model.State.Failed:
-                    LoadNext();
+                    ScutiLogger.Log("Could not load summary image.");
                     break;
             }
         }
 
+
+
         // Updates UI based on values on View.Data
-        void UpdateUI()
+        protected virtual void UpdateUI()
         {
             titleText.text = TextElipsis(Data.Title);
             displayPriceText.text = ScutiUtils.FormatPrice(Data.DisplayPrice);
@@ -543,7 +537,7 @@ namespace Scuti.UI
             }
         }
 
-        private string TextElipsis(string text, int truncateSize = 26)
+        protected string TextElipsis(string text, int truncateSize = 26)
         {
 	        if(text.Length > truncateSize) return text.Remove(truncateSize) + "...";
 	        return text;

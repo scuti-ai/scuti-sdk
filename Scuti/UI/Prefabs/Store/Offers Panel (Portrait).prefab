@@ -175,7 +175,6 @@ MonoBehaviour:
   offerDataToRequest: 6
   instantiationInterval: 0.01
   showInterval: 0.35
-  clearInitialElements: 1
   bannerImage: {fileID: 114112696992075480}
   backgrounds:
   - {fileID: 21300000, guid: 4912adc423f809f489d69d1562920653, type: 3}
@@ -241,8 +240,10 @@ MonoBehaviour:
         m_CallState: 2
   maxDoubleOffers: 4
   maxSingleOffers: 4
-  widgetPrefab_Single: {fileID: 0}
-  widgetPrefab_Double: {fileID: 0}
+  widgetPrefab_Single: {fileID: 114538486965266772, guid: 8ff8e711ca86894419e5ca8a70d91d98,
+    type: 3}
+  widgetPrefab_Double: {fileID: 8649710524967610706, guid: e4c5d011896d7de4383b6ef9d9a88804,
+    type: 3}
   container: {fileID: 1937714000244129893}
   InfinityScroll: {fileID: 3382885436544687115}
 --- !u!1 &1910263493052902

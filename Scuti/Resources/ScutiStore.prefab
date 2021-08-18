@@ -137,10 +137,10 @@ MonoBehaviour:
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
   - id: OFFERS
-    view: {fileID: 114463846195168704, guid: d0014075c4db0094e83ff60b8f9eff67, type: 3}
-    view_portrait: {fileID: 114463846195168704, guid: 4d0e46d0f3285214a9578ea02ee79c23,
+    view: {fileID: 3080986844477801138, guid: d0014075c4db0094e83ff60b8f9eff67, type: 3}
+    view_portrait: {fileID: 7643613424775923764, guid: 4d0e46d0f3285214a9578ea02ee79c23,
       type: 3}
-    view_pc: {fileID: 114939992940882344, guid: a069147496a7abf469712558313835af,
+    view_pc: {fileID: 6838221929514559003, guid: a069147496a7abf469712558313835af,
       type: 3}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
@@ -442,9 +442,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1080, y: 1920}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96

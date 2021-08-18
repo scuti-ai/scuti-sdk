@@ -21,7 +21,73 @@ namespace Scuti.UI
         [Serializable]
         public class Model : Presenter.Model
         {
-            public List<OfferSummaryPresenterBase.Model> Items = new List<OfferSummaryPresenterBase.Model>();
+            public HashSet<OfferSummaryPresenterBase.Model> ActiveItems = new HashSet<OfferSummaryPresenterBase.Model>();
+            public List<OfferSummaryPresenterBase.Model> NewItems = new List<OfferSummaryPresenterBase.Model>();
+            public List<OfferSummaryPresenterBase.Model> PooledItems = new List<OfferSummaryPresenterBase.Model>();
+
+            public int ActiveItemsCount
+            {
+                get
+                {
+                    if (ActiveItems == null) return 0;
+                    return ActiveItems.Count;
+                }
+            }
+
+            public int NewItemsCount
+            {
+                get
+                {
+                    if (NewItems == null) return 0;
+                    return NewItems.Count;
+                }
+            }
+
+            public int PooledItemsCount
+            {
+                get
+                {
+                    if (PooledItems == null) return 0;
+                    return PooledItems.Count;
+                }
+            }
+
+            public int TotalItemCount
+            {
+                get
+                {
+                    return ActiveItemsCount + NewItemsCount + PooledItemsCount;
+                }
+            }
+
+            public OfferSummaryPresenterBase.Model UseItem()
+            {
+                OfferSummaryPresenterBase.Model result = null;
+                if(NewItemsCount > 0)
+                {
+                    result = NewItems[0];
+                    NewItems.RemoveAt(0);
+                    result.OnDispose += ReturnItem;
+                    ActiveItems.Add(result);
+                }
+                return result;
+            }
+
+            public void ReturnItem(OfferSummaryPresenterBase.Model item)
+            {
+                if (item != null) item.OnDispose -= ReturnItem;
+
+                if(ActiveItems!=null)
+                    ActiveItems.Remove(item);
+                if(PooledItems!=null)
+                    PooledItems.Add(item);
+            }
+
+            public void EmptyPool()
+            {
+                NewItems.AddRange(PooledItems);
+                PooledItems.Clear();
+            }
         }
 
         [Serializable]
@@ -57,9 +123,8 @@ namespace Scuti.UI
         [SerializeField] protected int offerDataToRequest = 6;
         [SerializeField] protected float instantiationInterval = .5f;
         [SerializeField] protected float showInterval = .5f;
-        [SerializeField] protected bool clearInitialElements = true;
+        [SerializeField] protected int MinDataCached = 6;
 
-        protected List<GameObject> initialElements = new List<GameObject>();
 
         [Serializable]
         public struct OfferColorData
@@ -88,9 +153,9 @@ namespace Scuti.UI
         protected GetNextRequestQueue GetNextRequestQueue = new GetNextRequestQueue();
         protected bool m_requestOffersInProgress = false;
         protected Pagination m_Pagination;
-        protected int m_offerIndex;
         protected Dictionary<string, Pagination> m_PaginationMap = new Dictionary<string, Pagination>();
         protected List<OfferSummaryPresenterBase> m_Instantiated = new List<OfferSummaryPresenterBase>();
+         
 
 
         protected CancellationTokenSource _loadingSource;
@@ -259,19 +324,20 @@ namespace Scuti.UI
 
             m_Pagination = m_PaginationMap[categoryName];
         }
-#endregion
+        #endregion
 
         // ================================================
-#region API
+        #region API
         // ================================================
         /// <summary>
         /// Returns a list of offers, based on the current paginataion status
         /// </summary>
+        private bool requestInProgress = false;
         public async Task RequestMoreOffers(bool replaceData)
         {
             var index = m_Pagination.Index;
-            var maxCount = offerDataToRequest;
-
+            var maxCount =  offerDataToRequest;
+            requestInProgress = true;
             //Debug.LogWarning("Requesting Range   index:" + index + "  m_Pagination.Index:" + m_Pagination.Index + "  maxcount:" + maxCount + "  retry:" + retry);
             m_Pagination.Index += maxCount;
             OfferPage offerPage = null;
@@ -286,7 +352,7 @@ namespace Scuti.UI
 
             if (offerPage != null)
             {
-                m_Pagination.TotalCount = offerPage.Paging.TotalCount.GetValueOrDefault(0);
+                m_Pagination.TotalCount =  offerPage.Paging.TotalCount.GetValueOrDefault(0);
                 if (replaceData)
                 {
                     Data = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>);
@@ -294,7 +360,7 @@ namespace Scuti.UI
                 else
                 {
                     var appendData = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>);
-                    Data.Items.AddRange(appendData.Items);
+                    Data.NewItems.AddRange(appendData.NewItems);
                 }
             }
             else
@@ -305,6 +371,7 @@ namespace Scuti.UI
                     Data = null;
                 }
             }
+            requestInProgress = false;
             //Debug.LogWarning("      actualCount" + actualCount  + "  maxcount:" + maxCount );
             ////if (actualCount < maxCount)
             ////{
@@ -342,7 +409,6 @@ namespace Scuti.UI
 
         public virtual void Clear()
         {
-            m_offerIndex = 0;
             if (_loadingSource != null)
             {
                 _loadingSource.Cancel();
@@ -354,11 +420,8 @@ namespace Scuti.UI
             m_Instantiated.Clear();
             GetNextRequestQueue.Clear();
             loadedWidgetQueue.Clear();
-           
-
             Resources.UnloadUnusedAssets();
             OnClearFinished?.Invoke();
-
         }
 
         private void ResetTimeout()
@@ -390,25 +453,23 @@ namespace Scuti.UI
 
             if (!m_Paused && GetNextRequestQueue.Count != 0)
             {
-                if(m_offerIndex > m_Pagination.Index/2 && m_Pagination.Index<m_Pagination.TotalCount)
+                if(Data.NewItemsCount < MinDataCached && m_Pagination.Index<m_Pagination.TotalCount)
                 {
-                    Debug.Log("Requesting Data:" + m_offerIndex+ " vs " + Data.Items.Count + " index: " + m_Pagination.Index +" and " + m_Pagination.TotalCount);
+                    Debug.Log("Requesting Data:" + Data.NewItemsCount + " vs "+ MinDataCached+"   index: " + m_Pagination.Index +" and " + m_Pagination.TotalCount);
 #pragma warning disable 4014
                     RequestMoreOffers(false);
 #pragma warning restore 4014
-                }
-                if (m_offerIndex < Data.Items.Count)
-                {
+                } 
 
-                    var request = GetNextRequestQueue.Dequeue();
-                    Debug.LogError("=========== ProcessGetNextRequestQueue =========== " + m_offerIndex);
-                    var model = Data.Items[m_offerIndex];
-                    model.Index = m_offerIndex;
-                    m_offerIndex++;
-                    request?.Invoke(model);
-                } else if(m_offerIndex >= m_Pagination.TotalCount)
+                if (Data.NewItemsCount>0)
                 {
-                    m_offerIndex = 0;
+                    var request = GetNextRequestQueue.Dequeue();
+                    var model = Data.UseItem();
+                    request?.Invoke(model);
+                } else if(m_Pagination.Index >= m_Pagination.TotalCount && !requestInProgress)
+                {
+                    Debug.LogError("RESET!!");
+                    Data.EmptyPool();
                 }
             }
         }
@@ -421,6 +482,7 @@ namespace Scuti.UI
 
         protected void OnWidgetLoaded(bool initial, OfferSummaryPresenterBase widget)
         {
+            Debug.LogError("WIDGET LOADED");
             loadedWidgetQueue.Enqueue(new Tuple<OfferSummaryPresenterBase, bool>(widget, initial));
         }
 
