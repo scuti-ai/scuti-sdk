@@ -73,7 +73,6 @@ namespace Scuti.UI
                         {
 
                             NewItems.RemoveAt(i);
-                            Debug.LogError("Using ITEM "+i+". Remaining: " + NewItems.Count);
                             result.OnDispose += ReturnItem;
                             ActiveItems.Add(result);
                             return result;
@@ -385,14 +384,11 @@ namespace Scuti.UI
                 if (replaceData)
                 {
                     Data = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>);
-                    Debug.LogError("Total Now: " + Data.NewItems.Count);
                 }
                 else
                 {
                     var appendData = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>);
-                    Debug.LogError("Appending: " + appendData.NewItems.Count);
                     Data.NewItems.AddRange(appendData.NewItems);
-                    Debug.LogError("Total Now: " + Data.NewItems.Count);
                 }
             }
             else

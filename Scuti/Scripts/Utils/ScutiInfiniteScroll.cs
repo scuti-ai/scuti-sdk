@@ -83,8 +83,12 @@ namespace Scuti.UI
             _itemCount = _scrollRect.content.childCount;
         }
 
+        private bool initialized = false;
+
         public void Init()
         {
+            if (initialized) return;
+            initialized = true;
             //Debug.LogWarning("-------------------------------------------- INIT --------------------------------------------");
             //Debug.LogWarning(" ==== childCount::  " + items.Count);
             _count = 0;
