@@ -117,7 +117,6 @@ namespace Scuti.UI
 
                 if (offerData == null)
                 {
-                    Debug.LogError("SKIPPING");
                     continue;
                 }
                 presenter.Data = offerData;
