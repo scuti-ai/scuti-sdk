@@ -116,7 +116,7 @@ namespace Scuti.UI {
                 widget.OnLoaded += OnWidgetLoaded;
                 widget.Data.LoadImage();
 
-                widget.OnClick += async () =>
+                widget.OnClick += async (presenter) =>
                 {
                     var id = widget.Data.ID;
                     var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);

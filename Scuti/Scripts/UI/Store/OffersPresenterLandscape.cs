@@ -134,6 +134,8 @@ namespace Scuti.UI
 
         async protected override Task PopulateOffers(CancellationToken cancelToken)
         {
+            Debug.LogError("Changing Cats True");
+            m_ChangingCategories = true;
             var max = GetActiveMax();
             for (int i = 0; i < max; i++)
             {
@@ -164,7 +166,11 @@ namespace Scuti.UI
                 // nor do we listen to the click event. The offer widget does get
                 // instantiated but it's just loading and doesn't do anything.
                 var newData = Data.UseItem();
-                if (newData == null) continue;
+                if (newData == null)
+                {
+                    Debug.LogError("Null data: " + gameObject);
+                    continue;
+                }
                 widget.Data = newData;
                 widget.Data.Index = index;
                 widget.Data.IsTall = widget.IsTall;
@@ -172,7 +178,7 @@ namespace Scuti.UI
                 widget.OnLoaded += OnWidgetLoaded;
             
 
-                widget.OnClick += async () =>
+                widget.OnClick += async (presenter) =>
                 {
                     UIManager.ShowLoading(false);
                     var id = widget.Data.ID;
@@ -199,6 +205,9 @@ namespace Scuti.UI
             await Task.Delay(250);
             //Debug.LogWarning(container_Large.childCount+"   ++++++++++++++    "+ container_Small.childCount);
             OnPopulateFinished?.Invoke();
+
+
+            Debug.LogError("Changing Cats FALSE");
             m_ChangingCategories = false;
         }
 

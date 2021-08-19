@@ -66,7 +66,7 @@ namespace Scuti.UI {
             foreach (var entry in Data.Merchandize) {
                 var instance = Instantiate(merchandizeWidgetPrefab);
                 instance.Data = entry;
-                instance.OnClick += () => OnMerchandizeWidgetClick?.Invoke((string)entry.ID);
+                instance.OnClick += (presenter) => OnMerchandizeWidgetClick?.Invoke((string)entry.ID);
 
                 merchandizeCarousel.Add(instance.gameObject);
             }

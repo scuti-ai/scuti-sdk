@@ -118,7 +118,6 @@ namespace Scuti.UI
         }
         protected override void OnNextStateChanged(Model.State state)
         {
-            Debug.Log(gameObject + " NEXT <><><><><><><> state " + state);
             switch (state)
             {
                 case Model.State.Loaded:

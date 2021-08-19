@@ -23,9 +23,9 @@ namespace Scuti
         public static OffersPresenterBase.Model GetOffersPresenterModel(List<Offer> offers)
         {
             var result = new OffersPresenterBase.Model();
-            //var allowAd = UIManager.IsLargeDisplay() ? 5 : 2;
             if (offers != null)
             {
+            Debug.LogError("Adding offers: " + offers.Count);
                 offers.ToList().ForEach(offer =>
                 {
                 var element = GetOfferSummaryPresenterModel(offer, true);// allowAd > 0);

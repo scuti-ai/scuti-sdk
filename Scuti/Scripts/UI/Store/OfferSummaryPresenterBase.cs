@@ -165,7 +165,6 @@ namespace Scuti.UI
         internal void Clear()
         {
             Data?.Dispose();
-            OnClick = null;
             ResetAnimation();
         }
 
@@ -180,7 +179,7 @@ namespace Scuti.UI
 
         public bool Single = false;
         public bool FirstLoad = true;
-        public event Action OnClick;
+        public event Action<OfferSummaryPresenterBase> OnClick;
 
         /// <summary>
         /// Fired when the model loads an image. True if this is the
@@ -199,7 +198,7 @@ namespace Scuti.UI
         [Header("Fields")]
         [SerializeField] protected Image backgroundImage;
         [SerializeField] protected Image displayImage;
-        [SerializeField] protected Text titleText;
+        [SerializeField] public Text titleText;
         [SerializeField] protected Text displayPriceText;
         [SerializeField] protected Text ratingText;
         [SerializeField] protected RatingStarsWidget ratingStarsWidget;
@@ -276,6 +275,7 @@ namespace Scuti.UI
                 case ScutiConstants.SCUTI_IMPRESSION_ID:
                     try
                     {
+                        Debug.LogError("RECORD IMPRESSION!");
                         ScutiAPI.RecordOfferImpression(Data.ID);
                     }
                     catch
@@ -337,12 +337,13 @@ namespace Scuti.UI
 
         public void Click()
         {
-            OnClick?.Invoke();
+            OnClick?.Invoke(this);
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
+            animator = null;
             if (displayImage != null)
             {
                 CleanUp(displayImage.sprite);
@@ -518,7 +519,7 @@ namespace Scuti.UI
         // Updates UI based on values on View.Data
         protected virtual void UpdateUI()
         {
-            titleText.text = TextElipsis(Data.Title);
+            titleText.text = TextElipsis(Data.Title, Single? 26:15);
             displayPriceText.text = ScutiUtils.FormatPrice(Data.DisplayPrice);
 
             //  New and Hot Badges only in portrait
@@ -586,5 +587,6 @@ namespace Scuti.UI
             animator?.SetTrigger("RestartLoading");
         }
         #endregion
+
     }
 }

@@ -52,6 +52,7 @@ namespace Scuti.UI
                     _allOffers.Add(presenter);
                     presenter = doubleCopy[0].Presenters[1];
                     presenter.Single = false;
+                    //presenter.titleText.cha
                     _allOffers.Add(presenter);
                     doubleCopy.RemoveAt(0);
                 }
@@ -66,6 +67,8 @@ namespace Scuti.UI
 
         public override void Clear()
         {
+
+            Debug.LogError(">>> " + _allOffers.Count);
             base.Clear();
             foreach (var presenter in _allOffers)
             {
@@ -75,13 +78,20 @@ namespace Scuti.UI
 
 
 
-#endregion
+        #endregion
 
         // ================================================
-#region PRESENTATION
+        #region PRESENTATION
         // ================================================
- 
-    
+//        override protected void OnSetState()
+//        {
+//            Clear();
+//#pragma warning disable 4014
+//            _loadingSource = new CancellationTokenSource();
+//            PopulateOffers(_loadingSource.Token);
+//#pragma warning restore 4014
+//        }
+
 
         async protected override Task PopulateOffers(CancellationToken cancelToken)
         {
@@ -90,9 +100,9 @@ namespace Scuti.UI
             Debug.Log("All offers:  " + _allOffers.Count);
             foreach (var presenter in _allOffers)
             {
-                Debug.Log(presenter);
+                //Debug.Log(presenter);
                 offerData = Data.UseSpecific(presenter.Single);
-                Debug.Log(offerData);
+                //Debug.Log(offerData);
                 if (cancelToken.IsCancellationRequested) return;
 
                 m_Instantiated.Add(presenter);
@@ -103,7 +113,7 @@ namespace Scuti.UI
                 await Task.Delay((int)(instantiationInterval * 1000));
                 if (cancelToken.IsCancellationRequested) return;
 
-                Debug.Log(presenter + " data " + offerData);
+                //Debug.Log(presenter + " data " + offerData);
 
                 if (offerData == null)
                 {
@@ -114,7 +124,21 @@ namespace Scuti.UI
                 presenter.FirstLoad = true;
                 presenter.OnLoaded += OnWidgetLoaded;
                 presenter.Data.LoadImage();
-                presenter.OnClick += async () =>
+                presenter.OnClick -= OnPresenterClicked;
+                presenter.OnClick += OnPresenterClicked;
+            }
+
+            await Task.Delay(250);
+            //Debug.LogWarning(container_Large.childCount+"   ++++++++++++++    "+ container_Small.childCount);
+           
+
+            OnPopulateFinished?.Invoke();
+            m_ChangingCategories = false;
+        }
+
+        private async void OnPresenterClicked(OfferSummaryPresenterBase presenter)
+        {
+                if (presenter.Data != null && !presenter.Data.ID.IsNullOrEmpty())
                 {
                     UIManager.ShowLoading(false);
                     var id = presenter.Data.ID;
@@ -135,15 +159,7 @@ namespace Scuti.UI
                     }
 
                     UIManager.HideLoading(false);
-                };
-            }
-
-            await Task.Delay(250);
-            //Debug.LogWarning(container_Large.childCount+"   ++++++++++++++    "+ container_Small.childCount);
-           
-
-            OnPopulateFinished?.Invoke();
-            m_ChangingCategories = false;
+                }
         }
 
         protected override void OnWidgetLoaded(bool initial, OfferSummaryPresenterBase widget)
