@@ -1,14 +1,16 @@
+
+using UnityEngine;
+using UnityEngine.UI;
 /// Credit glennpow, Zarlang
 /// Sourced from - http://forum.unity3d.com/threads/free-script-particle-systems-in-ui-screen-space-overlay.406862/
 /// Updated by Zarlang with a more robust implementation, including TextureSheet annimation support
-
-namespace UnityEngine.UI.Extensions
+namespace Scuti.UI
 {
 #if UNITY_5_3_OR_NEWER
     [ExecuteInEditMode]
     [RequireComponent(typeof(CanvasRenderer), typeof(ParticleSystem))]
-    [AddComponentMenu("UI/Effects/Extensions/UIParticleSystem")]
-    public class UIParticleSystem : MaskableGraphic
+    //[AddComponentMenu("UI/Effects/Extensions/UIParticleSystem")]
+    public class ScutiParticleSystem : MaskableGraphic
     {
         [Tooltip("Having this enabled run the system in LateUpdate rather than in Update making it faster but less precise (more clunky)")]
         public bool fixedTime = true;

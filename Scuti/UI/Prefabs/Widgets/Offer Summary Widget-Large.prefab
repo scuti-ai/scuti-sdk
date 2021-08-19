@@ -794,10 +794,10 @@ GameObject:
   - component: {fileID: 224197283476165084}
   - component: {fileID: 222779309906288612}
   - component: {fileID: 225024778173779890}
-  - component: {fileID: 114999437136715084}
   - component: {fileID: 114660983478889476}
   - component: {fileID: 95563935576684128}
   - component: {fileID: 114208846670482862}
+  - component: {fileID: 7782772691687086893}
   m_Layer: 5
   m_Name: Offer Summary Widget-Large
   m_TagString: Untagged
@@ -849,61 +849,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &114999437136715084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1206384938226104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34288ee76b62ab248b88c5f790d004da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isModal: 0
-  m_State: 3
-  requiresLogin: 0
-  alwaysEnabled: 0
-  displayEvents: 0
-  onStartOpening:
-    m_PersistentCalls:
-      m_Calls: []
-  onOpened:
-    m_PersistentCalls:
-      m_Calls: []
-  onStartClosing:
-    m_PersistentCalls:
-      m_Calls: []
-  onClosed:
-    m_PersistentCalls:
-      m_Calls: []
-  Transitions: []
-  animator: {fileID: 95563935576684128}
-  timer: {fileID: 114392041837939036}
-  backgroundImage: {fileID: 114011564461385732}
-  displayImage: {fileID: 114467493205206926}
-  titleText: {fileID: 114092220084904578}
-  displayPriceText: {fileID: 114030116357688978}
-  ratingText: {fileID: 114436659427212282}
-  ratingStarsWidget: {fileID: 114128393873279912}
-  newBadge: {fileID: 1041153944933762}
-  hotBadge: {fileID: 1554917714071842}
-  hotPricePromo: {fileID: 1471251124806514}
-  recommendedPromo: {fileID: 1168875093339520}
-  specialOfferPromo: {fileID: 1889309633802692}
-  bestsellerPromo: {fileID: 1313319521514520}
-  scutiPromo: {fileID: 1929128080515762}
-  GlowImage: {fileID: 114798426889462396}
-  loadingVFX: {fileID: 0}
-  AdContainer: {fileID: 1964792287818510}
-  ProductVisualRules:
-  - Visual: {fileID: 1279864531141700}
-    HideIfStatic: 0
-  - Visual: {fileID: 1992549205578728}
-    HideIfStatic: 1
-  AdImage: {fileID: 114088184573153466}
-  IsTall: 1
 --- !u!114 &114660983478889476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -944,7 +889,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114999437136715084}
+      - m_Target: {fileID: 7782772691687086893}
         m_MethodName: Click
         m_Mode: 1
         m_Arguments:
@@ -990,6 +935,66 @@ MonoBehaviour:
   DownDuration: 0.05
   PressedScale: {x: 0.95, y: 0.95, z: 0.95}
   DefaultScale: {x: 1, y: 1, z: 1}
+--- !u!114 &7782772691687086893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206384938226104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10b80605b53c38d4bba01f6155183970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isModal: 0
+  m_State: 3
+  requiresLogin: 0
+  alwaysEnabled: 0
+  displayEvents: 0
+  onStartOpening:
+    m_PersistentCalls:
+      m_Calls: []
+  onOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  onStartClosing:
+    m_PersistentCalls:
+      m_Calls: []
+  onClosed:
+    m_PersistentCalls:
+      m_Calls: []
+  Transitions: []
+  animator: {fileID: 95563935576684128}
+  timer: {fileID: 114392041837939036}
+  backgroundImage: {fileID: 114011564461385732}
+  displayImage: {fileID: 114467493205206926}
+  titleText: {fileID: 114092220084904578}
+  displayPriceText: {fileID: 114030116357688978}
+  ratingText: {fileID: 114436659427212282}
+  ratingStarsWidget: {fileID: 114128393873279912}
+  newBadge: {fileID: 1041153944933762}
+  hotBadge: {fileID: 1554917714071842}
+  hotPricePromo: {fileID: 1471251124806514}
+  recommendedPromo: {fileID: 1168875093339520}
+  specialOfferPromo: {fileID: 1889309633802692}
+  bestsellerPromo: {fileID: 1313319521514520}
+  scutiPromo: {fileID: 1929128080515762}
+  GlowImage: {fileID: 114536216519020144}
+  AdContainer: {fileID: 1964792287818510}
+  ProductVisualRules:
+  - Visual: {fileID: 1790622987331056}
+    HideIfStatic: 0
+  - Visual: {fileID: 1526121194680864}
+    HideIfStatic: 0
+  - Visual: {fileID: 1288344265538128}
+    HideIfStatic: 0
+  - Visual: {fileID: 1055873813337238}
+    HideIfStatic: 0
+  - Visual: {fileID: 1992549205578728}
+    HideIfStatic: 1
+  AdImage: {fileID: 114088184573153466}
+  IsTall: 1
 --- !u!1 &1227466133686592
 GameObject:
   m_ObjectHideFlags: 0

@@ -457,10 +457,10 @@ GameObject:
   m_Component:
   - component: {fileID: 224690033223385222}
   - component: {fileID: 222989610099630442}
-  - component: {fileID: 114463846195168704}
   - component: {fileID: 225962566206600840}
   - component: {fileID: 114681755075516548}
   - component: {fileID: 114806180505998378}
+  - component: {fileID: 3080986844477801138}
   m_Layer: 5
   m_Name: Offers Panel
   m_TagString: Untagged
@@ -498,109 +498,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388535844230700}
   m_CullTransparentMesh: 0
---- !u!114 &114463846195168704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388535844230700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf2abd582807f4d429c4bd58d783387d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isModal: 0
-  m_State: 3
-  requiresLogin: 0
-  alwaysEnabled: 1
-  displayEvents: 1
-  onStartOpening:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114681755075516548}
-        m_MethodName: TransitionIn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onOpened:
-    m_PersistentCalls:
-      m_Calls: []
-  onStartClosing:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 114681755075516548}
-        m_MethodName: TransitionOut
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onClosed:
-    m_PersistentCalls:
-      m_Calls: []
-  Transitions:
-  - {fileID: 114681755075516548}
-  categoryNavigator: {fileID: 114028708058672736}
-  maxOffers: 6
-  videoOfferBackFill: 3
-  largeOffers: 2
-  showDuration: 10
-  instantiationInterval: 0.01
-  showInterval: 0.35
-  widgetPrefab_Large: {fileID: 114999437136715084, guid: de6e7652dc39ea44f871305fcca64076,
-    type: 3}
-  widgetPrefab_Small: {fileID: 114538486965266772, guid: 3f57bf63bac2c07428afd9d1a0adc55e,
-    type: 3}
-  container_Large: {fileID: 224860082912133074}
-  container_Small: {fileID: 224875811990225284}
-  container_Video: {fileID: 0}
-  videoWidget: {fileID: 0}
-  bannerImage: {fileID: 114112696992075480}
-  backgrounds:
-  - {fileID: 21300000, guid: 4912adc423f809f489d69d1562920653, type: 3}
-  - {fileID: 21300000, guid: 0d1a345edb09d7343b6219937bf55ea9, type: 3}
-  - {fileID: 21300000, guid: d1a5b6e72de2a0e4eb111c0ee8f1e3b2, type: 3}
-  - {fileID: 21300000, guid: 40036f13fb9675944b7650c48278109e, type: 3}
-  - {fileID: 21300000, guid: 279e6c333cbb2ca4c9ffc220c8d8979d, type: 3}
-  - {fileID: 21300000, guid: 625f4b7e87c954e4ebfa91341de0ac2d, type: 3}
-  colorInfo:
-  - Background: {fileID: 21300000, guid: 4912adc423f809f489d69d1562920653, type: 3}
-    Glow:
-      serializedVersion: 2
-      rgba: 4286792959
-  - Background: {fileID: 21300000, guid: 0d1a345edb09d7343b6219937bf55ea9, type: 3}
-    Glow:
-      serializedVersion: 2
-      rgba: 4294921385
-  - Background: {fileID: 21300000, guid: d1a5b6e72de2a0e4eb111c0ee8f1e3b2, type: 3}
-    Glow:
-      serializedVersion: 2
-      rgba: 4281658516
-  - Background: {fileID: 21300000, guid: 40036f13fb9675944b7650c48278109e, type: 3}
-    Glow:
-      serializedVersion: 2
-      rgba: 4294921728
-  - Background: {fileID: 21300000, guid: 279e6c333cbb2ca4c9ffc220c8d8979d, type: 3}
-    Glow:
-      serializedVersion: 2
-      rgba: 4293647360
-  - Background: {fileID: 21300000, guid: 625f4b7e87c954e4ebfa91341de0ac2d, type: 3}
-    Glow:
-      serializedVersion: 2
-      rgba: 4282029311
-  Banner: {fileID: 114088850072355282}
-  TimeoutTimer: {fileID: 114806180505998378}
 --- !u!225 &225962566206600840
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -668,6 +565,116 @@ MonoBehaviour:
   mode: 0
   useUnscaledTime: 0
   m_State: 2
+--- !u!114 &3080986844477801138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388535844230700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89d15b812437ae046afb7a9e62852f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isModal: 0
+  m_State: 3
+  requiresLogin: 0
+  alwaysEnabled: 1
+  displayEvents: 1
+  onStartOpening:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114681755075516548}
+        m_MethodName: TransitionIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  onStartClosing:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114681755075516548}
+        m_MethodName: TransitionOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onClosed:
+    m_PersistentCalls:
+      m_Calls: []
+  Transitions:
+  - {fileID: 114681755075516548}
+  categoryNavigator: {fileID: 114028708058672736}
+  offerDataToRequest: 6
+  instantiationInterval: 0.01
+  showInterval: 0.35
+  bannerImage: {fileID: 114112696992075480}
+  backgrounds:
+  - {fileID: 21300000, guid: 4912adc423f809f489d69d1562920653, type: 3}
+  - {fileID: 21300000, guid: 0d1a345edb09d7343b6219937bf55ea9, type: 3}
+  - {fileID: 21300000, guid: d1a5b6e72de2a0e4eb111c0ee8f1e3b2, type: 3}
+  - {fileID: 21300000, guid: 40036f13fb9675944b7650c48278109e, type: 3}
+  - {fileID: 21300000, guid: 279e6c333cbb2ca4c9ffc220c8d8979d, type: 3}
+  - {fileID: 21300000, guid: 625f4b7e87c954e4ebfa91341de0ac2d, type: 3}
+  colorInfo:
+  - Background: {fileID: 21300000, guid: 4912adc423f809f489d69d1562920653, type: 3}
+    Glow:
+      serializedVersion: 2
+      rgba: 4286792959
+  - Background: {fileID: 21300000, guid: 0d1a345edb09d7343b6219937bf55ea9, type: 3}
+    Glow:
+      serializedVersion: 2
+      rgba: 4294921385
+  - Background: {fileID: 21300000, guid: d1a5b6e72de2a0e4eb111c0ee8f1e3b2, type: 3}
+    Glow:
+      serializedVersion: 2
+      rgba: 4281658516
+  - Background: {fileID: 21300000, guid: 40036f13fb9675944b7650c48278109e, type: 3}
+    Glow:
+      serializedVersion: 2
+      rgba: 4294921728
+  - Background: {fileID: 21300000, guid: 279e6c333cbb2ca4c9ffc220c8d8979d, type: 3}
+    Glow:
+      serializedVersion: 2
+      rgba: 4293647360
+  - Background: {fileID: 21300000, guid: 625f4b7e87c954e4ebfa91341de0ac2d, type: 3}
+    Glow:
+      serializedVersion: 2
+      rgba: 4282029311
+  TimeoutTimer: {fileID: 114806180505998378}
+  Banner: {fileID: 114088850072355282}
+  OnPopulateFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClearFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  maxOffers: 6
+  videoOfferBackFill: 3
+  largeOffers: 2
+  showDuration: 10
+  widgetPrefab_Large: {fileID: 7782772691687086893, guid: de6e7652dc39ea44f871305fcca64076,
+    type: 3}
+  widgetPrefab_Small: {fileID: 6617197698747965883, guid: 3f57bf63bac2c07428afd9d1a0adc55e,
+    type: 3}
+  container_Large: {fileID: 224860082912133074}
+  container_Small: {fileID: 224875811990225284}
+  container_Video: {fileID: 0}
+  videoWidget: {fileID: 0}
 --- !u!1 &1513866796370492
 GameObject:
   m_ObjectHideFlags: 0

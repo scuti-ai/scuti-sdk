@@ -15,7 +15,7 @@ namespace Scuti.UI {
         [Serializable]
         public class Model : Presenter.Model
         {
-            public List<OfferSummaryPresenter.Model> Items = new List<OfferSummaryPresenter.Model>();
+            public List<OfferSummaryPresenterBase.Model> Items = new List<OfferSummaryPresenterBase.Model>();
         }
 
         [Header("Header")]
@@ -23,10 +23,10 @@ namespace Scuti.UI {
         [SerializeField] float instantiationInterval = .5f;
 
         [Header("Instantiation")]
-        [SerializeField] OfferSummaryPresenter widgetPrefab_Small;
+        [SerializeField] OfferSummaryPresenterBase widgetPrefab_Small;
         [SerializeField] Transform container;
         CancellationTokenSource _loadingSource;
-        List<OfferSummaryPresenter> m_Instantiated = new List<OfferSummaryPresenter>();
+        List<OfferSummaryPresenterBase> m_Instantiated = new List<OfferSummaryPresenterBase>();
 
         public UnityEvent OnPopulateFinished;
 
@@ -36,10 +36,10 @@ namespace Scuti.UI {
             if (!string.IsNullOrEmpty(shopName))
             {
                 var offers = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, null, shopName, null, 0, MaxRecommendations+1);
-                if (offers.Count > 0)
+                if (offers.Nodes.Count > 0)
                 {
-                    var tempData = new Model() { Items = new List<OfferSummaryPresenter.Model>() };
-                    foreach (var offer in offers)
+                    var tempData = new Model() { Items = new List<OfferSummaryPresenterBase.Model>() };
+                    foreach (var offer in offers.Nodes)
                     {
                         if (offer.Id.ToString() != currentOfferId)
                         {
@@ -113,10 +113,10 @@ namespace Scuti.UI {
                
                 widget.Data = Data.Items[index];
                 widget.Data.IsTall = false;
-                widget.Data.LoadImage();
                 widget.OnLoaded += OnWidgetLoaded;
+                widget.Data.LoadImage();
 
-                widget.OnClick += async () =>
+                widget.OnClick += async (presenter) =>
                 {
                     var id = widget.Data.ID;
                     var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
@@ -131,7 +131,7 @@ namespace Scuti.UI {
 
         }
 
-        private void OnWidgetLoaded(bool value, OfferSummaryPresenter widget)
+        private void OnWidgetLoaded(bool value, OfferSummaryPresenterBase widget)
         {
             widget.Show();
             widget.DisplayCurrentImage();

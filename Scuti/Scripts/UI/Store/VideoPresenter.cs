@@ -16,7 +16,7 @@ namespace Scuti.UI {
             public string VideoURL;
             public string RewardGraphicURL;
             public string RewardText;
-            public List<OfferSummaryPresenter.Model> Merchandize = new List<OfferSummaryPresenter.Model>();
+            public List<OfferSummaryPresenterBase.Model> Merchandize = new List<OfferSummaryPresenterBase.Model>();
         }
 
         public event Action OnPlayVideo;
@@ -33,7 +33,7 @@ namespace Scuti.UI {
         [SerializeField] Text rewardText;
 
         [Header("Instantiation")]
-        [SerializeField] OfferSummaryPresenter merchandizeWidgetPrefab;
+        [SerializeField] OfferSummaryPresenterBase merchandizeWidgetPrefab;
         [SerializeField] CarouselLayout merchandizeCarousel;
 
         public void PlayVideo() {
@@ -66,7 +66,7 @@ namespace Scuti.UI {
             foreach (var entry in Data.Merchandize) {
                 var instance = Instantiate(merchandizeWidgetPrefab);
                 instance.Data = entry;
-                instance.OnClick += () => OnMerchandizeWidgetClick?.Invoke((string)entry.ID);
+                instance.OnClick += (presenter) => OnMerchandizeWidgetClick?.Invoke((string)entry.ID);
 
                 merchandizeCarousel.Add(instance.gameObject);
             }

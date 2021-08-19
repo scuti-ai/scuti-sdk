@@ -59,7 +59,7 @@ namespace Scuti.UI {
 
         private void Start()
         {
-            Newtonsoft.Json.Utilities.AotHelper.EnsureList<OfferSummaryPresenter.Model>();
+            Newtonsoft.Json.Utilities.AotHelper.EnsureList<OfferSummaryPresenterBase.Model>();
         }
 
        
@@ -222,8 +222,10 @@ namespace Scuti.UI {
             get { return instance.generator["STORE", true]; }
         }
 
-        public static OffersPresenter Offers {
-            get { return Store["OFFERS"] as OffersPresenter; }
+        public static OffersPresenterBase Offers {
+            get { 
+                return Store["OFFERS"] as OffersPresenterBase; 
+            }
         }
 
         public static OfferDetailsPresenter OfferDetails {

@@ -111,21 +111,21 @@ public class BannerWidget : MonoBehaviour {
     {
         _loading = true;
 
-        List<Offer> offers = null;
+        OfferPage offerPage = null;
 
         try
         {
-            offers = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Banner }, FILTER_TYPE.Eq, null, null, null, _index, 1);
+            offerPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Banner }, FILTER_TYPE.Eq, null, null, null, _index, 1);
 
         } catch (Exception e)
         {
             ScutiLogger.LogException(e);
         }
 
-        if(offers != null && offers.Count>0)
+        if(offerPage != null && offerPage.Nodes.Count>0)
         {
 
-            _banner = offers[0];
+            _banner = (offerPage.Nodes as List<Offer>)[0];
         }
 
         if (_banner == null || string.IsNullOrEmpty(_banner.Media.Banner.BigUrl))

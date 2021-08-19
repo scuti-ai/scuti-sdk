@@ -4,8 +4,10 @@
 /// Updated by Febo Zodiaco - https://bitbucket.org/UnityUIExtensions/unity-ui-extensions/issues/349/magnticinfinitescroll
 
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace UnityEngine.UI.Extensions
+namespace Scuti.UI
 {
     /// <summary>
     /// Infinite scroll view with automatic configuration
@@ -19,8 +21,8 @@ namespace UnityEngine.UI.Extensions
     /// - in order to work it disables layout components and size fitter if present(automatically)
     ///
     /// </summary>
-    [AddComponentMenu("UI/Extensions/UI Infinite Scroll")]
-    public class UI_InfiniteScroll : MonoBehaviour
+    //[AddComponentMenu("UI/Extensions/Scuti Infinite Scroll")]
+    public class ScutiInfiniteScroll : MonoBehaviour
     {
         //if true user will need to call Init() method manually (in case the contend of the scrollview is generated from code or requires special initialization)
         [Tooltip("If false, will Init automatically, otherwise you need to call Init() method")]
@@ -81,8 +83,12 @@ namespace UnityEngine.UI.Extensions
             _itemCount = _scrollRect.content.childCount;
         }
 
+        private bool initialized = false;
+
         public void Init()
         {
+            if (initialized) return;
+            initialized = true;
             //Debug.LogWarning("-------------------------------------------- INIT --------------------------------------------");
             //Debug.LogWarning(" ==== childCount::  " + items.Count);
             _count = 0;
@@ -126,7 +132,7 @@ namespace UnityEngine.UI.Extensions
 
                 if (_isHorizontal && _isVertical)
                 {
-                    Debug.LogError("UI_InfiniteScroll doesn't support scrolling in both directions, please choose one direction (horizontal or vertical)");
+                    Debug.LogError("ScutiInfiniteScroll doesn't support scrolling in both directions, please choose one direction (horizontal or vertical)");
                 }
 
                 SetItems();
@@ -136,7 +142,7 @@ namespace UnityEngine.UI.Extensions
             }
             else
             {
-                Debug.LogError("UI_InfiniteScroll => No ScrollRect component found");
+                Debug.LogError("ScutiInfiniteScroll => No ScrollRect component found");
             }
         }
 
@@ -235,6 +241,12 @@ namespace UnityEngine.UI.Extensions
             if (_count < 5)
                 return;
 
+                CheckBounds();
+            
+        }
+
+        public void CheckBounds()
+        {
             //Debug.LogWarning(" --==*==-- OnScroll::  ");
             if (!_hasDisabledGridComponents)
             {
@@ -244,6 +256,7 @@ namespace UnityEngine.UI.Extensions
 
             try
             {
+
                 for (int i = 0; i < items.Count; i++)
                 {
                     if (_isHorizontal)
@@ -285,12 +298,11 @@ namespace UnityEngine.UI.Extensions
             }
             catch (System.Exception e)
             {
-                Debug.LogWarning("ERROR  OnScroll:: " + e.Message);
+                ScutiLogger.LogError("ERROR  OnScroll:: " + e.Message);
                 ResetItems();
                 CleanupItems();
                 EnableGridComponents();
             }
-            
         }
 
         public void CleanupItems()
