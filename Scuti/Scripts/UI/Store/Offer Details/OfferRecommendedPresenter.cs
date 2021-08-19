@@ -113,8 +113,8 @@ namespace Scuti.UI {
                
                 widget.Data = Data.Items[index];
                 widget.Data.IsTall = false;
-                widget.Data.LoadImage();
                 widget.OnLoaded += OnWidgetLoaded;
+                widget.Data.LoadImage();
 
                 widget.OnClick += async () =>
                 {

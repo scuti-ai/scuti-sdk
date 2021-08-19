@@ -203,7 +203,11 @@ namespace Scuti.UI
         }
 
 
-
+        protected override void OnWidgetLoaded(bool initial, OfferSummaryPresenterBase widget)
+        {
+            Debug.LogError("WIDGET LOADED");
+            loadedWidgetQueue.Enqueue(new Tuple<OfferSummaryPresenterBase, bool>(widget, initial));
+        }
         OfferSummaryPresenterLandscape GetTemplateForIndex(int index)
         {
             return index < GetActiveLarge() ? widgetPrefab_Large : widgetPrefab_Small;

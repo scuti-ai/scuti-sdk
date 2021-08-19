@@ -11,15 +11,12 @@ namespace Scuti.UI
     public class OfferSummaryPresenterLandscape : OfferSummaryPresenterBase 
     {
 
-        public delegate Task<Model> GetNext();
 
-        public OfferSummaryPresenterBase.Model Next { get; private set; }
         public bool HasNext
         {
             get { return Next != null && !Next.ID.IsNullOrEmpty(); }
         }
 
-        GetNext m_NextRequest;
         private bool loadingNextCompleted = false;
 
 
@@ -29,10 +26,6 @@ namespace Scuti.UI
         // ================================================
         #region LICECYCLE
         // ================================================
-        public void Inject(GetNext getNextMethod)
-        {
-            m_NextRequest = getNextMethod;
-        }
 
         public override void SetData(Model data)
         {
@@ -123,7 +116,7 @@ namespace Scuti.UI
             base.OnSetDataState(state);
 
         }
-        private void OnNextStateChanged(Model.State state)
+        protected override void OnNextStateChanged(Model.State state)
         {
             Debug.Log(gameObject + " NEXT <><><><><><><> state " + state);
             switch (state)

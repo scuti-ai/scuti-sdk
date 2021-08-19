@@ -37,6 +37,7 @@ namespace Scuti.UI
 
             public int Index;
 
+
             public string ImageURL;
             public string TallURL;
             public string SmallURL;
@@ -62,6 +63,7 @@ namespace Scuti.UI
             public bool DisplayAd = false;
             public bool IsTall = false;
 
+
             //HashSet<OfferSummaryPresenterBase> References;
 
             //public void AddReference(OfferSummaryPresenterBase r)
@@ -84,7 +86,6 @@ namespace Scuti.UI
 
             public void LoadImage()
             {
-                Debug.Log("LoadImage: " + Title +" : "+Index);
                 if (texture == null)
                 {
                     CurrentState = State.Loading;
@@ -111,18 +112,16 @@ namespace Scuti.UI
                                 DisplayAd = false;
                             }
                         }
-                        Debug.Log("Loading: " + url);
                         ImageDownloader.New().Download(url,
                             result =>
                             {
                                 texture = result;
-                                Debug.LogError("COMPLETED LOAD for " + Title  );
                                 CurrentState = State.Loaded;
 
                             },
                             error =>
                             {
-                                Debug.LogError("Failed to load: " + url + " for " + Title);
+                                ScutiLogger.LogError("Failed to load: " + url + " for " + Title);
                                 CurrentState = State.Failed;
                             }
                         );
@@ -154,6 +153,22 @@ namespace Scuti.UI
             }
         }
 
+
+        public OfferSummaryPresenterBase.Model Next { get; protected set; }
+        public delegate Task<Model> GetNext();
+        protected GetNext m_NextRequest;
+        public void Inject(GetNext getNextMethod)
+        {
+            m_NextRequest = getNextMethod;
+        }
+
+        internal void Clear()
+        {
+            Data?.Dispose();
+            OnClick = null;
+            ResetAnimation();
+        }
+
         public override void SetData(Model data)
         {
             if(m_Data != null)
@@ -163,6 +178,8 @@ namespace Scuti.UI
             base.SetData(data);
         }
 
+        public bool Single = false;
+        public bool FirstLoad = true;
         public event Action OnClick;
 
         /// <summary>
@@ -276,8 +293,7 @@ namespace Scuti.UI
 
         public void OnScrollIndexJumped()
         {
-            Debug.Log("Index jump "+Data.Index);
-            SwapToNext();
+            SwapToNextHelper();
         }
 
         public void OnRotateOutComplete()
@@ -286,22 +302,38 @@ namespace Scuti.UI
         }
 
         protected virtual void SwapToNext()
-        { 
-            // TODO
-            //if (HasNext)
-            //{
-            //    Data = Next;
-            //    Next = null;
-            //    DisplayCurrentImage();
-            //    ResetTimer();
-            //    LoadCompleted();
-            //} else
-            //{
-            //    Debug.Log("Does not have next! " + Data.Index);
-            //}
+        {
+            if (Next != null)
+            {
+                Next.OnStateChanged -= OnNextStateChanged;
+                Data = Next;
+                Next = null;
+                DisplayCurrentImage();
+                ResetTimer();
+                LoadCompleted();
+            }
         }
 
-       
+        protected async virtual void SwapToNextHelper()
+        {
+            Clear();
+            Next = await m_NextRequest();
+            Next.LoadImage();
+            Next.OnStateChanged += OnNextStateChanged;
+        }
+
+        protected virtual void OnNextStateChanged(Model.State state)
+        {
+            switch (state)
+            {
+                case Model.State.Loaded:
+                    SwapToNext();
+                    break;
+                case Model.State.Failed:
+                    Clear();
+                    break;
+            }
+        }
 
         public void Click()
         {
@@ -345,11 +377,12 @@ namespace Scuti.UI
         protected virtual void LoadCompleted()
         {
             if (OnLoaded != null) OnLoaded.Invoke(IsFirstLoad(), this);
+            FirstLoad = false;
         }
 
         protected virtual bool IsFirstLoad()
         {
-            return true;
+            return FirstLoad;
         }
 
         #endregion
@@ -469,6 +502,7 @@ namespace Scuti.UI
 
         protected virtual void OnSetDataState(Model.State state)
         {
+            Debug.LogError("Set State " + state);
             switch (state)
             {
                 case Model.State.Loaded:
@@ -546,6 +580,11 @@ namespace Scuti.UI
         {
             if(m_showing)
                 animator?.SetTrigger("LoadingFinished");
+        }
+
+        public void ResetAnimation()
+        {
+            animator?.SetTrigger("RestartLoading");
         }
         #endregion
     }

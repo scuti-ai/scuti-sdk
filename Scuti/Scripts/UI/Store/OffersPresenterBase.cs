@@ -60,6 +60,30 @@ namespace Scuti.UI
                 }
             }
 
+            public OfferSummaryPresenterBase.Model UseSpecific(bool isDisplayAd)
+            {
+                OfferSummaryPresenterBase.Model result = null;
+                if (NewItemsCount > 0)
+                {
+                    int i = 0;
+                    for(; i<NewItemsCount; i++)
+                    {
+                        result = NewItems[i];
+                        if(result.DisplayAd == isDisplayAd)
+                        {
+
+                            NewItems.RemoveAt(i);
+                            result.OnDispose += ReturnItem;
+                            ActiveItems.Add(result);
+                            return result;
+                        }
+                    }
+
+                    return UseItem();
+                }
+                return result;
+            }
+
             public OfferSummaryPresenterBase.Model UseItem()
             {
                 OfferSummaryPresenterBase.Model result = null;
@@ -480,10 +504,8 @@ namespace Scuti.UI
         }
          
 
-        protected void OnWidgetLoaded(bool initial, OfferSummaryPresenterBase widget)
+        protected virtual void OnWidgetLoaded(bool initial, OfferSummaryPresenterBase widget)
         {
-            Debug.LogError("WIDGET LOADED");
-            loadedWidgetQueue.Enqueue(new Tuple<OfferSummaryPresenterBase, bool>(widget, initial));
         }
 
         protected OfferColorData GetColorInfo(int index)
