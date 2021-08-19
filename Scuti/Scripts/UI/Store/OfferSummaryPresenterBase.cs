@@ -155,7 +155,7 @@ namespace Scuti.UI
 
 
         public OfferSummaryPresenterBase.Model Next { get; protected set; }
-        public delegate Task<Model> GetNext();
+        public delegate Task<Model> GetNext(OfferSummaryPresenterBase presenter);
         protected GetNext m_NextRequest;
         public void Inject(GetNext getNextMethod)
         {
@@ -317,7 +317,7 @@ namespace Scuti.UI
         protected async virtual void SwapToNextHelper()
         {
             Clear();
-            Next = await m_NextRequest();
+            Next = await m_NextRequest(this);
             Next.LoadImage();
             Next.OnStateChanged += OnNextStateChanged;
         }
@@ -502,7 +502,6 @@ namespace Scuti.UI
 
         protected virtual void OnSetDataState(Model.State state)
         {
-            Debug.LogError("Set State " + state);
             switch (state)
             {
                 case Model.State.Loaded:

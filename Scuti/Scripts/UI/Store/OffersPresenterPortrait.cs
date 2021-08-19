@@ -57,7 +57,7 @@ namespace Scuti.UI
                 }
             }
 
-            offerDataToRequest = 50;// _allOffers.Count;
+            offerDataToRequest =   _allOffers.Count;
         }
 
         private int colorCount = 0;

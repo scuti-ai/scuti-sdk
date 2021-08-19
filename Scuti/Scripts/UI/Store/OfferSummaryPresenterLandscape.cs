@@ -71,7 +71,7 @@ namespace Scuti.UI
             loadingNextCompleted = false;
             if (!_isStatic)
             {
-                Next = await m_NextRequest();
+                Next = await m_NextRequest(this);
                 Debug.Log(">>>>> Load Next from: " + gameObject + "  "+ Data.Index +"  to " + Next.Title +" : "+Next.Index);
                 if (Next != null)
                 {

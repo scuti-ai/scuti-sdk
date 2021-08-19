@@ -9,7 +9,7 @@ using Image = UnityEngine.UI.Image;
 using Scuti.GraphQL.Generated;
 
 using LoadedWidgetQueue = System.Collections.Generic.Queue<System.Tuple<Scuti.UI.OfferSummaryPresenterBase, bool>>;
-using GetNextRequestQueue = System.Collections.Generic.Queue<System.Action<Scuti.UI.OfferSummaryPresenterBase.Model>>;
+using GetNextRequestQueue = System.Collections.Generic.Queue<System.Tuple<System.Action<Scuti.UI.OfferSummaryPresenterBase.Model>, Scuti.UI.OfferSummaryPresenterBase>>;
 using System.Threading;
 using Scuti.Net;
 using UnityEngine.Events;
@@ -424,12 +424,16 @@ namespace Scuti.UI
         // crucial when two offer timers get over pretty much together, the 
         // index for both their next offer requests will be the same and they will
         // get the same offers.
-        public Task<OfferSummaryPresenterBase.Model> GetNext()
+        public Task<OfferSummaryPresenterBase.Model> GetNext(OfferSummaryPresenterBase presenter)
         {
             var source = new TaskCompletionSource<OfferSummaryPresenterBase.Model>();
-            GetNextRequestQueue.Enqueue(model => source.SetResult(model));
+            GetNextRequestQueue.Enqueue(Tuple.Create<Action<OfferSummaryPresenterBase.Model>, OfferSummaryPresenterBase>(model =>{
+                 source.SetResult(model);
+            }, presenter));
             return source.Task;
         }
+
+       
 
         public virtual void Clear()
         {
@@ -487,12 +491,18 @@ namespace Scuti.UI
 
                 if (Data.NewItemsCount>0)
                 {
-                    var request = GetNextRequestQueue.Dequeue();
-                    var model = Data.UseItem();
+                    var tuple = GetNextRequestQueue.Dequeue();
+                    var request = tuple.Item1;
+                    var pres = tuple.Item2;
+                    OfferSummaryPresenterBase.Model model = null;
+                    if(ScutiUtils.IsPortrait())
+                         model = Data.UseSpecific(pres.Single);
+                    else
+                        model = Data.UseItem();
+
                     request?.Invoke(model);
                 } else if(m_Pagination.Index >= m_Pagination.TotalCount && !requestInProgress)
                 {
-                    Debug.LogError("RESET!!");
                     Data.EmptyPool();
                 }
             }
