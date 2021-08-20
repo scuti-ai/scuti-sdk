@@ -1328,6 +1328,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Transitions: []
+  Single: 0
+  FirstLoad: 1
   animator: {fileID: 95641918555222256}
   timer: {fileID: 114432455225790650}
   backgroundImage: {fileID: 114740763463083730}
@@ -1344,7 +1346,6 @@ MonoBehaviour:
   bestsellerPromo: {fileID: 1647026476508324}
   scutiPromo: {fileID: 1113423411047398}
   GlowImage: {fileID: 114770090461563716}
-  loadingVFX: {fileID: 0}
   AdContainer: {fileID: 1755216328285900}
   ProductVisualRules:
   - Visual: {fileID: 1572720323770944}
@@ -2014,8 +2015,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
-  m_SizeDelta: {x: 0, y: 0.000030518}
+  m_AnchoredPosition: {x: -4.6099854, y: 0.000030517578}
+  m_SizeDelta: {x: 9.22, y: 0.000030518}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114223967482601310
 MonoBehaviour:
