@@ -223,6 +223,8 @@ namespace Scuti.UI
         protected bool _isStatic = false;
         protected bool _isPortrait = false;
 
+        System.Timers.Timer _portraitImpressionTimer = new System.Timers.Timer();
+
         [Serializable]
         public struct VisualRules
         {
@@ -235,17 +237,21 @@ namespace Scuti.UI
 
         public Image AdImage;
 
+        RectTransform rect;
+        bool _lastVisibleState = false;
 
         // ================================================
         #region LICECYCLE
         // ================================================
-      
+
 
         protected override void Awake()
         {
             base.Awake();
 
             _isPortrait = ScutiUtils.IsPortrait();
+
+            rect = GetComponent<RectTransform>();
 
             /*float pixelsWide = Camera.main.pixelWidth;
             float pixelsHigh = Camera.main.pixelHeight;
@@ -255,6 +261,12 @@ namespace Scuti.UI
             {
                 _isPortrait = false;
             }*/
+
+            if (_isPortrait)
+            {
+                _portraitImpressionTimer.Elapsed += _portraitImpressionTimer_Elapsed;
+                _portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
+            }
 
             timer.gameObject.SetActive(false);
             AdContainer.SetActive(false);
@@ -266,8 +278,36 @@ namespace Scuti.UI
              
         }
 
+        private void _portraitImpressionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            //Debug.LogWarning("RECORD IMPRESSION! "+ Data.ID);
+            _portraitImpressionTimer.Stop();
+            ScutiAPI.RecordOfferImpression(Data.ID);
+        }
 
-    
+        void Update()
+        {
+            if (!_isPortrait || Data == null)
+                return;
+
+            //rect.IsFullyVisibleFrom();
+            //Debug.LogWarning(gameObject.name + "  <color=#ff0000>visible "+ rect.IsFullyVisibleFrom()+"</color>");
+            if (rect.IsFullyVisibleFrom() && rect.IsFullyVisibleFrom() != _lastVisibleState)
+            {
+                _lastVisibleState = true;
+                _portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
+                _portraitImpressionTimer.Start();
+                //Debug.LogWarning(gameObject.name + "  <color=#00ff00>Object is visible "+ Data.ID + "</color>");
+            }
+            else if (!rect.IsFullyVisibleFrom() && rect.IsFullyVisibleFrom() != _lastVisibleState)
+            {
+                _lastVisibleState = false;
+                _portraitImpressionTimer.Stop();
+                //Debug.LogWarning(gameObject.name + "  <color=#ff0000>Object is no longer visible " + Data.ID + "</color>");
+            }
+
+        }
+
         private void OnTimerCustomEvent(string id)
         {
             switch(id)
