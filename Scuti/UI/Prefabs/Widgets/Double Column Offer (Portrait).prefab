@@ -181,11 +181,23 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8872568021331446621}
     m_Modifications:
+    - target: {fileID: 1055873813337238, guid: ebd9c7148f70262469779acab19fcc31, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095400003603334, guid: ebd9c7148f70262469779acab19fcc31, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1206384938226104, guid: ebd9c7148f70262469779acab19fcc31, type: 3}
       propertyPath: m_Name
       value: Offer Summary Widget-Large (Portrait)
       objectReference: {fileID: 0}
     - target: {fileID: 1564012427423842, guid: ebd9c7148f70262469779acab19fcc31, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1992549205578728, guid: ebd9c7148f70262469779acab19fcc31, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -208,6 +220,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114476470963814070, guid: ebd9c7148f70262469779acab19fcc31,
+        type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114476470963814070, guid: ebd9c7148f70262469779acab19fcc31,
+        type: 3}
+      propertyPath: m_Padding.m_Left
+      value: -22
       objectReference: {fileID: 0}
     - target: {fileID: 224018940921051374, guid: ebd9c7148f70262469779acab19fcc31,
         type: 3}
@@ -584,6 +606,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224642410330857974, guid: ebd9c7148f70262469779acab19fcc31,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.17502403
+      objectReference: {fileID: 0}
+    - target: {fileID: 224642410330857974, guid: ebd9c7148f70262469779acab19fcc31,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -0.35004997
+      objectReference: {fileID: 0}
     - target: {fileID: 224742993239552062, guid: ebd9c7148f70262469779acab19fcc31,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -813,6 +845,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8872568021331446621}
     m_Modifications:
+    - target: {fileID: 1055873813337238, guid: ebd9c7148f70262469779acab19fcc31, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095400003603334, guid: ebd9c7148f70262469779acab19fcc31, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1206384938226104, guid: ebd9c7148f70262469779acab19fcc31, type: 3}
       propertyPath: m_Name
       value: Offer Summary Widget-Large (Portrait) (1)
@@ -840,6 +880,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114476470963814070, guid: ebd9c7148f70262469779acab19fcc31,
+        type: 3}
+      propertyPath: m_Padding.m_Top
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114476470963814070, guid: ebd9c7148f70262469779acab19fcc31,
+        type: 3}
+      propertyPath: m_Padding.m_Left
+      value: -22
       objectReference: {fileID: 0}
     - target: {fileID: 224018940921051374, guid: ebd9c7148f70262469779acab19fcc31,
         type: 3}
@@ -1210,6 +1260,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224642410330857974, guid: ebd9c7148f70262469779acab19fcc31,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.17502403
+      objectReference: {fileID: 0}
+    - target: {fileID: 224642410330857974, guid: ebd9c7148f70262469779acab19fcc31,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -0.35004997
       objectReference: {fileID: 0}
     - target: {fileID: 224742993239552062, guid: ebd9c7148f70262469779acab19fcc31,
         type: 3}
