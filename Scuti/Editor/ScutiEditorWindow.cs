@@ -131,6 +131,17 @@ public class ScutiEditorWindow : EditorWindow
             var path = AssetDatabase.GUIDToAssetPath(res);
             settings = AssetDatabase.LoadAssetAtPath<ScutiSettings>(path);
         }
+        else
+        {
+            string assetPath = "Assets/Resources/"+ ScutiConstants.SCUTI_SETTINGS_PATH_FILE;
+            if (!Directory.Exists(assetPath))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(assetPath));
+            }
+            ScriptableObject settingsInstance = CreateInstance(typeof(ScutiSettings));
+            AssetDatabase.CreateAsset(settingsInstance, assetPath + ScutiConstants.SCUTI_SETTINGS_FILE);
+            settings = AssetDatabase.LoadAssetAtPath<ScutiSettings>(assetPath + ScutiConstants.SCUTI_SETTINGS_FILE);
+        }
         return settings;
     }
 
