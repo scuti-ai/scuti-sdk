@@ -132,7 +132,7 @@ namespace Scuti.UI
 
                 if (_isHorizontal && _isVertical)
                 {
-                    Debug.LogError("ScutiInfiniteScroll doesn't support scrolling in both directions, please choose one direction (horizontal or vertical)");
+                    //Debug.LogError("ScutiInfiniteScroll doesn't support scrolling in both directions, please choose one direction (horizontal or vertical)");
                 }
 
                 SetItems();
@@ -142,7 +142,7 @@ namespace Scuti.UI
             }
             else
             {
-                Debug.LogError("ScutiInfiniteScroll => No ScrollRect component found");
+                //Debug.LogError("ScutiInfiniteScroll => No ScrollRect component found");
             }
         }
 

@@ -134,7 +134,6 @@ namespace Scuti.UI
 
         async protected override Task PopulateOffers(CancellationToken cancelToken)
         {
-            Debug.LogError("Changing Cats True");
             m_ChangingCategories = true;
             var max = GetActiveMax();
             for (int i = 0; i < max; i++)
@@ -168,7 +167,7 @@ namespace Scuti.UI
                 var newData = Data.UseItem();
                 if (newData == null)
                 {
-                    Debug.LogError("Null data: " + gameObject);
+                    //Debug.LogError("Null data: " + gameObject);
                     continue;
                 }
                 widget.Data = newData;
@@ -206,15 +205,12 @@ namespace Scuti.UI
             //Debug.LogWarning(container_Large.childCount+"   ++++++++++++++    "+ container_Small.childCount);
             OnPopulateFinished?.Invoke();
 
-
-            Debug.LogError("Changing Cats FALSE");
             m_ChangingCategories = false;
         }
 
 
         protected override void OnWidgetLoaded(bool initial, OfferSummaryPresenterBase widget)
         {
-            Debug.LogError("WIDGET LOADED");
             loadedWidgetQueue.Enqueue(new Tuple<OfferSummaryPresenterBase, bool>(widget, initial));
         }
         OfferSummaryPresenterLandscape GetTemplateForIndex(int index)

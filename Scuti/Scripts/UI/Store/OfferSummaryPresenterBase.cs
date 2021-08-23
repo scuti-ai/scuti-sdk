@@ -132,7 +132,7 @@ namespace Scuti.UI
                     }
                 } else
                 {
-                    Debug.LogError("Texture is not null " + Title + " " + Index);
+                    //Debug.LogError("Texture is not null " + Title + " " + Index);
                     CurrentState = State.Loaded;
                 }
             }
@@ -315,7 +315,7 @@ namespace Scuti.UI
                 case ScutiConstants.SCUTI_IMPRESSION_ID:
                     try
                     {
-                        Debug.LogError("RECORD IMPRESSION!");
+                        //Debug.LogError("RECORD IMPRESSION!");
                         ScutiAPI.RecordOfferImpression(Data.ID);
                     }
                     catch

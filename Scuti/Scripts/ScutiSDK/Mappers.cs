@@ -25,7 +25,6 @@ namespace Scuti
             var result = new OffersPresenterBase.Model();
             if (offers != null)
             {
-            Debug.LogError("Adding offers: " + offers.Count);
                 offers.ToList().ForEach(offer =>
                 {
                 var element = GetOfferSummaryPresenterModel(offer, true);// allowAd > 0);
