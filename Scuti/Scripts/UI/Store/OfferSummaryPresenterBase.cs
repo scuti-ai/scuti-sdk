@@ -292,14 +292,14 @@ namespace Scuti.UI
 
             //rect.IsFullyVisibleFrom();
             //Debug.LogWarning(gameObject.name + "  <color=#ff0000>visible "+ rect.IsFullyVisibleFrom()+"</color>");
-            if (rect.IsFullyVisibleFrom() && rect.IsFullyVisibleFrom() != _lastVisibleState)
+            if (rect.IsHalfVisibleFrom() && rect.IsHalfVisibleFrom() != _lastVisibleState)
             {
                 _lastVisibleState = true;
                 _portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
                 _portraitImpressionTimer.Start();
                 //Debug.LogWarning(gameObject.name + "  <color=#00ff00>Object is visible "+ Data.ID + "</color>");
             }
-            else if (!rect.IsFullyVisibleFrom() && rect.IsFullyVisibleFrom() != _lastVisibleState)
+            else if (!rect.IsHalfVisibleFrom() && rect.IsHalfVisibleFrom() != _lastVisibleState)
             {
                 _lastVisibleState = false;
                 _portraitImpressionTimer.Stop();
