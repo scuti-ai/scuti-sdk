@@ -230,6 +230,7 @@ public class ScutiEditorWindow : EditorWindow
                     settings.secret = "";
                 else
                     settings.secret = secret;
+                EditorUtility.SetDirty(settings);
                 AssetDatabase.OpenAsset(settings);
             }
             if (GUILayout.Button("Open Settings"))
