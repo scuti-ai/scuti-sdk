@@ -132,7 +132,6 @@ namespace Scuti.UI
 
         private async void TryToLoadData(bool checkout)
         {
-            Debug.Log("Trying to load data...  Is card null? " + Data.Card +" or "+ _cachedCard);
             try
             {
                 if (_cachedCard == null)
@@ -177,7 +176,7 @@ namespace Scuti.UI
                     var gqlException = ex as GQLException;
                     if (gqlException.responseCode == 401 && gqlException.response.Contains("jwt expired"))
                     {
-                        Debug.LogError("SHOULD RE LOG NOW");
+                        //Debug.LogError("SHOULD RE LOG NOW");
                     }
                 }
                 checkout = false;
@@ -376,7 +375,6 @@ namespace Scuti.UI
                 subtotalAmountText.text = "Login Required";
             }
             RefreshText();
-            Debug.Log("Checkout? " + checkout);
             if(checkout)
             {
                 Checkout();
@@ -407,7 +405,6 @@ namespace Scuti.UI
                 }
                 else
                 {
-                    Debug.Log("Card? " + Data.Card);
                     PaymentSource paymentSource = null; 
                     if (_cachedCard != null)
                     {
@@ -599,7 +596,6 @@ namespace Scuti.UI
 
 
             Data.Card = data.Card;
-            Debug.LogError("Data.Card: " + Data.Card);
             Data.BillingAddress = data.Address;
             RefreshText();
         }

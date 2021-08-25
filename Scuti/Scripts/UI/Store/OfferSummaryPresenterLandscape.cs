@@ -39,7 +39,6 @@ namespace Scuti.UI
         protected override void SwapToNext()
         {
 
-            Debug.Log("Swap to next: "+HasNext);
             if (HasNext)
             {
                 if (Next != null) Next.OnStateChanged -= OnNextStateChanged;
@@ -50,13 +49,12 @@ namespace Scuti.UI
                 LoadCompleted();
             } else
             {
-                Debug.Log("Does not have next! " + Data.Index);
+                //Debug.Log("Does not have next! " + Data.Index);
             }
         }
 
         protected override void LoadCompleted()
         {
-            Debug.LogError(">>> LoadCompleted!!");
             base.LoadCompleted();
             LoadNext();
         }
@@ -72,7 +70,6 @@ namespace Scuti.UI
             if (!_isStatic)
             {
                 Next = await m_NextRequest(this);
-                Debug.Log(">>>>> Load Next from: " + gameObject + "  "+ Data.Index +"  to " + Next.Title +" : "+Next.Index);
                 if (Next != null)
                 {
                     Next.IsTall = IsTall;
