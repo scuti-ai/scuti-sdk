@@ -4,7 +4,12 @@ using System.Threading.Tasks;
 using Scuti.Net;
 using System;
 
+#if UNITY_IOS
+using Unity.Advertisement.IosSupport;
+#endif
+
 using Scuti.GraphQL;
+
 
 namespace Scuti.UI
 {
@@ -31,7 +36,32 @@ namespace Scuti.UI
         {
             emailInput.onValueChanged.AddListener(value => Data.Email = value);
             passwordInput.onValueChanged.AddListener(value => Data.Password = value);
-            registerButton.onClick.AddListener(async () => await Register());
+            registerButton.onClick.AddListener(RequestTracking);
+        }
+
+        private void RequestTracking()
+        {
+#if UNITY_IOS
+            var status = ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
+            switch(status)
+            {
+                case ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED:
+                    ATTrackingStatusBinding.RequestAuthorizationTracking();
+                    break;
+                case ATTrackingStatusBinding.AuthorizationTrackingStatus.AUTHORIZED:
+                    Register();
+                    break;
+                case ATTrackingStatusBinding.AuthorizationTrackingStatus.RESTRICTED:
+                    UIManager.Alert.SetHeader("Permission Needed").SetButtonText("Ok").SetBody("Apple requires permission for Scuti you to earn rewards across all games on the Scuti network. Please visit your device's Settings->Privacy->Tracking and enable the setting before registering.").Show(() => { });
+                    break;
+                case ATTrackingStatusBinding.AuthorizationTrackingStatus.DENIED:
+                    ATTrackingStatusBinding.RequestAuthorizationTracking();
+                    break;
+
+            }
+#else
+            Register();
+#endif
         }
 
         public async Task Register()
