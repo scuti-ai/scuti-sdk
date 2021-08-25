@@ -1,7 +1,10 @@
 {
   "name": "com.scuti.sdk",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "displayName": "Scuti SDK",
   "description": "Scuti Marketplace",
-  "unity": "2018.4"
+  "unity": "2018.4",
+  "dependencies": {
+    "com.unity.ads.ios-support": "1.0.0"
+  }
 }

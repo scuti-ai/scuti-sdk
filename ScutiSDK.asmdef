@@ -1,6 +1,8 @@
 {
-    "name": "Scuti",
-    "references": [],
+    "name": "Scuti", 
+    "references": [
+        "Unity.Advertisement.IosSupport"
+    ],
     "includePlatforms": [],
     "excludePlatforms": []
 }

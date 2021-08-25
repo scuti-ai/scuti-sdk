@@ -68,7 +68,6 @@ namespace Scuti.UI
         public override void Clear()
         {
 
-            Debug.LogError(">>> " + _allOffers.Count);
             base.Clear();
             foreach (var presenter in _allOffers)
             {
@@ -97,7 +96,6 @@ namespace Scuti.UI
         {
             OfferSummaryPresenterBase.Model offerData = null;
             OfferColorData colorData;
-            Debug.Log("All offers:  " + _allOffers.Count);
             foreach (var presenter in _allOffers)
             {
                 //Debug.Log(presenter);

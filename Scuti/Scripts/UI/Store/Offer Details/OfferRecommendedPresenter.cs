@@ -135,7 +135,7 @@ namespace Scuti.UI {
         {
             widget.Show();
             widget.DisplayCurrentImage();
-            Debug.LogError("TODO record unpaid impression");
+            //Debug.LogError("TODO record unpaid impression");
             //widget.ResetTimer();
         }
     }

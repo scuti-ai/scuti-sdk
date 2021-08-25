@@ -91,12 +91,11 @@ namespace Scuti.UI
                 {
                     result = NewItems[0];
                     NewItems.RemoveAt(0);
-                    Debug.LogError("Using ITEM. Remaining: " + NewItems.Count);
                     result.OnDispose += ReturnItem;
                     ActiveItems.Add(result);
                 } else
                 {
-                    Debug.LogError("No items remaining.");
+                    //Debug.LogError("No items remaining.");
                 }
                 return result;
             }
@@ -273,7 +272,6 @@ namespace Scuti.UI
 
         async void ProcessLoadedWidgetQueue()
         {
-            Debug.LogError("=========== ProcessLoadedWidgetQueue ===========");
             while (true)
             {
                 if (!m_Paused && !m_ChangingCategories  && loadedWidgetQueue.Count > 0)
@@ -487,7 +485,6 @@ namespace Scuti.UI
             {
                 if(Data.NewItemsCount < MinDataCached && m_Pagination.Index<m_Pagination.TotalCount && !requestInProgress)
                 {
-                    Debug.Log("Requesting Data:" + Data.NewItemsCount + " vs "+ MinDataCached+"   index: " + m_Pagination.Index +" and " + m_Pagination.TotalCount);
 #pragma warning disable 4014
                     RequestMoreOffers(false);
 #pragma warning restore 4014
