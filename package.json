@@ -5,6 +5,5 @@
   "description": "Scuti Marketplace",
   "unity": "2018.4",
   "dependencies": {
-    "com.unity.ads.ios-support": "1.0.0"
   }
 }
