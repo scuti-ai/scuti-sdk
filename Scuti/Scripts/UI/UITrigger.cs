@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Scuti.Net;
+using UnityEngine;
 
 namespace Scuti.UI {
     public class UITrigger : MonoBehaviour {
@@ -11,7 +12,7 @@ namespace Scuti.UI {
         }
 
         public void OpenURL(string url)
-        {
+        { 
             Application.OpenURL(url);
         }
 

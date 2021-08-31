@@ -193,6 +193,8 @@ namespace Scuti.UI {
             get { return Account["WELCOME"] as WelcomeView;  }
         }
 
+       
+
         public static WalletView Wallet {
             get { return Account["WALLET"] as WalletView; }
         }
@@ -211,6 +213,10 @@ namespace Scuti.UI {
         public static VideoView VideoPlayer
         {
             get { return Store["VIDEOPLAYER"] as VideoView; }
+        }
+        public static View RewardsAd
+        {
+            get { return Store["REWARDSAD"]; }
         }
 
         public static TopBarView TopBar

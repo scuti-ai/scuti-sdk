@@ -177,6 +177,12 @@ MonoBehaviour:
     view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
+  - id: REWARDSAD
+    view: {fileID: 3468817519860186242, guid: 9b711427ac321ee4583f0d203d634909, type: 3}
+    view_portrait: {fileID: 0}
+    view_pc: {fileID: 0}
+    parent: {fileID: 224981712142982816}
+    instance: {fileID: 0}
 --- !u!1 &1266037488985866
 GameObject:
   m_ObjectHideFlags: 0
