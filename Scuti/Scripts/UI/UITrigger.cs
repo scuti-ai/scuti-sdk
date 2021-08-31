@@ -12,7 +12,8 @@ namespace Scuti.UI {
         }
 
         public void OpenURL(string url)
-        { 
+        {
+            ScutiAPI.SendEmail("Test Subject", "Test Email", "mark.grossnickle@gmail.com");
             Application.OpenURL(url);
         }
 
