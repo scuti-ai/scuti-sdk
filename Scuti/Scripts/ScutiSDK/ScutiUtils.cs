@@ -102,4 +102,24 @@ public class ScutiUtils  {
         var stripped = StripHTML(text);
         return  StripHTML(text);
     }
+
+    internal static string GetSupportEmail()
+    {
+
+#if UNITY_EDITOR
+        return "mgrossnickle@mindtrust.com";
+#elif UNITY_IOS
+        return ScutiConstants.MAIL_TO_IOS;
+#elif UNITY_ANDROID
+        return ScutiConstants.MAIL_TO_ANDROID;
+#else
+        return ScutiConstants.MAIL_TO_PC;
+    
+#endif
+
+    }
+    internal static string GetSupportInfo(string userInfo)
+    {
+        return ($"User {userInfo} | Game {ScutiNetClient.Instance.GameId} | Platform {Application.platform} | Device {SystemInfo.deviceModel}");
+    }
 }

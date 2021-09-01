@@ -163,6 +163,11 @@ namespace Scuti.UI {
             get { return Overlay["CVV"] as TextInputView; }
         }
 
+        public static SupportContactView SupportContact
+        {
+            get { return Overlay["SUPPORT"] as SupportContactView; }
+        }
+
         public static ConfirmationView LogoutPopup
         {
             get { return Overlay["LOGOUT-POPUP"] as ConfirmationView; }

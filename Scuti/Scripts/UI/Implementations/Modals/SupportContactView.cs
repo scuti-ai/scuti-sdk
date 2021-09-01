@@ -1,5 +1,6 @@
- 
-﻿using System;
+
+using Scuti.Net;
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +12,13 @@ namespace Scuti
         public event Action<string> OnSubmit;
 
         [SerializeField] InputField inputField;
+        [SerializeField] InputField emailInputField;
 
         Action<string> m_Callback;
 
         public void Submit()
         {
+            ScutiAPI.SendEmail(ScutiUtils.GetSupportInfo(emailInputField.text), inputField.text, ScutiUtils.GetSupportEmail());
             OnSubmit?.Invoke(inputField.text);
             m_Callback?.Invoke(inputField.text);
             Close();
