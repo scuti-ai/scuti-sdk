@@ -163,6 +163,11 @@ namespace Scuti.UI {
             get { return Overlay["CVV"] as TextInputView; }
         }
 
+        public static SupportContactView SupportContact
+        {
+            get { return Overlay["SUPPORT"] as SupportContactView; }
+        }
+
         public static ConfirmationView LogoutPopup
         {
             get { return Overlay["LOGOUT-POPUP"] as ConfirmationView; }
@@ -193,6 +198,8 @@ namespace Scuti.UI {
             get { return Account["WELCOME"] as WelcomeView;  }
         }
 
+       
+
         public static WalletView Wallet {
             get { return Account["WALLET"] as WalletView; }
         }
@@ -211,6 +218,10 @@ namespace Scuti.UI {
         public static VideoView VideoPlayer
         {
             get { return Store["VIDEOPLAYER"] as VideoView; }
+        }
+        public static View RewardsAd
+        {
+            get { return Store["REWARDSAD"]; }
         }
 
         public static TopBarView TopBar

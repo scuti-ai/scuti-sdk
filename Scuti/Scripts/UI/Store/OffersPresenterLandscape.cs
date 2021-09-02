@@ -119,11 +119,7 @@ namespace Scuti.UI
                 Destroy(child.gameObject);
         }
 
-        private void ResetTimeout()
-        {
-            m_Idle = false;
-            TimeoutTimer.SoftReset();
-        }
+   
 
 
         #endregion

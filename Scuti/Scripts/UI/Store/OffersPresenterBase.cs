@@ -263,8 +263,15 @@ namespace Scuti.UI
 #else
             if(Input.anyKey || Input.GetAxis("Mouse X") != 0)
 #endif
-            { 
-                ResetTimeout();
+            {
+                if (m_Paused && ShouldUpdateOffers)
+                {
+                    ResumeAds();
+                }
+                else
+                {
+                    ResetTimeout();
+                }
             }
             ProcessGetNextRequestQueue();
         }

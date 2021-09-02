@@ -1,4 +1,5 @@
-﻿#if UNITY_IOS
+﻿/*
+#if UNITY_IOS
 using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
@@ -41,3 +42,4 @@ public class PostBuildStep
     }
 }
 #endif
+*/

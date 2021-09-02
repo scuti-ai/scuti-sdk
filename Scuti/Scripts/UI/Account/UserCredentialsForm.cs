@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Scuti.Net;
 using System;
 
-#if UNITY_IOS
-using Unity.Advertisement.IosSupport;
-#endif
+//#if UNITY_IOS
+//using Unity.Advertisement.IosSupport;
+//#endif
 
 using Scuti.GraphQL;
 
@@ -36,9 +36,9 @@ namespace Scuti.UI
         {
             emailInput.onValueChanged.AddListener(value => Data.Email = value);
             passwordInput.onValueChanged.AddListener(value => Data.Password = value);
-            registerButton.onClick.AddListener(RequestTracking);
+            registerButton.onClick.AddListener(async () => await Register());
         }
-
+/*
         private void RequestTracking()
         {
 #if UNITY_IOS
@@ -63,6 +63,7 @@ namespace Scuti.UI
             Register();
 #endif
         }
+        */
 
         public async Task Register()
         {

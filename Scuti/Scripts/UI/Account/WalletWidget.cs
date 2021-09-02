@@ -21,7 +21,7 @@ public class WalletWidget : MonoBehaviour {
 
     private void OnWalletUpdated(int balance)
     {
-        WalletLabel.text = balance.ToString();
+        WalletLabel.text = String.Format("{0:n0}", balance);
     }
 
     public void DoRefresh()
@@ -36,7 +36,7 @@ public class WalletWidget : MonoBehaviour {
         if (ScutiNetClient.Instance.IsAuthenticated)
         {
             var rewards = await ScutiAPI.GetWallet(true);
-            WalletLabel.text = ScutiUtils.GetTotalWallet(rewards).ToString();
+            WalletLabel.text = String.Format("{0:n0}", ScutiUtils.GetTotalWallet(rewards));
         } else
         {
             WalletLabel.text = "0";
@@ -53,7 +53,7 @@ public class WalletWidget : MonoBehaviour {
         {
             percent = (Time.time - time) / v;
             if (percent > 1) percent = 1;
-            WalletLabel.text = (value+Math.Floor(reward*percent)).ToString();
+            WalletLabel.text = String.Format("{0:n0}" , (value+Math.Floor(reward*percent)));
             v -= 0.03f;
             await Task.Delay(30);
         }

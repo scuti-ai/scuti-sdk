@@ -177,6 +177,12 @@ MonoBehaviour:
     view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
+  - id: REWARDSAD
+    view: {fileID: 3468817519860186242, guid: 9b711427ac321ee4583f0d203d634909, type: 3}
+    view_portrait: {fileID: 0}
+    view_pc: {fileID: 0}
+    parent: {fileID: 224981712142982816}
+    instance: {fileID: 0}
 --- !u!1 &1266037488985866
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +367,12 @@ MonoBehaviour:
     view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
+  - id: SUPPORT
+    view: {fileID: 114940364197242724, guid: 1102a22e72c6b0c41a3d8f9df4c68e13, type: 3}
+    view_portrait: {fileID: 0}
+    view_pc: {fileID: 0}
+    parent: {fileID: 224471452044485110}
+    instance: {fileID: 0}
 --- !u!1 &1736270222254480
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,9 +454,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
