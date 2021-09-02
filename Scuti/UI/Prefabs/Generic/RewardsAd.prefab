@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Padding:
     m_Left: 50
     m_Right: 50
-    m_Top: 60
+    m_Top: 30
     m_Bottom: 60
   m_ChildAlignment: 4
   m_Spacing: 80
@@ -171,8 +171,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -124}
+  m_SizeDelta: {x: 0, y: -248}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &3650849844013092318
 CanvasGroup:
@@ -283,6 +283,7 @@ GameObject:
   - component: {fileID: 3651012349075350022}
   - component: {fileID: 3648523222188825268}
   - component: {fileID: 3468866939695662096}
+  - component: {fileID: 2780205348466681289}
   m_Layer: 5
   m_Name: TitleText
   m_TagString: Untagged
@@ -349,6 +350,26 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "Scuti Rewards\r"
+--- !u!114 &2780205348466681289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580803581252720366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: 60
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &3911744981487966683
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +513,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 2ad97b1dcde7187459fbce9b9a0d20e1, type: 3}
-    m_FontSize: 28
+    m_FontSize: 38
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -503,15 +524,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Scuti Rewards are your gateway to great product discoveries, savings and
-    a greater game experience.\r\n\nAs a Scuti Member, you can take advantage of all
-    the benefits that make shopping with us even more rewarding and fun. Earn and
-    accrue points for every dollar you spend. \r\n\nEvery time you purchase a product
-    on Scuti, you earn rewards. The number of rewards you receive are set by the product
-    Vendors. These rewards can be 1% to 5% of the retail price. Scuti also offers
-    members <b>\u201CDouble Rewards\u201D</b> during promotional periods. \r\n\nYou
-    can redeem your Scutis and save money every time you check out. Register today
-    and start earning."
+  m_Text: "Scuti Rewards are your gateway to great product discoveries and savings.\n\nAs
+    a Scuti Member, you can earn and accrue points for every dollar you spend. Every
+    time you log into Scuti or purchase a product you earn rewards. Scuti also offers
+    members \u201CDouble Rewards\u201D during promotional periods. \n\nRedeem your
+    Scutis and save money every time you check out. Register today and start earning."
 --- !u!114 &3529455904278415674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -527,7 +544,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 1300
+  m_PreferredWidth: 1500
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
