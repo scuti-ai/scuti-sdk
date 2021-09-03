@@ -39,6 +39,7 @@ namespace Scuti.UI
         [SerializeField] GameObject BuyNowButton;
 
         public ScrollRect ScrollContent;
+        public ScrollRect DescriptionScrollContent;
 
         private bool _isVideo;
 
@@ -61,8 +62,10 @@ namespace Scuti.UI
             feedbackWidget.Data = Data.Feedback;
             showcaseWidget.Data = Data.Showcase;
             customizationWidget.Data = Data.Customization;
+            if(DescriptionScrollContent) DescriptionScrollContent.verticalNormalizedPosition = 1;
             RecommendedWidget.SearchForRecommendations(Data.ShopName, Data.Info.ID);
         }
+
 
         public override void Open()
         {
