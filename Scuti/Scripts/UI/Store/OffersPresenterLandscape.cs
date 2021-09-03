@@ -55,12 +55,17 @@ namespace Scuti.UI
         #region CATEGORY AND PAGINATION
         // ================================================
 
-        protected override async Task ShowCategoryHelper() 
+        protected override async Task ShowCategoryHelper(CancellationToken token) 
         {
             
             if(container_Video!=null && videoWidget!=null) 
             {
                 var offersPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Video }, FILTER_TYPE.Eq, m_Pagination.Category, null, null, m_Pagination.VideoIndex, 1);
+                if(token.IsCancellationRequested)
+                {
+                    return;
+                }
+                
                 if (offersPage != null && offersPage.Nodes != null && offersPage.Nodes.Count>0)
                 {
                     m_Pagination.VideoIndex++;
