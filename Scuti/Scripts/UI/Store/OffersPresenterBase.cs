@@ -186,6 +186,7 @@ namespace Scuti.UI
 
 
         protected CancellationTokenSource _loadingSource;
+        protected List<CancellationTokenSource> _offerSources;
         // QUEUE HANDLERS
         protected LoadedWidgetQueue loadedWidgetQueue = new LoadedWidgetQueue();
 
@@ -258,7 +259,7 @@ namespace Scuti.UI
 
         private void Update()
         {
-#if UNITY_IOS || UNITY_ANDROID
+#if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
             if(Input.touchCount>0)
 #else
             if(Input.anyKey || Input.GetAxis("Mouse X") != 0)
@@ -311,18 +312,28 @@ namespace Scuti.UI
         // ================================================
         public async void ShowCategory(string category)
         {
-
             if (TrySetCategory(category))
-            { 
+            {
                 m_ChangingCategories = true;
                 Clear();
-                await ShowCategoryHelper();
-                await RequestMoreOffers(true);
+                
+                if(_offerSources != null)
+                {
+                    foreach(var src in _offerSources)
+                    {
+                        src.Cancel();
+                    }
+                }
+                _offerSources = new List<CancellationTokenSource>();
+                var source = new CancellationTokenSource();
+                _offerSources.Add(source);
+                await ShowCategoryHelper(source.Token);
+                await RequestMoreOffers(true, source.Token, offerDataToRequest);
             } 
             UIManager.HideLoading(true);
         }
 
-        protected virtual async Task ShowCategoryHelper() { }
+        protected virtual async Task ShowCategoryHelper(CancellationToken token) { }
 
      
          
@@ -352,7 +363,8 @@ namespace Scuti.UI
                 {
                     Category = categoryValue,
                     Index = 0,
-                    VideoIndex = 0
+                    VideoIndex = 0,
+                    TotalCount = 0
                 };
 
             m_Pagination = m_PaginationMap[categoryName];
@@ -366,28 +378,68 @@ namespace Scuti.UI
         /// Returns a list of offers, based on the current paginataion status
         /// </summary>
         private bool requestInProgress = false;
-        public async Task RequestMoreOffers(bool replaceData)
+        public async Task RequestMoreOffers(bool replaceData, CancellationToken token, int maxCount)
         {
+            int requestMore = 0;
+
+            if (m_Pagination.Index >= m_Pagination.TotalCount)
+            {
+                m_Pagination.Index = 0;
+            }
+            else
+            {
+                // hacky way to break recursion
+                if (replaceData && maxCount == offerDataToRequest)
+                    requestMore = (m_Pagination.Index + maxCount) - m_Pagination.TotalCount;
+            }
+
             var index = m_Pagination.Index;
-            var maxCount =  offerDataToRequest;
             requestInProgress = true;
-            //Debug.LogWarning("Requesting Range   index:" + index + "  m_Pagination.Index:" + m_Pagination.Index + "  maxcount:" + maxCount + "  retry:" + retry);
+            //Debug.LogWarning("Requesting Range   index:" + index + "  m_Pagination.Index:" + m_Pagination.Index + "  maxcount:" + maxCount + "  replace:" + replaceData +" and total "+ m_Pagination.TotalCount +"  cat " + m_Pagination.Category);
             m_Pagination.Index += maxCount;
+            //Debug.LogWarning("Next index: " + m_Pagination.Index + " for " + maxCount +"  moar "+ requestMore);
             OfferPage offerPage = null;
             try
             {
                 offerPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, maxCount);
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 ScutiLogger.LogException(e);
                 //Debug.LogError("TODO: show error message ");
             }
+            if (token.IsCancellationRequested)
+            {
+                return;
+            }
 
             if (offerPage != null)
             {
-                m_Pagination.TotalCount =  offerPage.Paging.TotalCount.GetValueOrDefault(0);
+                m_Pagination.TotalCount = offerPage.Paging.TotalCount.GetValueOrDefault(0);
                 if (replaceData)
                 {
+                    if (requestMore > 0 && requestMore < offerDataToRequest)
+                    {
+                        try
+                        {
+                            index = 0;
+                            //Debug.LogWarning("Requesting Range  >>>>  index:" + index + "  m_Pagination.Index:" + m_Pagination.Index + "  maxcount:" + maxCount + "  replace:" + replaceData +" and total "+ m_Pagination.TotalCount +"  cat " + m_Pagination.Category);
+                            m_Pagination.Index = requestMore;
+                            var secondPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, requestMore);
+                            if (secondPage != null)
+                            {
+                                foreach (var node in secondPage.Nodes)
+                                {
+                                    offerPage.Nodes.Add(node);
+                                }
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            ScutiLogger.LogException(e);
+                            //Debug.LogError("TODO: show error message ");
+                        }
+                    }
                     Data = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>);
                 }
                 else
@@ -405,6 +457,8 @@ namespace Scuti.UI
                 }
             }
             requestInProgress = false;
+
+
             //Debug.LogWarning("      actualCount" + actualCount  + "  maxcount:" + maxCount );
             ////if (actualCount < maxCount)
             ////{
@@ -493,7 +547,9 @@ namespace Scuti.UI
                 if(Data.NewItemsCount < MinDataCached && m_Pagination.Index<m_Pagination.TotalCount && !requestInProgress)
                 {
 #pragma warning disable 4014
-                    RequestMoreOffers(false);
+                    var source = new CancellationTokenSource();
+                    _offerSources.Add(source);
+                    RequestMoreOffers(false, source.Token, offerDataToRequest);
 #pragma warning restore 4014
                 } 
 

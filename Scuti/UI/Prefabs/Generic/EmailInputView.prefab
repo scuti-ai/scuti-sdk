@@ -216,6 +216,7 @@ MonoBehaviour:
   Transitions: []
   inputField: {fileID: 114376521617269168}
   emailInputField: {fileID: 6709515766097298596}
+  EmailPlaceholder: {fileID: 1611398457500088670}
 --- !u!1 &1229947532192476
 GameObject:
   m_ObjectHideFlags: 0
@@ -1084,7 +1085,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter your Email (optional)
+  m_Text: Enter your Email
 --- !u!1 &1867246606548732693
 GameObject:
   m_ObjectHideFlags: 0
