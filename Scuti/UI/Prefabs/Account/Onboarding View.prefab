@@ -3745,6 +3745,8 @@ MonoBehaviour:
     m_Options:
     - m_Text: US
       m_Image: {fileID: 0}
+    - m_Text: Canada
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3780,6 +3782,7 @@ GameObject:
   - component: {fileID: 222221906550283166}
   - component: {fileID: 114071703371332356}
   - component: {fileID: 114481787350474190}
+  - component: {fileID: 2965117760526510388}
   m_Layer: 5
   m_Name: StateDropDown
   m_TagString: Untagged
@@ -3993,6 +3996,26 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2965117760526510388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1231497872830844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1679637790, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: 220
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &1246328941000866
 GameObject:
   m_ObjectHideFlags: 0
@@ -7678,8 +7701,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 8.820049, y: 8.140015}
-  m_SizeDelta: {x: -17.640099, y: 66.5}
+  m_AnchoredPosition: {x: 0.000041962, y: 8.140015}
+  m_SizeDelta: {x: -0.000030517578, y: 66.5}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &222981918644067992
 CanvasRenderer:
@@ -7720,7 +7743,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: State*
+  m_Text: State/Province
 --- !u!1 &1424887123137618
 GameObject:
   m_ObjectHideFlags: 0

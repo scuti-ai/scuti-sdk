@@ -1456,7 +1456,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: State*
+  m_Text: State/Province
 --- !u!1 &1326958405334992
 GameObject:
   m_ObjectHideFlags: 0
@@ -2807,6 +2807,8 @@ MonoBehaviour:
   m_Options:
     m_Options:
     - m_Text: US
+      m_Image: {fileID: 0}
+    - m_Text: Canada
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
