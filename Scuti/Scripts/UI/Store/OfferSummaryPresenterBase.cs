@@ -139,7 +139,7 @@ namespace Scuti.UI
 
             //private void GarbageCollect()
             //{
-               
+
             //}
 
             public override void Dispose()
@@ -275,7 +275,7 @@ namespace Scuti.UI
             timer.onFinished.AddListener(OnTimerCompleted);
             timer.onCustomEvent += OnTimerCustomEvent;
             GlowImage.gameObject.SetActive(false);
-             
+
         }
 
         private void _portraitImpressionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -489,7 +489,7 @@ namespace Scuti.UI
             }
         }
 
-        
+
 
         public void SetDuration(float duration)
         {
@@ -592,6 +592,7 @@ namespace Scuti.UI
                     if (pair.Value)
                     {
                         pair.Key.SetActive(true);
+                        pair.Key.transform.localScale = Vector3.zero;
                         break;
                     }
                 }
