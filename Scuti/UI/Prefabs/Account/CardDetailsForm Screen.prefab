@@ -153,7 +153,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: State/Province
+  m_Text: State
 --- !u!1 &1003309991739058
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,6 +708,7 @@ MonoBehaviour:
   expirationDateInput: {fileID: 114721567086463076}
   ExpirationValidator: {fileID: 114974785054721112}
   SaveCard: {fileID: 114143062195322134}
+  stateLabel: {fileID: 114782172847047890}
 --- !u!1 &1041325889573178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2053,8 +2054,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114727241279556488}
   m_HandleRect: {fileID: 224257659059251314}
   m_Direction: 2
-  m_Value: 0.9999989
-  m_Size: 0.953967
+  m_Value: 0.9999921
+  m_Size: 0.9936364
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9166,7 +9167,7 @@ MonoBehaviour:
   inputField: {fileID: 114205914784697064}
   mode: 1
   minLength: 5
-  maxLength: 5
+  maxLength: 7
   msgOnNoValue: Zip Code*
   msgOnShortValue: Zip Code*
   msgOnLongValue: Zip Code*

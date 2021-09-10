@@ -1501,7 +1501,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: State/Province
+  m_Text: State
 --- !u!1 &1383138225496912
 GameObject:
   m_ObjectHideFlags: 0
@@ -1651,6 +1651,7 @@ MonoBehaviour:
   saveButton: {fileID: 114885444606881812}
   prevButton: {fileID: 0}
   saveButtonLabel: {fileID: 0}
+  stateLabel: {fileID: 114798469950365696}
   UseAsOnboarding: 0
 --- !u!114 &114934144386765256
 MonoBehaviour:
@@ -4101,7 +4102,7 @@ MonoBehaviour:
   inputField: {fileID: 114600862669118730}
   mode: 1
   minLength: 5
-  maxLength: 5
+  maxLength: 7
   msgOnNoValue: Zip*
   msgOnShortValue: Zip*
   msgOnLongValue: Zip*
