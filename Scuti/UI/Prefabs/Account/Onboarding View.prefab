@@ -7363,6 +7363,7 @@ MonoBehaviour:
   - {fileID: 1943058212396292}
   - {fileID: 1887076443288188}
   - {fileID: 1088204289610480}
+  - {fileID: 9137489078591740222}
 --- !u!1 &1408078365317928
 GameObject:
   m_ObjectHideFlags: 0
@@ -7765,7 +7766,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: State
+  m_Text: State*
 --- !u!1 &1424887123137618
 GameObject:
   m_ObjectHideFlags: 0
@@ -19151,7 +19152,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 000-000-000
+  m_Text: '##########'
 --- !u!1 &425358498286380148
 GameObject:
   m_ObjectHideFlags: 0
@@ -20409,7 +20410,7 @@ MonoBehaviour:
   validators:
   - {fileID: 5619950952630266838}
   messageText: {fileID: 8938543751878697107}
-  msgOnValid: Zip*
+  msgOnValid: Phone Number*
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
   validColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &5619950952630266838
@@ -20428,11 +20429,11 @@ MonoBehaviour:
   isValid: 0
   inputField: {fileID: 1896302977764226377}
   mode: 1
-  minLength: 5
-  maxLength: 5
-  msgOnNoValue: Zip*
-  msgOnShortValue: Zip*
-  msgOnLongValue: Zip*
+  minLength: 10
+  maxLength: 10
+  msgOnNoValue: Phone Number*
+  msgOnShortValue: Phone Number*
+  msgOnLongValue: Phone Number*
 --- !u!114 &1897068183875029108
 MonoBehaviour:
   m_ObjectHideFlags: 0

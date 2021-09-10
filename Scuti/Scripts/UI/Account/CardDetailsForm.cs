@@ -124,14 +124,14 @@ namespace Scuti.UI
             countryDropDown.SetDropDown(Data.Address.Country);
             if (Data.Address.Country.Equals("US"))
             {
-                stateLabel.text = "State";
+                stateLabel.text = "State*";
                 stateDropDown.options = _states;
                 zipInput.characterLimit = 5;
                 zipInput.contentType = InputField.ContentType.IntegerNumber;
             }
             else
             {
-                stateLabel.text = "Province";
+                stateLabel.text = "Province*";
                 stateDropDown.options = _provinces;
                 zipInput.characterLimit = 7;
                 zipInput.contentType = InputField.ContentType.Alphanumeric;

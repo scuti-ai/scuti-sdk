@@ -31,10 +31,11 @@ namespace Scuti.UI {
 
         public void Claim()
         {
-            int count = Mathf.Min(25, Mathf.CeilToInt((float)Data.reward / 10f));
+            int count = Mathf.Min(25, Mathf.CeilToInt((float)Data.reward / 25f));
             float delay = 0;
             var startPoint = Origin.position;
             var endPoint = UIManager.TopBar.Wallet.Icon.transform.position;
+            //ScutiLogger.Log("Claim");
             for (var i = 0; i < count; i++)
             {
                 var coin = Instantiate(AnimatedCoinPrefab, UIManager.Effects.TargetTransform);
@@ -50,10 +51,9 @@ namespace Scuti.UI {
 
                 UIManager.Effects.Tween(coin, startPoint, endPoint , aniDuration, delay, EffectsManager.PathType.Bezier, true, controlPt);
                 delay += UnityEngine.Random.Range(0, aniIncrementalDelay);
-            }
-
+            } 
 #pragma warning disable 4014
-            UIManager.TopBar.Wallet.RefreshOverTime(Data.reward, aniDuration + delay);
+            UIManager.TopBar.Wallet.RefreshOverTime(Data.reward, aniDuration + delay); 
 #pragma warning restore 4014
             Close();
 

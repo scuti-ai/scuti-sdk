@@ -41,12 +41,11 @@ namespace Scuti
             else
             {
                 var diff = await ScutiNetClient.TryToActivateRewards();
-
                 if (diff > 0)
                 {
                     UIManager.HideLoading(false);
-                    UIManager.Rewards.SetData(new RewardPresenter.Model() { reward = (int)diff, subtitle = "Collect your rewards!", title = "CONGRATULATIONS!" });
                     UIManager.Open(UIManager.Rewards);
+                    UIManager.Rewards.SetData(new RewardPresenter.Model() { reward = (int)diff, subtitle = "Collect your rewards!", title = "CONGRATULATIONS!" });
                 } else
                 {
                     UIManager.RefreshLoading();

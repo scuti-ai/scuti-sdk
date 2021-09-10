@@ -135,78 +135,86 @@ namespace Scuti.UI
 
         async protected override Task PopulateOffers(CancellationToken cancelToken)
         {
-            m_ChangingCategories = true;
-            var max = GetActiveMax();
-            for (int i = 0; i < max; i++)
+            try
             {
-                if (cancelToken.IsCancellationRequested) return;
+                m_ChangingCategories = true;
+                var max = GetActiveMax();
+                for (int i = 0; i < max; i++)
+                {
+                    Debug.Log("Building " + i);
+                    if (cancelToken.IsCancellationRequested) return;
 
-                OfferSummaryPresenterLandscape template;
-                Transform container;
+                    OfferSummaryPresenterLandscape template;
+                    Transform container;
 
-                var index = i;
-                
+                    var index = i;
+
                     // Based on the index, the template and container are chosen.
                     // Currently, the first two offers are large, the other are small
                     template = GetTemplateForIndex(index);
                     container = GetContainerForIndex(index);
-                var widget = Instantiate(template, container);
-                m_Instantiated.Add(widget);
-                widget.gameObject.hideFlags = HideFlags.DontSave;
-                widget.Inject(GetNext);
-                var colorData = GetColorInfo(index);
-                widget.SetColorData(colorData.Background, colorData.Glow);
-                widget.SetDuration(showDuration);
+                    var widget = Instantiate(template, container);
+                    m_Instantiated.Add(widget);
+                    widget.gameObject.hideFlags = HideFlags.DontSave;
+                    widget.Inject(GetNext);
+                    var colorData = GetColorInfo(index);
+                    widget.SetColorData(colorData.Background, colorData.Glow);
+                    widget.SetDuration(showDuration);
 
-                await Task.Delay((int)(instantiationInterval * 1000));
+                    await Task.Delay((int)(instantiationInterval * 1000));
 
-                if (cancelToken.IsCancellationRequested) return;
+                    if (cancelToken.IsCancellationRequested) return;
 
-                // If the index exceeds the count, we don't assign any data to it
-                // nor do we listen to the click event. The offer widget does get
-                // instantiated but it's just loading and doesn't do anything.
-                var newData = Data.UseItem();
-                if (newData == null)
-                {
-                    //Debug.LogError("Null data: " + gameObject);
-                    continue;
-                }
-                widget.Data = newData;
-                widget.Data.Index = index;
-                widget.Data.IsTall = widget.IsTall;
-                widget.Data.LoadImage();
-                widget.OnLoaded += OnWidgetLoaded;
-            
-
-                widget.OnClick += async (presenter) =>
-                {
-                    UIManager.ShowLoading(false);
-                    var id = widget.Data.ID;
-                    var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
-                    var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
-
-                    try
+                    // If the index exceeds the count, we don't assign any data to it
+                    // nor do we listen to the click event. The offer widget does get
+                    // instantiated but it's just loading and doesn't do anything.
+                    var newData = Data.UseItem();
+                    if (newData == null)
                     {
-                        UIManager.OfferDetails.SetData(panelModel); 
-                        UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(widget.Data.VideoURL));
-                        UIManager.Open(UIManager.OfferDetails);
-                    } catch(Exception e)
+                        //Debug.LogError("Null data: " + gameObject);
+                        continue;
+                    }
+                    widget.Data = newData;
+                    widget.Data.Index = index;
+                    widget.Data.IsTall = widget.IsTall;
+                    widget.Data.LoadImage();
+                    widget.OnLoaded += OnWidgetLoaded;
+
+
+                    widget.OnClick += async (presenter) =>
                     {
-                        ScutiLogger.LogException(e);
-                        UIManager.Alert.SetHeader("Out of Stock").SetBody("This item is out of stock. Please try again later.").SetButtonText("OK").Show(() => { });
+                        UIManager.ShowLoading(false);
+                        var id = widget.Data.ID;
+                        var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
+                        var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
+
+                        try
+                        {
+                            UIManager.OfferDetails.SetData(panelModel);
+                            UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(widget.Data.VideoURL));
+                            UIManager.Open(UIManager.OfferDetails);
+                        }
+                        catch (Exception e)
+                        {
+                            ScutiLogger.LogException(e);
+                            UIManager.Alert.SetHeader("Out of Stock").SetBody("This item is out of stock. Please try again later.").SetButtonText("OK").Show(() => { });
                         //UIManager.Open(UIManager.Offers);
                     }
 
-                    UIManager.HideLoading(false);
-                };
+                        UIManager.HideLoading(false);
+                    };
+                }
+
+
+                await Task.Delay(250);
+                //Debug.LogWarning(container_Large.childCount+"   ++++++++++++++    "+ container_Small.childCount);
+                OnPopulateFinished?.Invoke();
+
+                m_ChangingCategories = false;
+            } catch (Exception e)
+            {
+                ScutiLogger.LogException(e);
             }
-
-
-            await Task.Delay(250);
-            //Debug.LogWarning(container_Large.childCount+"   ++++++++++++++    "+ container_Small.childCount);
-            OnPopulateFinished?.Invoke();
-
-            m_ChangingCategories = false;
         }
 
 

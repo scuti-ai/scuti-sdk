@@ -128,6 +128,9 @@ namespace Scuti.UI
                     }
                     else
                     {
+#if UNITY_EDITOR
+                        ScutiLogger.LogError("No URL for " + this.ToJson());
+#endif
                         CurrentState = State.Failed;
                     }
                 } else
@@ -614,7 +617,7 @@ namespace Scuti.UI
 
         protected string TextElipsis(string text, int truncateSize = 26)
         {
-	        if(text.Length > truncateSize) return text.Remove(truncateSize) + "...";
+	        if(text!=null && text.Length > truncateSize) return text.Remove(truncateSize) + "...";
 	        return text;
         }
         private void OnEnable()
