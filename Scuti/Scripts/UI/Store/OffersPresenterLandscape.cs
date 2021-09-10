@@ -140,8 +140,7 @@ namespace Scuti.UI
                 m_ChangingCategories = true;
                 var max = GetActiveMax();
                 for (int i = 0; i < max; i++)
-                {
-                    Debug.Log("Building " + i);
+                { 
                     if (cancelToken.IsCancellationRequested) return;
 
                     OfferSummaryPresenterLandscape template;

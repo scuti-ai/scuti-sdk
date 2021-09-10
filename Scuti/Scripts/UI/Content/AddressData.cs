@@ -12,6 +12,7 @@ namespace Scuti
         public string City;
         public string State;
         public string Zip;
+        public string Phone;
         public string Country;
 
         public override string ToString()

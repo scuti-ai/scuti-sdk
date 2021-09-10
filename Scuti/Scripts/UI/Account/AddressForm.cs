@@ -24,6 +24,7 @@ namespace Scuti.UI
         [SerializeField] InputField cityInput;
         [SerializeField] Dropdown stateDropDown;
         [SerializeField] InputField zipInput;
+        [SerializeField] InputField phoneInput;
         [SerializeField] Dropdown countryDropDown;
         [SerializeField] Button saveButton;
         [SerializeField] Button prevButton;
@@ -63,6 +64,7 @@ namespace Scuti.UI
             cityInput.onValueChanged.AddListener(value => Data.Address.City = value);
             stateDropDown.onValueChanged.AddListener(value => Data.Address.State = stateDropDown.options[value].text);
             zipInput.onValueChanged.AddListener(value => Data.Address.Zip = value);
+            phoneInput.onValueChanged.AddListener(value => Data.Address.Phone = value);
             countryDropDown.onValueChanged.AddListener(OnCountryChanged);
 #pragma warning disable 
             saveButton.onClick.AddListener(async () => SaveShippingInfo());
@@ -125,6 +127,7 @@ namespace Scuti.UI
                             Line2 = shippingInfo.Address2,
                             State = shippingInfo.State,
                             Zip = shippingInfo.ZipCode,
+                            Phone = shippingInfo.Phone,
                             Country = shippingInfo.Country,
                             City = shippingInfo.City
                         };
@@ -155,6 +158,7 @@ namespace Scuti.UI
                 zipInput.contentType = InputField.ContentType.Alphanumeric;
             }
             zipInput.text = Data.Address.Zip;
+            phoneInput.text = Data.Address.Phone;
             stateDropDown.SetDropDown(Data.Address.State);
         }
 
@@ -172,7 +176,7 @@ namespace Scuti.UI
             {
                 try
                 {
-                    await ScutiAPI.EditShippingAddress(Data.Address.Line1, Data.Address.Line2, Data.Address.City, Data.Address.State, Data.Address.Country, Data.Address.Zip);
+                    await ScutiAPI.EditShippingAddress(Data.Address.Line1, Data.Address.Line2, Data.Address.City, Data.Address.State, Data.Address.Country, Data.Address.Zip, Data.Address.Phone);
                     submit = true;
                     _cachedAddress = false;
                 }
