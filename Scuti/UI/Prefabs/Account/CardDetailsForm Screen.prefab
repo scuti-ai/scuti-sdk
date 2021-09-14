@@ -708,6 +708,7 @@ MonoBehaviour:
   expirationDateInput: {fileID: 114721567086463076}
   ExpirationValidator: {fileID: 114974785054721112}
   SaveCard: {fileID: 114143062195322134}
+  stateLabel: {fileID: 114782172847047890}
 --- !u!1 &1041325889573178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,8 +1668,8 @@ RectTransform:
   m_Father: {fileID: 224586831419399576}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 554, y: 0}
   m_SizeDelta: {x: 1108, y: 0}
   m_Pivot: {x: 0.5, y: 1}
@@ -2053,8 +2054,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114727241279556488}
   m_HandleRect: {fileID: 224257659059251314}
   m_Direction: 2
-  m_Value: 0.9999989
-  m_Size: 0.953967
+  m_Value: 0.9999998
+  m_Size: 0.2994215
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4463,7 +4464,7 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: -1
   m_MinHeight: -1
-  m_PreferredWidth: 60
+  m_PreferredWidth: 100
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
@@ -6761,6 +6762,8 @@ MonoBehaviour:
     m_Options:
     - m_Text: US
       m_Image: {fileID: 0}
+    - m_Text: Canada
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7909,7 +7912,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -554, y: 0.000061035156}
+  m_AnchoredPosition: {x: -554, y: 0.000088294066}
   m_SizeDelta: {x: 1108, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4924675820156814728
@@ -9164,7 +9167,7 @@ MonoBehaviour:
   inputField: {fileID: 114205914784697064}
   mode: 1
   minLength: 5
-  maxLength: 5
+  maxLength: 7
   msgOnNoValue: Zip Code*
   msgOnShortValue: Zip Code*
   msgOnLongValue: Zip Code*

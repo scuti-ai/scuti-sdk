@@ -161,6 +161,7 @@ namespace Scuti.UI
                             Line2 = shippingInfo.Address2,
                             State = shippingInfo.State,
                             Zip = shippingInfo.ZipCode,
+                            Phone = shippingInfo.Phone,
                             Country = shippingInfo.Country,
                             City = shippingInfo.City
                         };
@@ -534,6 +535,7 @@ namespace Scuti.UI
                     City = Data.ShippingAddress.City,
                     Country = Data.ShippingAddress.Country,
                     State = Data.ShippingAddress.State,
+                    Phone = Data.ShippingAddress.Phone,
                     ZipCode = Data.ShippingAddress.Zip
                 };
             }

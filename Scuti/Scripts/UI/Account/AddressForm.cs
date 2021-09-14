@@ -4,6 +4,7 @@ using Scuti;
 using Scuti.Net;
 using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
 
 namespace Scuti.UI
 {
@@ -23,13 +24,35 @@ namespace Scuti.UI
         [SerializeField] InputField cityInput;
         [SerializeField] Dropdown stateDropDown;
         [SerializeField] InputField zipInput;
+        [SerializeField] InputField phoneInput;
         [SerializeField] Dropdown countryDropDown;
         [SerializeField] Button saveButton;
         [SerializeField] Button prevButton;
         [SerializeField] Text saveButtonLabel;
+        [SerializeField] Text stateLabel;
 
         public bool UseAsOnboarding = true;
         private bool _cachedAddress = false;
+
+        private List<Dropdown.OptionData> _states;
+        private List<Dropdown.OptionData> _provinces;
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            _states = new List<Dropdown.OptionData>();
+            _provinces = new List<Dropdown.OptionData>();
+            foreach(var state in ScutiConstants.STATES)
+            {
+                _states.Add(new Dropdown.OptionData( name= state));
+            }
+
+            foreach (var prov in ScutiConstants.PROVINCES)
+            {
+                _provinces.Add(new Dropdown.OptionData(name = prov));
+            }
+        }
 
         public override void Bind()
         {
@@ -41,10 +64,21 @@ namespace Scuti.UI
             cityInput.onValueChanged.AddListener(value => Data.Address.City = value);
             stateDropDown.onValueChanged.AddListener(value => Data.Address.State = stateDropDown.options[value].text);
             zipInput.onValueChanged.AddListener(value => Data.Address.Zip = value);
-            countryDropDown.onValueChanged.AddListener(value => Data.Address.Country = countryDropDown.options[value].text);
+            phoneInput.onValueChanged.AddListener(value => Data.Address.Phone = value);
+            countryDropDown.onValueChanged.AddListener(OnCountryChanged);
 #pragma warning disable 
             saveButton.onClick.AddListener(async () => SaveShippingInfo());
 #pragma warning restore 
+        }
+
+        private void OnCountryChanged(int value)
+        {
+            var newValue = countryDropDown.options[value].text;
+            if (!Data.Address.Country.Equals(newValue))
+            {
+                Data.Address.Country = newValue;
+                Refresh();
+            }
         }
 
         public override void Open()
@@ -93,6 +127,7 @@ namespace Scuti.UI
                             Line2 = shippingInfo.Address2,
                             State = shippingInfo.State,
                             Zip = shippingInfo.ZipCode,
+                            Phone = shippingInfo.Phone,
                             Country = shippingInfo.Country,
                             City = shippingInfo.City
                         };
@@ -107,9 +142,24 @@ namespace Scuti.UI
             line1Input.text = Data.Address.Line1;
             line2Input.text = Data.Address.Line2;
             cityInput.text = Data.Address.City;
-            stateDropDown.SetDropDown(Data.Address.State);
-            zipInput.text = Data.Address.Zip;
             countryDropDown.SetDropDown(Data.Address.Country);
+
+            if(Data.Address.Country.Equals("US"))
+            {
+                stateLabel.text = "State";
+                stateDropDown.options = _states;
+                zipInput.characterLimit = 5;
+                zipInput.contentType = InputField.ContentType.IntegerNumber;
+            } else
+            {
+                stateLabel.text = "Province";
+                stateDropDown.options = _provinces;
+                zipInput.characterLimit = 7;
+                zipInput.contentType = InputField.ContentType.Alphanumeric;
+            }
+            zipInput.text = Data.Address.Zip;
+            phoneInput.text = Data.Address.Phone;
+            stateDropDown.SetDropDown(Data.Address.State);
         }
 
         private async Task SaveShippingInfo()
@@ -126,7 +176,7 @@ namespace Scuti.UI
             {
                 try
                 {
-                    await ScutiAPI.EditShippingAddress(Data.Address.Line1, Data.Address.Line2, Data.Address.City, Data.Address.State, Data.Address.Country, Data.Address.Zip);
+                    await ScutiAPI.EditShippingAddress(Data.Address.Line1, Data.Address.Line2, Data.Address.City, Data.Address.State, Data.Address.Country, Data.Address.Zip, Data.Address.Phone);
                     submit = true;
                     _cachedAddress = false;
                 }

@@ -31,7 +31,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 58e81dec8b5545d4a8e535db1ec50eee, type: 3}
-    totalSpriteSurfaceArea: 1585194
+    totalSpriteSurfaceArea: 1571802
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -72,7 +72,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 16230704c9431b646bf1dc2716ec5256, type: 3}
   - {fileID: 21300000, guid: b726d704b0d590b4dba91588789215b1, type: 3}
   - {fileID: 21300000, guid: cf4ae244256d0404892dcfeae1ea4518, type: 3}
-  - {fileID: 21300000, guid: 1114e054a42440640bbef98ac04d8430, type: 3}
   - {fileID: 21300000, guid: 199e90746659a024ea6cafacda2ace4a, type: 3}
   - {fileID: 21300000, guid: 77c68e742dd8774489a4badde641437a, type: 3}
   - {fileID: 21300000, guid: 7d68cf748bf548b4d955abe7316edd4d, type: 3}
@@ -105,7 +104,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 3630f108a770b1a41ab2a39947a05def, type: 3}
   - {fileID: 21300000, guid: 5dc35c182bfa6f944ae6152a4d7546f1, type: 3}
   - {fileID: 21300000, guid: 48273d681b4b80e4fb1335f959bef633, type: 3}
-  - {fileID: 21300000, guid: cb7e139879c99de47b4eec3c13a1e0a8, type: 3}
   - {fileID: 21300000, guid: 1637d0c8621b09d4cb6abdb51f106c55, type: 3}
   - {fileID: 21300000, guid: a7abeb29704c02c4ba7730616f260659, type: 3}
   - {fileID: 21300000, guid: 93c272691a7b99546ab14728502ed43c, type: 3}
@@ -180,7 +178,6 @@ SpriteAtlas:
   - icon16close@3x
   - scuti_navigation_button_close
   - light@4x
-  - buttonmenudefault@3x_green
   - Wheels
   - Books
   - Games
@@ -213,7 +210,6 @@ SpriteAtlas:
   - Toys
   - scuti_navigation_button_back
   - Computer Hardware
-  - buttonmenudefault@3x_blue
   - icon24search@3x
   - buttonprimaryicondefault@3x
   - Scuti_Grey_3D_SM

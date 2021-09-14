@@ -128,6 +128,9 @@ namespace Scuti.UI
                     }
                     else
                     {
+#if UNITY_EDITOR
+                        ScutiLogger.LogError("No URL for " + this.ToJson());
+#endif
                         CurrentState = State.Failed;
                     }
                 } else
@@ -139,7 +142,7 @@ namespace Scuti.UI
 
             //private void GarbageCollect()
             //{
-               
+
             //}
 
             public override void Dispose()
@@ -275,7 +278,7 @@ namespace Scuti.UI
             timer.onFinished.AddListener(OnTimerCompleted);
             timer.onCustomEvent += OnTimerCustomEvent;
             GlowImage.gameObject.SetActive(false);
-             
+
         }
 
         private void _portraitImpressionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -489,7 +492,7 @@ namespace Scuti.UI
             }
         }
 
-        
+
 
         public void SetDuration(float duration)
         {
@@ -592,6 +595,7 @@ namespace Scuti.UI
                     if (pair.Value)
                     {
                         pair.Key.SetActive(true);
+                        pair.Key.transform.localScale = Vector3.zero;
                         break;
                     }
                 }
@@ -613,7 +617,7 @@ namespace Scuti.UI
 
         protected string TextElipsis(string text, int truncateSize = 26)
         {
-	        if(text.Length > truncateSize) return text.Remove(truncateSize) + "...";
+	        if(text!=null && text.Length > truncateSize) return text.Remove(truncateSize) + "...";
 	        return text;
         }
         private void OnEnable()
