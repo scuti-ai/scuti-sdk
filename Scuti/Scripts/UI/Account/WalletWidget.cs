@@ -16,10 +16,12 @@ public class WalletWidget : MonoBehaviour {
     private void Start()
     {
         ScutiAPI.OnWalletUpdated += OnWalletUpdated;
+        ScutiNetClient.Instance.OnAuthenticated += DoRefresh;
 #pragma warning disable 4014
         Refresh();
 #pragma warning restore 4014
     }
+
 
     private void OnWalletUpdated(int balance)
     { 

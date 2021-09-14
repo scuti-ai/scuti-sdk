@@ -29,17 +29,18 @@ namespace Scuti
 
         private async void OnSplashCompleted()
         { 
-            if (IsNewUser())
-            {
-                bool shown = await ShowOffer();
-                if (!shown)
-                {
-                    UIManager.HideLoading(false);
-                    UIManager.Open(UIManager.Welcome);
-                }
-            }
-            else
-            {
+            // disabled for now, requested by Nicholas -mg
+            //if (IsNewUser())
+            //{
+            //    bool shown = await ShowOffer();
+            //    if (!shown)
+            //    {
+            //        UIManager.HideLoading(false);
+            //        UIManager.Open(UIManager.Welcome);
+            //    }
+            //}
+            //else
+            //{
                 var diff = await ScutiNetClient.TryToActivateRewards();
                 if (diff > 0)
                 {
@@ -51,12 +52,13 @@ namespace Scuti
                     UIManager.RefreshLoading();
                 }
                 await ShowOffer();
-            }
+            //}
             isStarted = true;
         }
 
         private async Task<bool> ShowOffer()
         {
+            ScutiLogger.Log("Checking deep link: " + deepLinkOffer);
             if (!string.IsNullOrEmpty(deepLinkOffer))
             {
                 var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(deepLinkOffer);
@@ -65,10 +67,18 @@ namespace Scuti
                     var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
                     if (panelModel != null)
                     {
+                        ScutiLogger.Log("Show!");
                         UIManager.OfferDetails.SetData(panelModel);
                         UIManager.OfferDetails.SetIsVideo(false);
                         UIManager.Open(UIManager.OfferDetails);
+                    } else
+                    {
+                        ScutiLogger.LogError("No Pannel found for: " + deepLinkOffer +" offer: "+offer.Id);
+
                     }
+                }else
+                {
+                    ScutiLogger.LogError("No offer found for: " + deepLinkOffer);
                 }
                 return true;
             }

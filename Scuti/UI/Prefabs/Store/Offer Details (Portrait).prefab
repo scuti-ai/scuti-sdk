@@ -7334,10 +7334,10 @@ RectTransform:
   m_Father: {fileID: 224855806203482214}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 960}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 354, y: 0}
+  m_SizeDelta: {x: 708, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &222073550799693770
 CanvasRenderer:
@@ -7739,6 +7739,7 @@ MonoBehaviour:
   shareButton: {fileID: 114912104449176702}
   BuyNowButton: {fileID: 160346673572929437}
   ScrollContent: {fileID: 114081155038368860}
+  DescriptionScrollContent: {fileID: 0}
 --- !u!114 &114337682957816756
 MonoBehaviour:
   m_ObjectHideFlags: 0
