@@ -1,3 +1,7 @@
+# Current Development
+- Removed NewtonJSON Reference
+- UI Improvements
+
 # 1.1
 - Double Column Portrait Mode
 - UI Fixes  
