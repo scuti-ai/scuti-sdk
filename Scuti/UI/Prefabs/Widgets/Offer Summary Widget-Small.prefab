@@ -100,6 +100,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224257504985568468}
+  - {fileID: 1875984535327234490}
   - {fileID: 224326118665652896}
   m_Father: {fileID: 224345070204015222}
   m_RootOrder: 5
@@ -2468,12 +2469,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224114643527486000}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.721}
   m_AnchorMax: {x: 0.94200003, y: 0.91133153}
-  m_AnchoredPosition: {x: -97.9, y: -206.85}
-  m_SizeDelta: {x: 181.36548, y: 36.786987}
+  m_AnchoredPosition: {x: -97.898, y: -214.93}
+  m_SizeDelta: {x: 181.3612, y: -9.327637}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222933641032290416
 CanvasRenderer:
@@ -3733,7 +3734,6 @@ RectTransform:
   m_Children:
   - {fileID: 224078359580002050}
   - {fileID: 224914992873520656}
-  - {fileID: 1875984535327234490}
   m_Father: {fileID: 224345070204015222}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3771,13 +3771,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 9178356036714046598}
-  m_RootOrder: 2
+  m_Father: {fileID: 224114643527486000}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -22, y: -157.92}
-  m_SizeDelta: {x: 169.56116, y: 62.896286}
+  m_AnchoredPosition: {x: -32.21, y: -225.7}
+  m_SizeDelta: {x: 371.82166, y: 25.251701}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &6925442262358959745
 CanvasRenderer:
@@ -3808,7 +3808,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: d06e1dd113f9d154cab471d91dc4ec6a, type: 3}
     m_FontSize: 34
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 3
     m_MaxSize: 46
@@ -3818,6 +3818,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Brand:
-
-    BrandName'
+  m_Text: 'Brand: BrandName'
