@@ -46,7 +46,8 @@ namespace Scuti.UI {
                 }
             } else
             {
-                ScutiLogger.Log("Unable to find image on roundedImage: " + this);
+                if(Application.isPlaying)
+                    ScutiLogger.Log("Unable to find image on roundedImage: " + gameObject);
             }
         }
 
