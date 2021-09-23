@@ -17,7 +17,7 @@ namespace Scuti.Examples
         public async void GetOffers()
         {
 
-            var res = await ScutiNetClient.Instance.Offer.GetOffers(new List<GraphQL.Generated.CampaignType> { GraphQL.Generated.CampaignType.Product, GraphQL.Generated.CampaignType.ProductListing }, GraphQL.Generated.FILTER_TYPE.In, null);
+            var res = await ScutiNetClient.Instance.Offer.GetOffers(new List<GraphQL.Generated.CampaignType> { GraphQL.Generated.CampaignType.Product, GraphQL.Generated.CampaignType.Product_Listing }, GraphQL.Generated.FILTER_TYPE.In, null);
             foreach (GraphQL.Generated.Offer offer in res.Nodes)
                 ScutiLogger.Log($"{offer.Name} {offer.Id}");
         }
