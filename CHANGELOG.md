@@ -1,5 +1,11 @@
+# Current Development
+- Removed NewtonJSON Reference
+- UI Improvements
+
 # 1.1
-Double Column Portrait Mode
+- Double Column Portrait Mode
+- UI Fixes  
+- ZenDesk Support
 
 # 1.0
 Release Candidate
