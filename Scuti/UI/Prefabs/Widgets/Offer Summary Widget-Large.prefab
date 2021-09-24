@@ -974,6 +974,7 @@ MonoBehaviour:
   titleText: {fileID: 114092220084904578}
   displayPriceText: {fileID: 114030116357688978}
   ratingText: {fileID: 114436659427212282}
+  brandText: {fileID: 8067669671126175549}
   ratingStarsWidget: {fileID: 114128393873279912}
   newBadge: {fileID: 1041153944933762}
   hotBadge: {fileID: 1554917714071842}

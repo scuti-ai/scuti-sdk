@@ -45,6 +45,7 @@ namespace Scuti.UI
             public string Title;
             public string DisplayPrice;
             public string Description;
+            public string Brand;
             public float Rating;
 
             public int Scutis;
@@ -204,6 +205,7 @@ namespace Scuti.UI
         [SerializeField] public Text titleText;
         [SerializeField] protected Text displayPriceText;
         [SerializeField] protected Text ratingText;
+        [SerializeField] protected Text brandText;
         [SerializeField] protected RatingStarsWidget ratingStarsWidget;
 
         [Header("Badges")]
@@ -602,9 +604,11 @@ namespace Scuti.UI
             }
 
             GlowImage.gameObject.SetActive(false);
-
+            Debug.Log("Brand: " + brandText + " and " + Data.Brand);
+            brandText.text = Data.Brand;
             // Show the rating if there is a rating
             bool hasRatingValue = Data.Rating > 0f && _isPortrait;
+
 
             ratingText.gameObject.SetActive(hasRatingValue);
             ratingStarsWidget.gameObject.SetActive(hasRatingValue);

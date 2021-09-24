@@ -10557,6 +10557,7 @@ MonoBehaviour:
   titleText: {fileID: 114265940528132030}
   displayPriceText: {fileID: 114934114894497158}
   ratingText: {fileID: 114846426346451528}
+  brandText: {fileID: 0}
   ratingStarsWidget: {fileID: 114941243387480660}
   newBadge: {fileID: 1578754798248026}
   hotBadge: {fileID: 1713425360805236}
@@ -11016,6 +11017,7 @@ MonoBehaviour:
   displayPrice: {fileID: 114651940258711136}
   subtitle: {fileID: 114965995548095816}
   description: {fileID: 114401238471873150}
+  brand: {fileID: 8282953218080306415}
   hotPricePromo: {fileID: 1999970993534560}
   recommendedPromo: {fileID: 1414707925401868}
   specialOfferPromo: {fileID: 1614757333708658}
@@ -14502,6 +14504,7 @@ MonoBehaviour:
   titleText: {fileID: 114209218221807744}
   displayPriceText: {fileID: 114969095169715850}
   ratingText: {fileID: 114926937919687028}
+  brandText: {fileID: 0}
   ratingStarsWidget: {fileID: 114951597822998460}
   newBadge: {fileID: 1024899140017562}
   hotBadge: {fileID: 1433642001771454}
@@ -16841,6 +16844,7 @@ MonoBehaviour:
   titleText: {fileID: 114529049521362782}
   displayPriceText: {fileID: 114776824384830882}
   ratingText: {fileID: 114913855129772356}
+  brandText: {fileID: 0}
   ratingStarsWidget: {fileID: 114796735319387058}
   newBadge: {fileID: 1916350298947240}
   hotBadge: {fileID: 1753795628052274}
@@ -24165,7 +24169,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1920439602841240986}
   m_HandleRect: {fileID: 6424122827669321063}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.99999964
   m_Size: 0.73817796
   m_NumberOfSteps: 0
   m_OnValueChanged:

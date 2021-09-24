@@ -149,6 +149,7 @@ namespace Scuti.UI
 
             list.ForEach(x => x.Key.SetActive(false));
 
+            brandText.text = Data.Brand;
             GlowImage.gameObject.SetActive(false);
 
             // Show the rating if there is a rating

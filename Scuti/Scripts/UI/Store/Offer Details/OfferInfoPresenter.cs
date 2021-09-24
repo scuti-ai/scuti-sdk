@@ -16,6 +16,7 @@ namespace Scuti.UI {
             public string Title;
             public string Subtitle;
             public string Description;
+            public string Brand;
             //public string DisplayPrice;
             //public float Price;
 
@@ -32,6 +33,7 @@ namespace Scuti.UI {
         [SerializeField] Text displayPrice;
         [SerializeField] Text subtitle;
         [SerializeField] Text description;
+        [SerializeField] Text brand;
 
         [Header("Flags")]
         [Header("Promos")]
@@ -49,7 +51,7 @@ namespace Scuti.UI {
             //Debug.Log(Data.Description);
             //Debug.Log(Data.Description.Trim('\r', '\n', ' '));
             description.text = Data.Description.Trim('\r', '\n', ' ');
-
+            brand.text = Data.Brand;
             // Show ONLY THE FIRST promo that is applicable
             var list = new List<KeyValuePair<GameObject, bool>> {
                 new KeyValuePair<GameObject, bool>(hotPricePromo, Data.IsHotPrice),
