@@ -547,6 +547,7 @@ MonoBehaviour:
   Categories: {fileID: 114191979548969972}
   EditorUseLargeDisplay: 0
   LoadingBlocker: {fileID: 9078210080845684487}
+  EventSystemObject: {fileID: 1266037488985866}
 --- !u!114 &114308699530787508
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@
 using UnityEngine;
 
 using Scuti.UI;
+using UnityEngine.EventSystems;
 
 namespace Scuti.UI {
 
@@ -19,12 +20,18 @@ namespace Scuti.UI {
 
         public View LoadingBlocker;
 
-
+        public GameObject EventSystemObject;
 
         void Awake() {
             instance = this;
             DetermineLayout();
             LoadingBlocker.Close();
+
+            var eventSystems = FindObjectsOfType<EventSystem>();
+            if(eventSystems!=null && eventSystems.Length>1)
+            {
+                EventSystemObject.SetActive(false);
+            }
         }
 
         protected int _loadingCount = 0;

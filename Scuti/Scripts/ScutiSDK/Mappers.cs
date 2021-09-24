@@ -80,6 +80,8 @@ namespace Scuti
             if (offer.Reward != null) scutis = (int)offer.Reward.Scutis.Value;
             decimal rating = 0;
             if (offer.Review != null) rating = offer.Review.Score.Value;
+            string brandName = string.Empty;
+            if (offer.Brand != null && !string.IsNullOrEmpty(offer.Brand.Name)) brandName = offer.Brand.Name;
             return new OfferSummaryPresenterBase.Model
             {
                 ID = offer.Id.ToString(),
@@ -91,6 +93,7 @@ namespace Scuti
                 DisplayAd = displayAd,
                 Title = offer.Product.Name,
                 Description = offer.Product.Description,
+                Brand = brandName,
                 DisplayPrice = $"${offer.Product.Price.Amount.Value.ToString("F2")}",
                 IsNew = offer.Promotions.IsNew.Value,
                 IsHot = offer.Promotions.IsHotItem.Value,
@@ -132,6 +135,8 @@ namespace Scuti
                 count = offer.Review.Count.Value;
             }
 
+            string brandName = string.Empty;
+            if (offer.Brand != null && !string.IsNullOrEmpty(offer.Brand.Name)) brandName = offer.Brand.Name;
             var sm = new OfferDetailsPresenter.Model
             {
                 ShopName = offer.Shop.Name,
@@ -140,6 +145,7 @@ namespace Scuti
                     ID = offer.Id.ToString(),
                     Title = offer.Product.Name,
                     Subtitle = subtitle,
+                    Brand = brandName,
                     Description = ScutiUtils.HtmlDecode(offer.Product.Description), // intentionally escaped twice for now
                     //DisplayPrice = $"${offer.Product.Price.Amount.Value.ToString("F2")}",
                     //Price = (float)offer.Product.Price.Amount.Value,
