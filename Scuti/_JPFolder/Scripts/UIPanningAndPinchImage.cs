@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Scuti.UI
 {
-    public class UIPanningAndPinchImage : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler,
+    public class UIPanningAndPinchImage : MonoBehaviour, /*IPointerDownHandler, IPointerUpHandler,*/ IDragHandler, IBeginDragHandler, IEndDragHandler,
  /*IDragHandler,*/ IScrollHandler
     {
         private Vector3 initialScale;
@@ -32,6 +32,8 @@ namespace Scuti.UI
         Text textForDebug;
         [SerializeField]
         Image imageTestPointMouse;
+        [SerializeField]
+        bool isTestingMobile;
 
 
         // Start is called before the first frame update
@@ -46,8 +48,8 @@ namespace Scuti.UI
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            cachedEventData = eventData;
-            MouseDown(eventData);
+            //cachedEventData = eventData;
+            //MouseDown(eventData);
             /*
             countClick++;
             //m_forDebug2.text = "JPDebug OnPointerDown Count: " + eventData.clickCount;
@@ -116,12 +118,14 @@ namespace Scuti.UI
                 transform.localScale = desiredScale;
 
             }
-
-            // For desktop version
-            if (isEnterToImage)
+            if (!isTestingMobile)
             {
-                MouseDown(cachedEventData);
-            }           
+                // For desktop version
+                if (isEnterToImage)
+                {
+                    MouseDown(cachedEventData);
+                }
+            }     
 
         }
 
@@ -236,23 +240,26 @@ namespace Scuti.UI
         public void OnPointerEnter(BaseEventData eventData)
         {
 
-            Debug.Log("UIPinch: Enter mouse to Image ...");
-        #if UNITY_EDITOR || UNITY_STANDALONE_WIN
+            if(!isTestingMobile)
+            {
+                Debug.Log("UIPinch: Enter mouse to Image ...");
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
 
-            // Cast BaseEventData as PointerEvenData for tracking mouse
-            PointerEventData pointerData = eventData as PointerEventData;
-            cachedEventData = pointerData;
+                // Cast BaseEventData as PointerEvenData for tracking mouse
+                PointerEventData pointerData = eventData as PointerEventData;
+                cachedEventData = pointerData;
 
-            isEnterToImage = true;
+                isEnterToImage = true;
 
-            var delta = Vector3.one * (maxZoomDesktop);
-            var desiredScale = transform.localScale + delta;
+                var delta = Vector3.one * (maxZoomDesktop);
+                var desiredScale = transform.localScale + delta;
 
-            desiredScale = ClampDesiredScale(desiredScale);
+                desiredScale = ClampDesiredScale(desiredScale);
 
-            transform.localScale = desiredScale;
+                transform.localScale = desiredScale;
 
-        #endif
+#endif
+            }
 
         }
 
@@ -262,13 +269,18 @@ namespace Scuti.UI
         /// <param name="eventData"></param>
         public void OnPointerExit(BaseEventData eventData)
         {
-            Debug.Log("UIPinch: Exit Mouse to Image");
-        #if UNITY_EDITOR || UNITY_STANDALONE_WIN
 
-            isEnterToImage = false;
-            transform.localScale = initialScale;
+            if (!isTestingMobile)
+            {
+                Debug.Log("UIPinch: Exit Mouse to Image");
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
 
-        #endif
+                isEnterToImage = false;
+                transform.localScale = initialScale;
+
+#endif
+            }
+
         }
 
         /// <summary>

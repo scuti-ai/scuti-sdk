@@ -1459,6 +1459,7 @@ MonoBehaviour:
   zoomableImage: {fileID: 0}
   textForDebug: {fileID: 2116416666}
   imageTestPointMouse: {fileID: 0}
+  isTestingMobile: 0
 --- !u!114 &1180524697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2570,6 +2571,16 @@ PrefabInstance:
       propertyPath: zoomableImage
       value: 
       objectReference: {fileID: 86699450}
+    - target: {fileID: 3620307442504936064, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
+        type: 3}
+      propertyPath: isTestingMobile
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869561873114366970, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
+        type: 3}
+      propertyPath: m_Delegates.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5024582829128870857, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
       propertyPath: m_LocalPosition.x

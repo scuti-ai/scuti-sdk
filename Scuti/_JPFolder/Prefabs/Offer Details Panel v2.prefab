@@ -25201,6 +25201,7 @@ MonoBehaviour:
   zoomableImage: {fileID: 0}
   textForDebug: {fileID: 0}
   imageTestPointMouse: {fileID: 0}
+  isTestingMobile: 0
 --- !u!114 &6064612989555853180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26361,6 +26362,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 224855806203482214}
     m_Modifications:
+    - target: {fileID: 3620307442504936064, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
+        type: 3}
+      propertyPath: isTestingMobile
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3816486990427245664, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -26389,7 +26395,7 @@ PrefabInstance:
     - target: {fileID: 3816486990427245664, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00004939712
+      value: 0.000032737797
       objectReference: {fileID: 0}
     - target: {fileID: 3816486990427245664, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
