@@ -622,6 +622,7 @@ MonoBehaviour:
   offerDataToRequest: 6
   instantiationInterval: 0.01
   showInterval: 0.35
+  MinDataCached: 6
   bannerImage: {fileID: 114112696992075480}
   backgrounds:
   - {fileID: 21300000, guid: 4912adc423f809f489d69d1562920653, type: 3}
@@ -935,7 +936,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BannerImage: {fileID: 114112696992075480}
-  SecondDelay: 15
+  SecondDelay: 10
   Rounded: {fileID: 114794332141595296}
 --- !u!114 &114960528297549594
 MonoBehaviour:
