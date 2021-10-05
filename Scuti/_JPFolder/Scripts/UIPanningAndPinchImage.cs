@@ -313,7 +313,7 @@ namespace Scuti.UI
                 return;
 
             Debug.Log("OnCLick Image...");
-            displayLargeImage.Show(GetComponent<Image>().sprite);
+            //displayLargeImage.Show(GetComponent<Image>().sprite);
         }
 
         /// <summary>
