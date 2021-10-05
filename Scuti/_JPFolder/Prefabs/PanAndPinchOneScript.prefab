@@ -86,15 +86,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6958bfa1a7b231844b7d9291bdff61c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayLargeImage: {fileID: 0}
   scrollRect: {fileID: 0}
   zoomSpeed: 0.01
   maxZoomMobile: 10
-  maxZoomDesktop: 5
+  maxZoomDesktop: 4
   isScale: 0
   isEnterToImage: 0
+  isDragDetected: 0
   zoomableImage: {fileID: 0}
   textForDebug: {fileID: 6716756491916587587}
   imageTestPointMouse: {fileID: 0}
+  isTestingMobile: 0
 --- !u!114 &3869561873114366970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,12 +171,27 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 11
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 3620307442504936064}
+          m_MethodName: OnPressMove
+          m_Mode: 0
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 4
     callback:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 3620307442504936064}
-          m_MethodName: OnPointerUpdate
+          m_MethodName: OnPointerClick
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

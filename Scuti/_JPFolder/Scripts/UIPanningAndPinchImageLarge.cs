@@ -7,13 +7,8 @@ using UnityEngine.UI;
 
 namespace Scuti.UI
 {
-    public class UIPanningAndPinchImage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler,
- /*IDragHandler,*/ IScrollHandler
+    public class UIPanningAndPinchImageLarge : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IScrollHandler
     {
-
-        [Header("Sub Widget")]
-        [SerializeField] private UIDisplayImageZoom displayLargeImage;
-
         private Vector3 initialScale;
         [SerializeField] private ScrollRect scrollRect;
         [SerializeField] private float zoomSpeed = 0.1f;
@@ -21,11 +16,6 @@ namespace Scuti.UI
         [SerializeField] private float maxZoomDesktop = 5f;
         [SerializeField] private bool isScale;
         [SerializeField] private bool isEnterToImage;
-        [SerializeField] private bool isDragDetected;
-
-        [Header("Zoomable image")]
-        [SerializeField] private RectTransform zoomableImage;
-        private Image imageToShow;
 
         private RectTransform rectScroll;
         PointerEventData cachedEventData;
@@ -33,16 +23,9 @@ namespace Scuti.UI
         private Vector2 lastMousePosition;
         private Vector2 averagePointBetweenTouch;
 
-
         [Header("Testing")]
         [SerializeField]
-        Text textForDebug;
-        [SerializeField]
-        Image imageTestPointMouse;
-        [SerializeField]
         bool isTestingMobile;
-
-        float timerClick;
 
 
         // Start is called before the first frame update
@@ -51,7 +34,7 @@ namespace Scuti.UI
             initialScale = transform.localScale;
             scrollRect = GetComponentInParent<ScrollRect>();
             rectScroll = scrollRect.GetComponent<RectTransform>();
-            displayLargeImage.Init();
+
         }
 
         // ---------------------------------------------------------------------------------------
@@ -92,30 +75,21 @@ namespace Scuti.UI
 
         void Update()
         {
+
             if (counterTouch >= 2)
             {
                 Touch touchZero = Input.GetTouch(0);
                 Touch touchOne = Input.GetTouch(1);
 
-                // Find the position in the previous frame of each touch.
                 Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
                 Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
 
                 averagePointBetweenTouch = (touchZeroPrevPos + touchOnePrevPos) / 2;
 
-                Debug.DrawLine(Vector3.zero, touchZero.position, Color.red);
-                Debug.DrawLine(Vector3.zero, touchOne.position, Color.blue);
-                Debug.DrawLine(Vector3.zero, averagePointBetweenTouch, Color.yellow);
-
-
-                // Find the magnitude of the vector (the distance) between the touches in each frame.
                 float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
                 float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
 
-                // Find the difference in the distances between each frame.
                 float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
-                
-                MouseDown(cachedEventData);
 
                 // For scale image
                 var delta = Vector3.one * (deltaMagnitudeDiff * -zoomSpeed);
@@ -125,7 +99,6 @@ namespace Scuti.UI
                 transform.localScale = desiredScale;
 
             }
-
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
             if (!isTestingMobile)
             {
@@ -135,8 +108,8 @@ namespace Scuti.UI
                     MouseDown(cachedEventData);
                 }
             }
-
 #endif
+
         }
 
         // -------------------------------------------------------------------------------------
@@ -158,9 +131,6 @@ namespace Scuti.UI
         /// <param name="eventData">mouse pointer event data</param>
         public void OnDrag(PointerEventData eventData)
         {
-            isDragDetected = true;
-            scrollRect.enabled = false;
-
             Vector2 currentMousePosition = new Vector2(0, 0);
 
             // Get de position touch
@@ -192,14 +162,8 @@ namespace Scuti.UI
         /// <param name="eventData"></param>
         public void OnEndDrag(PointerEventData eventData)
         {
-            if (counterTouch == 0)
-            {
-                isDragDetected = false;
-            }
-            scrollRect.enabled = true;           
-
             Debug.Log("End Drag");
-
+            //Implement your funtionlity here
         }
 
         // ----------------------------------------------------------------------------------------------
@@ -208,6 +172,7 @@ namespace Scuti.UI
         {
             if (dat == null)
                 return;
+
 
             Vector2 localCursor;
             //var rect1 = scrollRect.GetComponent<RectTransform>();
@@ -225,30 +190,30 @@ namespace Scuti.UI
             if (ypos > 0) ypos = ypos + (int)rectScroll.rect.height / 2;
             else ypos += (int)rectScroll.rect.height / 2;
 
-           //  Debug.Log("Correct Cursor Pos: " + xpos + " " + ypos);
+            // For Testing
+            //imageTestPointMouse.rectTransform.anchoredPosition = new Vector2(xpos, ypos);
+
+            //Debug.Log("Correct Cursor Pos: " + xpos + " " + ypos);
 
             // Calculate point in scale
             float widthScroll = rectScroll.rect.width;
             float heightScroll = rectScroll.rect.height;
 
-            // Debug.Log("Scroll: Width - Height: " + widthScroll + " " + heightScroll);
+           // Debug.Log("Scroll: Width - Height: " + widthScroll + " " + heightScroll);
 
             var rect2 = GetComponent<RectTransform>();
 
             float widthScroll2 = rect2.rect.width;
             float heightScroll2 = rect2.rect.height;
 
-            // Debug.Log("Image: Width - Height: " + widthScroll2 * maxZoomMobile + " " + heightScroll2 * maxZoomMobile);
+           // Debug.Log("Image: Width - Height: " + widthScroll2 * maxZoomMobile + " " + heightScroll2 * maxZoomMobile);
 
             // Move image in zoom 
-            rect2.anchoredPosition = new Vector2(widthScroll2 / 2, heightScroll2 / 2) - new Vector2(xpos, ypos);
-            //rect2.anchoredPosition = new Vector2(widthScroll2 / 2, heightScroll2 / 2) - averagePointBetweenTouch;
+            rect2.anchoredPosition = new Vector2(widthScroll2 , heightScroll2 ) - new Vector2(xpos, ypos);
 
-            //Debug.DrawLine(Vector3.zero, new Vector2 (widthScroll2 / 2, heightScroll2 / 2), Color.blue);
-            //Debug.DrawLine(Vector3.zero, new Vector2(xpos, ypos), Color.green);
-            //Debug.DrawLine(Vector3.zero, rect2.anchoredPosition, Color.red);
             rect2.anchoredPosition = new Vector2(rect2.anchoredPosition.x * (maxZoomDesktop * 0.95f), rect2.anchoredPosition.y * (maxZoomDesktop * 0.95f));
-            //Debug.DrawLine(Vector3.zero, rect2.anchoredPosition, Color.yellow);
+
+
         }
 
         // --------------------------------------------------------------------------- Event Trigger
@@ -300,7 +265,6 @@ namespace Scuti.UI
 
 #endif
             }
-
         }
 
         /// <summary>
@@ -309,16 +273,12 @@ namespace Scuti.UI
         /// <param name="eventData"></param>
         public void OnPointerClick(BaseEventData eventData)
         {
-            if (isDragDetected)
-                return;
-
-            Debug.Log("OnCLick Image...");
-            displayLargeImage.Show(GetComponent<Image>().sprite);
+            Debug.Log("UIPanning: Image click");
         }
 
         /// <summary>
-        /// Method to detect pointer click on thImage click
-        /// /// </summary>
+        /// Method to detect pointer click on the image
+        /// </summary>
         /// <param name="eventData"></param>
         public void OnPressSelected(BaseEventData eventData)
         {
@@ -331,17 +291,7 @@ namespace Scuti.UI
         /// <param name="eventData"></param>
         public void OnPressDown(BaseEventData eventData)
         {
-            Debug.Log("UIPanning: Press DOWN");
             counterTouch++;
-        }
-
-        /// <summary>
-        /// Method to detect touch down on the image
-        /// </summary>
-        /// <param name="eventData"></param>
-        public void OnPressMove(BaseEventData eventData)
-        {
-            Debug.Log("UIPanning: Press move");
         }
 
         /// <summary>
@@ -350,7 +300,6 @@ namespace Scuti.UI
         /// <param name="eventData"></param>
         public void OnPressUp(BaseEventData eventData)
         {
-            Debug.Log("UIPanning: Press UP");
             counterTouch--;
         }
 
