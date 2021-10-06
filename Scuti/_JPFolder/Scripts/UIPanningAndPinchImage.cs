@@ -56,15 +56,6 @@ namespace Scuti.UI
 
         // ---------------------------------------------------------------------------------------
 
-        public void OnPointerDown(PointerEventData eventData)
-        {
-
-        }
-
-        public void OnPointerUp(PointerEventData eventData)
-        {
-
-        }
 
         /// <summary>
         /// IScrollHandler: This method is called when scrolling
@@ -238,17 +229,12 @@ namespace Scuti.UI
             float widthScroll2 = rect2.rect.width;
             float heightScroll2 = rect2.rect.height;
 
-            // Debug.Log("Image: Width - Height: " + widthScroll2 * maxZoomMobile + " " + heightScroll2 * maxZoomMobile);
+
 
             // Move image in zoom 
             rect2.anchoredPosition = new Vector2(widthScroll2 / 2, heightScroll2 / 2) - new Vector2(xpos, ypos);
-            //rect2.anchoredPosition = new Vector2(widthScroll2 / 2, heightScroll2 / 2) - averagePointBetweenTouch;
-
-            //Debug.DrawLine(Vector3.zero, new Vector2 (widthScroll2 / 2, heightScroll2 / 2), Color.blue);
-            //Debug.DrawLine(Vector3.zero, new Vector2(xpos, ypos), Color.green);
-            //Debug.DrawLine(Vector3.zero, rect2.anchoredPosition, Color.red);
             rect2.anchoredPosition = new Vector2(rect2.anchoredPosition.x * (maxZoomDesktop * 0.95f), rect2.anchoredPosition.y * (maxZoomDesktop * 0.95f));
-            //Debug.DrawLine(Vector3.zero, rect2.anchoredPosition, Color.yellow);
+
         }
 
         // --------------------------------------------------------------------------- Event Trigger
@@ -262,7 +248,7 @@ namespace Scuti.UI
 
             if(!isTestingMobile)
             {
-                Debug.Log("UIPinch: Enter mouse to Image ...");
+
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
 
                 // Cast BaseEventData as PointerEvenData for tracking mouse
@@ -289,10 +275,9 @@ namespace Scuti.UI
         /// <param name="eventData"></param>
         public void OnPointerExit(BaseEventData eventData)
         {
-
             if (!isTestingMobile)
             {
-                Debug.Log("UIPinch: Exit Mouse to Image");
+
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
 
                 isEnterToImage = false;
@@ -313,7 +298,7 @@ namespace Scuti.UI
                 return;
 
             Debug.Log("OnCLick Image...");
-            //displayLargeImage.Show(GetComponent<Image>().sprite);
+            displayLargeImage.Show(GetComponent<Image>().sprite);
         }
 
         /// <summary>

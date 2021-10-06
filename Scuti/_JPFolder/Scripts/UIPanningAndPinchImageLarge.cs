@@ -29,27 +29,17 @@ namespace Scuti.UI
         [SerializeField]
         bool isTestingMobile;
 
+        // ---------------------------------------------------------------------------------------
 
-        // Start is called before the first frame update
+
         void Awake()
         {
             initialScale = transform.localScale;
             scrollRect = GetComponentInParent<ScrollRect>();
             rectScroll = scrollRect.GetComponent<RectTransform>();
-
         }
 
         // ---------------------------------------------------------------------------------------
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-
-        }
-
-        public void OnPointerUp(PointerEventData eventData)
-        {
-
-        }
 
         /// <summary>
         /// IScrollHandler: This method is called when scrolling
@@ -57,8 +47,6 @@ namespace Scuti.UI
         /// <param name="eventData"></param>
         public void OnScroll(PointerEventData eventData)
         {
-            Debug.Log("OnScroll...");
-            //textForDebug.text = "OnScroll";
             var delta = Vector3.one * (eventData.scrollDelta.y * zoomSpeed);
             var desiredScale = transform.localScale + delta;
 
