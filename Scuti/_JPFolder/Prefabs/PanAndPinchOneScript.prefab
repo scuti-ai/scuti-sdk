@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 5024582829128870857}
   - component: {fileID: 8793617788210010373}
   - component: {fileID: 4486599796972892188}
+  - component: {fileID: 114232027834081400}
   m_Layer: 0
   m_Name: PanAndPinchOneScript
   m_TagString: Untagged
@@ -360,3 +361,17 @@ MonoBehaviour:
   m_Script: {fileID: -146154839, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114232027834081400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7405563208517582192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1254083943, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 1
+  m_AspectRatio: 1

@@ -23,6 +23,8 @@ namespace Scuti.UI
         private Vector2 lastMousePosition;
         private Vector2 averagePointBetweenTouch;
 
+        [SerializeField] private bool isZoomAutomatic;
+
         [Header("Testing")]
         [SerializeField]
         bool isTestingMobile;
@@ -81,14 +83,17 @@ namespace Scuti.UI
                 Touch touchZero = Input.GetTouch(0);
                 Touch touchOne = Input.GetTouch(1);
 
+                // Find the position in the previous frame of each touch.
                 Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
                 Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
 
                 averagePointBetweenTouch = (touchZeroPrevPos + touchOnePrevPos) / 2;
 
+                // Find the magnitude of the vector (the distance) between the touches in each frame.
                 float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
                 float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
 
+                // Find the difference in the distances between each frame.
                 float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
                 // For scale image
@@ -99,7 +104,7 @@ namespace Scuti.UI
                 transform.localScale = desiredScale;
 
             }
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+            #if UNITY_EDITOR || UNITY_STANDALONE_WIN
             if (!isTestingMobile)
             {
                 // For desktop version
@@ -108,7 +113,7 @@ namespace Scuti.UI
                     MouseDown(cachedEventData);
                 }
             }
-#endif
+            #endif
 
         }
 
@@ -131,6 +136,8 @@ namespace Scuti.UI
         /// <param name="eventData">mouse pointer event data</param>
         public void OnDrag(PointerEventData eventData)
         {
+            scrollRect.enabled = false;
+
             Vector2 currentMousePosition = new Vector2(0, 0);
 
             // Get de position touch
@@ -147,7 +154,7 @@ namespace Scuti.UI
             Vector2 diff = currentMousePosition - lastMousePosition;
             RectTransform rect = GetComponent<RectTransform>();
 
-            Vector3 newPosition = rect.position + new Vector3(diff.x, diff.y, 0/*transform.position.z*/);
+            Vector3 newPosition = rect.position + new Vector3(diff.x, diff.y, 0);
             Vector3 oldPos = rect.position;
             rect.position = newPosition;
 
@@ -162,8 +169,7 @@ namespace Scuti.UI
         /// <param name="eventData"></param>
         public void OnEndDrag(PointerEventData eventData)
         {
-            Debug.Log("End Drag");
-            //Implement your funtionlity here
+            scrollRect.enabled = true;
         }
 
         // ----------------------------------------------------------------------------------------------
@@ -173,9 +179,7 @@ namespace Scuti.UI
             if (dat == null)
                 return;
 
-
             Vector2 localCursor;
-            //var rect1 = scrollRect.GetComponent<RectTransform>();
             var pos1 = dat.position;
             if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rectScroll, pos1,
                 null, out localCursor))
@@ -190,29 +194,19 @@ namespace Scuti.UI
             if (ypos > 0) ypos = ypos + (int)rectScroll.rect.height / 2;
             else ypos += (int)rectScroll.rect.height / 2;
 
-            // For Testing
-            //imageTestPointMouse.rectTransform.anchoredPosition = new Vector2(xpos, ypos);
-
-            //Debug.Log("Correct Cursor Pos: " + xpos + " " + ypos);
 
             // Calculate point in scale
             float widthScroll = rectScroll.rect.width;
             float heightScroll = rectScroll.rect.height;
-
-           // Debug.Log("Scroll: Width - Height: " + widthScroll + " " + heightScroll);
 
             var rect2 = GetComponent<RectTransform>();
 
             float widthScroll2 = rect2.rect.width;
             float heightScroll2 = rect2.rect.height;
 
-           // Debug.Log("Image: Width - Height: " + widthScroll2 * maxZoomMobile + " " + heightScroll2 * maxZoomMobile);
-
             // Move image in zoom 
             rect2.anchoredPosition = new Vector2(widthScroll2 , heightScroll2 ) - new Vector2(xpos, ypos);
-
             rect2.anchoredPosition = new Vector2(rect2.anchoredPosition.x * (maxZoomDesktop * 0.95f), rect2.anchoredPosition.y * (maxZoomDesktop * 0.95f));
-
 
         }
 
@@ -224,28 +218,28 @@ namespace Scuti.UI
         /// <param name="eventData"></param>
         public void OnPointerEnter(BaseEventData eventData)
         {
-
-            if(!isTestingMobile)
+            if(isZoomAutomatic)
             {
-                Debug.Log("UIPinch: Enter mouse to Image ...");
+                if (!isTestingMobile)
+                {
+                    Debug.Log("UIPinch: Enter mouse to Image ...");
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
 
-                // Cast BaseEventData as PointerEvenData for tracking mouse
-                PointerEventData pointerData = eventData as PointerEventData;
-                cachedEventData = pointerData;
+                    // Cast BaseEventData as PointerEvenData for tracking mouse
+                    PointerEventData pointerData = eventData as PointerEventData;
+                    cachedEventData = pointerData;
 
-                isEnterToImage = true;
+                    isEnterToImage = true;
 
-                var delta = Vector3.one * (maxZoomDesktop);
-                var desiredScale = transform.localScale + delta;
+                    var delta = Vector3.one * (maxZoomDesktop);
+                    var desiredScale = transform.localScale + delta;
 
-                desiredScale = ClampDesiredScale(desiredScale);
+                    desiredScale = ClampDesiredScale(desiredScale);
 
-                transform.localScale = desiredScale;
-
+                    transform.localScale = desiredScale;
 #endif
+                }
             }
-
         }
 
         /// <summary>
@@ -254,35 +248,17 @@ namespace Scuti.UI
         /// <param name="eventData"></param>
         public void OnPointerExit(BaseEventData eventData)
         {
-
-            if (!isTestingMobile)
+            if (isZoomAutomatic)
             {
-                Debug.Log("UIPinch: Exit Mouse to Image");
+                if (!isTestingMobile)
+                {                    
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
 
-                isEnterToImage = false;
-                transform.localScale = initialScale;
-
+                    isEnterToImage = false;
+                    transform.localScale = initialScale;
 #endif
+                }
             }
-        }
-
-        /// <summary>
-        /// Method to detect pointer click on the image
-        /// </summary>
-        /// <param name="eventData"></param>
-        public void OnPointerClick(BaseEventData eventData)
-        {
-            Debug.Log("UIPanning: Image click");
-        }
-
-        /// <summary>
-        /// Method to detect pointer click on the image
-        /// </summary>
-        /// <param name="eventData"></param>
-        public void OnPressSelected(BaseEventData eventData)
-        {
-            Debug.Log("UIPanning: PressSelected");
         }
 
         /// <summary>
