@@ -12322,6 +12322,7 @@ GameObject:
   - component: {fileID: 222635901726171160}
   - component: {fileID: 114062998601313472}
   - component: {fileID: 7230018538183043622}
+  - component: {fileID: 8256181860124495176}
   m_Layer: 5
   m_Name: '{Title}'
   m_TagString: Untagged
@@ -12408,6 +12409,21 @@ MonoBehaviour:
   m_FlexibleWidth: 600
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &8256181860124495176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602360467036912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1604207478600372
 GameObject:
   m_ObjectHideFlags: 0
@@ -24347,6 +24363,7 @@ GameObject:
   - component: {fileID: 4172105270483318004}
   - component: {fileID: 8282953218080306415}
   - component: {fileID: 1543080749445668681}
+  - component: {fileID: 7432686980506139707}
   m_Layer: 5
   m_Name: '{Brand}'
   m_TagString: Untagged
@@ -24433,6 +24450,21 @@ MonoBehaviour:
   m_FlexibleWidth: 600
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &7432686980506139707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5234507808526768825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &5479265938896389515
 GameObject:
   m_ObjectHideFlags: 0

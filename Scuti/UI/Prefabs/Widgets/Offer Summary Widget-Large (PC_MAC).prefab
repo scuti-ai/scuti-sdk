@@ -7143,6 +7143,7 @@ GameObject:
   - component: {fileID: 224926241826032736}
   - component: {fileID: 222713948881903518}
   - component: {fileID: 114833058178219934}
+  - component: {fileID: 4619662711031666204}
   m_Layer: 5
   m_Name: '{Title}'
   m_TagString: Untagged
@@ -7209,6 +7210,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: BEATS HEADPHONES
+--- !u!114 &4619662711031666204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602649859539276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1608223349070174
 GameObject:
   m_ObjectHideFlags: 0
@@ -7634,6 +7650,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Transitions: []
+  Single: 0
+  FirstLoad: 1
   animator: {fileID: 0}
   timer: {fileID: 0}
   backgroundImage: {fileID: 0}
@@ -7641,6 +7659,7 @@ MonoBehaviour:
   titleText: {fileID: 0}
   displayPriceText: {fileID: 0}
   ratingText: {fileID: 0}
+  brandText: {fileID: 0}
   ratingStarsWidget: {fileID: 0}
   newBadge: {fileID: 0}
   hotBadge: {fileID: 0}

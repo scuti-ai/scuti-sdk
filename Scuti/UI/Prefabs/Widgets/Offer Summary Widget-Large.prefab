@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 224818716387842696}
   - component: {fileID: 222586013019258184}
   - component: {fileID: 114092220084904578}
+  - component: {fileID: 8424657489753108701}
   m_Layer: 5
   m_Name: '{Title}'
   m_TagString: Untagged
@@ -163,6 +164,21 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: BEATS HEADPHONES
+--- !u!114 &8424657489753108701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050172078222586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -3}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1055873813337238
 GameObject:
   m_ObjectHideFlags: 0
@@ -3718,6 +3734,7 @@ GameObject:
   - component: {fileID: 1169245793611220591}
   - component: {fileID: 5137641110803769658}
   - component: {fileID: 8067669671126175549}
+  - component: {fileID: 5486194787828131060}
   m_Layer: 5
   m_Name: '{Brand}'
   m_TagString: Untagged
@@ -3784,3 +3801,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Brand: BrandName'
+--- !u!114 &5486194787828131060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3911610160798248352}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1573420865, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -3}
+  m_UseGraphicAlpha: 1
