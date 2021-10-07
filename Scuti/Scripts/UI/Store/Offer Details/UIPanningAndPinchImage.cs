@@ -23,26 +23,15 @@ namespace Scuti.UI
         [SerializeField] private bool isEnterToImage;
         [SerializeField] private bool isDragDetected;
 
-        [Header("Zoomable image")]
-        [SerializeField] private RectTransform zoomableImage;
-        private Image imageToShow;
-
         private RectTransform rectScroll;
         PointerEventData cachedEventData;
         private int counterTouch;
         private Vector2 lastMousePosition;
         private Vector2 averagePointBetweenTouch;
 
-
         [Header("Testing")]
         [SerializeField]
-        Text textForDebug;
-        [SerializeField]
-        Image imageTestPointMouse;
-        [SerializeField]
         bool isTestingMobile;
-
-        float timerClick;
 
 
         // Start is called before the first frame update
