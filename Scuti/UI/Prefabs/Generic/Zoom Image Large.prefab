@@ -311,7 +311,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d60414f637b90f43b752eb8a4316233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollRect: {fileID: 0}
+  scrollRect: {fileID: 589705829406161181}
+  rectImagenToZoom: {fileID: 5102816044208860280}
   zoomSpeed: 0.01
   maxZoomMobile: 10
   maxZoomDesktop: 4
@@ -417,7 +418,7 @@ GameObject:
   - component: {fileID: 8225326203907058230}
   - component: {fileID: 8225326203907058229}
   m_Layer: 5
-  m_Name: LargeImage
+  m_Name: Zoom Image Large
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

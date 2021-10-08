@@ -11,6 +11,8 @@ namespace Scuti.UI
     {
         private Vector3 initialScale;
         [SerializeField] private ScrollRect scrollRect;
+        [SerializeField] private RectTransform rectScrollRect;
+        [SerializeField] private RectTransform rectImagenToZoom;
         [SerializeField] private float zoomSpeed = 0.1f;
         [SerializeField] private float maxZoomMobile = 10f;
         [SerializeField] private float maxZoomDesktop = 5f;
@@ -35,8 +37,6 @@ namespace Scuti.UI
         void Awake()
         {
             initialScale = transform.localScale;
-            scrollRect = GetComponentInParent<ScrollRect>();
-            rectScroll = scrollRect.GetComponent<RectTransform>();
         }
 
         // ---------------------------------------------------------------------------------------
@@ -162,13 +162,13 @@ namespace Scuti.UI
 
         // ----------------------------------------------------------------------------------------------
 
-        private void MouseDown(PointerEventData dat)
+        private void MouseDown(PointerEventData eventData)
         {
-            if (dat == null)
+            if (eventData == null)
                 return;
 
             Vector2 localCursor;
-            var pos1 = dat.position;
+            var pos1 = eventData.position;
             if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rectScroll, pos1,
                 null, out localCursor))
                 return;
@@ -187,14 +187,12 @@ namespace Scuti.UI
             float widthScroll = rectScroll.rect.width;
             float heightScroll = rectScroll.rect.height;
 
-            var rect2 = GetComponent<RectTransform>();
-
-            float widthScroll2 = rect2.rect.width;
-            float heightScroll2 = rect2.rect.height;
+            float widthScroll2 = rectImagenToZoom.rect.width;
+            float heightScroll2 = rectImagenToZoom.rect.height;
 
             // Move image in zoom 
-            rect2.anchoredPosition = new Vector2(widthScroll2 , heightScroll2 ) - new Vector2(xpos, ypos);
-            rect2.anchoredPosition = new Vector2(rect2.anchoredPosition.x * (maxZoomDesktop * 0.95f), rect2.anchoredPosition.y * (maxZoomDesktop * 0.95f));
+            rectImagenToZoom.anchoredPosition = new Vector2(widthScroll2 , heightScroll2 ) - new Vector2(xpos, ypos);
+            rectImagenToZoom.anchoredPosition = new Vector2(rectImagenToZoom.anchoredPosition.x * (maxZoomDesktop * 0.95f), rectImagenToZoom.anchoredPosition.y * (maxZoomDesktop * 0.95f));
 
         }
 
