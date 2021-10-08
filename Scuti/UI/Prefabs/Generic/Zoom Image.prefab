@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 3816486990427245664}
   - component: {fileID: 7037282529443357771}
   - component: {fileID: 7235078405747100251}
-  - component: {fileID: 3620307442504936064}
   - component: {fileID: 3869561873114366970}
+  - component: {fileID: 216524371054384838}
+  - component: {fileID: 8547821395407299764}
+  - component: {fileID: 6673112210164165626}
   m_Layer: 0
   m_Name: ImageDisplayed
   m_TagString: Untagged
@@ -34,10 +36,10 @@ RectTransform:
   m_Father: {fileID: 5024582829128870857}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000019369054, y: 0.000029436305}
-  m_SizeDelta: {x: 921.8911, y: 548.04285}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7037282529443357771
 CanvasRenderer:
@@ -65,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 44d0f9d01b1511946a6631cde3a033b1, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -74,30 +76,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &3620307442504936064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4104031415681817790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6958bfa1a7b231844b7d9291bdff61c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  displayLargeImage: {fileID: 0}
-  scrollRect: {fileID: 0}
-  zoomSpeed: 0.01
-  maxZoomMobile: 10
-  maxZoomDesktop: 4
-  isScale: 0
-  isEnterToImage: 0
-  isDragDetected: 0
-  zoomableImage: {fileID: 0}
-  textForDebug: {fileID: 0}
-  imageTestPointMouse: {fileID: 0}
-  isTestingMobile: 0
 --- !u!114 &3869561873114366970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +93,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3620307442504936064}
+        - m_Target: {fileID: 6673112210164165626}
           m_MethodName: OnPressDown
           m_Mode: 0
           m_Arguments:
@@ -130,7 +108,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3620307442504936064}
+        - m_Target: {fileID: 6673112210164165626}
           m_MethodName: OnPressUp
           m_Mode: 0
           m_Arguments:
@@ -145,7 +123,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3620307442504936064}
+        - m_Target: {fileID: 6673112210164165626}
           m_MethodName: OnPointerEnter
           m_Mode: 0
           m_Arguments:
@@ -160,23 +138,8 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3620307442504936064}
+        - m_Target: {fileID: 6673112210164165626}
           m_MethodName: OnPointerExit
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 11
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3620307442504936064}
-          m_MethodName: OnPressMove
           m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -190,7 +153,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3620307442504936064}
+        - m_Target: {fileID: 6673112210164165626}
           m_MethodName: OnPointerClick
           m_Mode: 0
           m_Arguments:
@@ -202,6 +165,58 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
   delegates: []
+--- !u!114 &216524371054384838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4104031415681817790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1254083943, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 3
+  m_AspectRatio: 1
+--- !u!114 &8547821395407299764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4104031415681817790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98c9780fd01ef8840a8ecbd36cfc482c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 50
+--- !u!114 &6673112210164165626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4104031415681817790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929c07a3af759c749b80a6d3d3164673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollRect: {fileID: 8793617788210010373}
+  rectScroll: {fileID: 5024582829128870857}
+  rectImagenToZoom: {fileID: 3816486990427245664}
+  zoomSpeed: 0.01
+  maxZoomMobile: 10
+  maxZoomDesktop: 4
+  isScale: 0
+  isEnterToImage: 0
+  counterTouch: 0
+  initialScale: {x: 1, y: 1, z: 1}
+  isTestingMobile: 0
+  displayLargeImage: {fileID: 0}
+  isDragDetected: 0
 --- !u!1 &7405563208517582192
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +230,7 @@ GameObject:
   - component: {fileID: 4486599796972892188}
   - component: {fileID: 114232027834081400}
   m_Layer: 0
-  m_Name: PanAndPinchOneScript
+  m_Name: Zoom Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

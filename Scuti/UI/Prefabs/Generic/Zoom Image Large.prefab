@@ -116,7 +116,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -67.8, y: -66.9}
+  m_AnchoredPosition: {x: -67.8, y: -102}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7219250336852881636
@@ -235,9 +235,10 @@ GameObject:
   - component: {fileID: 5102816044208860280}
   - component: {fileID: 1409426256988193875}
   - component: {fileID: 1607243971552913987}
-  - component: {fileID: 5391451205533269157}
   - component: {fileID: 5158108799919973346}
   - component: {fileID: 8225326203546341009}
+  - component: {fileID: 1139360626054663055}
+  - component: {fileID: 2551816963361346688}
   m_Layer: 0
   m_Name: ImageDisplayed
   m_TagString: Untagged
@@ -259,10 +260,10 @@ RectTransform:
   m_Father: {fileID: 4007321775438007249}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000019369054, y: 0.000029436305}
-  m_SizeDelta: {x: 921.8911, y: 548.04285}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1409426256988193875
 CanvasRenderer:
@@ -290,7 +291,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 44d0f9d01b1511946a6631cde3a033b1, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -299,27 +300,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &5391451205533269157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5391451205533269158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d60414f637b90f43b752eb8a4316233, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scrollRect: {fileID: 589705829406161181}
-  rectImagenToZoom: {fileID: 5102816044208860280}
-  zoomSpeed: 0.01
-  maxZoomMobile: 10
-  maxZoomDesktop: 4
-  isScale: 0
-  isEnterToImage: 0
-  isZoomAutomatic: 0
-  isTestingMobile: 0
 --- !u!114 &5158108799919973346
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,7 +317,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 5391451205533269157}
+        - m_Target: {fileID: 2551816963361346688}
           m_MethodName: OnPressDown
           m_Mode: 0
           m_Arguments:
@@ -352,7 +332,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 5391451205533269157}
+        - m_Target: {fileID: 2551816963361346688}
           m_MethodName: OnPressUp
           m_Mode: 0
           m_Arguments:
@@ -367,7 +347,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 5391451205533269157}
+        - m_Target: {fileID: 2551816963361346688}
           m_MethodName: OnPointerEnter
           m_Mode: 0
           m_Arguments:
@@ -382,7 +362,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 5391451205533269157}
+        - m_Target: {fileID: 2551816963361346688}
           m_MethodName: OnPointerExit
           m_Mode: 0
           m_Arguments:
@@ -407,6 +387,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 50
+--- !u!114 &1139360626054663055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5391451205533269158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1254083943, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 3
+  m_AspectRatio: 0.6
+--- !u!114 &2551816963361346688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5391451205533269158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1dbd88dc3034c34fb9734bf052883b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollRect: {fileID: 589705829406161181}
+  rectScroll: {fileID: 4007321775438007249}
+  rectImagenToZoom: {fileID: 5102816044208860280}
+  zoomSpeed: 0.01
+  maxZoomMobile: 10
+  maxZoomDesktop: 4
+  isScale: 0
+  isEnterToImage: 0
+  counterTouch: 0
+  initialScale: {x: 1, y: 1, z: 1}
+  isTestingMobile: 0
+  isZoomAutomatic: 0
 --- !u!1 &8225326203907058231
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,7 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.04013884, g: 0.08510069, b: 0.20754719, a: 0.67058825}
+  m_Color: {r: 0.10196079, g: 0.10196079, b: 0.13725491, a: 0.78431374}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

@@ -59,7 +59,7 @@ namespace Scuti.UI {
             }
         }
 
-        [SerializeField] UIPanningAndPinchImage panningAndPinchImage;
+        [SerializeField] ZoomOfferDetails panningAndPinchImage;
         [SerializeField] Image imageDisplay;
         [SerializeField] GameObject thumbnailPrefab;
         [SerializeField] Transform thumbnailParent;

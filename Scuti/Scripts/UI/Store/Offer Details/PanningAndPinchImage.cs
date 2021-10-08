@@ -7,65 +7,41 @@ using UnityEngine.UI;
 
 namespace Scuti.UI
 {
-    public class UIPanningAndPinchImageLarge : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IScrollHandler
+    public abstract class PanningAndPinchImage : MonoBehaviour
     {
-        private Vector3 initialScale;
+        [Header("Testing")]
+        public bool isTestingMobile;
+
+        [Header("Components")]
         [SerializeField] private ScrollRect scrollRect;
-        [SerializeField] private RectTransform rectScrollRect;
+        [SerializeField] private RectTransform rectScroll;
         [SerializeField] private RectTransform rectImagenToZoom;
+
+        [Header("Parameters")]
         [SerializeField] private float zoomSpeed = 0.1f;
         [SerializeField] private float maxZoomMobile = 10f;
         [SerializeField] private float maxZoomDesktop = 5f;
         [SerializeField] private bool isScale;
         [SerializeField] private bool isEnterToImage;
 
-        private RectTransform rectScroll;
-        PointerEventData cachedEventData;
-        private int counterTouch;
+        [HideInInspector] public int counterTouch;
+        public Vector3 initialScale;
+        private PointerEventData cachedEventData;
         private Vector2 lastMousePosition;
         private Vector2 averagePointBetweenTouch;
 
-        [SerializeField] private bool isZoomAutomatic;
 
-        [Header("Testing")]
-        [SerializeField]
-        bool isTestingMobile;
-
-        // ---------------------------------------------------------------------------------------
-
+        // ----------------------------------------------------------------------------------------------
 
         void Awake()
         {
-            initialScale = transform.localScale;
+            initialScale = transform.localScale;            
         }
+        // ----------------------------------------------------------------------------------------------
 
-        // ---------------------------------------------------------------------------------------
-
-        /// <summary>
-        /// IScrollHandler: This method is called when scrolling
-        /// </summary>
-        /// <param name="eventData"></param>
-        public void OnScroll(PointerEventData eventData)
-        {
-            var delta = Vector3.one * (eventData.scrollDelta.y * zoomSpeed);
-            var desiredScale = transform.localScale + delta;
-
-            desiredScale = ClampDesiredScale(desiredScale);
-
-            transform.localScale = desiredScale;
-        }
-
-        // This method anchors the maximum and minimum values of the scale to mobile
-        private Vector3 ClampDesiredScale(Vector3 desiredScale)
-        {
-            desiredScale = Vector3.Max(initialScale, desiredScale);
-            desiredScale = Vector3.Min(initialScale * maxZoomMobile, desiredScale);
-            return desiredScale;
-        }
 
         void Update()
         {
-
             if (counterTouch >= 2)
             {
                 Touch touchZero = Input.GetTouch(0);
@@ -84,6 +60,8 @@ namespace Scuti.UI
                 // Find the difference in the distances between each frame.
                 float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
+                MouseDown(cachedEventData);
+
                 // For scale image
                 var delta = Vector3.one * (deltaMagnitudeDiff * -zoomSpeed);
                 var desiredScale = transform.localScale + delta;
@@ -92,7 +70,8 @@ namespace Scuti.UI
                 transform.localScale = desiredScale;
 
             }
-            #if UNITY_EDITOR || UNITY_STANDALONE_WIN
+
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
             if (!isTestingMobile)
             {
                 // For desktop version
@@ -102,10 +81,63 @@ namespace Scuti.UI
                 }
             }
             #endif
+        }
+
+        private void MouseDown(PointerEventData eventData)
+        {
+            if (eventData == null)
+                return;
+
+            Vector2 localCursor;
+            var pos1 = eventData.position;
+            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rectScroll, pos1,
+                null, out localCursor))
+                return;
+
+            int xpos = (int)(localCursor.x);
+            int ypos = (int)(localCursor.y);
+
+            if (xpos < 0) xpos = xpos + (int)rectScroll.rect.width / 2;
+            else xpos += (int)rectScroll.rect.width / 2;
+
+            if (ypos > 0) ypos = ypos + (int)rectScroll.rect.height / 2;
+            else ypos += (int)rectScroll.rect.height / 2;
+            // Calculate point in scale
+            float widthScroll = rectScroll.rect.width;
+            float heightScroll = rectScroll.rect.height;
+
+            float widthScroll2 = rectImagenToZoom.rect.width;
+            float heightScroll2 = rectImagenToZoom.rect.height;
+
+            // Move image in zoom 
+            rectImagenToZoom.anchoredPosition = new Vector2(widthScroll2 / 2, heightScroll2 / 2) - new Vector2(xpos, ypos);
+            rectImagenToZoom.anchoredPosition = new Vector2(rectImagenToZoom.anchoredPosition.x * (maxZoomDesktop * 0.95f), rectImagenToZoom.anchoredPosition.y * (maxZoomDesktop * 0.95f));
 
         }
 
-        // -------------------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------------------------
+
+        // This method anchors the maximum and minimum values of the scale to mobile
+        private Vector3 ClampDesiredScale(Vector3 desiredScale)
+        {
+            desiredScale = Vector3.Max(initialScale, desiredScale);
+            desiredScale = Vector3.Min(initialScale * maxZoomMobile, desiredScale);
+            return desiredScale;
+        }
+
+        /// <summary>
+        /// IScrollHandler: This method is called when scrolling
+        /// </summary>
+        /// <param name="eventData"></param>
+        public void OnScroll(PointerEventData eventData)
+        {
+            var delta = Vector3.one * (eventData.scrollDelta.y * zoomSpeed);
+            var desiredScale = transform.localScale + delta;
+
+            desiredScale = ClampDesiredScale(desiredScale);
+
+            transform.localScale = desiredScale;
+        }    
 
         /// <summary>
         /// This method will be called on the start of the mouse drag
@@ -113,7 +145,6 @@ namespace Scuti.UI
         /// <param name="eventData">mouse pointer event data</param>
         public void OnBeginDrag(PointerEventData eventData)
         {
-            Debug.Log("Begin Drag");
             lastMousePosition = eventData.position;
             averagePointBetweenTouch = eventData.position;
         }
@@ -150,7 +181,6 @@ namespace Scuti.UI
 
         }
 
-
         /// <summary>
         /// This method will be called at the end of mouse drag
         /// </summary>
@@ -158,42 +188,6 @@ namespace Scuti.UI
         public void OnEndDrag(PointerEventData eventData)
         {
             scrollRect.enabled = true;
-        }
-
-        // ----------------------------------------------------------------------------------------------
-
-        private void MouseDown(PointerEventData eventData)
-        {
-            if (eventData == null)
-                return;
-
-            Vector2 localCursor;
-            var pos1 = eventData.position;
-            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rectScroll, pos1,
-                null, out localCursor))
-                return;
-
-            int xpos = (int)(localCursor.x);
-            int ypos = (int)(localCursor.y);
-
-            if (xpos < 0) xpos = xpos + (int)rectScroll.rect.width / 2;
-            else xpos += (int)rectScroll.rect.width / 2;
-
-            if (ypos > 0) ypos = ypos + (int)rectScroll.rect.height / 2;
-            else ypos += (int)rectScroll.rect.height / 2;
-
-
-            // Calculate point in scale
-            float widthScroll = rectScroll.rect.width;
-            float heightScroll = rectScroll.rect.height;
-
-            float widthScroll2 = rectImagenToZoom.rect.width;
-            float heightScroll2 = rectImagenToZoom.rect.height;
-
-            // Move image in zoom 
-            rectImagenToZoom.anchoredPosition = new Vector2(widthScroll2 , heightScroll2 ) - new Vector2(xpos, ypos);
-            rectImagenToZoom.anchoredPosition = new Vector2(rectImagenToZoom.anchoredPosition.x * (maxZoomDesktop * 0.95f), rectImagenToZoom.anchoredPosition.y * (maxZoomDesktop * 0.95f));
-
         }
 
         // --------------------------------------------------------------------------- Event Trigger
@@ -204,28 +198,27 @@ namespace Scuti.UI
         /// <param name="eventData"></param>
         public void OnPointerEnter(BaseEventData eventData)
         {
-            if(isZoomAutomatic)
+            if (!isTestingMobile)
             {
-                if (!isTestingMobile)
-                {
-                    Debug.Log("UIPinch: Enter mouse to Image ...");
+
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
 
-                    // Cast BaseEventData as PointerEvenData for tracking mouse
-                    PointerEventData pointerData = eventData as PointerEventData;
-                    cachedEventData = pointerData;
+                // Cast BaseEventData as PointerEvenData for tracking mouse
+                PointerEventData pointerData = eventData as PointerEventData;
+                cachedEventData = pointerData;
 
-                    isEnterToImage = true;
+                isEnterToImage = true;
 
-                    var delta = Vector3.one * (maxZoomDesktop);
-                    var desiredScale = transform.localScale + delta;
+                var delta = Vector3.one * (maxZoomDesktop);
+                var desiredScale = transform.localScale + delta;
 
-                    desiredScale = ClampDesiredScale(desiredScale);
+                desiredScale = ClampDesiredScale(desiredScale);
 
-                    transform.localScale = desiredScale;
+                transform.localScale = desiredScale;
+
 #endif
-                }
             }
+
         }
 
         /// <summary>
@@ -234,17 +227,16 @@ namespace Scuti.UI
         /// <param name="eventData"></param>
         public void OnPointerExit(BaseEventData eventData)
         {
-            if (isZoomAutomatic)
+            if (!isTestingMobile)
             {
-                if (!isTestingMobile)
-                {                    
+
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
 
-                    isEnterToImage = false;
-                    transform.localScale = initialScale;
+                isEnterToImage = false;
+                transform.localScale = initialScale;
 #endif
-                }
             }
+
         }
 
         /// <summary>
@@ -265,7 +257,8 @@ namespace Scuti.UI
             counterTouch--;
         }
 
+
     }
 
-}
 
+}
