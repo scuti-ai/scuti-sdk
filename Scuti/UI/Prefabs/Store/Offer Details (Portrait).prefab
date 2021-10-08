@@ -11548,6 +11548,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5158108799919973346, guid: d091a947fa60223469d232ccf88d76f3,
+        type: 3}
+      propertyPath: m_Delegates.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158108799919973346, guid: d091a947fa60223469d232ccf88d76f3,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].eventID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158108799919973346, guid: d091a947fa60223469d232ccf88d76f3,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPointerExit
+      objectReference: {fileID: 0}
     - target: {fileID: 8225326203907058230, guid: d091a947fa60223469d232ccf88d76f3,
         type: 3}
       propertyPath: m_LocalPosition.x

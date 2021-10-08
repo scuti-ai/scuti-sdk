@@ -171,11 +171,10 @@ namespace Scuti.UI
             }
 
             Vector2 diff = currentMousePosition - lastMousePosition;
-            RectTransform rect = GetComponent<RectTransform>();
 
-            Vector3 newPosition = rect.position + new Vector3(diff.x, diff.y, 0);
-            Vector3 oldPos = rect.position;
-            rect.position = newPosition;
+            Vector3 newPosition = rectImagenToZoom.position + new Vector3(diff.x, diff.y, 0);
+            Vector3 oldPos = rectImagenToZoom.position;
+            rectImagenToZoom.position = newPosition;
 
             lastMousePosition = currentMousePosition;
 
@@ -196,7 +195,7 @@ namespace Scuti.UI
         /// Method to detect mouse over enter on image
         /// </summary>
         /// <param name="eventData"></param>
-        public void OnPointerEnter(BaseEventData eventData)
+        public virtual void OnPointerEnter(BaseEventData eventData)
         {
             if (!isTestingMobile)
             {
@@ -225,7 +224,7 @@ namespace Scuti.UI
         /// Method to detect mouse over exit on image
         /// </summary>
         /// <param name="eventData"></param>
-        public void OnPointerExit(BaseEventData eventData)
+        public virtual void OnPointerExit(BaseEventData eventData)
         {
             if (!isTestingMobile)
             {

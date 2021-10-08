@@ -27,23 +27,6 @@ namespace Scuti.UI
 
         // ---------------------------------------------------------------------------------------
 
-        /// <summary>
-        /// IScrollHandler: This method is called when scrolling
-        /// </summary>
-        /// <param name="eventData"></param>
-        public void OnScroll(PointerEventData eventData)
-        {
-            base.OnScroll(eventData);
-        }
-
-        /// <summary>
-        /// This method will be called on the start of the mouse drag
-        /// </summary>
-        /// <param name="eventData">mouse pointer event data</param>
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            base.OnBeginDrag(eventData);
-        }
 
         /// <summary>
         /// This method will be called during the mouse/touch drag
@@ -73,24 +56,6 @@ namespace Scuti.UI
 
         // --------------------------------------------------------------------------- Event Trigger
 
-        /// <summary>
-        /// Method to detect mouse over enter on image
-        /// </summary>
-        /// <param name="eventData"></param>
-        public void OnPointerEnter(BaseEventData eventData)
-        {
-            base.OnPointerEnter(eventData);
-        }
-
-        /// <summary>
-        /// Method to detect mouse over exit on image
-        /// </summary>
-        /// <param name="eventData"></param>
-        public void OnPointerExit(BaseEventData eventData)
-        {
-            base.OnPointerExit(eventData);
-
-        }
 
         /// <summary>
         /// Method to detect pointer click on the image
@@ -102,26 +67,8 @@ namespace Scuti.UI
                 return;
 
             displayLargeImage.Show(GetComponent<Image>().sprite);
-
         }
 
-        /// <summary>
-        /// Method to detect touch down on the image
-        /// </summary>
-        /// <param name="eventData"></param>
-        public void OnPressDown(BaseEventData eventData)
-        {
-            base.OnPressDown(eventData);
-        }
-
-        /// <summary>
-        /// Method to detect touch up on the image
-        /// </summary>
-        /// <param name="eventData"></param>
-        public void OnPressUp(BaseEventData eventData)
-        {
-            base.OnPressUp(eventData);
-        }
         
     }
 }

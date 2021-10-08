@@ -25820,6 +25820,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5158108799919973346, guid: d091a947fa60223469d232ccf88d76f3,
         type: 3}
+      propertyPath: m_Delegates.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158108799919973346, guid: d091a947fa60223469d232ccf88d76f3,
+        type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2788317128427129078}
@@ -25851,12 +25856,17 @@ PrefabInstance:
     - target: {fileID: 5158108799919973346, guid: d091a947fa60223469d232ccf88d76f3,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnPointerEnter
+      value: OnPointerExit
       objectReference: {fileID: 0}
     - target: {fileID: 5158108799919973346, guid: d091a947fa60223469d232ccf88d76f3,
         type: 3}
       propertyPath: m_Delegates.Array.data[3].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnPointerExit
+      objectReference: {fileID: 0}
+    - target: {fileID: 5158108799919973346, guid: d091a947fa60223469d232ccf88d76f3,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].eventID
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5391451205533269157, guid: d091a947fa60223469d232ccf88d76f3,
         type: 3}
@@ -26067,7 +26077,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1dbd88dc3034c34fb9734bf052883b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 929c07a3af759c749b80a6d3d3164673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &3391180390612022448
