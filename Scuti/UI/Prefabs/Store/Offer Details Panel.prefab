@@ -25758,6 +25758,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 224758955918582954}
     m_Modifications:
+    - target: {fileID: 1139360626054663055, guid: d091a947fa60223469d232ccf88d76f3,
+        type: 3}
+      propertyPath: m_AspectRatio
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1607243971552913987, guid: d091a947fa60223469d232ccf88d76f3,
         type: 3}
       propertyPath: m_Material
