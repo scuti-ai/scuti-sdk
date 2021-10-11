@@ -401,7 +401,7 @@ namespace Scuti.UI
             OfferPage offerPage = null;
             try
             {
-                offerPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, maxCount);
+                offerPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.ProductListing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, maxCount);
             }
             catch (Exception e)
             {
@@ -425,7 +425,7 @@ namespace Scuti.UI
                             index = 0;
                             //Debug.LogWarning("Requesting Range  >>>>  index:" + index + "  m_Pagination.Index:" + m_Pagination.Index + "  maxcount:" + maxCount + "  replace:" + replaceData +" and total "+ m_Pagination.TotalCount +"  cat " + m_Pagination.Category);
                             m_Pagination.Index = requestMore;
-                            var secondPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, requestMore);
+                            var secondPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.ProductListing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, requestMore);
                             if (secondPage != null)
                             {
                                 foreach (var node in secondPage.Nodes)
