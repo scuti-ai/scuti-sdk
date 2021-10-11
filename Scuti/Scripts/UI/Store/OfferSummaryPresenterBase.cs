@@ -604,7 +604,6 @@ namespace Scuti.UI
             }
 
             GlowImage.gameObject.SetActive(false);
-            Debug.Log("Brand: " + brandText + " and " + Data.Brand);
             brandText.text = Data.Brand;
             // Show the rating if there is a rating
             bool hasRatingValue = Data.Rating > 0f && _isPortrait;

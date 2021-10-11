@@ -98,9 +98,7 @@ namespace Scuti.UI
             OfferColorData colorData;
             foreach (var presenter in _allOffers)
             {
-                Debug.Log(presenter);
                 offerData = Data.UseSpecific(presenter.Single);
-                //Debug.Log(offerData);
                 if (cancelToken.IsCancellationRequested) return;
 
                 m_Instantiated.Add(presenter);
@@ -110,8 +108,6 @@ namespace Scuti.UI
                 presenter.SetColorData(colorData.Background, colorData.Glow);
                 await Task.Delay((int)(instantiationInterval * 1000));
                 if (cancelToken.IsCancellationRequested) return;
-
-                Debug.Log(presenter + " data " + offerData);
 
                 if (offerData == null)
                 {
@@ -126,7 +122,6 @@ namespace Scuti.UI
             }
 
             await Task.Delay(250);
-            //Debug.LogWarning(container_Large.childCount+"   ++++++++++++++    "+ container_Small.childCount);
            
 
             OnPopulateFinished?.Invoke();
