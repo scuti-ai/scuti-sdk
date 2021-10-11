@@ -151,8 +151,8 @@ MonoBehaviour:
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
   - id: DETAILS
-    view: {fileID: 114460696469063826, guid: 6b044fc28a040d842a7cd3621cb1c419, type: 3}
-    view_portrait: {fileID: 114460696469063826, guid: 3cec39f41f3ccd9478c49c5063fe4ac4,
+    view: {fileID: 114460696469063826, guid: e6593aaf93d797e4bbacaca49432347c, type: 3}
+    view_portrait: {fileID: 114460696469063826, guid: ad26bb25be468f840a0cac039278aaf2,
       type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
@@ -454,7 +454,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1080, y: 1920}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3

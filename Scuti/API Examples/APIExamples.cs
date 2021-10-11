@@ -136,12 +136,7 @@ namespace Scuti.Examples
             }
         }
 
-        [ContextMenu("Login")]
-        public async void Login()
-        {
-            var response = await ScutiNetClient.Instance.AuthenticateUser("user@scuti.test", "Password1");
-            print($"Acces Token: {response.token} \\nnRefresh token:{response.refreshToken}");
-        }
+
 
         [ContextMenu("Refresh")]
         public async void RefreshToken()

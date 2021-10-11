@@ -59,6 +59,7 @@ namespace Scuti.UI {
             }
         }
 
+        [SerializeField] ZoomOfferDetails panningAndPinchImage;
         [SerializeField] Image imageDisplay;
         [SerializeField] GameObject thumbnailPrefab;
         [SerializeField] Transform thumbnailParent;
@@ -86,7 +87,9 @@ namespace Scuti.UI {
         }
              
         
-        protected override void OnSetState() {
+        protected override void OnSetState()
+        {
+            ResetSizeImage();
             Clear();
             DownloadImages();
         }
@@ -104,6 +107,11 @@ namespace Scuti.UI {
             }
             foreach (Transform thumb in thumbnailParent)
                 Destroy(thumb.gameObject);
+        }
+
+        public void ResetSizeImage()
+        {
+            panningAndPinchImage.ResetSizeImage();
         }
 
         async void DownloadImages() {

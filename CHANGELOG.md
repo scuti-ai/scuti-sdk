@@ -1,6 +1,10 @@
 # Current Development
+
+# 1.2
 - Removed NewtonJSON Reference
-- UI Improvements
+- UI Improvements (PinchZoom + others)
+- Deep linking Fixes
+- Reward Fixes
 
 # 1.1
 - Double Column Portrait Mode
