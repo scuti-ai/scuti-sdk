@@ -10,14 +10,14 @@ namespace Scuti.UI
     {
         [Header("Sub Widget")]
         [SerializeField] private UIDisplayImageZoom displayLargeImage;
-
         [SerializeField] private bool isDragDetected;
 
         // ---------------------------------------------------------------------------------------
 
         void Awake()
         {
-            displayLargeImage.Init();
+            if(displayLargeImage != null)
+                displayLargeImage.Init();
         }
 
         public void ResetSizeImage()
@@ -32,7 +32,7 @@ namespace Scuti.UI
         /// This method will be called during the mouse/touch drag
         /// </summary>
         /// <param name="eventData">mouse pointer event data</param>
-        public void OnDrag(PointerEventData eventData)
+        public override void OnDrag(PointerEventData eventData)
         {
             isDragDetected = true;
             base.OnDrag(eventData);
@@ -43,7 +43,7 @@ namespace Scuti.UI
         /// This method will be called at the end of mouse drag
         /// </summary>
         /// <param name="eventData"></param>
-        public void OnEndDrag(PointerEventData eventData)
+        public override void OnEndDrag(PointerEventData eventData)
         {
             if (counterTouch == 0)
             {

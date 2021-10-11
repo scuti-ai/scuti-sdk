@@ -153,7 +153,7 @@ namespace Scuti.UI
         /// This method will be called during the mouse/touch drag
         /// </summary>
         /// <param name="eventData">mouse pointer event data</param>
-        public void OnDrag(PointerEventData eventData)
+        public virtual void OnDrag(PointerEventData eventData)
         {
             scrollRect.enabled = false;
 
@@ -184,7 +184,7 @@ namespace Scuti.UI
         /// This method will be called at the end of mouse drag
         /// </summary>
         /// <param name="eventData"></param>
-        public void OnEndDrag(PointerEventData eventData)
+        public virtual void OnEndDrag(PointerEventData eventData)
         {
             scrollRect.enabled = true;
         }

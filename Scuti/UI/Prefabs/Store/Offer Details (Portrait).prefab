@@ -11432,7 +11432,7 @@ PrefabInstance:
     - target: {fileID: 5024582829128870857, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1800
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 5024582829128870857, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
@@ -11522,6 +11522,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551816963361346688, guid: d091a947fa60223469d232ccf88d76f3,
+        type: 3}
+      propertyPath: zoomSpeed
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551816963361346688, guid: d091a947fa60223469d232ccf88d76f3,
+        type: 3}
+      propertyPath: maxZoomDesktop
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551816963361346688, guid: d091a947fa60223469d232ccf88d76f3,
+        type: 3}
+      propertyPath: initialScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551816963361346688, guid: d091a947fa60223469d232ccf88d76f3,
+        type: 3}
+      propertyPath: initialScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2551816963361346688, guid: d091a947fa60223469d232ccf88d76f3,
+        type: 3}
+      propertyPath: initialScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5102816044208860280, guid: d091a947fa60223469d232ccf88d76f3,
         type: 3}
