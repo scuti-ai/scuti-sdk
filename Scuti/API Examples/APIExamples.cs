@@ -61,9 +61,23 @@ namespace Scuti.Examples
                 type = "card",
                 expiry_month = 4,
                 expiry_year = 2023,
-                number = "5425233430109903"
+                number = "4007400000000007"
             });
         }
+
+
+        [ContextMenu("Card Details")]
+        public async void GetCardDetails()
+        {
+            var rest = await ScutiAPI.GetCardDetails("0");
+        }
+
+        /*[ContextMenu("Payments")]
+        public async void GetCardDetails()
+        {
+            var rest = await ScutiAPI.GetCardDetails();
+        }*/
+
 
         [ContextMenu("activate rewards")]
         public async void ActivateRewards()

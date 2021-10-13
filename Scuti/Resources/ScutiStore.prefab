@@ -778,6 +778,13 @@ MonoBehaviour:
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
+  - id: CARD-MANAGER
+    view: {fileID: 114112811734919110, guid: 696cb9128615ed74480f74584e71ba49, type: 3}
+    view_portrait: {fileID: 672549982103614737, guid: 7f6acb21a29c2bf4b9ce907d15f3ae12,
+      type: 3}
+    view_pc: {fileID: 0}
+    parent: {fileID: 224120975414160842}
+    instance: {fileID: 0}
   - id: PW-EDIT
     view: {fileID: 114330477555145026, guid: da67f943c56977a419a6e669f4289599, type: 3}
     view_portrait: {fileID: 114330477555145026, guid: b10d06030ffc7d94cabb98df46142383,
