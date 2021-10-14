@@ -110,8 +110,10 @@ namespace Scuti {
         public virtual void Close() {
             if (_destroyed) return;
 
-            bool wasOpen = m_State == State.Opened || m_State == State.Opening; ;
-            m_State = State.Closing;
+            bool wasOpen = m_State == State.Opened || m_State == State.Opening;
+
+            Debug.Log("From CardManager: " + gameObject.name + m_State); ;
+            m_State = State.Closing;            
 
             if (wasOpen)
             {
