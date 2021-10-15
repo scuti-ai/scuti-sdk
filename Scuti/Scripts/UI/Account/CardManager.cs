@@ -13,13 +13,11 @@ using System.Linq;
 
 namespace Scuti.UI
 {
-    public class CardManager : View
+    public class CardManager : Form<CardDetailsForm.Model>
     {
-        public CreditCardData Card;
-        public AddressData ShippingAddress;
-        public AddressData BillingAddress;
+        [SerializeField] CardDetailsForm cardDetailForm;
 
-        [SerializeField] List<UserCard> creditCardList;
+        [SerializeField] List<CreditCardView> creditCardList;
         [SerializeField] GameObject prefabCards;
         [SerializeField] GameObject parentCards;
 
@@ -27,27 +25,50 @@ namespace Scuti.UI
         private bool _cachedAddress = false;
         private bool _autoPurchase = false;
 
-        private CardDetailsForm.Model model;
-
-        /*public bool IsEmpty
+        protected override void Awake()
         {
-            get { return Data.Items == null || Data.Items.Count == 0; }
-        }*/
-
-
-        public void CreateCards()
-        {
-
 
         }
 
-        public void Refresh()
+        public override CardDetailsForm.Model GetDefaultDataObject()
         {
-            base.Open();
-            Refresh();
+            var model = new CardDetailsForm.Model() { Card = new CreditCardData() { ExpirationMonth = DateTime.Now.Month, ExpirationYear = DateTime.Now.Year }, Address = new AddressData() { Line2 = "" } };
+            model.Card.Reset();
+
+            return model;
         }
 
-        public void Bind()
+
+        public void CreateCards(List<UserCard> cards)
+        {
+
+            for (int i = 0; i < cards.Count; i++)
+            {
+                var card = Instantiate(prefabCards, parentCards.transform);
+                CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
+
+                creditCardInfo.id = cards[i].Id;
+                creditCardInfo.name = cards[i].Scheme;
+                creditCardInfo.number = cards[i].Last4;
+                creditCardInfo.cvv = cards[i].Id;
+                creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
+     
+                CreditCardView cardView = card.GetComponent<CreditCardView>();
+                cardView.onShowCardInfo -= UpdatedValueData;
+                cardView.onShowCardInfo += UpdatedValueData;
+
+                creditCardList.Add(cardView);
+                cardView.Refresh(creditCardInfo);
+            }
+
+        }
+
+        public override void Refresh()
+        {
+
+        }
+
+        public override void Bind()
         {
 
         }
@@ -72,42 +93,26 @@ namespace Scuti.UI
 
                     if (cards != null && cards.Count > 0)
                     {
-                        /*Data.Card = new CreditCardData();
+                        Data.Card = new CreditCardData();
                         Data.Card.Reset();
                         _cachedCard = cards.Last();
-                        */
-                        _cachedCard = cards.Last();
                         ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
-
-                        List<UserCard> cardAux = (List<UserCard>)cards; 
-
-                        for(int i = 0; i < cardAux.Count; i++)
-                        {
-                            var card = Instantiate(prefabCards, parentCards.transform);
-                            CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
-                            creditCardInfo.name = cardAux[i].Scheme;
-                            creditCardInfo.number = cardAux[i].Last4;
-                            creditCardInfo.cvv = cardAux[i].Id;
-                            creditCardInfo.date = cardAux[i].ExpiryMonth.ToString()+"/"+ cardAux[i].ExpiryYear.ToString().Substring(cardAux[i].ExpiryYear.ToString().Length - 2);
-                            Debug.Log("CardManager Card: " + creditCardInfo.date);
-                            CreditCardView cardView = card.GetComponent<CreditCardView>();
-                            cardView.Refresh(creditCardInfo);
-                        } 
-
+                        List<UserCard> cardAux = (List<UserCard>)cards;
+                        CreateCards(cardAux);
                     }
-                    /*else if (Data.Card == null)
+                    else if (Data.Card == null)
                     {
                         Data.Card = new CreditCardData();
                         Data.Card.Reset();
-                    }*/
+                    }
                 }
 
                 if (!_cachedAddress)
                 {
-                    /*var shippingInfo = await ScutiAPI.GetShippingInfo();
+                    var shippingInfo = await ScutiAPI.GetShippingInfo();
                     if (shippingInfo != null)
                     {
-                        Data.ShippingAddress = new AddressData()
+                        Data.Address = new AddressData()
                         {
                             Line1 = shippingInfo.Address1,
                             Line2 = shippingInfo.Address2,
@@ -118,7 +123,7 @@ namespace Scuti.UI
                             City = shippingInfo.City
                         };
                         _cachedAddress = true;
-                    }*/
+                    }
                 }
 
             }
@@ -137,16 +142,36 @@ namespace Scuti.UI
 
             }
 
-            //UpdatePriceBreakdown(checkout);
         }
 
-
-        public async void UpdatePriceBreakdown(bool checkout = false)
+        private void UpdatedValueData(CreditCardView.CreditCardModel creditCardInfo)
         {
+            var parent = GetComponentInParent<ViewSetInstantiator>();
+            cardDetailForm = parent.GetComponentInChildren<CardDetailsForm>();
 
-
-
-
+            GetCardDetails(creditCardInfo);           
         }
+
+        public async void GetCardDetails(CreditCardView.CreditCardModel creditCardInfo)
+        {
+            var rest = await ScutiAPI.GetCardDetails(creditCardInfo.id);
+
+            if(rest != null)
+            {
+                cardDetailForm.Data.Address.Line1 = rest.BillingAddress.Address1;
+                cardDetailForm.Data.Address.Line2 = rest.BillingAddress.Address2;
+                cardDetailForm.Data.Address.City = rest.BillingAddress.City;
+                cardDetailForm.Data.Address.State = rest.BillingAddress.State;
+                cardDetailForm.Data.Address.Country = rest.BillingAddress.Country;
+                cardDetailForm.Data.Address.Zip = rest.BillingAddress.ZipCode;
+
+                cardDetailForm.Data.Card.Number = rest.Last4;
+                cardDetailForm.Data.Card.CardType = rest.Scheme;
+            }
+
+            cardDetailForm.Refresh();
+        }
+
+
     }
 }

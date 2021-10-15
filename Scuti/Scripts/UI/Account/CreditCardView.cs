@@ -9,10 +9,11 @@ namespace Scuti.UI
     {
         public class CreditCardModel
         {
+            public string id;
             public string name;
             public string number;
             public string cvv;
-            public string date;
+            public string date;            
         }
 
         [SerializeField] Text titleByDefault;
@@ -23,14 +24,31 @@ namespace Scuti.UI
 
         [SerializeField] bool isDefaultCard;
 
-        
+        private CreditCardModel creditCardInfo;
+
+        public Action<CreditCardModel> onShowCardInfo;
+
+        // ----------------------------------------------------------------------
+
         public void Refresh(CreditCardModel creditCardInfo)
         {
+            this.creditCardInfo = creditCardInfo;
+
             cardholderName.text = creditCardInfo.name;
-            cardNumber.text = "************" + creditCardInfo.number;
+            cardNumber.text = "**** **** ****" + creditCardInfo.number;
             cvv.text = "***";
             expirationDate.text = creditCardInfo.date;
+        }
 
+        public string GetId()
+        {
+            return creditCardInfo.id;
+        }
+
+
+        public void EditAndShowCardInfo()
+        {
+            onShowCardInfo?.Invoke(creditCardInfo);
         }
 
     }

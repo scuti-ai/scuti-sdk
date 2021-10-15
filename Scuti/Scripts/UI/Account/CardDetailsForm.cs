@@ -43,6 +43,8 @@ namespace Scuti.UI
         private List<Dropdown.OptionData> _states;
         private List<Dropdown.OptionData> _provinces;
 
+        public Action onOpen;
+
         protected override void Awake()
         {
             base.Awake();
@@ -63,6 +65,8 @@ namespace Scuti.UI
 
         public override void Open()
         {
+            onOpen?.Invoke();
+
             base.Open();
             Refresh();
         }

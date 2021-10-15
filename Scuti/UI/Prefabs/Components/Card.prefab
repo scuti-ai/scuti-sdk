@@ -393,6 +393,17 @@ MonoBehaviour:
           m_StringArgument: ACCOUNT/CARD
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7545675114154548324}
+        m_MethodName: EditAndShowCardInfo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &4704398856582015232
 Animator:
   serializedVersion: 3
@@ -628,7 +639,7 @@ MonoBehaviour:
   cardNumber: {fileID: 3371814496597997239}
   cvv: {fileID: 2154874179878088288}
   expirationDate: {fileID: 4087752498105749533}
-  makeDefaultToggle: 0
+  isDefaultCard: 0
 --- !u!1 &5333789742927133741
 GameObject:
   m_ObjectHideFlags: 0
