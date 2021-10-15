@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 using Scuti;
 using Scuti.GraphQL.Generated;
+using TMPro;
 
 namespace Scuti.UI {
     public class OfferInfoPresenter : Presenter<OfferInfoPresenter.Model> {
@@ -29,11 +30,11 @@ namespace Scuti.UI {
         }
 
         [Header("Fields")]
-        [SerializeField] Text title;
-        [SerializeField] Text displayPrice;
-        [SerializeField] Text subtitle;
-        [SerializeField] Text description;
-        [SerializeField] Text brand;
+        [SerializeField] TextMeshProUGUI title;
+        [SerializeField] TextMeshProUGUI displayPrice;
+        [SerializeField] TextMeshProUGUI subtitle;
+        [SerializeField] TextMeshProUGUI description;
+        [SerializeField] TextMeshProUGUI brand;
 
         [Header("Flags")]
         [Header("Promos")]

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 using Scuti.Net;
 using System.Linq;
+using TMPro;
 
 namespace Scuti.UI
 {
@@ -33,7 +34,7 @@ namespace Scuti.UI
         [SerializeField] OfferRecommendedPresenter RecommendedWidget;
 
         [Header("Interactions")]
-        [SerializeField] Text addToCartLabel;
+        [SerializeField] TextMeshProUGUI addToCartLabel;
         [SerializeField] Image addToCartIcon;
         [SerializeField] Button shareButton;
         [SerializeField] GameObject BuyNowButton;
@@ -77,7 +78,7 @@ namespace Scuti.UI
         {
             base.Close();
 
-       
+
                 if (Data != null && Data.Info != null)
                 {
                     var diff = Time.time - browseTime;
@@ -172,7 +173,7 @@ namespace Scuti.UI
         // Handlers
         private void OnVariantChanged()
         {
-            var productVariant = customizationWidget.Data.GetSelectedVariant(); 
+            var productVariant = customizationWidget.Data.GetSelectedVariant();
             infoWidget.SetVariant(productVariant);
             rewardWidget.SetVariant(productVariant);
             showcaseWidget.SetVariant(productVariant);

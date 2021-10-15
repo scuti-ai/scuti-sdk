@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 using Scuti;
 using Scuti.GraphQL.Generated;
+using TMPro;
 
 namespace Scuti.UI {
     public class OfferRewardPresenter : Presenter<OfferRewardPresenter.Model> {
@@ -13,7 +14,7 @@ namespace Scuti.UI {
             public int scutiReward;
         }
 
-        [SerializeField] Text m_ScutiReward;
+        [SerializeField] TextMeshProUGUI m_ScutiReward;
 
         protected override void OnSetState() {
             m_ScutiReward.text = $"+ {Data.scutiReward}";

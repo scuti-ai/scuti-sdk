@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Scuti.Net;
+using TMPro;
 
 namespace Scuti.UI
 {
@@ -202,10 +202,10 @@ namespace Scuti.UI
         [Header("Fields")]
         [SerializeField] protected Image backgroundImage;
         [SerializeField] protected Image displayImage;
-        [SerializeField] public Text titleText;
-        [SerializeField] protected Text displayPriceText;
-        [SerializeField] protected Text ratingText;
-        [SerializeField] protected Text brandText;
+        [SerializeField] public TextMeshProUGUI titleText;
+        [SerializeField] protected TextMeshProUGUI displayPriceText;
+        [SerializeField] protected TextMeshProUGUI ratingText;
+        [SerializeField] protected TextMeshProUGUI brandText;
         [SerializeField] protected RatingStarsWidget ratingStarsWidget;
 
         [Header("Badges")]
