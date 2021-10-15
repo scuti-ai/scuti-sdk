@@ -27,6 +27,7 @@ namespace Scuti.UI
         [SerializeField] Text cardType;
         [SerializeField] Toggle makeDefaultToggle;
         [SerializeField] Button saveButton;
+        [SerializeField] Button removeCardButton;
 
         [SerializeField] InputField line1Input;
         [SerializeField] InputField line2Input;
@@ -43,7 +44,16 @@ namespace Scuti.UI
         private List<Dropdown.OptionData> _states;
         private List<Dropdown.OptionData> _provinces;
 
+
         public Action onOpen;
+
+        private string _currentCardId;
+        public string CurrentCardId
+        {
+            get { return _currentCardId; }
+            set { _currentCardId = value; }
+        }
+
 
         protected override void Awake()
         {
@@ -158,26 +168,31 @@ namespace Scuti.UI
             SavePayment();
         }
 
+        public void Delete()
+        {
+            Debug.Log("CardDetails Deleting Card: " + cardType.text);
+            UIManager.Confirmation.SetHeader("Delete Card").SetBody("Are you sure to remove this card?").SetPositive("Yes").SetNegative("No").Show((bool callback) => {
+                if (callback)
+                    DeleteCard();
+                else
+                    return;
+            });
+
+
+        }
+
         // --------------------------------------
 
         public async void DeleteCard()
         {
-            if (!Evaluate())
-            {
-                UIManager.Alert.SetHeader("Invalid Field").SetBody("Please ensure all form fields are filled in correctly.").SetButtonText("OK").Show(() => { });
-                return;
-            }
-
+            removeCardButton.interactable = false;
             saveButton.interactable = false;
             try
-            {
-
-                JObject cardDetails = new JObject();
-                cardDetails["number"] = Data.Card.Number;
-                cardDetails["cvv"] = Data.Card.CVV;
-                EncryptedInput encryptedInput = await ScutiUtils.Encrypt(cardDetails.ToJson().ToUTF8Bytes());
-
-                Data.Card.Encrypted = encryptedInput;
+            {       
+                string[] ids = new string[1] { _currentCardId };
+                //
+                await ScutiAPI.DeleteCard(ids);
+                //
 
                 Submit();
                 Close();
@@ -189,7 +204,7 @@ namespace Scuti.UI
                 UIManager.Alert.SetHeader("Error").SetBody("Setting payment info failed. " + ex.responseCode + " " + ex.error).Show(() => { });
             }
             saveButton.interactable = true;
-
+            removeCardButton.interactable = true;
 
         }
 
@@ -277,6 +292,11 @@ namespace Scuti.UI
             }
 
             return address;
+        }
+
+        public void IsRemoveCardAvailable(bool state)
+        {
+            removeCardButton.gameObject.SetActive(state);
         }
 
     }

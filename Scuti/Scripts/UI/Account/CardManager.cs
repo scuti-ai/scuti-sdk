@@ -75,6 +75,12 @@ namespace Scuti.UI
 
         public override void Open()
         {
+            if (cardDetailForm == null)
+            {
+                var parent = GetComponentInParent<ViewSetInstantiator>();
+                cardDetailForm = (CardDetailsForm)parent.GetComponentInChildren(typeof(CardDetailsForm), true);
+            }
+
             base.Open();
             Debug.Log("CardManager: OPEN");
             if (_cachedCard == null || !_cachedAddress) TryToLoadData(_autoPurchase);
@@ -82,7 +88,7 @@ namespace Scuti.UI
 
 
         private async void TryToLoadData(bool checkout)
-        {
+        { 
             try
             {
                 if (_cachedCard == null)
@@ -146,9 +152,6 @@ namespace Scuti.UI
 
         private void UpdatedValueData(CreditCardView.CreditCardModel creditCardInfo)
         {
-            var parent = GetComponentInParent<ViewSetInstantiator>();
-            cardDetailForm = parent.GetComponentInChildren<CardDetailsForm>();
-
             GetCardDetails(creditCardInfo);           
         }
 
@@ -165,13 +168,20 @@ namespace Scuti.UI
                 cardDetailForm.Data.Address.Country = rest.BillingAddress.Country;
                 cardDetailForm.Data.Address.Zip = rest.BillingAddress.ZipCode;
 
+                cardDetailForm.CurrentCardId = rest.Id;
+
                 cardDetailForm.Data.Card.Number = rest.Last4;
                 cardDetailForm.Data.Card.CardType = rest.Scheme;
             }
 
+            cardDetailForm.IsRemoveCardAvailable(true);
             cardDetailForm.Refresh();
         }
 
-
+        public void BtnAddNewCard()
+        {
+            cardDetailForm.IsRemoveCardAvailable(false);
+            cardDetailForm.Data.Card.Reset();
+        }
     }
 }
