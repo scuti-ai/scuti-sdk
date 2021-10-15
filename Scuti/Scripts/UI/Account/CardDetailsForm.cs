@@ -45,7 +45,8 @@ namespace Scuti.UI
         private List<Dropdown.OptionData> _provinces;
 
 
-        public Action onOpen;
+        public Action onDeleteCard;
+        public Action onAddCard;
 
         private string _currentCardId;
         public string CurrentCardId
@@ -75,8 +76,6 @@ namespace Scuti.UI
 
         public override void Open()
         {
-            onOpen?.Invoke();
-
             base.Open();
             Refresh();
         }
@@ -156,7 +155,7 @@ namespace Scuti.UI
 
         public void Save()
         {
-            Debug.Log("CardDetails: " + cardType.text);
+            Debug.Log("CardDetails save: " + cardType.text);
 
             if (!Evaluate())
             {
@@ -177,7 +176,28 @@ namespace Scuti.UI
                 else
                     return;
             });
+        }
 
+        public async void DeleteAllCards(string[] ids)
+        {
+            removeCardButton.interactable = false;
+            saveButton.interactable = false;
+            try
+            {
+                await ScutiAPI.DeleteCard(ids);
+                
+                onDeleteCard?.Invoke();
+                Submit();
+                Close();
+            }
+            catch (GQLException ex)
+            {
+                ScutiLogger.LogException(ex);
+                ScutiLogger.LogError(ex.response);
+                UIManager.Alert.SetHeader("Error").SetBody("Setting payment info failed. " + ex.responseCode + " " + ex.error).Show(() => { });
+            }
+            saveButton.interactable = true;
+            removeCardButton.interactable = true;
 
         }
 
@@ -193,7 +213,7 @@ namespace Scuti.UI
                 //
                 await ScutiAPI.DeleteCard(ids);
                 //
-
+                onDeleteCard?.Invoke();
                 Submit();
                 Close();
             }
@@ -223,7 +243,6 @@ namespace Scuti.UI
             saveButton.interactable = false;
             try
             {
-
                 JObject cardDetails = new JObject();
                 cardDetails["number"] = Data.Card.Number;
                 cardDetails["cvv"] = Data.Card.CVV;
@@ -235,6 +254,7 @@ namespace Scuti.UI
                     Data.Card.Encrypted,
                     GetBillingAddress());
                 //
+                onAddCard?.Invoke();
                 Submit();
                 Close();
             }

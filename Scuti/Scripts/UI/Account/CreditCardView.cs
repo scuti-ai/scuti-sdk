@@ -45,10 +45,19 @@ namespace Scuti.UI
             return creditCardInfo.id;
         }
 
-
         public void EditAndShowCardInfo()
         {
             onShowCardInfo?.Invoke(creditCardInfo);
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);        
+        }
+
+        public void Show()
+        {
+            gameObject.SetActive(true);
         }
 
     }

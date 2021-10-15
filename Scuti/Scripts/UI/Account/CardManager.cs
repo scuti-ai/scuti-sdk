@@ -27,7 +27,7 @@ namespace Scuti.UI
 
         protected override void Awake()
         {
-
+            
         }
 
         public override CardDetailsForm.Model GetDefaultDataObject()
@@ -39,28 +39,87 @@ namespace Scuti.UI
         }
 
 
-        public void CreateCards(List<UserCard> cards)
+        public void UpdateCardsView(List<UserCard> cards)
         {
-
-            for (int i = 0; i < cards.Count; i++)
+            if (creditCardList.Count == 0)
             {
-                var card = Instantiate(prefabCards, parentCards.transform);
-                CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
+                // If dont exist card created
+                for (int i = 0; i < cards.Count; i++)
+                {
+                    var card = Instantiate(prefabCards, parentCards.transform);
+                    CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
 
-                creditCardInfo.id = cards[i].Id;
-                creditCardInfo.name = cards[i].Scheme;
-                creditCardInfo.number = cards[i].Last4;
-                creditCardInfo.cvv = cards[i].Id;
-                creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
-     
-                CreditCardView cardView = card.GetComponent<CreditCardView>();
-                cardView.onShowCardInfo -= UpdatedValueData;
-                cardView.onShowCardInfo += UpdatedValueData;
+                    creditCardInfo.id = cards[i].Id;
+                    creditCardInfo.name = cards[i].Scheme;
+                    creditCardInfo.number = cards[i].Last4;
+                    creditCardInfo.cvv = cards[i].Id;
+                    creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
+                    Debug.Log("UpdateCardView: " + creditCardInfo.date);
+                    CreditCardView cardView = card.GetComponent<CreditCardView>();
+                    cardView.onShowCardInfo -= UpdatedValueData;
+                    cardView.onShowCardInfo += UpdatedValueData;
 
-                creditCardList.Add(cardView);
-                cardView.Refresh(creditCardInfo);
+                    creditCardList.Add(cardView);
+                    cardView.Refresh(creditCardInfo);
+                }
             }
 
+            else
+            {
+                // Hide all current credit card views
+                for (int i = 0; i < creditCardList.Count; i++)
+                {
+                    creditCardList[i].Hide();
+                }
+
+                if(creditCardList.Count >= cards.Count)
+                {
+                    for (int i = 0; i < cards.Count; i++)
+                    {
+                        CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
+
+                        creditCardInfo.id = cards[i].Id;
+                        creditCardInfo.name = cards[i].Scheme;
+                        creditCardInfo.number = cards[i].Last4;
+                        creditCardInfo.cvv = cards[i].Id;
+                        creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
+                        Debug.Log("UpdateCardView: " + creditCardInfo.date);
+                        creditCardList[i].onShowCardInfo -= UpdatedValueData;
+                        creditCardList[i].onShowCardInfo += UpdatedValueData;
+
+                        creditCardList[i].Refresh(creditCardInfo);
+                        creditCardList[i].Show();
+                    }
+                }
+                else if(creditCardList.Count < cards.Count)
+                {
+                    int index = cards.Count - creditCardList.Count;
+
+                    for (int i = 0; i < index; i++)
+                    {
+                        var card = Instantiate(prefabCards, parentCards.transform);
+                        CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
+                        CreditCardView cardView = card.GetComponent<CreditCardView>();
+                        cardView.onShowCardInfo -= UpdatedValueData;
+                        cardView.onShowCardInfo += UpdatedValueData;
+                        creditCardList.Add(cardView);
+                    }
+
+                    for (int i = 0; i < cards.Count; i++)
+                    {
+                        CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
+                        creditCardInfo.id = cards[i].Id;
+                        creditCardInfo.name = cards[i].Scheme;
+                        creditCardInfo.number = cards[i].Last4;
+                        creditCardInfo.cvv = cards[i].Id;
+                        creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
+                        creditCardList[i].onShowCardInfo -= UpdatedValueData;
+                        creditCardList[i].onShowCardInfo += UpdatedValueData;
+                        creditCardList[i].Refresh(creditCardInfo);
+                        creditCardList[i].Show();
+                    }
+                }
+            }            
         }
 
         public override void Refresh()
@@ -79,58 +138,59 @@ namespace Scuti.UI
             {
                 var parent = GetComponentInParent<ViewSetInstantiator>();
                 cardDetailForm = (CardDetailsForm)parent.GetComponentInChildren(typeof(CardDetailsForm), true);
+
+                cardDetailForm.onDeleteCard -= UpdateCards;
+                cardDetailForm.onDeleteCard += UpdateCards;
+
+                cardDetailForm.onAddCard -= UpdateCards;
+                cardDetailForm.onAddCard += UpdateCards;
+
             }
 
             base.Open();
             Debug.Log("CardManager: OPEN");
-            if (_cachedCard == null || !_cachedAddress) TryToLoadData(_autoPurchase);
+            TryToLoadData();
         }
 
 
-        private async void TryToLoadData(bool checkout)
-        { 
+        private async void TryToLoadData()
+        {
             try
-            {
-                if (_cachedCard == null)
+            { 
+                var cards = await ScutiAPI.GetPayments();
+
+                Debug.Log("CartPresenter: Card amounts:" + cards.Count);
+
+                if (cards != null && cards.Count > 0)
                 {
-                    var cards = await ScutiAPI.GetPayments();
-
-                    Debug.Log("CartPresenter: Card amounts:" + cards.Count);
-
-                    if (cards != null && cards.Count > 0)
-                    {
-                        Data.Card = new CreditCardData();
-                        Data.Card.Reset();
-                        _cachedCard = cards.Last();
-                        ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
-                        List<UserCard> cardAux = (List<UserCard>)cards;
-                        CreateCards(cardAux);
-                    }
-                    else if (Data.Card == null)
-                    {
-                        Data.Card = new CreditCardData();
-                        Data.Card.Reset();
-                    }
+                    Data.Card = new CreditCardData();
+                    Data.Card.Reset();
+                    _cachedCard = cards.Last();
+                    ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
+                    List<UserCard> cardAux = (List<UserCard>)cards;
+                    UpdateCardsView(cardAux);
                 }
-
-                if (!_cachedAddress)
+                else if (Data.Card == null)
                 {
-                    var shippingInfo = await ScutiAPI.GetShippingInfo();
-                    if (shippingInfo != null)
+                    Data.Card = new CreditCardData();
+                    Data.Card.Reset();
+                }              
+
+                var shippingInfo = await ScutiAPI.GetShippingInfo();
+                if (shippingInfo != null)
+                {
+                    Data.Address = new AddressData()
                     {
-                        Data.Address = new AddressData()
-                        {
-                            Line1 = shippingInfo.Address1,
-                            Line2 = shippingInfo.Address2,
-                            State = shippingInfo.State,
-                            Zip = shippingInfo.ZipCode,
-                            Phone = shippingInfo.Phone,
-                            Country = shippingInfo.Country,
-                            City = shippingInfo.City
-                        };
-                        _cachedAddress = true;
-                    }
-                }
+                        Line1 = shippingInfo.Address1,
+                        Line2 = shippingInfo.Address2,
+                        State = shippingInfo.State,
+                        Zip = shippingInfo.ZipCode,
+                        Phone = shippingInfo.Phone,
+                        Country = shippingInfo.Country,
+                        City = shippingInfo.City
+                    };
+                    _cachedAddress = true;
+                }                
 
             }
             catch (Exception ex)
@@ -142,13 +202,18 @@ namespace Scuti.UI
                     {
                         //Debug.LogError("SHOULD RE LOG NOW");
                     }
-                }
-                checkout = false;
+                }    
                 ScutiLogger.LogError(ex);
-
             }
 
         }
+
+
+        private void UpdateCards()
+        {
+            TryToLoadData();
+        }
+
 
         private void UpdatedValueData(CreditCardView.CreditCardModel creditCardInfo)
         {
@@ -157,22 +222,35 @@ namespace Scuti.UI
 
         public async void GetCardDetails(CreditCardView.CreditCardModel creditCardInfo)
         {
-            var rest = await ScutiAPI.GetCardDetails(creditCardInfo.id);
+            UIManager.ShowLoading(false);
 
-            if(rest != null)
+            try 
             {
-                cardDetailForm.Data.Address.Line1 = rest.BillingAddress.Address1;
-                cardDetailForm.Data.Address.Line2 = rest.BillingAddress.Address2;
-                cardDetailForm.Data.Address.City = rest.BillingAddress.City;
-                cardDetailForm.Data.Address.State = rest.BillingAddress.State;
-                cardDetailForm.Data.Address.Country = rest.BillingAddress.Country;
-                cardDetailForm.Data.Address.Zip = rest.BillingAddress.ZipCode;
+                var rest = await ScutiAPI.GetCardDetails(creditCardInfo.id);
+                UIManager.HideLoading(false);
 
-                cardDetailForm.CurrentCardId = rest.Id;
+                if (rest != null)
+                {
+                    cardDetailForm.Data.Address.Line1 = rest.BillingAddress.Address1;
+                    cardDetailForm.Data.Address.Line2 = rest.BillingAddress.Address2;
+                    cardDetailForm.Data.Address.City = rest.BillingAddress.City;
+                    cardDetailForm.Data.Address.State = rest.BillingAddress.State;
+                    cardDetailForm.Data.Address.Country = rest.BillingAddress.Country;
+                    cardDetailForm.Data.Address.Zip = rest.BillingAddress.ZipCode;
 
-                cardDetailForm.Data.Card.Number = rest.Last4;
-                cardDetailForm.Data.Card.CardType = rest.Scheme;
+                    cardDetailForm.CurrentCardId = rest.Id;
+
+                    cardDetailForm.Data.Card.Number = rest.Last4;
+                    cardDetailForm.Data.Card.CardType = rest.Scheme;
+                }
             }
+            catch (Exception ex)
+            {
+                UIManager.HideLoading(false);
+                UIManager.Alert.SetHeader("Error").SetBody("Card credit info failed.").SetButtonText("Ok").Show(() => { });
+                ScutiLogger.LogError(ex);
+                cardDetailForm.Close();
+            }           
 
             cardDetailForm.IsRemoveCardAvailable(true);
             cardDetailForm.Refresh();
@@ -183,5 +261,20 @@ namespace Scuti.UI
             cardDetailForm.IsRemoveCardAvailable(false);
             cardDetailForm.Data.Card.Reset();
         }
+
+        // FOR TESTING
+        public void BtnDeleteAllCards()
+        {
+            string[] ids = new string[creditCardList.Count];
+
+            for (int i = 0; i < ids.Length; i++)
+            {
+                ids[i] = creditCardList[i].GetId();
+            }
+
+            cardDetailForm.DeleteAllCards(ids);
+
+        }
+
     }
 }
