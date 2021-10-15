@@ -873,17 +873,6 @@ MonoBehaviour:
           m_StringArgument: ACCOUNT/CARD
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 114112811734919110}
-        m_MethodName: BtnAddNewCard
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!95 &6592400985478056243
 Animator:
   serializedVersion: 3
@@ -929,7 +918,7 @@ GameObject:
   - component: {fileID: 2088955111037276321}
   - component: {fileID: 2075825364430790580}
   m_Layer: 5
-  m_Name: CloseButton (1)
+  m_Name: DeleteAllCards
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

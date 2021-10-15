@@ -44,7 +44,7 @@ namespace Scuti.UI
         private List<Dropdown.OptionData> _states;
         private List<Dropdown.OptionData> _provinces;
 
-
+        public Action onOpenCardDetails;
         public Action onDeleteCard;
         public Action onAddCard;
 
@@ -76,6 +76,7 @@ namespace Scuti.UI
 
         public override void Open()
         {
+            onOpenCardDetails?.Invoke();
             base.Open();
             Refresh();
         }

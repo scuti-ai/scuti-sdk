@@ -27,5 +27,14 @@ namespace Scuti
         {
             return !string.IsNullOrEmpty(Line1) && !string.IsNullOrEmpty(City) && !string.IsNullOrEmpty(State) && !string.IsNullOrEmpty(Zip) && !string.IsNullOrEmpty(Country);
         }
+
+        internal void Reset()
+        {
+            Line1 ="";
+            Line2 = "";
+            City = "";
+            Zip = "";
+
+        }
     }
 }

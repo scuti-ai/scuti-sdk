@@ -145,6 +145,8 @@ namespace Scuti.UI
                 cardDetailForm.onAddCard -= UpdateCards;
                 cardDetailForm.onAddCard += UpdateCards;
 
+                cardDetailForm.onOpenCardDetails -= BtnAddNewCard;
+                cardDetailForm.onOpenCardDetails += BtnAddNewCard;
             }
 
             base.Open();
@@ -167,14 +169,17 @@ namespace Scuti.UI
                     Data.Card.Reset();
                     _cachedCard = cards.Last();
                     ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
-                    List<UserCard> cardAux = (List<UserCard>)cards;
-                    UpdateCardsView(cardAux);
+                  
                 }
                 else if (Data.Card == null)
                 {
                     Data.Card = new CreditCardData();
                     Data.Card.Reset();
-                }              
+                }
+
+                // Create Cards
+                List<UserCard> cardAux = (List<UserCard>)cards;
+                UpdateCardsView(cardAux);
 
                 var shippingInfo = await ScutiAPI.GetShippingInfo();
                 if (shippingInfo != null)
@@ -260,6 +265,7 @@ namespace Scuti.UI
         {
             cardDetailForm.IsRemoveCardAvailable(false);
             cardDetailForm.Data.Card.Reset();
+            cardDetailForm.Data.Address.Reset();
         }
 
         // FOR TESTING
