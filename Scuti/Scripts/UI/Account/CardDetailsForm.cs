@@ -142,16 +142,56 @@ namespace Scuti.UI
 
         public void Save()
         {
+            Debug.Log("CardDetails: " + cardType.text);
+
+            if (!Evaluate())
+            {
+                UIManager.Alert.SetHeader("Invalid Field").SetBody("Please ensure all form fields are filled in correctly.").SetButtonText("OK").Show(() => { });
+                return;
+            }
+            Data.Card.CardType = cardType.text;
+
+            SavePayment();
+        }
+
+        // --------------------------------------
+
+        public async void DeleteCard()
+        {
             if (!Evaluate())
             {
                 UIManager.Alert.SetHeader("Invalid Field").SetBody("Please ensure all form fields are filled in correctly.").SetButtonText("OK").Show(() => { });
                 return;
             }
 
-            Data.Card.CardType = cardType.text;
+            saveButton.interactable = false;
+            try
+            {
 
-            SavePayment();
+                JObject cardDetails = new JObject();
+                cardDetails["number"] = Data.Card.Number;
+                cardDetails["cvv"] = Data.Card.CVV;
+                EncryptedInput encryptedInput = await ScutiUtils.Encrypt(cardDetails.ToJson().ToUTF8Bytes());
+
+                Data.Card.Encrypted = encryptedInput;
+
+                Submit();
+                Close();
+            }
+            catch (GQLException ex)
+            {
+                ScutiLogger.LogException(ex);
+                ScutiLogger.LogError(ex.response);
+                UIManager.Alert.SetHeader("Error").SetBody("Setting payment info failed. " + ex.responseCode + " " + ex.error).Show(() => { });
+            }
+            saveButton.interactable = true;
+
+
         }
+
+        // -------------------------------------
+
+
 
         private async void SavePayment()
         {
@@ -169,9 +209,13 @@ namespace Scuti.UI
                 cardDetails["number"] = Data.Card.Number;
                 cardDetails["cvv"] = Data.Card.CVV;
                 EncryptedInput encryptedInput = await ScutiUtils.Encrypt(cardDetails.ToJson().ToUTF8Bytes());
-               
-                Data.Card.Encrypted = encryptedInput; 
-
+                Data.Card.Encrypted = encryptedInput;
+                //
+                await ScutiAPI.CreateOrReplaceCard(Data.Card.ExpirationMonth, Data.Card.ExpirationYear,
+                    Data.Card.Name,
+                    Data.Card.Encrypted,
+                    GetBillingAddress());
+                //
                 Submit();
                 Close();
             }
@@ -209,5 +253,27 @@ namespace Scuti.UI
             //}
                 Refresh();
         }
+
+        // --------------------------------------
+
+        private AddressInput GetBillingAddress()
+        {
+            AddressInput address = null;
+            if (Data.Address != null && Data.Address.IsValid())
+            {
+                address = new AddressInput()
+                {
+                    Address1 = Data.Address.Line1,
+                    Address2 = Data.Address.Line2,
+                    City = Data.Address.City,
+                    Country = Data.Address.Country,
+                    State = Data.Address.State,
+                    ZipCode = Data.Address.Zip
+                };                
+            }
+
+            return address;
+        }
+
     }
 }

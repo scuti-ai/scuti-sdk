@@ -9,23 +9,37 @@ using Scuti.GraphQL.Generated;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Scuti.UI
 {
     public class CardManager : View
     {
-        [SerializeField] List<CreditCardData> creditCardList;
+        public CreditCardData Card;
+        public AddressData ShippingAddress;
+        public AddressData BillingAddress;
+
+        [SerializeField] List<UserCard> creditCardList;
+        [SerializeField] GameObject prefabCards;
+        [SerializeField] GameObject parentCards;
 
         private UserCard _cachedCard = null;
         private bool _cachedAddress = false;
         private bool _autoPurchase = false;
 
+        private CardDetailsForm.Model model;
 
         /*public bool IsEmpty
         {
             get { return Data.Items == null || Data.Items.Count == 0; }
         }*/
 
+
+        public void CreateCards()
+        {
+
+
+        }
 
         public void Refresh()
         {
@@ -41,9 +55,8 @@ namespace Scuti.UI
         public override void Open()
         {
             base.Open();
-
+            Debug.Log("CardManager: OPEN");
             if (_cachedCard == null || !_cachedAddress) TryToLoadData(_autoPurchase);
-            else UpdatePriceBreakdown(_autoPurchase);
         }
 
 
@@ -62,7 +75,25 @@ namespace Scuti.UI
                         /*Data.Card = new CreditCardData();
                         Data.Card.Reset();
                         _cachedCard = cards.Last();
-                        ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());*/
+                        */
+                        _cachedCard = cards.Last();
+                        ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
+
+                        List<UserCard> cardAux = (List<UserCard>)cards; 
+
+                        for(int i = 0; i < cardAux.Count; i++)
+                        {
+                            var card = Instantiate(prefabCards, parentCards.transform);
+                            CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
+                            creditCardInfo.name = cardAux[i].Scheme;
+                            creditCardInfo.number = cardAux[i].Last4;
+                            creditCardInfo.cvv = cardAux[i].Id;
+                            creditCardInfo.date = cardAux[i].ExpiryMonth.ToString()+"/"+ cardAux[i].ExpiryYear.ToString().Substring(cardAux[i].ExpiryYear.ToString().Length - 2);
+                            Debug.Log("CardManager Card: " + creditCardInfo.date);
+                            CreditCardView cardView = card.GetComponent<CreditCardView>();
+                            cardView.Refresh(creditCardInfo);
+                        } 
+
                     }
                     /*else if (Data.Card == null)
                     {
@@ -73,7 +104,7 @@ namespace Scuti.UI
 
                 if (!_cachedAddress)
                 {
-                    var shippingInfo = await ScutiAPI.GetShippingInfo();
+                    /*var shippingInfo = await ScutiAPI.GetShippingInfo();
                     if (shippingInfo != null)
                     {
                         Data.ShippingAddress = new AddressData()
@@ -87,7 +118,7 @@ namespace Scuti.UI
                             City = shippingInfo.City
                         };
                         _cachedAddress = true;
-                    }
+                    }*/
                 }
 
             }

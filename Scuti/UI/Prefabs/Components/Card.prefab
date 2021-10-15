@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 4724127300045671696}
   - component: {fileID: 4723456259770278402}
   - component: {fileID: 4704398856582015232}
+  - component: {fileID: 7703133974020622958}
   m_Layer: 5
   m_Name: EditCard
   m_TagString: Untagged
@@ -377,19 +378,19 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 4724127300045671696}
+  m_TargetGraphic: {fileID: 4723578164114718570}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: AddToCart
-        m_Mode: 1
+      - m_Target: {fileID: 7703133974020622958}
+        m_MethodName: Open
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: ACCOUNT/CARD
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!95 &4704398856582015232
@@ -411,6 +412,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7703133974020622958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4619767104767074472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192eb61269d816f4c91c8ed71e72ea1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4619828250134824394
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,6 +582,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4829313525027431620}
+  - component: {fileID: 7545675114154548324}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -597,6 +611,24 @@ RectTransform:
   m_AnchoredPosition: {x: 265, y: -411.5}
   m_SizeDelta: {x: 530, y: 337}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7545675114154548324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4620211842475903278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d5eb11cf67d4b5468c77cec3b260a33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleByDefault: {fileID: 4723910746062330266}
+  cardholderName: {fileID: 7718166134055333096}
+  cardNumber: {fileID: 3371814496597997239}
+  cvv: {fileID: 2154874179878088288}
+  expirationDate: {fileID: 4087752498105749533}
+  makeDefaultToggle: 0
 --- !u!1 &5333789742927133741
 GameObject:
   m_ObjectHideFlags: 0

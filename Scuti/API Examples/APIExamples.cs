@@ -69,14 +69,33 @@ namespace Scuti.Examples
         [ContextMenu("Card Details")]
         public async void GetCardDetails()
         {
-            var rest = await ScutiAPI.GetCardDetails("0");
+            var rest = await ScutiAPI.GetCardDetails("9fc5d6d8-4bbe-42c5-804a-c98c9a7494b6");
         }
 
-        /*[ContextMenu("Payments")]
-        public async void GetCardDetails()
+        [ContextMenu("Payments")]
+        public async void GetPaymentInfo()
         {
-            var rest = await ScutiAPI.GetCardDetails();
-        }*/
+            var rest = await ScutiAPI.GetPayments();
+
+        }
+
+        [ContextMenu("Create Card")]
+        public async void CreateCard()
+        {
+            /*var rest = await ScutiAPI.CreateOrReplaceCard(10, 2022, "Blogs", encrypted: new GraphQL.Generated.EncryptedInput{
+                EncryptedData = "1524asdfsa7d5sdf45sdaf4asdf7",
+
+            }, addressInput: new GraphQL.Generated.AddressInput{
+
+                Address1 = "Hello",
+                Address2 = "Hello address 2",
+                City = "Sacramento",
+                ZipCode = "12345",
+                Country = "US",
+                State = "CA"
+            });*/
+
+        }
 
 
         [ContextMenu("activate rewards")]

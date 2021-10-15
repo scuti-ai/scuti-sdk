@@ -111,8 +111,7 @@ namespace Scuti {
             if (_destroyed) return;
 
             bool wasOpen = m_State == State.Opened || m_State == State.Opening;
-
-            Debug.Log("From CardManager: " + gameObject.name + m_State); ;
+                       
             m_State = State.Closing;            
 
             if (wasOpen)

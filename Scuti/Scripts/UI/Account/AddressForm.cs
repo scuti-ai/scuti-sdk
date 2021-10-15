@@ -85,8 +85,6 @@ namespace Scuti.UI
         {
             base.Open();
 
-
-
             if (UseAsOnboarding)
             {
                 if (ScutiNetClient.Instance.FinishedOnBoarding)
