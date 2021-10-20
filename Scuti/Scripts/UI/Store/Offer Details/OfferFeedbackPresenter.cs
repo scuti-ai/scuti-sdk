@@ -1,5 +1,5 @@
 ﻿using System;
-
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +11,9 @@ namespace Scuti.UI {
             public decimal Rating;
         }
 
-        [SerializeField] Text reviewsLabel;
-        [SerializeField] Text feedbackCountText;
-        [SerializeField] Text ratingValueText;
+        [SerializeField] TextMeshProUGUI reviewsLabel;
+        [SerializeField] TextMeshProUGUI feedbackCountText;
+        [SerializeField] TextMeshProUGUI ratingValueText;
         [SerializeField] RatingStarsWidget starWidget;
 
         protected override void OnSetState() {

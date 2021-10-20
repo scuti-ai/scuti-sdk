@@ -7,7 +7,7 @@ using Scuti.GraphQL.Generated;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
-
+using TMPro;
 
 namespace Scuti.UI {
     // NOTE: This class is quite unclear at the moment. Further work should be done
@@ -81,7 +81,7 @@ namespace Scuti.UI {
             }
             public void SelectOption3(string value)
             {
-                _selectedOption3 = (string.IsNullOrEmpty(value)) ? DEFAULT : value; 
+                _selectedOption3 = (string.IsNullOrEmpty(value)) ? DEFAULT : value;
             }
 
             internal ProductVariant GetSelectedVariant()
@@ -109,12 +109,12 @@ namespace Scuti.UI {
 
         [SerializeField] IntegerStepperWidget quantityStepper;
 
-        [SerializeField] Text firstVariantLabel;
-        [SerializeField] Dropdown firstVariant;
-        [SerializeField] Text secondVariantLabel;
-        [SerializeField] Dropdown secondVariant;
-        [SerializeField] Text thirdVariantLabel;
-        [SerializeField] Dropdown thirdVariant;
+        [SerializeField] TextMeshProUGUI firstVariantLabel;
+        [SerializeField] TMP_Dropdown firstVariant;
+        [SerializeField] TextMeshProUGUI secondVariantLabel;
+        [SerializeField] TMP_Dropdown secondVariant;
+        [SerializeField] TextMeshProUGUI thirdVariantLabel;
+        [SerializeField] TMP_Dropdown thirdVariant;
 
         public Action VariantChanged;
 
@@ -174,7 +174,7 @@ namespace Scuti.UI {
             VariantChanged?.Invoke();
         }
 
-        private void Populate(Dropdown dropdown, string[] options)
+        private void Populate(TMP_Dropdown dropdown, string[] options)
         {
             dropdown.Hide();
             dropdown.ClearOptions();
