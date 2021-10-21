@@ -198,7 +198,7 @@ namespace Scuti.UI
                             ScutiLogger.LogException(e);
                             UIManager.Alert.SetHeader("Out of Stock").SetBody("This item is out of stock. Please try again later.").SetButtonText("OK").Show(() => { });
                         //UIManager.Open(UIManager.Offers);
-                    }
+                        }
 
                         UIManager.HideLoading(false);
                     };

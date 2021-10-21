@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Scuti {
     public class IntegerStepperWidget : MonoBehaviour {
@@ -20,7 +21,7 @@ namespace Scuti {
             }
         }
 
-        [SerializeField] Text valueText;
+        [SerializeField] TextMeshProUGUI valueText;
         [SerializeField] int minValue = 0;
 
         public void StepUp() {
