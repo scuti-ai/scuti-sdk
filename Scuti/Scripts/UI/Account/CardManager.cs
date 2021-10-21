@@ -16,8 +16,8 @@ namespace Scuti.UI
     public class CardManager : Form<CardDetailsForm.Model>
     {
         [SerializeField] CardDetailsForm cardDetailForm;
-
         [SerializeField] List<CreditCardView> creditCardList;
+        [SerializeField] GameObject emptyCardView;
         [SerializeField] GameObject prefabCards;
         [SerializeField] GameObject parentCards;
 
@@ -41,31 +41,45 @@ namespace Scuti.UI
 
         public void UpdateCardsView(List<UserCard> cards)
         {
+            if(cards.Count == 0)            
+                emptyCardView.gameObject.SetActive(true);
+            else
+                emptyCardView.gameObject.SetActive(false);
+
             if (creditCardList.Count == 0)
             {
-                // If dont exist card created
-                for (int i = 0; i < cards.Count; i++)
+                if(cards.Count > 0)
                 {
-                    var card = Instantiate(prefabCards, parentCards.transform);
-                    CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
+                    // If dont exist card created
+                    for (int i = 0; i < cards.Count; i++)
+                    {
+                        var card = Instantiate(prefabCards, parentCards.transform);
+                        CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
 
-                    creditCardInfo.id = cards[i].Id;
-                    creditCardInfo.name = cards[i].Scheme;
-                    creditCardInfo.number = cards[i].Last4;
-                    creditCardInfo.cvv = cards[i].Id;
-                    creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
-                    Debug.Log("UpdateCardView: " + creditCardInfo.date);
-                    CreditCardView cardView = card.GetComponent<CreditCardView>();
-                    cardView.onShowCardInfo -= UpdatedValueData;
-                    cardView.onShowCardInfo += UpdatedValueData;
+                        creditCardInfo.id = cards[i].Id;
+                        creditCardInfo.name = cards[i].Scheme;
+                        creditCardInfo.number = cards[i].Last4;
+                        creditCardInfo.cvv = cards[i].Id;
+                        creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
+                        Debug.Log("UpdateCardView: " + creditCardInfo.date);
+                        CreditCardView cardView = card.GetComponent<CreditCardView>();
+                        cardView.onShowCardInfo -= UpdatedValueData;
+                        cardView.onShowCardInfo += UpdatedValueData;
 
-                    creditCardList.Add(cardView);
-                    cardView.Refresh(creditCardInfo);
+                        creditCardList.Add(cardView);
+                        cardView.Refresh(creditCardInfo);
+                    }
                 }
+                else 
+                {
+                    // No cards added
+                    emptyCardView.gameObject.SetActive(true);
+                }               
             }
 
             else
             {
+                emptyCardView.gameObject.SetActive(false);
                 // Hide all current credit card views
                 for (int i = 0; i < creditCardList.Count; i++)
                 {
@@ -148,6 +162,8 @@ namespace Scuti.UI
                 cardDetailForm.onOpenCardDetails -= BtnAddNewCard;
                 cardDetailForm.onOpenCardDetails += BtnAddNewCard;
             }
+
+            emptyCardView.gameObject.SetActive(false);
 
             base.Open();
             Debug.Log("CardManager: OPEN");

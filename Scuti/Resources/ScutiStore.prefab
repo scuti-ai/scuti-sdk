@@ -772,8 +772,8 @@ MonoBehaviour:
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: CARD-MANAGER
-    view: {fileID: 114112811734919110, guid: 696cb9128615ed74480f74584e71ba49, type: 3}
-    view_portrait: {fileID: 672549982103614737, guid: 7f6acb21a29c2bf4b9ce907d15f3ae12,
+    view: {fileID: 114725433111894774, guid: 696cb9128615ed74480f74584e71ba49, type: 3}
+    view_portrait: {fileID: 673180899770796065, guid: 7f6acb21a29c2bf4b9ce907d15f3ae12,
       type: 3}
     view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
