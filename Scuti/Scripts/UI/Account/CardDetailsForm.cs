@@ -79,9 +79,7 @@ namespace Scuti.UI
             onOpenCardDetails?.Invoke();
             base.Open();
             Refresh();
-        }
-
-   
+        }   
 
         public override void Bind()
         {
@@ -124,7 +122,9 @@ namespace Scuti.UI
         public override void Refresh()
         {
             cardholderNameInput.text = Data.Card.Name;
+            cardNumberInput.contentType = InputField.ContentType.Standard;
             cardNumberInput.text = Data.Card.Number;
+            cardNumberInput.contentType = InputField.ContentType.IntegerNumber;
 
             expirationDateInput.text = Data.Card.ExpirationMonth.ToString("D2") + "/" + (Data.Card.ExpirationYear % 100).ToString("D2");
             cvvInput.text = Data.Card.CVV;

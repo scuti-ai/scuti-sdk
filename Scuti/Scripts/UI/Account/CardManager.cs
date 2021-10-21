@@ -259,9 +259,10 @@ namespace Scuti.UI
                     cardDetailForm.Data.Address.Country = rest.BillingAddress.Country;
                     cardDetailForm.Data.Address.Zip = rest.BillingAddress.ZipCode;
 
+                    cardDetailForm.Data.Card.Name = rest.Name;
                     cardDetailForm.CurrentCardId = rest.Id;
 
-                    cardDetailForm.Data.Card.Number = rest.Last4;
+                    cardDetailForm.Data.Card.Number = "************"+rest.Last4;
                     cardDetailForm.Data.Card.CardType = rest.Scheme;
                 }
             }
