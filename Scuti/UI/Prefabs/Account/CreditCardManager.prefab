@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 224241002170420996}
   - component: {fileID: 225780495580984986}
   - component: {fileID: 114722904029117172}
+  - component: {fileID: 114725433111894774}
   m_Layer: 5
   m_Name: CreditCardManager
   m_TagString: Untagged
@@ -180,9 +181,9 @@ RectTransform:
   m_Children:
   - {fileID: 224746556793939348}
   - {fileID: 224423374948534422}
-  - {fileID: 224601850817109440}
   - {fileID: 224214698369958092}
   - {fileID: 1652559297370653245}
+  - {fileID: 224601850817109440}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -236,6 +237,64 @@ MonoBehaviour:
   group: {fileID: 225780495580984986}
   m_FadeInDuration: 0.2
   m_FadeOutDuration: 0.2
+--- !u!114 &114725433111894774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272288431588782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3564e7c995c117c489fedda9181212cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isModal: 1
+  m_State: 3
+  requiresLogin: 0
+  alwaysEnabled: 0
+  displayEvents: 1
+  onStartOpening:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114722904029117172}
+        m_MethodName: TransitionIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  onStartClosing:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114722904029117172}
+        m_MethodName: TransitionOut
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onClosed:
+    m_PersistentCalls:
+      m_Calls: []
+  Transitions: []
+  validatorGroup: {fileID: 0}
+  cardDetailForm: {fileID: 0}
+  creditCardList: []
+  prefabCards: {fileID: 4620211842475903278, guid: efe4ea5271a83fb4f8d6d085a8cf2e50,
+    type: 3}
+  parentCards: {fileID: 1217844895497756}
 --- !u!1 &1318380157881532
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +325,7 @@ RectTransform:
   m_Children:
   - {fileID: 224174494839409980}
   m_Father: {fileID: 224241002170420996}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -484,7 +543,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224241002170420996}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -858,7 +917,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 520, y: -1080}
+  m_AnchoredPosition: {x: 620, y: -360}
   m_SizeDelta: {x: 530, y: 337}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2999371364902903609
@@ -946,6 +1005,7 @@ GameObject:
   - component: {fileID: 3913124662539905634}
   - component: {fileID: 7037340624064088935}
   - component: {fileID: 6592400985478056243}
+  - component: {fileID: 5617413243535608748}
   m_Layer: 5
   m_Name: AddNew
   m_TagString: Untagged
@@ -1048,16 +1108,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114961355867730450, guid: c7fc15bd2481cd042b96f6203d2cf67d,
-          type: 3}
-        m_MethodName: Save
-        m_Mode: 1
+      - m_Target: {fileID: 5617413243535608748}
+        m_MethodName: Open
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: ACCOUNT/CARD
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!95 &6592400985478056243
@@ -1079,6 +1138,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5617413243535608748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7418797221767219418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192eb61269d816f4c91c8ed71e72ea1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9180459249279797222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,7 +1180,7 @@ RectTransform:
   m_Children:
   - {fileID: 5267968544982216782}
   m_Father: {fileID: 224241002170420996}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
