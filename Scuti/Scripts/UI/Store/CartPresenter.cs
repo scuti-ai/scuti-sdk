@@ -142,7 +142,22 @@ namespace Scuti.UI
                         Data.Card = new CreditCardData();
                         Data.Card.Reset();
                         _cachedCard = cards.Last();
+
+                        List<UserCard> cardAux = (List<UserCard>)cards;
+
+                        for (int i = 0; i < cardAux.Count; i++)
+                        {
+                            if ((bool)cardAux[i].IsDefault)
+                            {
+                                _cachedCard = cardAux[i];
+                                break;
+                            }
+                        }
+
+                        Debug.Log("----------- CartPresenter: IsDefault: " + _cachedCard.Scheme);
+
                         ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
+                        
                     } else if(Data.Card==null)
                     {
                         Data.Card = new CreditCardData();
