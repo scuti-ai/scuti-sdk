@@ -693,6 +693,7 @@ MonoBehaviour:
   Transitions:
   - {fileID: 114371257765813596}
   validatorGroup: {fileID: 114159551091383356}
+  contentCardDetails: {fileID: 224586831419399576}
   cardholderNameInput: {fileID: 114850107171657360}
   cardNumberInput: {fileID: 114764757030834982}
   cvvInput: {fileID: 114197984530436824}
@@ -2055,8 +2056,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114727241279556488}
   m_HandleRect: {fileID: 224257659059251314}
   m_Direction: 2
-  m_Value: 0.99999994
-  m_Size: 0.21016528
+  m_Value: 0.99999976
+  m_Size: 0.6729752
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9335,8 +9336,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 553.35, y: -623}
-  m_SizeDelta: {x: 1106.7, y: 90}
+  m_AnchoredPosition: {x: 554, y: -623}
+  m_SizeDelta: {x: 1108, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5672598013129574780
 GameObject:

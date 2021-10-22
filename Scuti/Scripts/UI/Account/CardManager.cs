@@ -62,7 +62,7 @@ namespace Scuti.UI
                         CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
 
                         creditCardInfo.id = cards[i].Id;
-                        creditCardInfo.name = cards[i].Scheme;
+                        creditCardInfo.scheme = cards[i].Scheme;
                         creditCardInfo.number = cards[i].Last4;
                         creditCardInfo.cvv = cards[i].Id;
                         creditCardInfo.isDefault = (bool)cards[i].IsDefault;
@@ -93,7 +93,7 @@ namespace Scuti.UI
                         CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
 
                         creditCardInfo.id = cards[i].Id;
-                        creditCardInfo.name = cards[i].Scheme;
+                        creditCardInfo.scheme = cards[i].Scheme;
                         creditCardInfo.number = cards[i].Last4;
                         creditCardInfo.cvv = cards[i].Id;
                         creditCardInfo.isDefault = (bool)cards[i].IsDefault;
@@ -124,7 +124,7 @@ namespace Scuti.UI
                     {
                         CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
                         creditCardInfo.id = cards[i].Id;
-                        creditCardInfo.name = cards[i].Scheme;
+                        creditCardInfo.scheme = cards[i].Scheme;
                         creditCardInfo.number = cards[i].Last4;
                         creditCardInfo.cvv = cards[i].Id;
                         creditCardInfo.isDefault = (bool)cards[i].IsDefault;

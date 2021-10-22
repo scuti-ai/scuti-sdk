@@ -699,12 +699,14 @@ MonoBehaviour:
   Transitions:
   - {fileID: 114371257765813596}
   validatorGroup: {fileID: 114159551091383356}
+  contentCardDetails: {fileID: 224586831419399576}
   cardholderNameInput: {fileID: 114850107171657360}
   cardNumberInput: {fileID: 114764757030834982}
   cvvInput: {fileID: 114197984530436824}
   cardType: {fileID: 114265804111848268}
   makeDefaultToggle: {fileID: 114465827455072308}
   saveButton: {fileID: 114079176669205736}
+  removeCardButton: {fileID: 114202428513056562}
   line1Input: {fileID: 114642279647179638}
   line2Input: {fileID: 114888464032550856}
   cityInput: {fileID: 114058632699141244}
@@ -2117,8 +2119,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114727241279556488}
   m_HandleRect: {fileID: 224257659059251314}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9865128
+  m_Value: 0.99999994
+  m_Size: 0.33466086
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

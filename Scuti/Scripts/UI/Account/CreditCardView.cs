@@ -11,6 +11,7 @@ namespace Scuti.UI
         {
             public string id;
             public string name;
+            public string scheme;
             public string number;
             public string cvv;
             public string date;
@@ -18,7 +19,7 @@ namespace Scuti.UI
         }
 
         [SerializeField] Text titleByDefault;
-        [SerializeField] Text cardholderName;
+        [SerializeField] Text cardholderScheme;
         [SerializeField] Text cardNumber;
         [SerializeField] Text cvv;
         [SerializeField] Text expirationDate;
@@ -35,15 +36,17 @@ namespace Scuti.UI
         {
             this.creditCardInfo = creditCardInfo;
 
-            cardholderName.text = creditCardInfo.name;
+            cardholderScheme.text = creditCardInfo.scheme;
             cardNumber.text = "**** **** ****" + creditCardInfo.number;
             cvv.text = "***";
             expirationDate.text = creditCardInfo.date;
 
+            Debug.Log("CardView: Default: " + creditCardInfo.isDefault);
+
             if (creditCardInfo.isDefault)
-                titleByDefault.text = "Credit card "+cardholderName.text + " (Default)";
+                titleByDefault.text = cardholderScheme.text + " (Default)";
             else
-                titleByDefault.text = "Credit card " + cardholderName.text;
+                titleByDefault.text = cardholderScheme.text;
         }
 
         public string GetId()

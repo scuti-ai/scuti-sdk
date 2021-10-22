@@ -21,6 +21,8 @@ namespace Scuti.UI
             public AddressData Address;
         }
 
+        [SerializeField] RectTransform contentCardDetails;
+
         [SerializeField] InputField cardholderNameInput;
         [SerializeField] InputField cardNumberInput;
         [SerializeField] InputField cvvInput;
@@ -44,6 +46,8 @@ namespace Scuti.UI
         private List<Dropdown.OptionData> _states;
         private List<Dropdown.OptionData> _provinces;
 
+        private Vector2 _startPosition;
+
         public Action onOpenCardDetails;
         public Action onDeleteCard;
         public Action onAddCard;
@@ -59,6 +63,8 @@ namespace Scuti.UI
         protected override void Awake()
         {
             base.Awake();
+
+            _startPosition = contentCardDetails.anchoredPosition;
 
             _states = new List<Dropdown.OptionData>();
             _provinces = new List<Dropdown.OptionData>();
@@ -121,6 +127,8 @@ namespace Scuti.UI
 
         public override void Refresh()
         {
+            contentCardDetails.anchoredPosition = _startPosition;
+
             cardholderNameInput.text = Data.Card.Name;
             cardNumberInput.contentType = InputField.ContentType.Standard;
             cardNumberInput.text = Data.Card.Number;
