@@ -308,7 +308,7 @@ MonoBehaviour:
   emptyCardView: {fileID: 2557878928394483211}
   prefabCards: {fileID: 4620211842475903278, guid: efe4ea5271a83fb4f8d6d085a8cf2e50,
     type: 3}
-  parentCards: {fileID: 1217844895497756}
+  contentCards: {fileID: 1217844895497756}
 --- !u!1 &1318380157881532
 GameObject:
   m_ObjectHideFlags: 0

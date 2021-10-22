@@ -13,7 +13,8 @@ namespace Scuti.UI
             public string name;
             public string number;
             public string cvv;
-            public string date;            
+            public string date;
+            public bool isDefault;
         }
 
         [SerializeField] Text titleByDefault;
@@ -38,6 +39,11 @@ namespace Scuti.UI
             cardNumber.text = "**** **** ****" + creditCardInfo.number;
             cvv.text = "***";
             expirationDate.text = creditCardInfo.date;
+
+            if (creditCardInfo.isDefault)
+                titleByDefault.text = "Credit card "+cardholderName.text + " (Default)";
+            else
+                titleByDefault.text = "Credit card " + cardholderName.text;
         }
 
         public string GetId()
