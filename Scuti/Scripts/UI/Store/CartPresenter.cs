@@ -124,8 +124,9 @@ namespace Scuti.UI
         {
             base.Open();
 
-            if (_cachedCard == null || !_cachedAddress) TryToLoadData(_autoPurchase);
-            else UpdatePriceBreakdown(_autoPurchase);
+            TryToLoadData(_autoPurchase);
+            //if (_cachedCard == null || !_cachedAddress) TryToLoadData(_autoPurchase);
+            //else UpdatePriceBreakdown(_autoPurchase);
             _autoPurchase = false;
         }
 
@@ -134,8 +135,8 @@ namespace Scuti.UI
         {
             try
             {
-                if (_cachedCard == null)
-                {
+                //if (_cachedCard == null)
+                //{
                     var cards = await ScutiAPI.GetPayments();
                     if(cards!=null && cards.Count>0)
                     {
@@ -153,7 +154,7 @@ namespace Scuti.UI
                                 break;
                             }
                         }
-
+                        RefreshText();
                         Debug.Log("----------- CartPresenter: IsDefault: " + _cachedCard.Scheme);
 
                         ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
@@ -163,7 +164,7 @@ namespace Scuti.UI
                         Data.Card = new CreditCardData();
                         Data.Card.Reset();
                     } 
-                }
+                //}
 
                 if (!_cachedAddress)
                 {
