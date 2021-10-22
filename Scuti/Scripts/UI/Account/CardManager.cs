@@ -65,9 +65,9 @@ namespace Scuti.UI
                         creditCardInfo.name = cards[i].Scheme;
                         creditCardInfo.number = cards[i].Last4;
                         creditCardInfo.cvv = cards[i].Id;
+                        creditCardInfo.isDefault = (bool)cards[i].IsDefault;
                         creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
-                        Debug.Log("UpdateCardView: " + creditCardInfo.date);
-                        Debug.Log("UpdateCardView IsDefault: " + cards[i].IsDefault);
+                        
                         CreditCardView cardView = card.GetComponent<CreditCardView>();
                         cardView.onShowCardInfo -= UpdatedValueData;
                         cardView.onShowCardInfo += UpdatedValueData;
@@ -96,8 +96,9 @@ namespace Scuti.UI
                         creditCardInfo.name = cards[i].Scheme;
                         creditCardInfo.number = cards[i].Last4;
                         creditCardInfo.cvv = cards[i].Id;
+                        creditCardInfo.isDefault = (bool)cards[i].IsDefault;
                         creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
-                        Debug.Log("UpdateCardView: " + creditCardInfo.date);
+                        
                         creditCardList[i].onShowCardInfo -= UpdatedValueData;
                         creditCardList[i].onShowCardInfo += UpdatedValueData;
 
@@ -126,6 +127,7 @@ namespace Scuti.UI
                         creditCardInfo.name = cards[i].Scheme;
                         creditCardInfo.number = cards[i].Last4;
                         creditCardInfo.cvv = cards[i].Id;
+                        creditCardInfo.isDefault = (bool)cards[i].IsDefault;
                         creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
                         creditCardList[i].onShowCardInfo -= UpdatedValueData;
                         creditCardList[i].onShowCardInfo += UpdatedValueData;
@@ -260,7 +262,7 @@ namespace Scuti.UI
                     cardDetailForm.Data.Address.Zip = rest.BillingAddress.ZipCode;
 
                     cardDetailForm.Data.Card.Name = rest.Name;
-                    Debug.Log("CARD DETAILS: "+rest.IsDefault);
+                    Debug.Log("CARD DETAILS isDefault: "+rest.IsDefault);
                     cardDetailForm.CurrentCardId = rest.Id;
 
                     cardDetailForm.Data.Card.Number = "************"+rest.Last4;

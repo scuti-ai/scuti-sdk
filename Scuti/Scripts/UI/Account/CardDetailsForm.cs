@@ -250,11 +250,42 @@ namespace Scuti.UI
                 EncryptedInput encryptedInput = await ScutiUtils.Encrypt(cardDetails.ToJson().ToUTF8Bytes());
                 Data.Card.Encrypted = encryptedInput;
                 //
-                await ScutiAPI.CreateOrReplaceCard(Data.Card.ExpirationMonth, Data.Card.ExpirationYear,
+                var rest = await ScutiAPI.CreateOrReplaceCard(Data.Card.ExpirationMonth, Data.Card.ExpirationYear,
                     Data.Card.Name,
                     Data.Card.Encrypted,
                     GetBillingAddress());
-                //
+
+                Debug.Log("MakeDefault: " + Data.Card.MakeDefault);
+                Debug.Log("RES*******: " + rest.Id);
+                if (Data.Card.MakeDefault)
+                {
+                    SetDefaultCard(rest.Id);
+                }                    
+                else
+                {
+                    onAddCard?.Invoke();
+                    Submit();
+                    Close();
+                    saveButton.interactable = true;
+                }
+            }
+            catch (GQLException ex)
+            {
+                saveButton.interactable = true;
+                ScutiLogger.LogException(ex);
+                ScutiLogger.LogError(ex.response);
+                UIManager.Alert.SetHeader("Error").SetBody("Setting payment info failed. " + ex.responseCode + " " + ex.error).Show(() => { });
+            }
+
+        }
+
+
+        private async void SetDefaultCard(string id)
+        {
+            try
+            {
+                Debug.Log("SetDefault:...." + id);
+                await ScutiAPI.SetMyDefaultCard(id);
                 onAddCard?.Invoke();
                 Submit();
                 Close();
@@ -263,7 +294,7 @@ namespace Scuti.UI
             {
                 ScutiLogger.LogException(ex);
                 ScutiLogger.LogError(ex.response);
-                UIManager.Alert.SetHeader("Error").SetBody("Setting payment info failed. " + ex.responseCode + " " + ex.error).Show(() => { });
+                UIManager.Alert.SetHeader("Error").SetBody("Error when setting the default payment method. " + ex.responseCode + " " + ex.error).Show(() => { });
             }
             saveButton.interactable = true;
         }

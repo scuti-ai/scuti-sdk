@@ -697,8 +697,9 @@ MonoBehaviour:
   cardNumberInput: {fileID: 114764757030834982}
   cvvInput: {fileID: 114197984530436824}
   cardType: {fileID: 114265804111848268}
-  makeDefaultToggle: {fileID: 114465827455072308}
+  makeDefaultToggle: {fileID: 1110255914746836753}
   saveButton: {fileID: 114079176669205736}
+  removeCardButton: {fileID: 114202428513056562}
   line1Input: {fileID: 114642279647179638}
   line2Input: {fileID: 114888464032550856}
   cityInput: {fileID: 114058632699141244}
@@ -709,7 +710,6 @@ MonoBehaviour:
   ExpirationValidator: {fileID: 114974785054721112}
   SaveCard: {fileID: 114143062195322134}
   stateLabel: {fileID: 114782172847047890}
-  removeCardButton: {fileID: 114202428513056562}
 --- !u!1 &1041325889573178
 GameObject:
   m_ObjectHideFlags: 0
@@ -9590,7 +9590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6568004292095376930}
   m_Layer: 5
-  m_Name: SaveCheckbox (1)
+  m_Name: SaveCheckboxDefaultCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
