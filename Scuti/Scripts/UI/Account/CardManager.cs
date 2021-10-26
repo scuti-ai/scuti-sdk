@@ -32,7 +32,7 @@ namespace Scuti.UI
         {
             
         }
-
+        
         public override CardDetailsForm.Model GetDefaultDataObject()
         {
             var model = new CardDetailsForm.Model() { Card = new CreditCardData() { ExpirationMonth = DateTime.Now.Month, ExpirationYear = DateTime.Now.Year }, Address = new AddressData() { Line2 = "" } };
@@ -41,18 +41,18 @@ namespace Scuti.UI
             return model;
         }
 
-
-        public void UpdateCardsView(List<UserCard> cards)
+        /// <summary>
+        /// Instance and update the credit cards when it starts. It also updates when cards are removed and added during the session.
+        /// </summary>
+        /// <param name="cards"></param>
+        public void CreateAndUpdateCardsView(List<UserCard> cards)
         {
-            if(cards.Count <= 0)
-            {
-                emptyCardView.gameObject.SetActive(true);
-                Debug.Log("CardManager: No Card added");
-            }                
-            else
-            {
-                emptyCardView.gameObject.SetActive(false);
-            }               
+            // If a card does not exist, display the empty card.
+            if (cards.Count <= 0)            
+                emptyCardView.gameObject.SetActive(true);                        
+            else            
+                emptyCardView.gameObject.SetActive(false);                           
+
 
             if (creditCardList.Count == 0)
             {
@@ -149,14 +149,15 @@ namespace Scuti.UI
             }            
         }
 
+
         public override void Refresh()
         {
-
+            throw new NotImplementedException();
         }
 
         public override void Bind()
         {
-
+            throw new NotImplementedException();
         }
 
         public override void Close()
@@ -167,29 +168,32 @@ namespace Scuti.UI
 
         public override void Open()
         {
+            // Find the CardDetailsForm component 
             if (cardDetailForm == null)
             {
                 var parent = GetComponentInParent<ViewSetInstantiator>();
                 cardDetailForm = (CardDetailsForm)parent.GetComponentInChildren(typeof(CardDetailsForm), true);
 
-                cardDetailForm.onDeleteCard -= UpdateCards;
-                cardDetailForm.onDeleteCard += UpdateCards;
+                cardDetailForm.onDeleteCard -= TryToLoadData;
+                cardDetailForm.onDeleteCard += TryToLoadData;
 
-                cardDetailForm.onAddCard -= UpdateCards;
-                cardDetailForm.onAddCard += UpdateCards;
+                cardDetailForm.onAddCard -= TryToLoadData;
+                cardDetailForm.onAddCard += TryToLoadData;
 
                 cardDetailForm.onOpenCardDetails -= BtnAddNewCard;
                 cardDetailForm.onOpenCardDetails += BtnAddNewCard;
             }
 
+            // Hide empty credit card view
             emptyCardView.gameObject.SetActive(false);
 
             base.Open();
-            Debug.Log("CardManager: OPEN");
             TryToLoadData();
         }
 
-
+        /// <summary>
+        /// Get info for payment methods stored on server
+        /// </summary>
         private async void TryToLoadData()
         {
             try
@@ -212,9 +216,9 @@ namespace Scuti.UI
                     Data.Card.Reset();
                 }
 
-                // Create Cards
+                // Save credit cards info
                 List<UserCard> cardAux = (List<UserCard>)cards;
-                UpdateCardsView(cardAux);
+                CreateAndUpdateCardsView(cardAux);
 
                 var shippingInfo = await ScutiAPI.GetShippingInfo();
                 if (shippingInfo != null)
@@ -249,10 +253,10 @@ namespace Scuti.UI
         }
 
 
-        private void UpdateCards()
+        /*private void GetCardsInfo()
         {
             TryToLoadData();
-        }
+        }*/
 
         #region Set Default Card
 
@@ -343,7 +347,8 @@ namespace Scuti.UI
                 UIManager.Alert.SetHeader("Error").SetBody("Card credit info failed.").SetButtonText("Ok").Show(() => { });
                 ScutiLogger.LogError(ex);
             }
-            UpdateCards();
+
+            TryToLoadData();
         }
 
         #endregion
