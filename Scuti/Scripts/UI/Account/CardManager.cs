@@ -13,8 +13,15 @@ using System.Linq;
 
 namespace Scuti.UI
 {
-    public class CardManager : Form<CardDetailsForm.Model>
+    public class CardManager : Presenter<CardManager.Model>
     {
+        [Serializable]
+        public class Model : Presenter.Model
+        {
+            public CreditCardData Card;
+            public AddressData Address;
+        }
+
         [SerializeField] CardDetailsForm cardDetailForm;
         [SerializeField] List<CreditCardView> creditCardList;
         [SerializeField] GameObject emptyCardView;
@@ -30,16 +37,17 @@ namespace Scuti.UI
 
         protected override void Awake()
         {
-            
+            base.Awake();
+            Data = new Model();
         }
         
-        public override CardDetailsForm.Model GetDefaultDataObject()
+        /*public override CardDetailsForm.Model GetDefaultDataObject()
         {
             var model = new CardDetailsForm.Model() { Card = new CreditCardData() { ExpirationMonth = DateTime.Now.Month, ExpirationYear = DateTime.Now.Year }, Address = new AddressData() { Line2 = "" } };
             model.Card.Reset();
 
             return model;
-        }
+        }*/
 
         /// <summary>
         /// Instance and update the credit cards when it starts. It also updates when cards are removed and added during the session.
@@ -150,7 +158,7 @@ namespace Scuti.UI
         }
 
 
-        public override void Refresh()
+        /*public override void Refresh()
         {
             throw new NotImplementedException();
         }
@@ -158,7 +166,7 @@ namespace Scuti.UI
         public override void Bind()
         {
             throw new NotImplementedException();
-        }
+        }*/
 
         public override void Close()
         {
@@ -168,6 +176,8 @@ namespace Scuti.UI
 
         public override void Open()
         {
+            Debug.Log("CardMananger: OPENED");
+
             // Find the CardDetailsForm component 
             if (cardDetailForm == null)
             {
@@ -200,21 +210,27 @@ namespace Scuti.UI
             { 
                 var cards = await ScutiAPI.GetPayments();
 
-                //Debug.Log("CartPresenter: Card amounts:" + cards.Count);
+                Debug.Log("CardMananger: Card amounts:" + cards.Count);
 
                 if (cards != null && cards.Count > 0)
                 {
+                    Debug.Log("CardMananger: Point 2:" + cards.Count);
                     Data.Card = new CreditCardData();
+                    Debug.Log("CardMananger: Point 3:" + cards.Count);
                     Data.Card.Reset();
-                    _cachedCard = cards.Last();                    
+                    _cachedCard = cards.Last();
                     ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
-                  
+
+
                 }
                 else if (Data.Card == null)
                 {
+
                     Data.Card = new CreditCardData();
                     Data.Card.Reset();
                 }
+                Debug.Log("CardMananger: Point 4:" + cards.Count);
+
 
                 // Save credit cards info
                 List<UserCard> cardAux = (List<UserCard>)cards;
@@ -251,7 +267,6 @@ namespace Scuti.UI
             }
 
         }
-
 
         /*private void GetCardsInfo()
         {
@@ -298,7 +313,6 @@ namespace Scuti.UI
             //Debug.Log("CONFIRM VALIDATION: Number " + !string.IsNullOrEmpty(Data.Card.Name));
             //Debug.Log("CONFIRM VALIDATION: CVV " + !string.IsNullOrEmpty(Data.Card.Name));
             //Debug.Log("CONFIRM VALIDATION: Scheme " + !string.IsNullOrEmpty(Data.Card.Name));
-
 
             Submit();
             Close();

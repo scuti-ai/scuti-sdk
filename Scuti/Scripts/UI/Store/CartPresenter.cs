@@ -618,7 +618,7 @@ namespace Scuti.UI
         }
 
         // Handlers
-        private void OnCreditCard(CardDetailsForm.Model data)
+        private void OnCreditCard(CardManager.Model data)
         {
             // Search in payment method list for one with "id" that matches payment method in "data"
             _cachedCard = cardAux.Find(f => f.Last4 == data.Card.Number);
