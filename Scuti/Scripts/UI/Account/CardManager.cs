@@ -210,13 +210,9 @@ namespace Scuti.UI
             { 
                 var cards = await ScutiAPI.GetPayments();
 
-                Debug.Log("CardMananger: Card amounts:" + cards.Count);
-
                 if (cards != null && cards.Count > 0)
                 {
-                    Debug.Log("CardMananger: Point 2:" + cards.Count);
                     Data.Card = new CreditCardData();
-                    Debug.Log("CardMananger: Point 3:" + cards.Count);
                     Data.Card.Reset();
                     _cachedCard = cards.Last();
                     ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
@@ -229,8 +225,6 @@ namespace Scuti.UI
                     Data.Card = new CreditCardData();
                     Data.Card.Reset();
                 }
-                Debug.Log("CardMananger: Point 4:" + cards.Count);
-
 
                 // Save credit cards info
                 List<UserCard> cardAux = (List<UserCard>)cards;
@@ -285,7 +279,6 @@ namespace Scuti.UI
 
                 if (rest != null)
                 {
-                    Debug.Log("NAME----------------: " + rest.Name);
                     Data.Card.Name = rest.Name;
                     SaveInformationForSelectCard(creditCardInfo);
                 }
@@ -308,12 +301,6 @@ namespace Scuti.UI
             Data.Card.CVV = creditCardInfo.cvv;
             Data.Card.CardType = creditCardInfo.scheme;
             Data.Card.IsValid();
-            //Debug.Log("CONFIRM VALIDATION: " + Data.Card.IsValid());
-            //Debug.Log("CONFIRM VALIDATION: Name " + !string.IsNullOrEmpty(Data.Card.Name));
-            //Debug.Log("CONFIRM VALIDATION: Number " + !string.IsNullOrEmpty(Data.Card.Name));
-            //Debug.Log("CONFIRM VALIDATION: CVV " + !string.IsNullOrEmpty(Data.Card.Name));
-            //Debug.Log("CONFIRM VALIDATION: Scheme " + !string.IsNullOrEmpty(Data.Card.Name));
-
             Submit();
             Close();
 
@@ -334,8 +321,7 @@ namespace Scuti.UI
                
             }
             else 
-            {
-                Debug.Log("CardManager SetDefaultCard: " + creditCardInfo.scheme + " " + creditCardInfo.number);
+            {               
                 UIManager.Confirmation.SetHeader("Default credit card").SetBody("Do you want to have the card with number " + creditCardInfo.number + " as default card?").SetPositive("Yes").SetNegative("No").Show((bool callback) => {
                     if (callback)
                         SetCardByDefault(creditCardInfo);
@@ -393,7 +379,6 @@ namespace Scuti.UI
                     cardDetailForm.Data.Address.Zip = rest.BillingAddress.ZipCode;
 
                     cardDetailForm.Data.Card.Name = rest.Name;
-                    Debug.Log("CARD DETAILS isDefault: "+rest.IsDefault);
                     cardDetailForm.CurrentCardId = rest.Id;
 
                     cardDetailForm.Data.Card.Number = "************"+rest.Last4;
