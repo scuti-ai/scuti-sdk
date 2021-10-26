@@ -200,7 +200,7 @@ namespace Scuti.UI
             { 
                 var cards = await ScutiAPI.GetPayments();
 
-                Debug.Log("CartPresenter: Card amounts:" + cards.Count);
+                //Debug.Log("CartPresenter: Card amounts:" + cards.Count);
 
                 if (cards != null && cards.Count > 0)
                 {

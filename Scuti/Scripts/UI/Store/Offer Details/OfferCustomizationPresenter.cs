@@ -161,7 +161,7 @@ namespace Scuti.UI {
         }
 
         protected override void OnSetState() {
-            Debug.Log("OfferCustomization Quatity: " + Data.Quantity);
+            //Debug.Log("OfferCustomization Quatity: " + Data.Quantity);
             quantityStepper.Value = Data.Quantity;
 
             firstVariantLabel.text = string.IsNullOrEmpty(Data.Option1) ? string.Empty : Data.Option1;

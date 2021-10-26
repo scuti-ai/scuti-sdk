@@ -157,7 +157,7 @@ namespace Scuti.UI
                             }
                         }
                         RefreshText();
-                        Debug.Log("----------- CartPresenter: IsDefault: " + _cachedCard.Scheme);
+                        //Debug.Log("----------- CartPresenter: IsDefault: " + _cachedCard.Scheme);
 
                         ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
                         
@@ -595,12 +595,13 @@ namespace Scuti.UI
 
         public void EditCard()
         {
-            //UIManager.Open(UIManager.Card);
+            // Opens the card manager window
             UIManager.CardManager.isSelectCardMode = true;
             UIManager.CardManager.OnSubmit -= OnCreditCard;
             UIManager.CardManager.OnSubmit += OnCreditCard;
             UIManager.Open(UIManager.CardManager);
 
+            //UIManager.Open(UIManager.Card);
             //UIManager.Card.OnSubmit -= OnCreditCard;
             //UIManager.Card.OnSubmit += OnCreditCard;
             UIManager.Card.SetCached(_cachedCard, Data.ShippingAddress);
@@ -619,14 +620,8 @@ namespace Scuti.UI
         // Handlers
         private void OnCreditCard(CardDetailsForm.Model data)
         {
-            Debug.Log("Updated Credit card data: " + data.Card.Number);
-            Debug.Log("Updated Credit card data: " + data.Card.CardType);
-            Debug.Log("Updated Credit card data: " + data.Address.City);
-
-
+            // Search in payment method list for one with "id" that matches payment method in "data"
             _cachedCard = cardAux.Find(f => f.Last4 == data.Card.Number);
-            Debug.Log("Updated CACHE: " + _cachedCard.Scheme);
-            Debug.Log("Updated CACHE: " + _cachedCard.Id);
             _cachedAddress = false;
 
             Data.Card = data.Card;

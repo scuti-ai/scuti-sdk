@@ -41,9 +41,7 @@ namespace Scuti.UI
             cardholderScheme.text = creditCardInfo.scheme;
             cardNumber.text = "**** **** ****" + creditCardInfo.number;
             cvv.text = "***";
-            expirationDate.text = creditCardInfo.date;
-
-            Debug.Log("CardView: Default: " + creditCardInfo.isDefault);
+            expirationDate.text = creditCardInfo.date;           
 
             checkmarkByDefault.gameObject.SetActive(creditCardInfo.isDefault);
 
