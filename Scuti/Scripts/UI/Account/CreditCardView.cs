@@ -23,12 +23,14 @@ namespace Scuti.UI
         [SerializeField] Text cardNumber;
         [SerializeField] Text cvv;
         [SerializeField] Text expirationDate;
+        [SerializeField] Image checkmarkByDefault;
 
         [SerializeField] bool isDefaultCard;
 
         private CreditCardModel creditCardInfo;
 
         public Action<CreditCardModel> onShowCardInfo;
+        public Action<CreditCardModel> onSelectCard;
 
         // ----------------------------------------------------------------------
 
@@ -43,8 +45,10 @@ namespace Scuti.UI
 
             Debug.Log("CardView: Default: " + creditCardInfo.isDefault);
 
-            if (creditCardInfo.isDefault)
-                titleByDefault.text = cardholderScheme.text + " (Default)";
+            checkmarkByDefault.gameObject.SetActive(creditCardInfo.isDefault);
+
+            if (creditCardInfo.isDefault) 
+                titleByDefault.text = cardholderScheme.text + " (Default)";                          
             else
                 titleByDefault.text = cardholderScheme.text;
         }
@@ -67,6 +71,11 @@ namespace Scuti.UI
         public void Show()
         {
             gameObject.SetActive(true);
+        }
+
+        public void ButtonOnSelectCard()
+        {
+            onSelectCard?.Invoke(creditCardInfo);
         }
 
     }

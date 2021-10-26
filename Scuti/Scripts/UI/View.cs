@@ -112,7 +112,7 @@ namespace Scuti {
 
             bool wasOpen = m_State == State.Opened || m_State == State.Opening;
                        
-            m_State = State.Closing;            
+            m_State = State.Closing;
 
             if (wasOpen)
             {

@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 4829096627081589042}
   - component: {fileID: 4831626493386100528}
   - component: {fileID: 4723578164114718570}
-  - component: {fileID: 7080199808029496863}
+  - component: {fileID: 8013659090827797930}
   m_Layer: 5
   m_Name: CreditCard
   m_TagString: Untagged
@@ -340,7 +340,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &7080199808029496863
+--- !u!114 &8013659090827797930
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -349,7 +349,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4619686000526073454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 2109663825, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -377,13 +377,20 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 4723578164114718570}
-  toggleTransition: 1
-  graphic: {fileID: 6169878659600154749}
-  m_Group: {fileID: 0}
-  onValueChanged:
+  m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
-  m_IsOn: 0
+      m_Calls:
+      - m_Target: {fileID: 7545675114154548324}
+        m_MethodName: ButtonOnSelectCard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4619767104767074472
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,6 +764,7 @@ MonoBehaviour:
   cardNumber: {fileID: 3371814496597997239}
   cvv: {fileID: 2154874179878088288}
   expirationDate: {fileID: 4087752498105749533}
+  checkmarkByDefault: {fileID: 6169878659600154749}
   isDefaultCard: 0
 --- !u!1 &5333789742927133741
 GameObject:

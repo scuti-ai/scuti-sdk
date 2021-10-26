@@ -104,6 +104,8 @@ namespace Scuti.UI
             get { return Data.Items == null || Data.Items.Count == 0; }
         }
 
+        private List<UserCard> cardAux;
+
         // ================================================
         // INITIALIZATION
         // ================================================
@@ -144,7 +146,7 @@ namespace Scuti.UI
                         Data.Card.Reset();
                         _cachedCard = cards.Last();
 
-                        List<UserCard> cardAux = (List<UserCard>)cards;
+                        cardAux = (List<UserCard>)cards;
 
                         for (int i = 0; i < cardAux.Count; i++)
                         {
@@ -159,7 +161,8 @@ namespace Scuti.UI
 
                         ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
                         
-                    } else if(Data.Card==null)
+                    } 
+                    else if(Data.Card==null)
                     {
                         Data.Card = new CreditCardData();
                         Data.Card.Reset();
@@ -245,7 +248,7 @@ namespace Scuti.UI
                 addressText.text = $"DELIVER TO:  {Data.ShippingAddress.ToString()}";
             }
 
-            if(_cachedCard !=null)
+            if(_cachedCard != null)
             {
                 cardText.text = $"Card ending in {_cachedCard.Last4}";
             }
@@ -430,8 +433,9 @@ namespace Scuti.UI
                        
 
                     } else if (Data.Card!=null && Data.Card.IsValid())
-                    { 
+                    {
                         paymentSource = new PaymentSource() { Type = PaymentSourceType.Card, Card = new CreditCard() {  BillingAddress = GetBillingAddress(),    Encrypted = Data.Card.Encrypted, ExpiryMonth = Data.Card.ExpirationMonth, ExpiryYear = Data.Card.ExpirationYear, Name = Data.Card.Name  }, Persist = Data.Card.SaveCard };
+                        Debug.Log("CarPresenter: Checkout " + paymentSource.SerializeJSON());
                         CheckoutHelper(paymentSource);
                     } else
                     {
@@ -459,7 +463,10 @@ namespace Scuti.UI
 
             var paymentSource = new PaymentSource() { Type = PaymentSourceType.StoredCard, Id = _cachedCard.Id };
             paymentSource.Encrypted = await ScutiUtils.Encrypt(data.ToJson().ToUTF8Bytes());
+
+            Debug.Log("CarPresenter: CVVHELPER "+paymentSource.SerializeJSON());
             CheckoutHelper(paymentSource);
+
         }
 
         private async Task CheckoutHelper(PaymentSource paymentSource)
@@ -469,7 +476,6 @@ namespace Scuti.UI
                 bool success = false;
                 try
                 {
-
                     UIManager.Open(UIManager.Alert);
 
                     var items = Data.Items;
@@ -589,9 +595,14 @@ namespace Scuti.UI
 
         public void EditCard()
         {
-            UIManager.Open(UIManager.Card);
-            UIManager.Card.OnSubmit -= OnCreditCard;
-            UIManager.Card.OnSubmit += OnCreditCard;
+            //UIManager.Open(UIManager.Card);
+            UIManager.CardManager.isSelectCardMode = true;
+            UIManager.CardManager.OnSubmit -= OnCreditCard;
+            UIManager.CardManager.OnSubmit += OnCreditCard;
+            UIManager.Open(UIManager.CardManager);
+
+            //UIManager.Card.OnSubmit -= OnCreditCard;
+            //UIManager.Card.OnSubmit += OnCreditCard;
             UIManager.Card.SetCached(_cachedCard, Data.ShippingAddress);
         }
 
@@ -608,10 +619,15 @@ namespace Scuti.UI
         // Handlers
         private void OnCreditCard(CardDetailsForm.Model data)
         {
-            _cachedCard = null;
+            Debug.Log("Updated Credit card data: " + data.Card.Number);
+            Debug.Log("Updated Credit card data: " + data.Card.CardType);
+            Debug.Log("Updated Credit card data: " + data.Address.City);
+
+
+            _cachedCard = cardAux.Find(f => f.Last4 == data.Card.Number);
+            Debug.Log("Updated CACHE: " + _cachedCard.Scheme);
+            Debug.Log("Updated CACHE: " + _cachedCard.Id);
             _cachedAddress = false;
-
-
 
             Data.Card = data.Card;
             Data.BillingAddress = data.Address;

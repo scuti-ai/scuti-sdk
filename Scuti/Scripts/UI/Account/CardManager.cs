@@ -25,6 +25,9 @@ namespace Scuti.UI
         private bool _cachedAddress = false;
         private bool _autoPurchase = false;
 
+        public bool isSelectCardMode;
+
+
         protected override void Awake()
         {
             
@@ -71,6 +74,8 @@ namespace Scuti.UI
                         CreditCardView cardView = card.GetComponent<CreditCardView>();
                         cardView.onShowCardInfo -= UpdatedValueData;
                         cardView.onShowCardInfo += UpdatedValueData;
+                        cardView.onSelectCard -= ConfirmSetCardByDefault;
+                        cardView.onSelectCard += ConfirmSetCardByDefault;
 
                         creditCardList.Add(cardView);
                         cardView.Refresh(creditCardInfo);
@@ -101,6 +106,8 @@ namespace Scuti.UI
                         
                         creditCardList[i].onShowCardInfo -= UpdatedValueData;
                         creditCardList[i].onShowCardInfo += UpdatedValueData;
+                        creditCardList[i].onSelectCard -= ConfirmSetCardByDefault;
+                        creditCardList[i].onSelectCard += ConfirmSetCardByDefault;
 
                         creditCardList[i].Refresh(creditCardInfo);
                         creditCardList[i].Show();
@@ -117,6 +124,8 @@ namespace Scuti.UI
                         CreditCardView cardView = card.GetComponent<CreditCardView>();
                         cardView.onShowCardInfo -= UpdatedValueData;
                         cardView.onShowCardInfo += UpdatedValueData;
+                        cardView.onSelectCard -= ConfirmSetCardByDefault;
+                        cardView.onSelectCard += ConfirmSetCardByDefault;
                         creditCardList.Add(cardView);
                     }
 
@@ -131,6 +140,8 @@ namespace Scuti.UI
                         creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
                         creditCardList[i].onShowCardInfo -= UpdatedValueData;
                         creditCardList[i].onShowCardInfo += UpdatedValueData;
+                        creditCardList[i].onSelectCard -= ConfirmSetCardByDefault;
+                        creditCardList[i].onSelectCard += ConfirmSetCardByDefault;
                         creditCardList[i].Refresh(creditCardInfo);
                         creditCardList[i].Show();
                     }
@@ -146,6 +157,12 @@ namespace Scuti.UI
         public override void Bind()
         {
 
+        }
+
+        public override void Close()
+        {
+            isSelectCardMode = false;
+            base.Close();
         }
 
         public override void Open()
@@ -185,7 +202,7 @@ namespace Scuti.UI
                 {
                     Data.Card = new CreditCardData();
                     Data.Card.Reset();
-                    _cachedCard = cards.Last();
+                    _cachedCard = cards.Last();                    
                     ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
                   
                 }
@@ -237,6 +254,101 @@ namespace Scuti.UI
             TryToLoadData();
         }
 
+        #region Set Default Card
+
+        private async void GetCardDetailsForSelectCard(CreditCardView.CreditCardModel creditCardInfo)
+        {
+            UIManager.ShowLoading(false);
+            try
+            {
+                var rest = await ScutiAPI.GetCardDetails(creditCardInfo.id);
+                UIManager.HideLoading(false);               
+
+                if (rest != null)
+                {
+                    Debug.Log("NAME----------------: " + rest.Name);
+                    Data.Card.Name = rest.Name;
+                    SaveInformationForSelectCard(creditCardInfo);
+                }
+                //Data.Card.Name = rest.Name;
+                //Debug.Log("NAME 2----------------: " + rest.Name);
+                //SaveInformationForSelectCard(creditCardInfo);
+            }
+            catch (Exception ex)
+            {
+                UIManager.HideLoading(false);
+                UIManager.Alert.SetHeader("Error").SetBody("Card credit info failed.").SetButtonText("Ok").Show(() => { });
+                ScutiLogger.LogError(ex);
+            }
+        }
+
+        private void SaveInformationForSelectCard(CreditCardView.CreditCardModel creditCardInfo)
+        {
+
+            Data.Card.Number = creditCardInfo.number;
+            Data.Card.CVV = creditCardInfo.cvv;
+            Data.Card.CardType = creditCardInfo.scheme;
+            Data.Card.IsValid();
+            //Debug.Log("CONFIRM VALIDATION: " + Data.Card.IsValid());
+            //Debug.Log("CONFIRM VALIDATION: Name " + !string.IsNullOrEmpty(Data.Card.Name));
+            //Debug.Log("CONFIRM VALIDATION: Number " + !string.IsNullOrEmpty(Data.Card.Name));
+            //Debug.Log("CONFIRM VALIDATION: CVV " + !string.IsNullOrEmpty(Data.Card.Name));
+            //Debug.Log("CONFIRM VALIDATION: Scheme " + !string.IsNullOrEmpty(Data.Card.Name));
+
+
+            Submit();
+            Close();
+
+        }
+
+
+        private void ConfirmSetCardByDefault(CreditCardView.CreditCardModel creditCardInfo)
+        {
+            if (isSelectCardMode)
+            {
+
+                //Save data of Credit card selected
+                Data.Card = new CreditCardData();
+                Data.Card.Reset();
+                Data.Address = cardDetailForm.Data.Address;
+
+                GetCardDetailsForSelectCard(creditCardInfo);
+               
+            }
+            else 
+            {
+                Debug.Log("CardManager SetDefaultCard: " + creditCardInfo.scheme + " " + creditCardInfo.number);
+                UIManager.Confirmation.SetHeader("Default credit card").SetBody("Do you want to have the card with number " + creditCardInfo.number + " as default card?").SetPositive("Yes").SetNegative("No").Show((bool callback) => {
+                    if (callback)
+                        SetCardByDefault(creditCardInfo);
+                    else
+                        return;
+                });
+            }
+        }
+
+        private async void SetCardByDefault(CreditCardView.CreditCardModel creditCardInfo)
+        {
+            UIManager.ShowLoading(false);
+
+            try
+            {
+                await ScutiAPI.SetMyDefaultCard(creditCardInfo.id);
+                UIManager.HideLoading(false);
+
+            }
+            catch (Exception ex)
+            {
+                UIManager.HideLoading(false);
+                UIManager.Alert.SetHeader("Error").SetBody("Card credit info failed.").SetButtonText("Ok").Show(() => { });
+                ScutiLogger.LogError(ex);
+            }
+            UpdateCards();
+        }
+
+        #endregion
+
+        #region CardDetaildFom
 
         private void UpdatedValueData(CreditCardView.CreditCardModel creditCardInfo)
         {
@@ -288,6 +400,10 @@ namespace Scuti.UI
             cardDetailForm.Data.Address.Reset();
         }
 
+        #endregion
+
+        #region Testing
+
         // FOR TESTING
         public void BtnDeleteAllCards()
         {
@@ -301,6 +417,8 @@ namespace Scuti.UI
             cardDetailForm.DeleteAllCards(ids);
 
         }
+
+        #endregion
 
     }
 }
