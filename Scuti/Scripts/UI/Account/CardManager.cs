@@ -22,15 +22,13 @@ namespace Scuti.UI
             public AddressData Address;
         }
 
-        [SerializeField] CardDetailsForm cardDetailForm;
+       // [SerializeField] CardDetailsForm cardDetailForm;
         [SerializeField] List<CreditCardView> creditCardList;
         [SerializeField] GameObject emptyCardView;
         [SerializeField] CreditCardView prefabCards;
         [SerializeField] GameObject contentCards;
 
         private UserCard _cachedCard = null;
-        private bool _cachedAddress = false;
-        private bool _autoPurchase = false;
 
         private List<UserCard> _cardsInformation;
         public bool isSelectCardMode;
@@ -42,6 +40,18 @@ namespace Scuti.UI
             Data = new Model();
         }
 
+        #region Form methods
+        public override void Bind() { }
+        public override void Refresh() { }
+        public override Model GetDefaultDataObject()
+        {
+            var model = new Model() { Card = new CreditCardData() { ExpirationMonth = DateTime.Now.Month, ExpirationYear = DateTime.Now.Year }, Address = new AddressData() { Line2 = "" } };
+            model.Card.Reset();
+
+            return model; throw new NotImplementedException();
+        }
+
+        #endregion
 
         #region Card Info
 
@@ -120,22 +130,15 @@ namespace Scuti.UI
         }
 
         public override void Open()
-        {
-            // Find the CardDetailsForm component 
-            if (cardDetailForm == null)
-            {
-                var parent = GetComponentInParent<ViewSetInstantiator>();
-                cardDetailForm = (CardDetailsForm)parent.GetComponentInChildren(typeof(CardDetailsForm), true);
+        {                
+            UIManager.Card.onDeleteCard -= TryToLoadData;
+            UIManager.Card.onDeleteCard += TryToLoadData;
 
-                cardDetailForm.onDeleteCard -= TryToLoadData;
-                cardDetailForm.onDeleteCard += TryToLoadData;
+            UIManager.Card.onAddCard -= TryToLoadData;
+            UIManager.Card.onAddCard += TryToLoadData;
 
-                cardDetailForm.onAddCard -= TryToLoadData;
-                cardDetailForm.onAddCard += TryToLoadData;
-
-                cardDetailForm.onOpenCardDetails -= BtnAddNewCard;
-                cardDetailForm.onOpenCardDetails += BtnAddNewCard;
-            }
+            UIManager.Card.onOpenCardDetails -= BtnAddNewCard;
+            UIManager.Card.onOpenCardDetails += BtnAddNewCard;
 
             // Hide empty credit card view
             emptyCardView.gameObject.SetActive(false);
@@ -186,8 +189,7 @@ namespace Scuti.UI
                         Country = shippingInfo.Country,
                         City = shippingInfo.City
                     };
-                    _cachedAddress = true;
-                }                
+                }               
 
             }
             catch (Exception ex)
@@ -202,13 +204,8 @@ namespace Scuti.UI
                 }    
                 ScutiLogger.LogError(ex);
             }
-
         }
 
-        /*private void GetCardsInfo()
-        {
-            TryToLoadData();
-        }*/
 
         #region Set Default Card
 
@@ -255,7 +252,7 @@ namespace Scuti.UI
                 //Save data of Credit card selected
                 Data.Card = new CreditCardData();
                 Data.Card.Reset();
-                Data.Address = cardDetailForm.Data.Address;
+                Data.Address = UIManager.Card.Data.Address;
 
                 GetCardDetailsForSelectCard(creditCardInfo);
                
@@ -311,18 +308,18 @@ namespace Scuti.UI
 
                 if (rest != null)
                 {
-                    cardDetailForm.Data.Address.Line1 = rest.BillingAddress.Address1;
-                    cardDetailForm.Data.Address.Line2 = rest.BillingAddress.Address2;
-                    cardDetailForm.Data.Address.City = rest.BillingAddress.City;
-                    cardDetailForm.Data.Address.State = rest.BillingAddress.State;
-                    cardDetailForm.Data.Address.Country = rest.BillingAddress.Country;
-                    cardDetailForm.Data.Address.Zip = rest.BillingAddress.ZipCode;
+                    UIManager.Card.Data.Address.Line1 = rest.BillingAddress.Address1;
+                    UIManager.Card.Data.Address.Line2 = rest.BillingAddress.Address2;
+                    UIManager.Card.Data.Address.City = rest.BillingAddress.City;
+                    UIManager.Card.Data.Address.State = rest.BillingAddress.State;
+                    UIManager.Card.Data.Address.Country = rest.BillingAddress.Country;
+                    UIManager.Card.Data.Address.Zip = rest.BillingAddress.ZipCode;
 
-                    cardDetailForm.Data.Card.Name = rest.Name;
-                    cardDetailForm.CurrentCardId = rest.Id;
+                    UIManager.Card.Data.Card.Name = rest.Name;
+                    UIManager.Card.CurrentCardId = rest.Id;
 
-                    cardDetailForm.Data.Card.Number = "************"+rest.Last4;
-                    cardDetailForm.Data.Card.CardType = rest.Scheme;
+                    UIManager.Card.Data.Card.Number = "************"+rest.Last4;
+                    UIManager.Card.Data.Card.CardType = rest.Scheme;
                 }
             }
             catch (Exception ex)
@@ -330,18 +327,18 @@ namespace Scuti.UI
                 UIManager.HideLoading(false);
                 UIManager.Alert.SetHeader("Error").SetBody("Card credit info failed.").SetButtonText("Ok").Show(() => { });
                 ScutiLogger.LogError(ex);
-                cardDetailForm.Close();
-            }           
+                UIManager.Card.Close();
+            }
 
-            cardDetailForm.IsRemoveCardAvailable(true);
-            cardDetailForm.Refresh();
+            UIManager.Card.IsRemoveCardAvailable(true);
+            UIManager.Card.Refresh();
         }
 
         public void BtnAddNewCard()
         {
-            cardDetailForm.IsRemoveCardAvailable(false);
-            cardDetailForm.Data.Card.Reset();
-            cardDetailForm.Data.Address.Reset();
+            UIManager.Card.IsRemoveCardAvailable(false);
+            UIManager.Card.Data.Card.Reset();
+            UIManager.Card.Data.Address.Reset();
         }
 
         #endregion
@@ -357,19 +354,12 @@ namespace Scuti.UI
             {
                 ids[i] = creditCardList[i].GetId();
             }
-            cardDetailForm.DeleteAllCards(ids);
-        }
-
-        public override void Bind() { }     
-
-        public override void Refresh() { }
-
-        public override Model GetDefaultDataObject()
-        {
-            throw new NotImplementedException();
+            UIManager.Card.DeleteAllCards(ids);
         }
 
         #endregion
+
+        
 
     }
 }
