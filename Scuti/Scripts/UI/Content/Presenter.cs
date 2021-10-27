@@ -61,10 +61,5 @@ namespace Scuti {
             base.OnDestroy();
         }
 
-        public void Submit()
-        {
-            OnSubmit?.Invoke(m_Data);
-        }
-
     }
 }

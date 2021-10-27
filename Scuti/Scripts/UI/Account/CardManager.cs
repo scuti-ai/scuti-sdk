@@ -13,10 +13,10 @@ using System.Linq;
 
 namespace Scuti.UI
 {
-    public class CardManager : Presenter<CardManager.Model>
+    public class CardManager : Form<CardManager.Model>
     {
         [Serializable]
-        public class Model : Presenter.Model
+        public class Model : Form.Model
         {
             public CreditCardData Card;
             public AddressData Address;
@@ -67,7 +67,6 @@ namespace Scuti.UI
                 int diff = _cardsInformation.Count - creditCardList.Count; 
                 for(int i = 0; i < diff; i++)
                 {
-                    Debug.Log("CardManager Card difference CREATING: " + diff);
                     CreditCardView cardView = Instantiate<CreditCardView>(prefabCards, contentCards.transform);
                     creditCardList.Add(cardView);
                 }
@@ -358,10 +357,15 @@ namespace Scuti.UI
             {
                 ids[i] = creditCardList[i].GetId();
             }
-
             cardDetailForm.DeleteAllCards(ids);
-
         }
+
+        public override void Bind() { }     
+
+        public override void Refresh() { }
+
+        public override Model GetDefaultDataObject() { }
+
 
         #endregion
 
