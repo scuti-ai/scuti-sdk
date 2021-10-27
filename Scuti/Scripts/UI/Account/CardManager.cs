@@ -64,14 +64,13 @@ namespace Scuti.UI
             // It happens when you enter the first time
             if (creditCardList.Count <= _cardsInformation.Count)
             {
-                int index = _cardsInformation.Count - creditCardList.Count; 
-                for(int i = 0; i < index; i++)
+                int diff = _cardsInformation.Count - creditCardList.Count; 
+                for(int i = 0; i < diff; i++)
                 {
-                    Debug.Log("CardManager Card difference CREATING: " + index);
+                    Debug.Log("CardManager Card difference CREATING: " + diff);
                     CreditCardView cardView = Instantiate<CreditCardView>(prefabCards, contentCards.transform);
                     creditCardList.Add(cardView);
                 }
-                UpdateCardInfoView(); 
             }
             else
             {
@@ -80,14 +79,13 @@ namespace Scuti.UI
                 int countCards = creditCardList.Count;
                 for (int i = 0; i < diff; i++)
                 {
-                    Debug.Log("CardManager Card difference DELETING: " + diff);
                     Destroy(creditCardList[countCards - 1 - i].gameObject);
                     creditCardList.RemoveLast();
-                }
+                }                
+            }
 
-                UpdateCardInfoView();                        
+            UpdateCardInfoView();
 
-            }            
         }
 
         private void UpdateCardInfoView()
