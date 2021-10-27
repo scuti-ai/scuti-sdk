@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Scuti.UI
 {
-    public class CreditCardView : MonoBehaviour
+    public class CreditCardView : View
     {
         public class CreditCardModel
         {
@@ -61,7 +61,7 @@ namespace Scuti.UI
             onShowCardInfo?.Invoke(creditCardInfo);
         }
 
-        public void Hide()
+        /*public void Hide()
         {
             gameObject.SetActive(false);        
         }
@@ -69,7 +69,7 @@ namespace Scuti.UI
         public void Show()
         {
             gameObject.SetActive(true);
-        }
+        }*/
 
         public void ButtonOnSelectCard()
         {

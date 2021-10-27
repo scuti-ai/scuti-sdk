@@ -164,8 +164,6 @@ namespace Scuti.UI
 
         public void Save()
         {
-            Debug.Log("CardDetails save: " + cardType.text);
-
             if (!Evaluate())
             {
                 UIManager.Alert.SetHeader("Invalid Field").SetBody("Please ensure all form fields are filled in correctly.").SetButtonText("OK").Show(() => { });
@@ -178,7 +176,6 @@ namespace Scuti.UI
 
         public void Delete()
         {
-            Debug.Log("CardDetails Deleting Card: " + cardType.text);
             UIManager.Confirmation.SetHeader("Delete Card").SetBody("Are you sure to remove this card?").SetPositive("Yes").SetNegative("No").Show((bool callback) => {
                 if (callback)
                     DeleteCard();
@@ -263,8 +260,6 @@ namespace Scuti.UI
                     Data.Card.Encrypted,
                     GetBillingAddress());
 
-                Debug.Log("MakeDefault: " + Data.Card.MakeDefault);
-                Debug.Log("RES*******: " + rest.Id);
                 if (Data.Card.MakeDefault)
                 {
                     SetDefaultCard(rest.Id);
@@ -292,7 +287,6 @@ namespace Scuti.UI
         {
             try
             {
-                Debug.Log("SetDefault:...." + id);
                 await ScutiAPI.SetMyDefaultCard(id);
                 onAddCard?.Invoke();
                 Submit();

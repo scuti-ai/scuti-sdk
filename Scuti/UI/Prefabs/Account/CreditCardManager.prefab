@@ -302,13 +302,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Transitions: []
-  validatorGroup: {fileID: 0}
   cardDetailForm: {fileID: 0}
   creditCardList: []
   emptyCardView: {fileID: 2557878928394483211}
-  prefabCards: {fileID: 4620211842475903278, guid: efe4ea5271a83fb4f8d6d085a8cf2e50,
+  prefabCards: {fileID: 7545675114154548324, guid: efe4ea5271a83fb4f8d6d085a8cf2e50,
     type: 3}
   contentCards: {fileID: 1217844895497756}
+  isSelectCardMode: 0
 --- !u!1 &1318380157881532
 GameObject:
   m_ObjectHideFlags: 0

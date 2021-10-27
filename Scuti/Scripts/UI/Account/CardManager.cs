@@ -25,13 +25,14 @@ namespace Scuti.UI
         [SerializeField] CardDetailsForm cardDetailForm;
         [SerializeField] List<CreditCardView> creditCardList;
         [SerializeField] GameObject emptyCardView;
-        [SerializeField] GameObject prefabCards;
+        [SerializeField] CreditCardView prefabCards;
         [SerializeField] GameObject contentCards;
 
         private UserCard _cachedCard = null;
         private bool _cachedAddress = false;
         private bool _autoPurchase = false;
 
+        private List<UserCard> _cardsInformation;
         public bool isSelectCardMode;
 
 
@@ -40,133 +41,80 @@ namespace Scuti.UI
             base.Awake();
             Data = new Model();
         }
-        
-        /*public override CardDetailsForm.Model GetDefaultDataObject()
-        {
-            var model = new CardDetailsForm.Model() { Card = new CreditCardData() { ExpirationMonth = DateTime.Now.Month, ExpirationYear = DateTime.Now.Year }, Address = new AddressData() { Line2 = "" } };
-            model.Card.Reset();
 
-            return model;
-        }*/
+
+        #region Card Info
 
         /// <summary>
         /// Instance and update the credit cards when it starts. It also updates when cards are removed and added during the session.
         /// </summary>
         /// <param name="cards"></param>
-        public void CreateAndUpdateCardsView(List<UserCard> cards)
+        public void CreateAndUpdateCardsView()
         {
             // If a card does not exist, display the empty card.
-            if (cards.Count <= 0)            
-                emptyCardView.gameObject.SetActive(true);                        
-            else            
-                emptyCardView.gameObject.SetActive(false);                           
-
-
-            if (creditCardList.Count == 0)
+            if (_cardsInformation.Count <= 0)
             {
-                if(cards.Count > 0)
-                {
-                    // If dont exist card created
-                    for (int i = 0; i < cards.Count; i++)
-                    {
-                        var card = Instantiate(prefabCards, contentCards.transform);
-                        CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
-
-                        creditCardInfo.id = cards[i].Id;
-                        creditCardInfo.scheme = cards[i].Scheme;
-                        creditCardInfo.number = cards[i].Last4;
-                        creditCardInfo.cvv = cards[i].Id;
-                        creditCardInfo.isDefault = (bool)cards[i].IsDefault;
-                        creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
-                        
-                        CreditCardView cardView = card.GetComponent<CreditCardView>();
-                        cardView.onShowCardInfo -= UpdatedValueData;
-                        cardView.onShowCardInfo += UpdatedValueData;
-                        cardView.onSelectCard -= ConfirmSetCardByDefault;
-                        cardView.onSelectCard += ConfirmSetCardByDefault;
-
-                        creditCardList.Add(cardView);
-                        cardView.Refresh(creditCardInfo);
-                    }
-                }          
+                emptyCardView.gameObject.SetActive(true);                
             }
-
             else
             {
-                // Hide all current credit card views
-                for (int i = 0; i < creditCardList.Count; i++)
+                emptyCardView.gameObject.SetActive(false);
+            }
+
+            // It happens when you enter the first time
+            if (creditCardList.Count <= _cardsInformation.Count)
+            {
+                int index = _cardsInformation.Count - creditCardList.Count; 
+                for(int i = 0; i < index; i++)
                 {
-                    creditCardList[i].Hide();
+                    Debug.Log("CardManager Card difference CREATING: " + index);
+                    CreditCardView cardView = Instantiate<CreditCardView>(prefabCards, contentCards.transform);
+                    creditCardList.Add(cardView);
+                }
+                UpdateCardInfoView(); 
+            }
+            else
+            {
+                // Reusing the created cards and update the information.
+                int diff =  creditCardList.Count - _cardsInformation.Count;
+                int countCards = creditCardList.Count;
+                for (int i = 0; i < diff; i++)
+                {
+                    Debug.Log("CardManager Card difference DELETING: " + diff);
+                    Destroy(creditCardList[countCards - 1 - i].gameObject);
+                    creditCardList.RemoveLast();
                 }
 
-                if(creditCardList.Count >= cards.Count)
-                {
-                    for (int i = 0; i < cards.Count; i++)
-                    {
-                        CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
+                UpdateCardInfoView();                        
 
-                        creditCardInfo.id = cards[i].Id;
-                        creditCardInfo.scheme = cards[i].Scheme;
-                        creditCardInfo.number = cards[i].Last4;
-                        creditCardInfo.cvv = cards[i].Id;
-                        creditCardInfo.isDefault = (bool)cards[i].IsDefault;
-                        creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
-                        
-                        creditCardList[i].onShowCardInfo -= UpdatedValueData;
-                        creditCardList[i].onShowCardInfo += UpdatedValueData;
-                        creditCardList[i].onSelectCard -= ConfirmSetCardByDefault;
-                        creditCardList[i].onSelectCard += ConfirmSetCardByDefault;
-
-                        creditCardList[i].Refresh(creditCardInfo);
-                        creditCardList[i].Show();
-                    }
-                }
-                else if(creditCardList.Count < cards.Count)
-                {
-                    int index = cards.Count - creditCardList.Count;
-
-                    for (int i = 0; i < index; i++)
-                    {
-                        var card = Instantiate(prefabCards, contentCards.transform);
-                        CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
-                        CreditCardView cardView = card.GetComponent<CreditCardView>();
-                        cardView.onShowCardInfo -= UpdatedValueData;
-                        cardView.onShowCardInfo += UpdatedValueData;
-                        cardView.onSelectCard -= ConfirmSetCardByDefault;
-                        cardView.onSelectCard += ConfirmSetCardByDefault;
-                        creditCardList.Add(cardView);
-                    }
-
-                    for (int i = 0; i < cards.Count; i++)
-                    {
-                        CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
-                        creditCardInfo.id = cards[i].Id;
-                        creditCardInfo.scheme = cards[i].Scheme;
-                        creditCardInfo.number = cards[i].Last4;
-                        creditCardInfo.cvv = cards[i].Id;
-                        creditCardInfo.isDefault = (bool)cards[i].IsDefault;
-                        creditCardInfo.date = cards[i].ExpiryMonth.ToString() + "/" + cards[i].ExpiryYear.ToString().Substring(cards[i].ExpiryYear.ToString().Length - 2);
-                        creditCardList[i].onShowCardInfo -= UpdatedValueData;
-                        creditCardList[i].onShowCardInfo += UpdatedValueData;
-                        creditCardList[i].onSelectCard -= ConfirmSetCardByDefault;
-                        creditCardList[i].onSelectCard += ConfirmSetCardByDefault;
-                        creditCardList[i].Refresh(creditCardInfo);
-                        creditCardList[i].Show();
-                    }
-                }
             }            
         }
 
-
-        /*public override void Refresh()
+        private void UpdateCardInfoView()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < _cardsInformation.Count; i++)
+            {
+                CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
+
+                creditCardInfo.id = _cardsInformation[i].Id;
+                creditCardInfo.scheme = _cardsInformation[i].Scheme;
+                creditCardInfo.number = _cardsInformation[i].Last4;
+                creditCardInfo.cvv = _cardsInformation[i].Id;
+                creditCardInfo.isDefault = (bool)_cardsInformation[i].IsDefault;
+                creditCardInfo.date = _cardsInformation[i].ExpiryMonth.ToString() + "/" + _cardsInformation[i].ExpiryYear.ToString().Substring(2, 2);
+
+                creditCardList[i].onShowCardInfo -= UpdatedValueData;
+                creditCardList[i].onShowCardInfo += UpdatedValueData;
+                creditCardList[i].onSelectCard -= ConfirmSetCardByDefault;
+                creditCardList[i].onSelectCard += ConfirmSetCardByDefault;
+
+                creditCardList[i].Refresh(creditCardInfo);
+                creditCardList[i].Open();
+            }
         }
 
-        public override void Bind()
-        {
-            throw new NotImplementedException();
-        }*/
+        #endregion
+
 
         public override void Close()
         {
@@ -176,8 +124,6 @@ namespace Scuti.UI
 
         public override void Open()
         {
-            Debug.Log("CardMananger: OPENED");
-
             // Find the CardDetailsForm component 
             if (cardDetailForm == null)
             {
@@ -227,8 +173,8 @@ namespace Scuti.UI
                 }
 
                 // Save credit cards info
-                List<UserCard> cardAux = (List<UserCard>)cards;
-                CreateAndUpdateCardsView(cardAux);
+                _cardsInformation = (List<UserCard>)cards;
+                CreateAndUpdateCardsView();
 
                 var shippingInfo = await ScutiAPI.GetShippingInfo();
                 if (shippingInfo != null)
@@ -282,9 +228,6 @@ namespace Scuti.UI
                     Data.Card.Name = rest.Name;
                     SaveInformationForSelectCard(creditCardInfo);
                 }
-                //Data.Card.Name = rest.Name;
-                //Debug.Log("NAME 2----------------: " + rest.Name);
-                //SaveInformationForSelectCard(creditCardInfo);
             }
             catch (Exception ex)
             {

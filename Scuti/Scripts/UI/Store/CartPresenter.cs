@@ -104,7 +104,7 @@ namespace Scuti.UI
             get { return Data.Items == null || Data.Items.Count == 0; }
         }
 
-        private List<UserCard> cardAux;
+        private List<UserCard> _cardsInformation;
 
         // ================================================
         // INITIALIZATION
@@ -146,13 +146,13 @@ namespace Scuti.UI
                         Data.Card.Reset();
                         _cachedCard = cards.Last();
 
-                        cardAux = (List<UserCard>)cards;
+                        _cardsInformation = (List<UserCard>)cards;
 
-                        for (int i = 0; i < cardAux.Count; i++)
+                        for (int i = 0; i < _cardsInformation.Count; i++)
                         {
-                            if ((bool)cardAux[i].IsDefault)
+                            if ((bool)_cardsInformation[i].IsDefault)
                             {
-                                _cachedCard = cardAux[i];
+                                _cachedCard = _cardsInformation[i];
                                 break;
                             }
                         }
@@ -621,7 +621,7 @@ namespace Scuti.UI
         private void OnCreditCard(CardManager.Model data)
         {
             // Search in payment method list for one with "id" that matches payment method in "data"
-            _cachedCard = cardAux.Find(f => f.Last4 == data.Card.Number);
+            _cachedCard = _cardsInformation.Find(f => f.Last4 == data.Card.Number);
             _cachedAddress = false;
 
             Data.Card = data.Card;
