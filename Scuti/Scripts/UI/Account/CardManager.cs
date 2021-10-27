@@ -364,8 +364,10 @@ namespace Scuti.UI
 
         public override void Refresh() { }
 
-        public override Model GetDefaultDataObject() { }
-
+        public override Model GetDefaultDataObject()
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 
