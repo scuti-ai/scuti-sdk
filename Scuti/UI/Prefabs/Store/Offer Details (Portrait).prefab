@@ -86,7 +86,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: SIZE & FIT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
     type: 2}
   m_fontSharedMaterials: []
@@ -959,9 +959,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1187,7 +1186,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'John Doe: Comfortable'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
     type: 2}
   m_fontSharedMaterials: []
@@ -1343,7 +1342,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: (4.8)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
     type: 2}
   m_fontSharedMaterials: []
@@ -1572,9 +1571,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Reviews
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2367,9 +2365,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 44
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3196,9 +3193,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3663,9 +3659,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: BASKETBALL SHOE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4289,9 +4284,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ADD TO CART
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5466,7 +5460,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Transitions: []
-  m_ScutiReward: {fileID: 0}
+  m_ScutiReward: {fileID: 7668912152112769447}
 --- !u!114 &3216824939625507129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5718,7 +5712,7 @@ MonoBehaviour:
   m_text: These were a gift for my nephew for Christmas and he loved them and they
     fit perfectly
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
     type: 2}
   m_fontSharedMaterials: []
@@ -5874,9 +5868,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: SHARE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6051,8 +6044,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: KYRIES 6 GOLD EDITION
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: e20d31e7d3e9e2845bdab19f9edbeb40, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6077,7 +6070,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 41
+  m_fontSize: 44.75
   m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6441,9 +6434,8 @@ MonoBehaviour:
   m_text: Designed for Kyrie Irving's creative and unpredictable game. The Kyries
     6 focuses on comfort control and energy return to help him go fast and stay fresh,
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6850,9 +6842,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $130
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7303,7 +7294,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: REVIEWS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
     type: 2}
   m_fontSharedMaterials: []
@@ -7459,9 +7450,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: You Get
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8250,9 +8240,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: RECOMMENDED ITEMS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8991,9 +8980,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: +2000 SCUTIS
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9781,9 +9769,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9937,9 +9924,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: (4.8)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10515,7 +10501,7 @@ MonoBehaviour:
     - The shoe won''t feel as tight over time as the Fluknit upper relaxes slightly
     and as the beads conform to your foot.'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
     type: 2}
   m_fontSharedMaterials: []
@@ -11211,8 +11197,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Brand Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: e20d31e7d3e9e2845bdab19f9edbeb40, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -11833,7 +11819,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
     type: 2}
   m_fontSharedMaterials: []
@@ -12261,7 +12247,7 @@ MonoBehaviour:
   m_text: These were a gift for my nephew for Christmas and he loved them and they
     fit perfectly
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
     type: 2}
   m_fontSharedMaterials: []
@@ -12554,7 +12540,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'John Doe: Comfortable'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
     type: 2}
   m_fontSharedMaterials: []
@@ -12782,9 +12768,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Title
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12938,7 +12923,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
     type: 2}
   m_fontSharedMaterials: []
@@ -13561,7 +13546,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
     type: 2}
   m_fontSharedMaterials: []
@@ -13834,9 +13819,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14484,9 +14468,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: BUY NOW
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14712,7 +14695,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Title
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
+  m_fontAsset: {fileID: 0}
   m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
     type: 2}
   m_fontSharedMaterials: []
@@ -14868,9 +14851,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Title
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -15223,7 +15205,7 @@ PrefabInstance:
     - target: {fileID: 5024582829128870857, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1160
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 5024582829128870857, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
