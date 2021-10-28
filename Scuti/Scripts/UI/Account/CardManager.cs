@@ -22,7 +22,6 @@ namespace Scuti.UI
             public AddressData Address;
         }
 
-       // [SerializeField] CardDetailsForm cardDetailForm;
         [SerializeField] List<CreditCardView> creditCardList;
         [SerializeField] GameObject emptyCardView;
         [SerializeField] CreditCardView prefabCards;
@@ -162,8 +161,6 @@ namespace Scuti.UI
                     Data.Card.Reset();
                     _cachedCard = cards.Last();
                     ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
-
-
                 }
                 else if (Data.Card == null)
                 {
@@ -209,6 +206,7 @@ namespace Scuti.UI
 
         #region Set Default Card
 
+        // Get information from the credit card selected
         private async void GetCardDetailsForSelectCard(CreditCardView.CreditCardModel creditCardInfo)
         {
             UIManager.ShowLoading(false);
@@ -231,31 +229,29 @@ namespace Scuti.UI
             }
         }
 
+        // Save the selected card information in the shopping cart.
         private void SaveInformationForSelectCard(CreditCardView.CreditCardModel creditCardInfo)
         {
-
             Data.Card.Number = creditCardInfo.number;
             Data.Card.CVV = creditCardInfo.cvv;
             Data.Card.CardType = creditCardInfo.scheme;
             Data.Card.IsValid();
             Submit();
             Close();
-
         }
 
-
+        // Select a card for purchase in the cart or open confirmation popup to select default card.
+        // Depending on the instance, If you are in the shopping cart or in the payment methods.
         private void ConfirmSetCardByDefault(CreditCardView.CreditCardModel creditCardInfo)
         {
             if (isSelectCardMode)
             {
-
                 //Save data of Credit card selected
                 Data.Card = new CreditCardData();
                 Data.Card.Reset();
                 Data.Address = UIManager.Card.Data.Address;
 
-                GetCardDetailsForSelectCard(creditCardInfo);
-               
+                GetCardDetailsForSelectCard(creditCardInfo);               
             }
             else 
             {               
@@ -268,6 +264,7 @@ namespace Scuti.UI
             }
         }
 
+        // Call the endpoint to set the default credit card after confirmation.
         private async void SetCardByDefault(CreditCardView.CreditCardModel creditCardInfo)
         {
             UIManager.ShowLoading(false);
@@ -292,6 +289,7 @@ namespace Scuti.UI
 
         #region CardDetaildFom
 
+        // Get detailed information of the card to be edited or removed.
         private void UpdatedValueData(CreditCardView.CreditCardModel creditCardInfo)
         {
             GetCardDetails(creditCardInfo);           
@@ -341,25 +339,7 @@ namespace Scuti.UI
             UIManager.Card.Data.Address.Reset();
         }
 
-        #endregion
-
-        #region Testing
-
-        // FOR TESTING
-        public void BtnDeleteAllCards()
-        {
-            string[] ids = new string[creditCardList.Count];
-
-            for (int i = 0; i < ids.Length; i++)
-            {
-                ids[i] = creditCardList[i].GetId();
-            }
-            UIManager.Card.DeleteAllCards(ids);
-        }
-
-        #endregion
-
-        
+        #endregion        
 
     }
 }
