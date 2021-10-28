@@ -135,37 +135,32 @@ namespace Scuti.UI
         {
             try
             {
-                //if (_cachedCard == null)
-                //{
-                    var cards = await ScutiAPI.GetPayments();
-                    if(cards!=null && cards.Count>0)
+                var cards = await ScutiAPI.GetPayments();
+                if(cards!=null && cards.Count>0)
+                {
+                    Data.Card = new CreditCardData();
+                    Data.Card.Reset();
+                    _cachedCard = cards.Last();
+
+                    _cardsInformation = (List<UserCard>)cards;
+
+                    for (int i = 0; i < _cardsInformation.Count; i++)
                     {
-                        Data.Card = new CreditCardData();
-                        Data.Card.Reset();
-                        _cachedCard = cards.Last();
-
-                        _cardsInformation = (List<UserCard>)cards;
-
-                        for (int i = 0; i < _cardsInformation.Count; i++)
+                        if ((bool)_cardsInformation[i].IsDefault)
                         {
-                            if ((bool)_cardsInformation[i].IsDefault)
-                            {
-                                _cachedCard = _cardsInformation[i];
-                                break;
-                            }
+                            _cachedCard = _cardsInformation[i];
+                            break;
                         }
-                        RefreshText();
-                        //Debug.Log("----------- CartPresenter: IsDefault: " + _cachedCard.Scheme);
-
-                        ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
+                    }
+                    RefreshText();
+                    ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
                         
-                    } 
-                    else if(Data.Card==null)
-                    {
-                        Data.Card = new CreditCardData();
-                        Data.Card.Reset();
-                    } 
-                //}
+                } 
+                else if(Data.Card==null)
+                {
+                    Data.Card = new CreditCardData();
+                    Data.Card.Reset();
+                } 
 
                 if (!_cachedAddress)
                 {
@@ -427,13 +422,11 @@ namespace Scuti.UI
                     if (_cachedCard != null)
                     {
                         UIManager.Open(UIManager.CVV);
-                        UIManager.CVV.SetButtonText("CONFIRM").Show(OnCVV);
-                       
+                        UIManager.CVV.SetButtonText("CONFIRM").Show(OnCVV);                       
 
                     } else if (Data.Card!=null && Data.Card.IsValid())
                     {
                         paymentSource = new PaymentSource() { Type = PaymentSourceType.Card, Card = new CreditCard() {  BillingAddress = GetBillingAddress(),    Encrypted = Data.Card.Encrypted, ExpiryMonth = Data.Card.ExpirationMonth, ExpiryYear = Data.Card.ExpirationYear, Name = Data.Card.Name  }, Persist = Data.Card.SaveCard };
-                        Debug.Log("CarPresenter: Checkout " + paymentSource.SerializeJSON());
                         CheckoutHelper(paymentSource);
                     } else
                     {

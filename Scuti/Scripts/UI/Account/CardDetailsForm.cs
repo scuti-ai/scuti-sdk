@@ -216,9 +216,8 @@ namespace Scuti.UI
             try
             {       
                 string[] ids = new string[1] { _currentCardId };
-                //
                 await ScutiAPI.DeleteCard(ids);
-                //
+
                 onDeleteCard?.Invoke();
                 Submit();
                 Close();
@@ -254,7 +253,7 @@ namespace Scuti.UI
                 cardDetails["cvv"] = Data.Card.CVV;
                 EncryptedInput encryptedInput = await ScutiUtils.Encrypt(cardDetails.ToJson().ToUTF8Bytes());
                 Data.Card.Encrypted = encryptedInput;
-                //
+
                 var rest = await ScutiAPI.CreateOrReplaceCard(Data.Card.ExpirationMonth, Data.Card.ExpirationYear,
                     Data.Card.Name,
                     Data.Card.Encrypted,
@@ -320,11 +319,7 @@ namespace Scuti.UI
 
             }
 
-            //if (cachedCard != null)
-            //{
-            //    Data.Card = new CreditCardData() { CardType = cachedCard.;
-            //}
-                Refresh();
+            Refresh();
         }
 
         // --------------------------------------
