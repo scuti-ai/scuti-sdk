@@ -426,7 +426,7 @@ namespace Scuti.UI
 
                     } else if (Data.Card!=null && Data.Card.IsValid())
                     {
-                        paymentSource = new PaymentSource() { Type = PaymentSourceType.Card, Card = new CreditCard() {  BillingAddress = GetBillingAddress(),    Encrypted = Data.Card.Encrypted, ExpiryMonth = Data.Card.ExpirationMonth, ExpiryYear = Data.Card.ExpirationYear, Name = Data.Card.Name  }, Persist = Data.Card.SaveCard };
+                        paymentSource = new PaymentSource() { Type = PaymentSourceType.Card, Card = new CreditCard() {  BillingAddress = GetBillingAddress(),    Encrypted = Data.Card.Encrypted, ExpiryMonth = Data.Card.ExpirationMonth, ExpiryYear = Data.Card.ExpirationYear, Name = Data.Card.Name  }, Persist = true};
                         CheckoutHelper(paymentSource);
                     } else
                     {
