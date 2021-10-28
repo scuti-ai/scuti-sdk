@@ -46,12 +46,12 @@ public class ScutiButton : MonoBehaviour
     private async void CheckNewOffers()
     {
         var stats = await ScutiAPI.GetCategoryStatistics();
-        NotificationIcon.SetActive(false);
+        NewItems.SetActive(false);
         if (stats!=null)
         {
             if(stats.NewOffers.HasValue && stats.NewOffers.Value>0)
             {
-                NotificationIcon.SetActive(true);
+                NewItems.SetActive(true);
             }
         }
     }
