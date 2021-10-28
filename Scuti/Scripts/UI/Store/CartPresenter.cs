@@ -127,8 +127,6 @@ namespace Scuti.UI
             base.Open();
 
             TryToLoadData(_autoPurchase);
-            //if (_cachedCard == null || !_cachedAddress) TryToLoadData(_autoPurchase);
-            //else UpdatePriceBreakdown(_autoPurchase);
             _autoPurchase = false;
         }
 
@@ -463,8 +461,7 @@ namespace Scuti.UI
 
             var paymentSource = new PaymentSource() { Type = PaymentSourceType.StoredCard, Id = _cachedCard.Id };
             paymentSource.Encrypted = await ScutiUtils.Encrypt(data.ToJson().ToUTF8Bytes());
-
-            Debug.Log("CarPresenter: CVVHELPER "+paymentSource.SerializeJSON());
+        
             CheckoutHelper(paymentSource);
 
         }

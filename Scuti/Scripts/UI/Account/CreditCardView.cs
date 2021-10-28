@@ -61,16 +61,6 @@ namespace Scuti.UI
             onShowCardInfo?.Invoke(creditCardInfo);
         }
 
-        /*public void Hide()
-        {
-            gameObject.SetActive(false);        
-        }
-
-        public void Show()
-        {
-            gameObject.SetActive(true);
-        }*/
-
         public void ButtonOnSelectCard()
         {
             onSelectCard?.Invoke(creditCardInfo);
