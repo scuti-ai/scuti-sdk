@@ -942,7 +942,7 @@ MonoBehaviour:
   Transitions:
   - {fileID: 4888161724614865309}
   animator: {fileID: 0}
-  ShowDuration: 3
+  ShowDuration: 1
 --- !u!1 &8801893823883368387
 GameObject:
   m_ObjectHideFlags: 0
