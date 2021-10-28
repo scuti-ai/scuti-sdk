@@ -2119,8 +2119,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114727241279556488}
   m_HandleRect: {fileID: 224257659059251314}
   m_Direction: 2
-  m_Value: 0.99999994
-  m_Size: 0.33466086
+  m_Value: 1
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3828,7 +3828,7 @@ MonoBehaviour:
   inputField: {fileID: 114764757030834982}
   mode: 1
   msgOnEmpty: Card Number
-  msgOnInvalid: Please enter a valid card numer
+  msgOnInvalid: Please use VISA or Mastercard Only
   CardTypeLabel: {fileID: 114265804111848268}
 --- !u!1 &1420224684786732
 GameObject:

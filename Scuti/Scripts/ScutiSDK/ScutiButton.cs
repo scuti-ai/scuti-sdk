@@ -6,10 +6,12 @@ using System;
 public class ScutiButton : MonoBehaviour
 {
     public GameObject NotificationIcon;
+    public GameObject NewItems;
 
     private void Awake()
     {
         NotificationIcon.SetActive(true);
+        NewItems.SetActive(false);
     }
 
     public void Start()
@@ -24,6 +26,14 @@ public class ScutiButton : MonoBehaviour
             {
                 ScutiNetClient.Instance.OnAuthenticated += CheckRewards;
             }
+
+            if(ScutiNetClient.Instance.IsInitialized)
+            {
+                CheckNewOffers();
+            } else
+            {
+                ScutiNetClient.Instance.OnInitialization += CheckNewOffers;
+            }
         }  
     }
 
@@ -33,12 +43,26 @@ public class ScutiButton : MonoBehaviour
         NotificationIcon.SetActive(false);
     }
 
+    private async void CheckNewOffers()
+    {
+        var stats = await ScutiAPI.GetCategoryStatistics();
+        NotificationIcon.SetActive(false);
+        if (stats!=null)
+        {
+            if(stats.NewOffers.HasValue && stats.NewOffers.Value>0)
+            {
+                NotificationIcon.SetActive(true);
+            }
+        }
+    }
+
+
     private async void CheckRewards()
     {
-        var rewards = await ScutiAPI.GetRewards(); 
-        foreach(var reward in rewards)
+        var rewards = await ScutiAPI.GetRewards();
+        foreach (var reward in rewards)
         {
-            if(reward.Activated==false)
+            if (reward.Activated == false)
             {
                 NotificationIcon.SetActive(true);
                 return;
@@ -53,6 +77,7 @@ public class ScutiButton : MonoBehaviour
         if (ScutiNetClient.Instance != null)
         {
             ScutiNetClient.Instance.OnAuthenticated -= CheckRewards;
+            ScutiNetClient.Instance.OnInitialization -= CheckNewOffers;
         }
     }
 
