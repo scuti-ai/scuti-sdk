@@ -98,6 +98,9 @@ namespace Scuti.UI
 
         private void UpdateCardInfoView()
         {
+            // It sorts the UserCard list in increasing order according to the last card numbers.
+            _cardsInformation = _cardsInformation.OrderBy(f => (f.Last4)).ToList(); ;
+
             for (int i = 0; i < _cardsInformation.Count; i++)
             {
                 CreditCardView.CreditCardModel creditCardInfo = new CreditCardView.CreditCardModel();
