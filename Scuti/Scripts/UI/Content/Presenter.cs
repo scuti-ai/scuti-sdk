@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Scuti {
     public abstract class Presenter<T> : View<T> where T : Presenter.Model {
+
+        public event Action<T> OnSubmit;
+
         /// <summary>
         /// The state object for the <see cref="StatefulUI"/> instance
         /// </summary> 
@@ -22,6 +25,7 @@ namespace Scuti {
 
 
         public virtual void SetData(T data) {
+
             if (_destroyed) return;
             if (data == null)
                 throw new Exception("Cannot set Presenter.Data to null");
@@ -30,6 +34,7 @@ namespace Scuti {
             m_Data = data;
             if (m_Data != null) m_Data.OnEvent += OnEvent;
             OnSetState();
+
         }
 
         /// <summary>

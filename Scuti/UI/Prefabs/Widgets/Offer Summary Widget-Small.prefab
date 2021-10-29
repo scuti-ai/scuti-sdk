@@ -961,9 +961,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Searching for best deals
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 32e824016a68a6f4791104da92d25a05, type: 2}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1040,7 +1039,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -2567,8 +2566,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: BEATS HEADPHONES
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: e20d31e7d3e9e2845bdab19f9edbeb40, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 32e824016a68a6f4791104da92d25a05, type: 2}
+  m_sharedMaterial: {fileID: 21009341903750942, guid: 32e824016a68a6f4791104da92d25a05,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2598,7 +2598,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 20
-  m_fontSizeMax: 46
+  m_fontSizeMax: 32
   m_fontStyle: 1
   m_textAlignment: 513
   m_characterSpacing: 0
@@ -3018,9 +3018,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 4.8
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 32e824016a68a6f4791104da92d25a05, type: 2}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3097,7 +3096,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -3624,8 +3623,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: $999.00
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
+  m_fontAsset: {fileID: 11400000, guid: 32e824016a68a6f4791104da92d25a05, type: 2}
+  m_sharedMaterial: {fileID: 21009341903750942, guid: 32e824016a68a6f4791104da92d25a05,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4091,8 +4090,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Brand Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 42fade36b1b1a7b41876618e3a9a70ab, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: e20d31e7d3e9e2845bdab19f9edbeb40, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 32e824016a68a6f4791104da92d25a05, type: 2}
+  m_sharedMaterial: {fileID: 21009341903750942, guid: 32e824016a68a6f4791104da92d25a05,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

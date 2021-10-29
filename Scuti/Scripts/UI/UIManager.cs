@@ -221,6 +221,11 @@ namespace Scuti.UI {
             get { return Account["CARD"] as CardDetailsForm; }
         }
 
+        public static CardManager CardManager
+        {
+            get { return Account["CARD-MANAGER"] as CardManager; }
+        }
+
         // STORE
         public static VideoView VideoPlayer
         {

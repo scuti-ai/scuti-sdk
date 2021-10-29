@@ -32,14 +32,14 @@ namespace Scuti {
             }
 
             var cardType = GetCardType(input);
-            if (cardType == CardType.Unknown) {
-                SetInvalid(msgOnInvalid);
-                return false;
-            }
-            else {
+            if (cardType == CardType.VISA || cardType == CardType.MasterCard) {
                 CardTypeLabel.text = cardType.ToString();
                 SetValid();
                 return true;
+            }
+            else {
+                SetInvalid(msgOnInvalid);
+                return false;
             }
         }
 

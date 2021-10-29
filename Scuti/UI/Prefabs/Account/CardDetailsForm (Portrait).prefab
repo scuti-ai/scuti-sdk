@@ -699,12 +699,14 @@ MonoBehaviour:
   Transitions:
   - {fileID: 114371257765813596}
   validatorGroup: {fileID: 114159551091383356}
+  contentCardDetails: {fileID: 224586831419399576}
   cardholderNameInput: {fileID: 114850107171657360}
   cardNumberInput: {fileID: 114764757030834982}
   cvvInput: {fileID: 114197984530436824}
   cardType: {fileID: 114265804111848268}
   makeDefaultToggle: {fileID: 114465827455072308}
   saveButton: {fileID: 114079176669205736}
+  removeCardButton: {fileID: 114202428513056562}
   line1Input: {fileID: 114642279647179638}
   line2Input: {fileID: 114888464032550856}
   cityInput: {fileID: 114058632699141244}
@@ -2118,7 +2120,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224257659059251314}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9865128
+  m_Size: 0.14503124
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3826,7 +3828,7 @@ MonoBehaviour:
   inputField: {fileID: 114764757030834982}
   mode: 1
   msgOnEmpty: Card Number
-  msgOnInvalid: Please enter a valid card numer
+  msgOnInvalid: Please use VISA or Mastercard Only
   CardTypeLabel: {fileID: 114265804111848268}
 --- !u!1 &1420224684786732
 GameObject:
@@ -5322,6 +5324,7 @@ GameObject:
   - component: {fileID: 114850107171657360}
   - component: {fileID: 114287775528405154}
   - component: {fileID: 114544491118501614}
+  - component: {fileID: 2193582358624900781}
   m_Layer: 5
   m_Name: CardholderNameInput
   m_TagString: Untagged
@@ -5461,6 +5464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   validators:
   - {fileID: 114544491118501614}
+  - {fileID: 2193582358624900781}
   messageText: {fileID: 114702375544449172}
   msgOnValid: Cardholder's Name
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
@@ -5481,11 +5485,30 @@ MonoBehaviour:
   isValid: 0
   inputField: {fileID: 114850107171657360}
   mode: 1
-  minLength: 1
+  minLength: 3
   maxLength: 2147483647
   msgOnNoValue: Please enter a name
   msgOnShortValue: 
   msgOnLongValue: 
+--- !u!114 &2193582358624900781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547398374939290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f2a7992f8d6d5a4ebac3ef7ce0f2042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: 
+  isValid: 0
+  inputField: {fileID: 114850107171657360}
+  mode: 1
+  requiredSubstrings:
+  - ' '
+  msgOnInvalid: Please enter your first and last name
 --- !u!1 &1561895870851020
 GameObject:
   m_ObjectHideFlags: 0
@@ -9250,7 +9273,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114961355867730450}
-        m_MethodName: Save
+        m_MethodName: Delete
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9988,7 +10011,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &224232764216612730
 RectTransform:
   m_ObjectHideFlags: 0

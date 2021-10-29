@@ -160,7 +160,8 @@ namespace Scuti.UI {
             VariantChanged?.Invoke();
         }
 
-        protected override void OnSetState() {
+        protected override void OnSetState()
+        {
             quantityStepper.Value = Data.Quantity;
 
             firstVariantLabel.text = string.IsNullOrEmpty(Data.Option1) ? string.Empty : Data.Option1;

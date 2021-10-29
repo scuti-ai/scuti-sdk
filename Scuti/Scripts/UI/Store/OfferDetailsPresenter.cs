@@ -62,6 +62,7 @@ namespace Scuti.UI
             rewardWidget.Data = Data.Reward;
             feedbackWidget.Data = Data.Feedback;
             showcaseWidget.Data = Data.Showcase;
+            Debug.Log("DataCustomización: " + Data.Customization.SerializeJSON());
             customizationWidget.Data = Data.Customization;
             if(DescriptionScrollContent) DescriptionScrollContent.verticalNormalizedPosition = 1;
             RecommendedWidget.SearchForRecommendations(Data.ShopName, Data.Info.ID);

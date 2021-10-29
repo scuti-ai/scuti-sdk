@@ -21,12 +21,15 @@ namespace Scuti.UI
             public AddressData Address;
         }
 
+        [SerializeField] RectTransform contentCardDetails;
+
         [SerializeField] InputField cardholderNameInput;
         [SerializeField] InputField cardNumberInput;
         [SerializeField] InputField cvvInput;
         [SerializeField] Text cardType;
         [SerializeField] Toggle makeDefaultToggle;
         [SerializeField] Button saveButton;
+        [SerializeField] Button removeCardButton;
 
         [SerializeField] InputField line1Input;
         [SerializeField] InputField line2Input;
@@ -43,9 +46,25 @@ namespace Scuti.UI
         private List<Dropdown.OptionData> _states;
         private List<Dropdown.OptionData> _provinces;
 
+        private Vector2 _startPosition;
+
+        public Action onOpenCardDetails;
+        public Action onDeleteCard;
+        public Action onAddCard;
+
+        private string _currentCardId;
+        public string CurrentCardId
+        {
+            get { return _currentCardId; }
+            set { _currentCardId = value; }
+        }
+
+
         protected override void Awake()
         {
             base.Awake();
+
+            _startPosition = contentCardDetails.anchoredPosition;
 
             _states = new List<Dropdown.OptionData>();
             _provinces = new List<Dropdown.OptionData>();
@@ -63,11 +82,10 @@ namespace Scuti.UI
 
         public override void Open()
         {
+            onOpenCardDetails?.Invoke();
             base.Open();
             Refresh();
-        }
-
-   
+        }   
 
         public override void Bind()
         {
@@ -109,8 +127,12 @@ namespace Scuti.UI
 
         public override void Refresh()
         {
+            contentCardDetails.anchoredPosition = _startPosition;
+
             cardholderNameInput.text = Data.Card.Name;
+            cardNumberInput.contentType = InputField.ContentType.Standard;
             cardNumberInput.text = Data.Card.Number;
+            cardNumberInput.contentType = InputField.ContentType.IntegerNumber;
 
             expirationDateInput.text = Data.Card.ExpirationMonth.ToString("D2") + "/" + (Data.Card.ExpirationYear % 100).ToString("D2");
             cvvInput.text = Data.Card.CVV;
@@ -147,11 +169,73 @@ namespace Scuti.UI
                 UIManager.Alert.SetHeader("Invalid Field").SetBody("Please ensure all form fields are filled in correctly.").SetButtonText("OK").Show(() => { });
                 return;
             }
-
             Data.Card.CardType = cardType.text;
 
             SavePayment();
         }
+
+        public void Delete()
+        {
+            UIManager.Confirmation.SetHeader("Delete Card").SetBody("Are you sure to remove this card?").SetPositive("Yes").SetNegative("No").Show((bool callback) => {
+                if (callback)
+                    DeleteCard();
+                else
+                    return;
+            });
+        }
+
+        public async void DeleteAllCards(string[] ids)
+        {
+            removeCardButton.interactable = false;
+            saveButton.interactable = false;
+            try
+            {
+                await ScutiAPI.DeleteCard(ids);
+                
+                onDeleteCard?.Invoke();
+                Submit();
+                Close();
+            }
+            catch (GQLException ex)
+            {
+                ScutiLogger.LogException(ex);
+                ScutiLogger.LogError(ex.response);
+                UIManager.Alert.SetHeader("Error").SetBody("Setting payment info failed. " + ex.responseCode + " " + ex.error).Show(() => { });
+            }
+            saveButton.interactable = true;
+            removeCardButton.interactable = true;
+
+        }
+
+        // --------------------------------------
+
+        public async void DeleteCard()
+        {
+            removeCardButton.interactable = false;
+            saveButton.interactable = false;
+            try
+            {       
+                string[] ids = new string[1] { _currentCardId };
+                await ScutiAPI.DeleteCard(ids);
+
+                onDeleteCard?.Invoke();
+                Submit();
+                Close();
+            }
+            catch (GQLException ex)
+            {
+                ScutiLogger.LogException(ex);
+                ScutiLogger.LogError(ex.response);
+                UIManager.Alert.SetHeader("Error").SetBody("Setting payment info failed. " + ex.responseCode + " " + ex.error).Show(() => { });
+            }
+            saveButton.interactable = true;
+            removeCardButton.interactable = true;
+
+        }
+
+        // -------------------------------------
+
+
 
         private async void SavePayment()
         {
@@ -164,14 +248,46 @@ namespace Scuti.UI
             saveButton.interactable = false;
             try
             {
-
                 JObject cardDetails = new JObject();
                 cardDetails["number"] = Data.Card.Number;
                 cardDetails["cvv"] = Data.Card.CVV;
                 EncryptedInput encryptedInput = await ScutiUtils.Encrypt(cardDetails.ToJson().ToUTF8Bytes());
-               
-                Data.Card.Encrypted = encryptedInput; 
+                Data.Card.Encrypted = encryptedInput;
 
+                var rest = await ScutiAPI.CreateOrReplaceCard(Data.Card.ExpirationMonth, Data.Card.ExpirationYear,
+                    Data.Card.Name,
+                    Data.Card.Encrypted,
+                    GetBillingAddress());
+
+                if (Data.Card.MakeDefault)
+                {
+                    SetDefaultCard(rest.Id);
+                }                    
+                else
+                {
+                    onAddCard?.Invoke();
+                    Submit();
+                    Close();
+                    saveButton.interactable = true;
+                }
+            }
+            catch (GQLException ex)
+            {
+                saveButton.interactable = true;
+                ScutiLogger.LogException(ex);
+                ScutiLogger.LogError(ex.response);
+                UIManager.Alert.SetHeader("Error").SetBody("Setting payment info failed. " + ex.responseCode + " " + ex.error).Show(() => { });
+            }
+
+        }
+
+
+        private async void SetDefaultCard(string id)
+        {
+            try
+            {
+                await ScutiAPI.SetMyDefaultCard(id);
+                onAddCard?.Invoke();
                 Submit();
                 Close();
             }
@@ -179,7 +295,7 @@ namespace Scuti.UI
             {
                 ScutiLogger.LogException(ex);
                 ScutiLogger.LogError(ex.response);
-                UIManager.Alert.SetHeader("Error").SetBody("Setting payment info failed. " + ex.responseCode + " " + ex.error).Show(() => { });
+                UIManager.Alert.SetHeader("Error").SetBody("Error when setting the default payment method. " + ex.responseCode + " " + ex.error).Show(() => { });
             }
             saveButton.interactable = true;
         }
@@ -203,11 +319,34 @@ namespace Scuti.UI
 
             }
 
-            //if (cachedCard != null)
-            //{
-            //    Data.Card = new CreditCardData() { CardType = cachedCard.;
-            //}
-                Refresh();
+            Refresh();
         }
+
+        // --------------------------------------
+
+        private AddressInput GetBillingAddress()
+        {
+            AddressInput address = null;
+            if (Data.Address != null && Data.Address.IsValid())
+            {
+                address = new AddressInput()
+                {
+                    Address1 = Data.Address.Line1,
+                    Address2 = Data.Address.Line2,
+                    City = Data.Address.City,
+                    Country = Data.Address.Country,
+                    State = Data.Address.State,
+                    ZipCode = Data.Address.Zip
+                };                
+            }
+
+            return address;
+        }
+
+        public void IsRemoveCardAvailable(bool state)
+        {
+            removeCardButton.gameObject.SetActive(state);
+        }
+
     }
 }
