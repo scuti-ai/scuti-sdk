@@ -11,12 +11,12 @@ public class ScutiButton : MonoBehaviour
     private void Awake()
     {
         NotificationIcon.SetActive(true);
-        NewItems.SetActive(false);
+        NewItems?.SetActive(false);
     }
 
     public void Start()
     {
-        if(ScutiNetClient.Instance != null)
+        if (ScutiNetClient.Instance != null)
         {
             if (ScutiNetClient.Instance.IsInitialized && ScutiNetClient.Instance.IsAuthenticated)
             {
@@ -27,18 +27,19 @@ public class ScutiButton : MonoBehaviour
                 ScutiNetClient.Instance.OnAuthenticated += CheckRewards;
             }
 
-            if(ScutiNetClient.Instance.IsInitialized)
+            if (ScutiNetClient.Instance.IsInitialized)
             {
                 CheckNewOffers();
-            } else
+            }
+            else
             {
                 ScutiNetClient.Instance.OnInitialization += CheckNewOffers;
             }
-        }  
+        }
     }
 
     public void OnClick()
-    { 
+    {
         ScutiSDK.Instance.LoadUI();
         NotificationIcon.SetActive(false);
     }
@@ -46,12 +47,12 @@ public class ScutiButton : MonoBehaviour
     private async void CheckNewOffers()
     {
         var stats = await ScutiAPI.GetCategoryStatistics();
-        NewItems.SetActive(false);
-        if (stats!=null)
+        NewItems?.SetActive(false);
+        if (stats != null)
         {
-            if(stats.NewOffers.HasValue && stats.NewOffers.Value>0)
+            if (stats.NewOffers.HasValue && stats.NewOffers.Value > 0)
             {
-                NewItems.SetActive(true);
+                NewItems?.SetActive(true);
             }
         }
     }
