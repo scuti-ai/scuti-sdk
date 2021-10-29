@@ -434,12 +434,6 @@ namespace Scuti.UI
                     }
                 }
             }
-
-            //UIManager.HideLoading();
-            //var historyData = UIManager.Navigator.GetHistory();
-            //MetricsAPI.AdImpressionPriorToBuyingMetric(historyData.Path, historyData.Count); 
-
-
         }
 
         private void OnCVV(string cvv)
@@ -523,9 +517,7 @@ namespace Scuti.UI
             }
             else
             {
-                EditCard();
-                //UIManager.Open(UIManager.Alert);
-                //UIManager.Alert.SetHeader("Missing Information").SetBody("Please set your credit card information.").SetButtonText("Ok").Show(() => { });
+                EditCard();               
             }
         }
 
@@ -590,10 +582,6 @@ namespace Scuti.UI
             UIManager.CardManager.OnSubmit -= OnCreditCard;
             UIManager.CardManager.OnSubmit += OnCreditCard;
             UIManager.Open(UIManager.CardManager);
-
-            //UIManager.Open(UIManager.Card);
-            //UIManager.Card.OnSubmit -= OnCreditCard;
-            //UIManager.Card.OnSubmit += OnCreditCard;
             UIManager.Card.SetCached(_cachedCard, Data.ShippingAddress);
         }
 

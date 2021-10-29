@@ -395,9 +395,7 @@ namespace Scuti.UI
 
             var index = m_Pagination.Index;
             requestInProgress = true;
-            //Debug.LogWarning("Requesting Range   index:" + index + "  m_Pagination.Index:" + m_Pagination.Index + "  maxcount:" + maxCount + "  replace:" + replaceData +" and total "+ m_Pagination.TotalCount +"  cat " + m_Pagination.Category);
             m_Pagination.Index += maxCount;
-            //Debug.LogWarning("Next index: " + m_Pagination.Index + " for " + maxCount +"  moar "+ requestMore);
             OfferPage offerPage = null;
             try
             {
