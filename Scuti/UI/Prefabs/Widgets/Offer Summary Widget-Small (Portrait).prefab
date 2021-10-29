@@ -1069,8 +1069,7 @@ MonoBehaviour:
   m_text: Searching for best deals
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32e824016a68a6f4791104da92d25a05, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2785,12 +2784,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 44
+  m_fontSize: 45.2
   m_fontSizeBase: 44
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 17.5
-  m_fontSizeMax: 70
+  m_fontSizeMax: 46
   m_fontStyle: 1
   m_textAlignment: 257
   m_characterSpacing: 0
@@ -3232,8 +3231,7 @@ MonoBehaviour:
   m_text: 4.8
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32e824016a68a6f4791104da92d25a05, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
