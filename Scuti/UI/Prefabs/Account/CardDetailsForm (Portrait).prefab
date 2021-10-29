@@ -5324,6 +5324,7 @@ GameObject:
   - component: {fileID: 114850107171657360}
   - component: {fileID: 114287775528405154}
   - component: {fileID: 114544491118501614}
+  - component: {fileID: 2193582358624900781}
   m_Layer: 5
   m_Name: CardholderNameInput
   m_TagString: Untagged
@@ -5463,6 +5464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   validators:
   - {fileID: 114544491118501614}
+  - {fileID: 2193582358624900781}
   messageText: {fileID: 114702375544449172}
   msgOnValid: Cardholder's Name
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
@@ -5483,11 +5485,30 @@ MonoBehaviour:
   isValid: 0
   inputField: {fileID: 114850107171657360}
   mode: 1
-  minLength: 1
+  minLength: 3
   maxLength: 2147483647
   msgOnNoValue: Please enter a name
   msgOnShortValue: 
   msgOnLongValue: 
+--- !u!114 &2193582358624900781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547398374939290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f2a7992f8d6d5a4ebac3ef7ce0f2042, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  message: 
+  isValid: 0
+  inputField: {fileID: 114850107171657360}
+  mode: 1
+  requiredSubstrings:
+  - ' '
+  msgOnInvalid: Please enter your first and last name
 --- !u!1 &1561895870851020
 GameObject:
   m_ObjectHideFlags: 0
