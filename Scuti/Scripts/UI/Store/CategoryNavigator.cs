@@ -76,7 +76,11 @@ namespace Scuti.UI
 
                 List<string> ordered = new List<string>();
                 // Add default to category list
-                ordered.Add("DEFAULT");
+                foreach(var custom in ScutiConstants.CUSTOM_CATEGORIES)
+                {
+                    ordered.Add(custom.DisplayName.ToUpper());
+                }
+                //ordered.Add("DEFAULT");
 
                 ordered.AddRange(preferred);
                 ordered.AddRange(other); 
