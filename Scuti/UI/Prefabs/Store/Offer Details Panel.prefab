@@ -16207,7 +16207,7 @@ PrefabInstance:
     - target: {fileID: 3869561873114366970, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
       propertyPath: m_Delegates.Array.size
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3869561873114366970, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
@@ -16257,12 +16257,22 @@ PrefabInstance:
     - target: {fileID: 3869561873114366970, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
       propertyPath: m_Delegates.Array.data[2].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnPointerEnter
+      value: OnPointerClick
       objectReference: {fileID: 0}
     - target: {fileID: 3869561873114366970, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
       propertyPath: m_Delegates.Array.data[3].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnPointerExit
+      value: OnPointerClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869561873114366970, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[2].eventID
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3869561873114366970, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[3].eventID
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5024582829128870857, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
