@@ -16374,6 +16374,11 @@ PrefabInstance:
       propertyPath: displayLargeImage
       value: 
       objectReference: {fileID: 8646292534255351363}
+    - target: {fileID: 6673112210164165626, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7235078405747100251, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
       propertyPath: m_Material
