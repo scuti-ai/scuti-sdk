@@ -811,7 +811,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042383244109548}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -6506,7 +6506,7 @@ MonoBehaviour:
     spaceCount: 25
     wordCount: 26
     linkCount: 0
-    lineCount: 3
+    lineCount: 2
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -7842,7 +7842,7 @@ MonoBehaviour:
   imageDisplay: {fileID: 2801505584771843427}
   thumbnailPrefab: {fileID: 1561110527249094, guid: 4e4692480e82c16458cb04832127a28c,
     type: 3}
-  thumbnailParent: {fileID: 224716272140092490}
+  thumbnailParent: {fileID: 4916292419415081331}
 --- !u!114 &114776719873631372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15866,7 +15866,7 @@ PrefabInstance:
     - target: {fileID: 5024582829128870857, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 960
+      value: 2040
       objectReference: {fileID: 0}
     - target: {fileID: 5024582829128870857, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
