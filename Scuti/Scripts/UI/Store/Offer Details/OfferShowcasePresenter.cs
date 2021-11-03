@@ -123,6 +123,9 @@ namespace Scuti.UI {
             Data.URLs.ForEach(x => downloads.Add(downloader.Download(x)));
             thumbnailParent.gameObject.SetActive(false);
             // Downloads the iamges together and process as they finish
+
+            Debug.Log("********************* DOWNLOADS: " + downloads.Count);
+
             try
             {
                 while (downloads.Count > 0)
@@ -135,7 +138,7 @@ namespace Scuti.UI {
                         AddThumbnail(finished.Result);
 
                         // Hack, add scrollable area instead
-                        if (Data.TextureCount() > 3) break;
+                        //if (Data.TextureCount() > 3) break;
                     }
                 }
             }
@@ -176,12 +179,12 @@ namespace Scuti.UI {
 
         internal void SetVariant(Scuti.GraphQL.Generated.ProductVariant productVariant)
         {
-            Data.ClearVariantTexture();
-            RefreshDisplay();
+            //Data.ClearVariantTexture();
+            //RefreshDisplay();
             if (productVariant!=null)
             {
                 if(!string.IsNullOrEmpty(productVariant.Image))
-                {
+                {                   
                     LoadVariantImage(productVariant.Image);
                 } 
             }
@@ -191,6 +194,7 @@ namespace Scuti.UI {
         {
             var downloader = ImageDownloader.New(true);
             var tex = await downloader.Download(image);
+            Data.ClearVariantTexture();
             Data.AddVariantTexture(tex);
             imageDisplay.sprite = tex.ToSprite();
         }

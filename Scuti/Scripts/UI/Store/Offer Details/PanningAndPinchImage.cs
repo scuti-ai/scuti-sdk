@@ -71,7 +71,7 @@ namespace Scuti.UI
 
             }
 
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+            #if UNITY_EDITOR || UNITY_STANDALONE_WIN
             if (!isTestingMobile)
             {
                 // For desktop version
