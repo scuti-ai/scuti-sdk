@@ -122,9 +122,7 @@ namespace Scuti.UI {
 
             Data.URLs.ForEach(x => downloads.Add(downloader.Download(x)));
             thumbnailParent.gameObject.SetActive(false);
-            // Downloads the iamges together and process as they finish
-
-            Debug.Log("********************* DOWNLOADS: " + downloads.Count);
+            // Downloads the iamges together and process as they finish         
 
             try
             {

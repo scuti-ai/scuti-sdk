@@ -29,8 +29,8 @@ namespace Scuti.UI {
                     {
                         foreach (var variant in value)
                         {
-                            if (variant.InStock.GetValueOrDefault(0) > 0)
-                            {
+                            //if (variant.InStock.GetValueOrDefault(0) > 0)
+                            //{
 
                                 var opt1 = (string.IsNullOrEmpty(variant.Option1)) ? DEFAULT : variant.Option1;
                                 var opt2 = (string.IsNullOrEmpty(variant.Option2)) ? DEFAULT : variant.Option2;
@@ -53,7 +53,7 @@ namespace Scuti.UI {
 
                                 var finalMap = innerMap[opt2];
                                 finalMap[opt3] = variant;
-                            }
+                            //}
 
 
                         }
@@ -188,6 +188,7 @@ namespace Scuti.UI {
                 dropdown.gameObject.SetActive(true);
                 dropdown.AddOptions(options.ToList());
             }
+
             dropdown.RefreshShownValue();
         }
     }
