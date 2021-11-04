@@ -31,7 +31,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 58e81dec8b5545d4a8e535db1ec50eee, type: 3}
-    totalSpriteSurfaceArea: 1496210
+    totalSpriteSurfaceArea: 1536147
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -48,6 +48,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 44d0f9d01b1511946a6631cde3a033b1, type: 3}
   - {fileID: 21300000, guid: 36da8b111185c4f4bb26a50433637026, type: 3}
   - {fileID: 21300000, guid: cbf0ef11f5364464b83ac03406659f4b, type: 3}
+  - {fileID: 21300000, guid: c7be962124ab75c4c8eff1ef78ed3d7b, type: 3}
   - {fileID: 21300000, guid: a2900a21d3d15db46941f24c6ec411b7, type: 3}
   - {fileID: 21300000, guid: 6669ce21716df9346ab032688103dfff, type: 3}
   - {fileID: 21300000, guid: 1e973351cc1146f4fb22940061aca533, type: 3}
@@ -86,7 +87,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c350d255fae20f34896660ea4aefd8d0, type: 3}
   - {fileID: 21300000, guid: 722aa565a1987154cac7a4f8a2a9f275, type: 3}
   - {fileID: 21300000, guid: a1574795cb258bf4f96a01c61527c81e, type: 3}
-  - {fileID: 21300000, guid: 67c267a55bfcb8f40b72d5d2c0765f9c, type: 3}
   - {fileID: 21300000, guid: 37157de552e3730468c7f3e37f326453, type: 3}
   - {fileID: 21300000, guid: ce9efb16d31b3344491cdc0816d3d0ed, type: 3}
   - {fileID: 21300000, guid: 845876263efb78e4f8c240ae946ec98c, type: 3}
@@ -156,6 +156,7 @@ SpriteAtlas:
   - PhoneImage
   - scuti_brand_background
   - buttonapple-pay@3x
+  - ScutiLogoWhite
   - scuty_img_offer_tag-2
   - ScutiCoin_3
   - icon24fb@3x
@@ -175,7 +176,7 @@ SpriteAtlas:
   - ScutiCoin_4
   - IconSettings
   - color-block@3x4
-  - Scuti_blue_3D copy
+  - ScutiLogoBlue
   - tintrounded16color@3x
   - scuti_navigation_button_shop
   - icon16close@3x
@@ -194,7 +195,6 @@ SpriteAtlas:
   - colorblack@3x
   - color-block
   - scuty_img_offer_tag-2_empty
-  - ScutiLogo
   - category@3x
   - "\u2013@3x"
   - icon24scuti-currency
