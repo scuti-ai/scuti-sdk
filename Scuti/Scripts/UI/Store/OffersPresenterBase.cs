@@ -582,6 +582,9 @@ namespace Scuti.UI
 
         protected OfferColorData GetColorInfo(int index)
         {
+            // Hack to force light blue for now
+            index = 4;
+
             if (index >= colorInfo.Length) index = colorInfo.Length - (index % colorInfo.Length)-1;
             return colorInfo[index];
         }
