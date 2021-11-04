@@ -4813,7 +4813,7 @@ GameObject:
   - component: {fileID: 114961118650232904}
   - component: {fileID: 114114617320867376}
   - component: {fileID: 8518362457808678468}
-  - component: {fileID: 4712169947340032450}
+  - component: {fileID: 5637345386949142465}
   m_Layer: 5
   m_Name: Variant
   m_TagString: Untagged
@@ -4912,7 +4912,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &4712169947340032450
+--- !u!114 &5637345386949142465
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4921,7 +4921,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1440335506984046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+  m_Script: {fileID: 11500000, guid: 816cac7438761a446af8004058428a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -7716,7 +7716,7 @@ MonoBehaviour:
   Transitions: []
   quantityStepper: {fileID: 114965301880506828}
   firstVariantLabel: {fileID: 1766732597323933519}
-  firstVariant: {fileID: 4712169947340032450}
+  firstVariant: {fileID: 5637345386949142465}
   secondVariantLabel: {fileID: 7214852864621077764}
   secondVariant: {fileID: 3095665574388394165}
   thirdVariantLabel: {fileID: 6659091829613271877}
