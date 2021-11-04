@@ -13,6 +13,7 @@ namespace Scuti.UI {
     // NOTE: This class is quite unclear at the moment. Further work should be done
     // only after the requirements are certain.
     public class OfferCustomizationPresenter : Presenter<OfferCustomizationPresenter.Model> {
+
         [Serializable]
         public class Model : Presenter.Model {
 
@@ -54,9 +55,8 @@ namespace Scuti.UI {
                                 var finalMap = innerMap[opt2];
                                 finalMap[opt3] = variant;
                             }
+                        } 
 
-
-                        }
                     }
                 }
             }
@@ -103,7 +103,6 @@ namespace Scuti.UI {
             {
                 return _variantMap[_selectedOption1][_selectedOption2].Keys.ToArray();
             }
-
 
         }
 
@@ -177,6 +176,7 @@ namespace Scuti.UI {
 
         private void Populate(TMP_Dropdown dropdown, string[] options)
         {
+
             dropdown.Hide();
             dropdown.ClearOptions();
             if (options == null || options.Length < 1 || options[0].Equals(Model.DEFAULT))
@@ -188,6 +188,7 @@ namespace Scuti.UI {
                 dropdown.gameObject.SetActive(true);
                 dropdown.AddOptions(options.ToList());
             }
+
             dropdown.RefreshShownValue();
         }
     }
