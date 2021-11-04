@@ -31,7 +31,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 58e81dec8b5545d4a8e535db1ec50eee, type: 3}
-    totalSpriteSurfaceArea: 1591182
+    totalSpriteSurfaceArea: 1496210
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -67,6 +67,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 1834d263ec9890e458706a397bd1c1d8, type: 3}
   - {fileID: 21300000, guid: 31078863bc5d93544a2ea920c501c919, type: 3}
   - {fileID: 21300000, guid: 489e247340b267f4488aa8667c2237ce, type: 3}
+  - {fileID: 21300000, guid: 039f12831736a534aa45f59e34e21646, type: 3}
   - {fileID: 21300000, guid: 77d6b6b3fe91e3b4fb2b4e666d740c16, type: 3}
   - {fileID: 21300000, guid: 26c955f3505cc5e4da5fa7266e413eee, type: 3}
   - {fileID: 21300000, guid: 16230704c9431b646bf1dc2716ec5256, type: 3}
@@ -174,6 +175,7 @@ SpriteAtlas:
   - ScutiCoin_4
   - IconSettings
   - color-block@3x4
+  - Scuti_blue_3D copy
   - tintrounded16color@3x
   - scuti_navigation_button_shop
   - icon16close@3x
