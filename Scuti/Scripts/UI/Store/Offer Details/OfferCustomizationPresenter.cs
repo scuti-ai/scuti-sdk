@@ -48,61 +48,37 @@ namespace Scuti.UI {
                         {
                             //if (variant.InStock.GetValueOrDefault(0) > 0)
                             //{
-                            if (variant.InStock.GetValueOrDefault(0) == 0)
+
+                            StockModelUpdated stockUpdated = new StockModelUpdated();
+
+                            string oneLabel = "null";
+                            string secondLabel = "null";
+                            string thirdLabel = "null";
+
+                            if (!string.IsNullOrEmpty(variant.Option1))
                             {
-                                StockModelUpdated stockUpdated = new StockModelUpdated();
-
-                                string oneLabel = "null";
-                                string secondLabel = "null";
-                                string thirdLabel = "null";
-
-                                if (!string.IsNullOrEmpty(variant.Option1))
+                                oneLabel = variant.Option1;
+                                if (!string.IsNullOrEmpty(variant.Option2))
                                 {
-                                    oneLabel = variant.Option1;
-                                    if (!string.IsNullOrEmpty(variant.Option2))
+                                    secondLabel = variant.Option2;
+                                    if (!string.IsNullOrEmpty(variant.Option3))
                                     {
-                                        secondLabel = variant.Option2;
-                                        if (!string.IsNullOrEmpty(variant.Option3))
-                                        {
-                                            thirdLabel = variant.Option3;
-                                        }
-                                    }
-                                }      
-
-                                stockUpdated.labelOpt1 = oneLabel;
-                                stockUpdated.labelOpt2 = secondLabel;
-                                stockUpdated.labelOpt3 = thirdLabel;
-
-                                _stockOutModelUpdated.Add(stockUpdated);                             
-
-                            }
-                            else
-                            {
-                                StockModelUpdated stockUpdated = new StockModelUpdated();
-
-                                string oneLabel = "null";
-                                string secondLabel = "null";
-                                string thirdLabel = "null";
-
-                                if (!string.IsNullOrEmpty(variant.Option1))
-                                {
-                                    oneLabel = variant.Option1;
-                                    if (!string.IsNullOrEmpty(variant.Option2))
-                                    {
-                                        secondLabel = variant.Option2;
-                                        if (!string.IsNullOrEmpty(variant.Option3))
-                                        {
-                                            thirdLabel = variant.Option3;
-                                        }
+                                        thirdLabel = variant.Option3;
                                     }
                                 }
+                            }
 
-                                stockUpdated.labelOpt1 = oneLabel;
-                                stockUpdated.labelOpt2 = secondLabel;
-                                stockUpdated.labelOpt3 = thirdLabel;
+                            stockUpdated.labelOpt1 = oneLabel;
+                            stockUpdated.labelOpt2 = secondLabel;
+                            stockUpdated.labelOpt3 = thirdLabel;
 
+                            if (variant.InStock.GetValueOrDefault(0) == 0)
+                            {
+                                _stockOutModelUpdated.Add(stockUpdated);
+                            }
+                            else
+                            { 
                                 _stockIn.Add(stockUpdated);
-
                             }
 
                             var opt1 = (string.IsNullOrEmpty(variant.Option1)) ? DEFAULT : variant.Option1;
@@ -254,6 +230,13 @@ namespace Scuti.UI {
         {
             Data.SelectOption2(secondVariant.options[value].text);
             Populate(thirdVariant, Data.GetOption3DropDowns(), 3);
+
+            if (Data.GetInfoItemIn().Count > 0)
+            {
+                var thirdOpt = Data.GetInfoItemIn().Find(f => f.labelOpt2== secondVariant.options[value].text);
+                thirdVariant.value = thirdVariant.options.FindIndex(f => f.text == thirdOpt.labelOpt3);
+            }
+
             VariantChanged?.Invoke();
         }
 
@@ -262,6 +245,16 @@ namespace Scuti.UI {
             Data.SelectOption1(firstVariant.options[value].text);
             Populate(secondVariant, Data.GetOption2DropDowns(), 2);
             Populate(thirdVariant, Data.GetOption3DropDowns(), 3);
+
+            if (Data.GetInfoItemIn().Count > 0)
+            {
+                var secondOpt = Data.GetInfoItemIn().Find(f => f.labelOpt1 == firstVariant.options[value].text);
+                //Debug.Log("------------Option 2 Updated: " + secondOpt.labelOpt1 + "  -  " + secondOpt.labelOpt2 + "  -  " + secondOpt.labelOpt3);
+                secondVariant.value = secondVariant.options.FindIndex(f => f.text == secondOpt.labelOpt2);
+                thirdVariant.value = thirdVariant.options.FindIndex(f => f.text == Data.GetInfoItemIn()[0].labelOpt3);
+                //Debug.Log("-----------Option 2 Updated VALUE: " + firstVariant.value + "  -  " + secondVariant.value + "  -  " + thirdVariant.value);
+            }
+
             VariantChanged?.Invoke();
         }
 
@@ -276,8 +269,6 @@ namespace Scuti.UI {
             secondVariantLabel.text = string.IsNullOrEmpty(Data.Option2) ? string.Empty : Data.Option2;
             thirdVariantLabel.text = string.IsNullOrEmpty(Data.Option3) ? string.Empty : Data.Option3;
 
-            Debug.Log("---- OPTIONS LABEL: " + Data.Option1 + " - " + Data.Option2 + " - " + Data.Option3);
-
             Populate(thirdVariant, Data.GetOption3DropDowns(), 3);
             Populate(secondVariant, Data.GetOption2DropDowns(), 2);
             Populate(firstVariant, Data.GetOption1DropDowns(), 1);
@@ -288,13 +279,9 @@ namespace Scuti.UI {
                 firstVariant.value = firstVariant.options.FindIndex(f => f.text == Data.GetInfoItemIn()[0].labelOpt1);
                 secondVariant.value = secondVariant.options.FindIndex(f => f.text == Data.GetInfoItemIn()[0].labelOpt2);
                 thirdVariant.value = thirdVariant.options.FindIndex(f => f.text == Data.GetInfoItemIn()[0].labelOpt3);
-                Debug.Log("---- OPTIONS LABEL 2: " + firstVariant.value + " - " + secondVariant.value + " - " + thirdVariant.value);
             }
 
-
             VariantChanged?.Invoke();
-
-            //SetItemAvailable();
 
             _isInitalize = true;
 
@@ -313,8 +300,7 @@ namespace Scuti.UI {
             dropdown.Hide();
             dropdown.ClearOptions();            
             if (options == null || options.Length < 1 || options[0].Equals(Model.DEFAULT))
-            {
-                Debug.Log("WHY IS HIDEN: " + options[0].Equals(Model.DEFAULT));
+            {                
                 dropdown.gameObject.SetActive(false);
 
                 if (!_isInitalize)
@@ -390,11 +376,6 @@ namespace Scuti.UI {
             }
 
             dropdown.RefreshShownValue();
-        }
-
-        private void SetItemAvailable()
-        {            
-
         }
 
     }

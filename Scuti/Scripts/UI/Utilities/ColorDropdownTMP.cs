@@ -23,8 +23,7 @@ public class ColorDropdownTMP : TMP_Dropdown
 
         var data = this.options[_dataIndex];
         if(data is ColorOptionDataTMP colorOptionData)
-        {
-            Debug.Log("Color: " + colorOptionData.Color);
+        {            
             text.color = colorOptionData.Color;
             toggle.interactable = colorOptionData.Interactable;
         }
