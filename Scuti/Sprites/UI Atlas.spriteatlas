@@ -31,7 +31,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 58e81dec8b5545d4a8e535db1ec50eee, type: 3}
-    totalSpriteSurfaceArea: 1536147
+    totalSpriteSurfaceArea: 1585339
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -117,6 +117,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0c3a69fafdfeecc4dbb17c32e8b3ee92, type: 3}
   - {fileID: 21300000, guid: dad5c9fa3bb1b5747a29a8283c88b6ab, type: 3}
   - {fileID: 21300000, guid: 473db20bd5a124849a9b060cddc62f7c, type: 3}
+  - {fileID: 21300000, guid: 7f4cac3b2785ce54a9532ec2ab2bc9e4, type: 3}
   - {fileID: 21300000, guid: 83a2226b964a59c428b5fed1e10287da, type: 3}
   - {fileID: 21300000, guid: 93cda17bd07bafb4d8f23c45264404af, type: 3}
   - {fileID: 21300000, guid: 5e5d808b129b7c946bd985d379428201, type: 3}
@@ -124,8 +125,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 46b3463c8f7638247955e386ec24685e, type: 3}
   - {fileID: 21300000, guid: b1722c6c96f4c3e4e89972299ec4861d, type: 3}
   - {fileID: 21300000, guid: a678018c87d7083429e89648872971b5, type: 3}
+  - {fileID: 21300000, guid: cf6d80ac41aceed479a37fbf2b7e1895, type: 3}
   - {fileID: 21300000, guid: 874551ac6b21ba544a0b55f24d74ad92, type: 3}
   - {fileID: 21300000, guid: 055c55ac0788c074799464fe882df1f1, type: 3}
+  - {fileID: 21300000, guid: f0c568bc85b45494a97c593b95e43543, type: 3}
   - {fileID: 21300000, guid: da59a6cca9d1e684788f70a6b7ea7ebc, type: 3}
   - {fileID: 21300000, guid: 477c6f7d439bd5c458911d94f408557f, type: 3}
   - {fileID: 21300000, guid: f3b703addf1ada14dbfe19e22697e904, type: 3}
@@ -225,6 +228,7 @@ SpriteAtlas:
   - Card
   - Apparel
   - ScutiCoin_1
+  - ButtonOrange
   - loading_background
   - tintcirclecolor@3x
   - scuti_navigation_button_next
@@ -232,8 +236,10 @@ SpriteAtlas:
   - Sporting goods
   - color-block@2x
   - componentquantitySM@3x
+  - ButtonGreen2
   - CBD Products
   - icon24hot@3x
+  - ButtonBlue
   - Pet Supply
   - color-block@3xgradient
   - navstepperchecked)@3x
