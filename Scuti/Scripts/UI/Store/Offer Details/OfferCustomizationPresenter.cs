@@ -14,8 +14,7 @@ namespace Scuti.UI {
     // only after the requirements are certain.
     public class OfferCustomizationPresenter : Presenter<OfferCustomizationPresenter.Model> {
 
-
-
+        
         [Serializable]
         public class StockModelUpdated
         {
@@ -24,40 +23,20 @@ namespace Scuti.UI {
             [SerializeField] public string labelOpt3;
         }
 
-        [Serializable]
-        public class StockModel
-        {
-            [SerializeField] public string labelOpt1;
-            [SerializeField] public List<SecondOption> opt2;
-        }
-
-        [Serializable]
-        public class SecondOption
-        {
-            [SerializeField] public string labelOpt2;
-            [SerializeField] public List<string> opt3;
-
-        }
-
-
-
+       
         [Serializable]
         public class Model : Presenter.Model {
 
             public static string DEFAULT = "null";
 
-            [SerializeField] private List<StockModel> stockOutModel;
-
-            [SerializeField] private List<StockModelUpdated> stockOutModelUpdated;
+            [SerializeField] private List<StockModelUpdated> _stockOutModelUpdated;
 
             public int Quantity;
             public ProductVariant[] Variants
             {
                 set
-                {
-                    stockOutModel = new List<StockModel>();
-                    stockOutModelUpdated = new List<StockModelUpdated>();
-                    //parentModel.stock. = new List<StockModel>();
+                {                   
+                    _stockOutModelUpdated = new List<StockModelUpdated>();     
 
                     _variantMap.Clear();
                     _selectedOption1 = _selectedOption2 = _selectedOption3 = null;
@@ -74,8 +53,7 @@ namespace Scuti.UI {
                                 //Debug.Log("OFFERCUSTOMIZACION: 3 " + variant.Option3);
 
                                 StockModelUpdated stockUpdated = new StockModelUpdated();
-                                StockModel stock = new StockModel() { labelOpt1 = "null", opt2 = new List<SecondOption>() }; ;
-                                SecondOption second = new SecondOption() { labelOpt2 = "null", opt3 = new List<string>() };
+
                                 string oneLabel = "null";
                                 string secondLabel = "null";
                                 string thirdLabel = "null";
@@ -101,54 +79,8 @@ namespace Scuti.UI {
                                 stockUpdated.labelOpt2 = secondLabel;
                                 stockUpdated.labelOpt3 = thirdLabel;
 
-                                stockOutModelUpdated.Add(stockUpdated);
-                                // ---------------------------------------------
-
-                                // Se busca si exisate uno ya
-                                var aux = stockOutModel.Find(f => f.labelOpt1 == oneLabel);
-                                if (aux != null && oneLabel != "null")
-                                {
-                                    aux.labelOpt1 = oneLabel;
-                                    var aux2 = aux.opt2.Find(f => f.labelOpt2 == secondLabel);
-                                    if (aux2 != null && secondLabel != "null")
-                                    {                                        
-                                        aux2.labelOpt2 = secondLabel;
-                                        if (thirdLabel != "null")
-                                        {
-                                            aux2.opt3.Add(thirdLabel);
-                                        }    
-                                    }
-                                    else
-                                    {
-                                        // Agregar a la lista 2 una nueva entrada
-                                        second.labelOpt2 = secondLabel;
-                                        if (thirdLabel != "null")
-                                        {
-                                            second.opt3.Add(thirdLabel);
-                                        }
-                                        stock.opt2.Add(second);
-                                    }
-                                    stock = aux;
-                                    stockOutModel.Add(stock);
-                                }
-                                else
-                                {
-                                    if(oneLabel != "null")
-                                    {                                   
-                                        // Agregar a la lista 1 una nueva entrada
-                                        stock.labelOpt1 = oneLabel;
-                                        if (secondLabel != "null")
-                                        {
-                                            second.labelOpt2 = secondLabel;
-                                            if (thirdLabel != "null")
-                                            {
-                                                second.opt3.Add(thirdLabel);
-                                            }
-                                            stock.opt2.Add(second);
-                                        }
-                                        stockOutModel.Add(stock);
-                                    }
-                                }
+                                _stockOutModelUpdated.Add(stockUpdated);
+                                // ---------------------------------------------                               
 
                             }
 
@@ -175,21 +107,6 @@ namespace Scuti.UI {
                             finalMap[opt3] = variant;
                             //}
                         }
-
-                        string json = JsonUtility.ToJson(stockOutModel);
-                        Debug.Log(">>>> JSON STOCK: " + json);
-                        /*Debug.Log("Stock opt1: " + stockOutModel.Count);
-                        if(stockOutModel.Count > 0)
-                        {
-                            for (int i = 0; i < stockOutModel.Count; i++)
-                            {
-                                Debug.Log("Stock opt1 label: " + stockOutModel[i].labelOpt1);
-                                Debug.Log("Stock opt2 Count: " + stockOutModel[i].opt2.Count);
-                            }                           
-                        }*/
-
-                       
-
 
                     }
                 }
@@ -238,10 +155,25 @@ namespace Scuti.UI {
                 return _variantMap[_selectedOption1][_selectedOption2].Keys.ToArray();
             }
 
+            public string GetCurrentSelectOption1()
+            {
+                return _selectedOption1;
+            }
+
+            public string GetCurrentSelectOption2()
+            {
+                return _selectedOption2;
+            }
+
+            public string GetCurrentSelectOption3()
+            {
+                return _selectedOption3;
+            }
+
 
             public List<StockModelUpdated> GetInfoItemOutOfStock()
             {
-                return stockOutModelUpdated;
+                return _stockOutModelUpdated;
             }
 
         }
@@ -254,6 +186,10 @@ namespace Scuti.UI {
         [SerializeField] TMP_Dropdown secondVariant;
         [SerializeField] TextMeshProUGUI thirdVariantLabel;
         [SerializeField] TMP_Dropdown thirdVariant;
+
+        [SerializeField] List<StockModelUpdated> stockOut;
+        [SerializeField] List<string> _option2OutOfStock;
+
 
         public Action VariantChanged;
 
@@ -280,23 +216,31 @@ namespace Scuti.UI {
 
         private void OnThirdVariantChanged(int value)
         {
+            Debug.Log("----- THRIRD VARIANT: " + value);
             Data.SelectOption3(thirdVariant.options[value].text);
             VariantChanged?.Invoke();
+            Debug.Log(Data.GetCurrentSelectOption1() + " - " + Data.GetCurrentSelectOption2() + " - " + Data.GetCurrentSelectOption3());
+
         }
 
         private void OnSecondVariantChanged(int value)
         {
+            Debug.Log("----- SECOND VARIANT: " + value);
             Data.SelectOption2(secondVariant.options[value].text);
-            Populate(thirdVariant, Data.GetOption3DropDowns());
+            Populate(thirdVariant, Data.GetOption3DropDowns(), 3);
             VariantChanged?.Invoke();
+            Debug.Log(Data.GetCurrentSelectOption1() + " - " + Data.GetCurrentSelectOption2() + " - " + Data.GetCurrentSelectOption3());
+
         }
 
         private void OnFirstVariantChanged(int value)
         {
+            Debug.Log("----- FIRST VARIANT: " + value);
             Data.SelectOption1(firstVariant.options[value].text);
-            Populate(secondVariant, Data.GetOption2DropDowns());
-            Populate(thirdVariant, Data.GetOption3DropDowns());
+            Populate(secondVariant, Data.GetOption2DropDowns(), 2);
+            Populate(thirdVariant, Data.GetOption3DropDowns(), 3);
             VariantChanged?.Invoke();
+            Debug.Log(Data.GetCurrentSelectOption1() + " - " + Data.GetCurrentSelectOption2() + " - " + Data.GetCurrentSelectOption3());
         }
 
         protected override void OnSetState()
@@ -307,17 +251,28 @@ namespace Scuti.UI {
             secondVariantLabel.text = string.IsNullOrEmpty(Data.Option2) ? string.Empty : Data.Option2;
             thirdVariantLabel.text = string.IsNullOrEmpty(Data.Option3) ? string.Empty : Data.Option3;
 
-            Populate(firstVariant, Data.GetOption1DropDowns());
-            Populate(secondVariant, Data.GetOption2DropDowns());
-            Populate(thirdVariant, Data.GetOption3DropDowns());
+
+            Populate(thirdVariant, Data.GetOption3DropDowns(), 3);
+            Populate(secondVariant, Data.GetOption2DropDowns(), 2);
+            Populate(firstVariant, Data.GetOption1DropDowns(), 1);
 
             VariantChanged?.Invoke();
+
+            Debug.Log(Data.GetCurrentSelectOption1() + " - " + Data.GetCurrentSelectOption2() + " - " + Data.GetCurrentSelectOption3());
+
         }
 
-        private void Populate(TMP_Dropdown dropdown, string[] options)
+        private void Populate(TMP_Dropdown dropdown, string[] options, int dropdownId)
         {
-            Color32 colorLight = new Color32(24, 229, 6, 255);
-            Color32 colorOpaque = new Color32(229, 24, 176, 126);
+            Color colorLight = new Color(0, 0, 0, 255);
+            Color32 colorOpaque = new Color32(0, 0, 0, 180);
+
+            if (dropdownId == 2)
+            {
+                Debug.Log("--- OPTION 2 ----- " + options.Length);
+                _option2OutOfStock = new List<string>(options);
+            }
+
 
             dropdown.Hide();
             dropdown.ClearOptions();            
@@ -328,17 +283,82 @@ namespace Scuti.UI {
             else
             {
                 dropdown.gameObject.SetActive(true);
+
+                //_option2OutOfStock = new List<string>();
                 List<ColorOptionDataTMP> optionsColor = new List<ColorOptionDataTMP>();
                 for (int i = 0; i < options.Length; i++)
                 {
-                    optionsColor.Add(new ColorOptionDataTMP(options[i], colorLight, true));
+                    // For firstVariant Dropdown
+
+                    if (dropdownId == 1)
+                    {
+                        ColorOptionDataTMP colorOption = new ColorOptionDataTMP(options[i], colorLight, true);
+                                   
+                        if(_option2OutOfStock.Count > 0)
+                        {
+
+                            for(int j = 0; j < options.Length; j++)
+                            {
+
+                                Debug.Log("----------- DROPDOWN 11111 ------------------------"+ options[i]);
+
+                                List<StockModelUpdated> stock2 = Data.GetInfoItemOutOfStock().FindAll(f => f.labelOpt1 == options[i]);                                
+                                if (_option2OutOfStock.Count == stock2.Count)
+                                {
+                                    Debug.Log("----------- DROPDOWN 1 ------------------------");
+                                    colorOption.text = options[i];
+                                    colorOption.Color = colorOpaque;
+                                    colorOption.Interactable = false;
+                                }
+
+                            }                                     
+                        }
+
+                        optionsColor.Add(colorOption);
+                    }
+
+                    if (dropdownId == 2)
+                    {
+                        ColorOptionDataTMP colorOption = new ColorOptionDataTMP(options[i], colorLight, true);
+
+                        stockOut = Data.GetInfoItemOutOfStock().FindAll(f => f.labelOpt1 == Data.GetCurrentSelectOption1());
+                        StockModelUpdated stock2 = stockOut.Find(f => f.labelOpt2 == options[i]);
+                        if(stock2 != null)
+                        {
+                            Debug.Log("----------- DROPDOWN 2 ------------------------");
+                            //_option2OutOfStock.Add(stock2.labelOpt2);
+                            colorOption.text = options[i];
+                            colorOption.Color = colorOpaque;
+                            colorOption.Interactable = false;
+                        }
+
+                        optionsColor.Add(colorOption);                      
+                    }
+
+                    if (dropdownId == 3)
+                    {
+                        ColorOptionDataTMP colorOption = new ColorOptionDataTMP(options[i], colorLight, true);
+
+                        stockOut = Data.GetInfoItemOutOfStock().FindAll(f => f.labelOpt2 == Data.GetCurrentSelectOption2());
+                        StockModelUpdated stock3 = stockOut.Find(f => f.labelOpt3 == options[i]);
+                        if (stock3 != null)
+                        {
+                            Debug.Log("----------- DROPDOWN 2 ------------------------");
+
+                            colorOption.text = options[i];
+                            colorOption.Color = colorOpaque;
+                            colorOption.Interactable = false;
+                        }
+
+                        optionsColor.Add(colorOption);
+                    }
                 }
 
                 dropdown.AddOptions(new List<TMP_Dropdown.OptionData>(optionsColor));
                 //dropdown.AddOptions(options.ToList());
             }
 
-            Data.GetInfoItemOutOfStock();
+            //Data.GetInfoItemOutOfStock();
 
             Debug.Log("********** OfferCustomization: Number Options " + dropdown.options.Count());
             Debug.Log("********** OfferCustomization: Name " + dropdown.name);
@@ -354,5 +374,12 @@ namespace Scuti.UI {
 
             dropdown.RefreshShownValue();
         }
+
+        private bool CheckOutOfStock()
+        {
+            // If is TRUE is OutOfStock
+            return Data.GetInfoItemOutOfStock().Exists(f => f.labelOpt1 == Data.GetCurrentSelectOption1() && f.labelOpt2 == Data.GetCurrentSelectOption2() && f.labelOpt3 == Data.GetCurrentSelectOption3());
+        }
+
     }
 }
