@@ -19,8 +19,10 @@ public class ColorDropdownTMP : TMP_Dropdown
     {
         var item = base.CreateItem(itemTemplate);
         Debug.Log(item.transform.childCount);
-        var backgroundTemplante = item.transform.GetChild(0);
-        var text = backgroundTemplante.GetComponent<TextMeshProUGUI>();
+        //var backgroundTemplante = item.transform.GetChild(0);
+        //var text = backgroundTemplante.GetComponent<TextMeshProUGUI>();
+        var toggle = item.GetComponent<Toggle>();
+        var text = item.GetComponent<TextMeshProUGUI>();
 
         var data = this.options[_dataIndex];
         if(data is ColorOptionDataTMP colorOptionData)

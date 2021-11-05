@@ -320,7 +320,7 @@ namespace Scuti.UI {
             Color32 colorOpaque = new Color32(229, 24, 176, 126);
 
             dropdown.Hide();
-            dropdown.ClearOptions();
+            dropdown.ClearOptions();            
             if (options == null || options.Length < 1 || options[0].Equals(Model.DEFAULT))
             {
                 dropdown.gameObject.SetActive(false);
@@ -331,7 +331,7 @@ namespace Scuti.UI {
                 List<ColorOptionDataTMP> optionsColor = new List<ColorOptionDataTMP>();
                 for (int i = 0; i < options.Length; i++)
                 {
-                    optionsColor.Add(new ColorOptionDataTMP(options[i], colorLight));
+                    optionsColor.Add(new ColorOptionDataTMP(options[i], colorLight, true));
                 }
 
                 dropdown.AddOptions(new List<TMP_Dropdown.OptionData>(optionsColor));
