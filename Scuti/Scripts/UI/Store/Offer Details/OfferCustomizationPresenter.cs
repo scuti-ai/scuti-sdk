@@ -121,7 +121,6 @@ namespace Scuti.UI {
             public void SelectOption1(string value)
             {
                 _selectedOption1 = (string.IsNullOrEmpty(value)) ? DEFAULT : value;
-                Debug.Log("SELECTED OPTION 1:" + _selectedOption1);
             }
 
             public void SelectOption2(string value)
@@ -249,10 +248,8 @@ namespace Scuti.UI {
             if (Data.GetInfoItemIn().Count > 0)
             {
                 var secondOpt = Data.GetInfoItemIn().Find(f => f.labelOpt1 == firstVariant.options[value].text);
-                //Debug.Log("------------Option 2 Updated: " + secondOpt.labelOpt1 + "  -  " + secondOpt.labelOpt2 + "  -  " + secondOpt.labelOpt3);
                 secondVariant.value = secondVariant.options.FindIndex(f => f.text == secondOpt.labelOpt2);
                 thirdVariant.value = thirdVariant.options.FindIndex(f => f.text == Data.GetInfoItemIn()[0].labelOpt3);
-                //Debug.Log("-----------Option 2 Updated VALUE: " + firstVariant.value + "  -  " + secondVariant.value + "  -  " + thirdVariant.value);
             }
 
             VariantChanged?.Invoke();
