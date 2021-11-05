@@ -87,7 +87,8 @@ MonoBehaviour:
   m_text: SIZE & FIT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32e824016a68a6f4791104da92d25a05, type: 2}
-  m_sharedMaterial: {fileID: 0}
+  m_sharedMaterial: {fileID: 21009341903750942, guid: 32e824016a68a6f4791104da92d25a05,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1342,7 +1343,8 @@ MonoBehaviour:
   m_text: (4.8)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32e824016a68a6f4791104da92d25a05, type: 2}
-  m_sharedMaterial: {fileID: 0}
+  m_sharedMaterial: {fileID: 21009341903750942, guid: 32e824016a68a6f4791104da92d25a05,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4813,7 +4815,7 @@ GameObject:
   - component: {fileID: 114961118650232904}
   - component: {fileID: 114114617320867376}
   - component: {fileID: 8518362457808678468}
-  - component: {fileID: 5637345386949142465}
+  - component: {fileID: 1511556636737843572}
   m_Layer: 5
   m_Name: Variant
   m_TagString: Untagged
@@ -4912,7 +4914,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &5637345386949142465
+--- !u!114 &1511556636737843572
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4921,7 +4923,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1440335506984046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 816cac7438761a446af8004058428a9f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -7716,7 +7718,7 @@ MonoBehaviour:
   Transitions: []
   quantityStepper: {fileID: 114965301880506828}
   firstVariantLabel: {fileID: 1766732597323933519}
-  firstVariant: {fileID: 5637345386949142465}
+  firstVariant: {fileID: 1511556636737843572}
   secondVariantLabel: {fileID: 7214852864621077764}
   secondVariant: {fileID: 1786672490995180546}
   thirdVariantLabel: {fileID: 6659091829613271877}
@@ -7832,7 +7834,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d1a5b6e72de2a0e4eb111c0ee8f1e3b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf6d80ac41aceed479a37fbf2b7e1895, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7977,7 +7979,8 @@ MonoBehaviour:
   m_text: Reviews
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32e824016a68a6f4791104da92d25a05, type: 2}
-  m_sharedMaterial: {fileID: 0}
+  m_sharedMaterial: {fileID: 21009341903750942, guid: 32e824016a68a6f4791104da92d25a05,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12068,7 +12071,8 @@ MonoBehaviour:
     and as the beads conform to your foot.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32e824016a68a6f4791104da92d25a05, type: 2}
-  m_sharedMaterial: {fileID: 0}
+  m_sharedMaterial: {fileID: 21009341903750942, guid: 32e824016a68a6f4791104da92d25a05,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12224,7 +12228,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 279e6c333cbb2ca4c9ffc220c8d8979d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f0c568bc85b45494a97c593b95e43543, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14849,7 +14853,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 625f4b7e87c954e4ebfa91341de0ac2d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7f4cac3b2785ce54a9532ec2ab2bc9e4, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

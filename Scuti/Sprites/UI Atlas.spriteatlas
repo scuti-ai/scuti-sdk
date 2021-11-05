@@ -31,7 +31,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 58e81dec8b5545d4a8e535db1ec50eee, type: 3}
-    totalSpriteSurfaceArea: 1591182
+    totalSpriteSurfaceArea: 1585339
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -48,6 +48,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 44d0f9d01b1511946a6631cde3a033b1, type: 3}
   - {fileID: 21300000, guid: 36da8b111185c4f4bb26a50433637026, type: 3}
   - {fileID: 21300000, guid: cbf0ef11f5364464b83ac03406659f4b, type: 3}
+  - {fileID: 21300000, guid: c7be962124ab75c4c8eff1ef78ed3d7b, type: 3}
   - {fileID: 21300000, guid: a2900a21d3d15db46941f24c6ec411b7, type: 3}
   - {fileID: 21300000, guid: 6669ce21716df9346ab032688103dfff, type: 3}
   - {fileID: 21300000, guid: 1e973351cc1146f4fb22940061aca533, type: 3}
@@ -67,6 +68,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 1834d263ec9890e458706a397bd1c1d8, type: 3}
   - {fileID: 21300000, guid: 31078863bc5d93544a2ea920c501c919, type: 3}
   - {fileID: 21300000, guid: 489e247340b267f4488aa8667c2237ce, type: 3}
+  - {fileID: 21300000, guid: 039f12831736a534aa45f59e34e21646, type: 3}
   - {fileID: 21300000, guid: 77d6b6b3fe91e3b4fb2b4e666d740c16, type: 3}
   - {fileID: 21300000, guid: 26c955f3505cc5e4da5fa7266e413eee, type: 3}
   - {fileID: 21300000, guid: 16230704c9431b646bf1dc2716ec5256, type: 3}
@@ -85,7 +87,6 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c350d255fae20f34896660ea4aefd8d0, type: 3}
   - {fileID: 21300000, guid: 722aa565a1987154cac7a4f8a2a9f275, type: 3}
   - {fileID: 21300000, guid: a1574795cb258bf4f96a01c61527c81e, type: 3}
-  - {fileID: 21300000, guid: 67c267a55bfcb8f40b72d5d2c0765f9c, type: 3}
   - {fileID: 21300000, guid: 37157de552e3730468c7f3e37f326453, type: 3}
   - {fileID: 21300000, guid: ce9efb16d31b3344491cdc0816d3d0ed, type: 3}
   - {fileID: 21300000, guid: 845876263efb78e4f8c240ae946ec98c, type: 3}
@@ -116,6 +117,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0c3a69fafdfeecc4dbb17c32e8b3ee92, type: 3}
   - {fileID: 21300000, guid: dad5c9fa3bb1b5747a29a8283c88b6ab, type: 3}
   - {fileID: 21300000, guid: 473db20bd5a124849a9b060cddc62f7c, type: 3}
+  - {fileID: 21300000, guid: 7f4cac3b2785ce54a9532ec2ab2bc9e4, type: 3}
   - {fileID: 21300000, guid: 83a2226b964a59c428b5fed1e10287da, type: 3}
   - {fileID: 21300000, guid: 93cda17bd07bafb4d8f23c45264404af, type: 3}
   - {fileID: 21300000, guid: 5e5d808b129b7c946bd985d379428201, type: 3}
@@ -123,8 +125,10 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 46b3463c8f7638247955e386ec24685e, type: 3}
   - {fileID: 21300000, guid: b1722c6c96f4c3e4e89972299ec4861d, type: 3}
   - {fileID: 21300000, guid: a678018c87d7083429e89648872971b5, type: 3}
+  - {fileID: 21300000, guid: cf6d80ac41aceed479a37fbf2b7e1895, type: 3}
   - {fileID: 21300000, guid: 874551ac6b21ba544a0b55f24d74ad92, type: 3}
   - {fileID: 21300000, guid: 055c55ac0788c074799464fe882df1f1, type: 3}
+  - {fileID: 21300000, guid: f0c568bc85b45494a97c593b95e43543, type: 3}
   - {fileID: 21300000, guid: da59a6cca9d1e684788f70a6b7ea7ebc, type: 3}
   - {fileID: 21300000, guid: 477c6f7d439bd5c458911d94f408557f, type: 3}
   - {fileID: 21300000, guid: f3b703addf1ada14dbfe19e22697e904, type: 3}
@@ -155,6 +159,7 @@ SpriteAtlas:
   - PhoneImage
   - scuti_brand_background
   - buttonapple-pay@3x
+  - ScutiLogoWhite
   - scuty_img_offer_tag-2
   - ScutiCoin_3
   - icon24fb@3x
@@ -174,6 +179,7 @@ SpriteAtlas:
   - ScutiCoin_4
   - IconSettings
   - color-block@3x4
+  - ScutiLogoBlue
   - tintrounded16color@3x
   - scuti_navigation_button_shop
   - icon16close@3x
@@ -192,7 +198,6 @@ SpriteAtlas:
   - colorblack@3x
   - color-block
   - scuty_img_offer_tag-2_empty
-  - ScutiLogo
   - category@3x
   - "\u2013@3x"
   - icon24scuti-currency
@@ -223,6 +228,7 @@ SpriteAtlas:
   - Card
   - Apparel
   - ScutiCoin_1
+  - ButtonOrange
   - loading_background
   - tintcirclecolor@3x
   - scuti_navigation_button_next
@@ -230,8 +236,10 @@ SpriteAtlas:
   - Sporting goods
   - color-block@2x
   - componentquantitySM@3x
+  - ButtonGreen2
   - CBD Products
   - icon24hot@3x
+  - ButtonBlue
   - Pet Supply
   - color-block@3xgradient
   - navstepperchecked)@3x
