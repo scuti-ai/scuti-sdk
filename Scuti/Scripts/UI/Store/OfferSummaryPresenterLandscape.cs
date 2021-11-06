@@ -47,10 +47,7 @@ namespace Scuti.UI
                 DisplayCurrentImage();
                 ResetTimer();
                 LoadCompleted();
-            } else
-            {
-                //Debug.Log("Does not have next! " + Data.Index);
-            }
+            } 
         }
 
         protected override void LoadCompleted()

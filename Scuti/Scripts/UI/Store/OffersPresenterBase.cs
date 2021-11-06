@@ -62,26 +62,25 @@ namespace Scuti.UI
 
             public OfferSummaryPresenterBase.Model UseSpecific(bool isDisplayAd)
             {
-                OfferSummaryPresenterBase.Model result = null;
                 if (NewItemsCount > 0)
                 {
                     int i = 0;
                     for(; i<NewItemsCount; i++)
                     {
-                        result = NewItems[i];
-                        if(result.DisplayAd == isDisplayAd)
+                        var temp = NewItems[i];
+                        if(temp.DisplayAd == isDisplayAd)
                         {
-
                             NewItems.RemoveAt(i);
-                            result.OnDispose += ReturnItem;
-                            ActiveItems.Add(result);
-                            return result;
+                            temp.OnDispose -= ReturnItem;
+                            temp.OnDispose += ReturnItem;
+                            ActiveItems.Add(temp);
+                            return temp;
                         }
                     }
 
                     return UseItem();
                 }
-                return result;
+                return null;
             }
 
             public OfferSummaryPresenterBase.Model UseItem()
@@ -93,10 +92,7 @@ namespace Scuti.UI
                     NewItems.RemoveAt(0);
                     result.OnDispose += ReturnItem;
                     ActiveItems.Add(result);
-                } else
-                {
-                    //Debug.LogError("No items remaining.");
-                }
+                } 
                 return result;
             }
 
@@ -112,8 +108,11 @@ namespace Scuti.UI
 
             public void EmptyPool()
             {
-                NewItems.AddRange(PooledItems);
-                PooledItems.Clear();
+                if (PooledItems.Count > 0)
+                {
+                    NewItems.AddRange(PooledItems);
+                    PooledItems.Clear();
+                }
             }
         }
 
@@ -357,7 +356,6 @@ namespace Scuti.UI
             {
                 categoryValue = null;
             }
-
             if (!m_PaginationMap.ContainsKey(categoryName))
                 m_PaginationMap[categoryName] = new Pagination()
                 {
@@ -381,7 +379,6 @@ namespace Scuti.UI
         public async Task RequestMoreOffers(bool replaceData, CancellationToken token, int maxCount)
         {
             int requestMore = 0;
-
             if (m_Pagination.Index >= m_Pagination.TotalCount)
             {
                 m_Pagination.Index = 0;
@@ -404,7 +401,6 @@ namespace Scuti.UI
             catch (Exception e)
             {
                 ScutiLogger.LogException(e);
-                //Debug.LogError("TODO: show error message ");
             }
             if (token.IsCancellationRequested)
             {
@@ -421,7 +417,6 @@ namespace Scuti.UI
                         try
                         {
                             index = 0;
-                            //Debug.LogWarning("Requesting Range  >>>>  index:" + index + "  m_Pagination.Index:" + m_Pagination.Index + "  maxcount:" + maxCount + "  replace:" + replaceData +" and total "+ m_Pagination.TotalCount +"  cat " + m_Pagination.Category);
                             m_Pagination.Index = requestMore;
                             var secondPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.ProductListing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, requestMore);
                             if (secondPage != null)
@@ -435,7 +430,6 @@ namespace Scuti.UI
                         catch (Exception e)
                         {
                             ScutiLogger.LogException(e);
-                            //Debug.LogError("TODO: show error message ");
                         }
                     }
                     Data = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>);
@@ -443,6 +437,7 @@ namespace Scuti.UI
                 else
                 {
                     var appendData = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>);
+
                     Data.NewItems.AddRange(appendData.NewItems);
                 }
             }
@@ -455,30 +450,6 @@ namespace Scuti.UI
                 }
             }
             requestInProgress = false;
-
-
-            //Debug.LogWarning("      actualCount" + actualCount  + "  maxcount:" + maxCount );
-            ////if (actualCount < maxCount)
-            ////{
-            ////    if (m_Pagination.Index > index || resetOverride) m_Pagination.Index = 0; // only reset if it hasn't been already by another offer
-
-            ////    if (actualCount == 0 && retry)
-            ////    {
-            ////        //Debug.LogError("      *--* m_Pagination.Index:" + m_Pagination.Index);
-            ////        return await GetRange(index, maxCount, false);
-            ////    }
-            ////    else
-            ////    {
-            ////        // Attempt to wrap back to the start
-            ////        index = m_Pagination.Index;
-            ////        m_Pagination.Index += maxCount;
-            ////        //Debug.LogError("      ** m_Pagination.Index:" + m_Pagination.Index);
-            ////        var results = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.Product_Listing }, FILTER_TYPE.In, m_Pagination.Category, null, null, index, maxCount - actualCount);
-            ////        //Debug.LogError("            ** results -->:" + results.Count);
-            ////        if(results!=null && results.Nodes.Count>0)
-            ////            offerPage.Nodes.AddRange(results.Nodes);
-            ////    }
-            ////}
         }
 
         // Maintains a queue of requests that fetches them one by one. This is 
@@ -549,20 +520,39 @@ namespace Scuti.UI
                     _offerSources.Add(source);
                     RequestMoreOffers(false, source.Token, offerDataToRequest);
 #pragma warning restore 4014
-                } 
+                }
 
                 if (Data.NewItemsCount>0)
                 {
-                    var tuple = GetNextRequestQueue.Dequeue();
+                    var tuple = GetNextRequestQueue.Peek();
                     var request = tuple.Item1;
-                    var pres = tuple.Item2;
-                    OfferSummaryPresenterBase.Model model = null;
+                    var pres = tuple.Item2;  
+                    if(Data.NewItemsCount<2 && ScutiUtils.IsPortrait())
+                    {
+                        // Check if it is a two column row and we need to fill both columns.  If FirstColumn is False then we only need 1
+                        if (!pres.Single && pres.FirstColumn)
+                        {
+                            if(requestInProgress)
+                                return;
+                            else
+                            {
+                                Data.EmptyPool();
+                                return;
+                            }
+                        }
+                    }
+
+                    OfferSummaryPresenterBase.Model model;
                     if(ScutiUtils.IsPortrait())
                          model = Data.UseSpecific(pres.Single);
                     else
                         model = Data.UseItem();
 
-                    request?.Invoke(model);
+                    if (model != null)
+                    {
+                        GetNextRequestQueue.Dequeue();
+                        request?.Invoke(model);
+                    }  
                 } else if(m_Pagination.Index >= m_Pagination.TotalCount && !requestInProgress)
                 {
                     Data.EmptyPool();

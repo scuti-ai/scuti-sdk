@@ -91,7 +91,7 @@ namespace Scuti.UI
                                     message = "Invalid Credentials. Please check your username/password.";
                                 break;
                             default:
-                                Debug.LogError("TODO: Add more response code messages here. -mg "+message);
+                                ScutiLogger.LogError("Uncaptured Response Code "+message +"  "+gqlException.responseCode);
                                 break;
                         }
                     }

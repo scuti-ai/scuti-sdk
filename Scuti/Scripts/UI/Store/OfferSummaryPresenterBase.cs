@@ -136,7 +136,6 @@ namespace Scuti.UI
                     }
                 } else
                 {
-                    //Debug.LogError("Texture is not null " + Title + " " + Index);
                     CurrentState = State.Loaded;
                 }
             }
@@ -149,6 +148,7 @@ namespace Scuti.UI
             public override void Dispose()
             {
                 OnDispose?.Invoke(this);
+
                 base.Dispose();
 
                 OnStateChanged = null;
@@ -168,7 +168,7 @@ namespace Scuti.UI
 
         internal void Clear()
         {
-            Data?.Dispose();
+            Data = null;
             ResetAnimation();
         }
 
@@ -177,11 +177,13 @@ namespace Scuti.UI
             if(m_Data != null)
             {
                 m_Data.OnStateChanged -= OnSetDataState;
+                m_Data.OnStateChanged -= OnNextStateChanged;
             }
             base.SetData(data);
         }
 
         public bool Single = false;
+        public bool FirstColumn = false;
         public bool FirstLoad = true;
         public event Action<OfferSummaryPresenterBase> OnClick;
 
@@ -285,7 +287,6 @@ namespace Scuti.UI
 
         private void _portraitImpressionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            //Debug.LogWarning("RECORD IMPRESSION! "+ Data.ID);
             _portraitImpressionTimer.Stop();
             ScutiAPI.RecordOfferImpression(Data.ID);
         }
@@ -296,19 +297,16 @@ namespace Scuti.UI
                 return;
 
             //rect.IsFullyVisibleFrom();
-            //Debug.LogWarning(gameObject.name + "  <color=#ff0000>visible "+ rect.IsFullyVisibleFrom()+"</color>");
             if (rect.IsHalfVisibleFrom() && rect.IsHalfVisibleFrom() != _lastVisibleState)
             {
                 _lastVisibleState = true;
                 _portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
                 _portraitImpressionTimer.Start();
-                //Debug.LogWarning(gameObject.name + "  <color=#00ff00>Object is visible "+ Data.ID + "</color>");
             }
             else if (!rect.IsHalfVisibleFrom() && rect.IsHalfVisibleFrom() != _lastVisibleState)
             {
                 _lastVisibleState = false;
                 _portraitImpressionTimer.Stop();
-                //Debug.LogWarning(gameObject.name + "  <color=#ff0000>Object is no longer visible " + Data.ID + "</color>");
             }
 
         }
@@ -320,7 +318,6 @@ namespace Scuti.UI
                 case ScutiConstants.SCUTI_IMPRESSION_ID:
                     try
                     {
-                        //Debug.LogError("RECORD IMPRESSION!");
                         ScutiAPI.RecordOfferImpression(Data.ID);
                     }
                     catch
@@ -362,8 +359,14 @@ namespace Scuti.UI
         protected async virtual void SwapToNextHelper()
         {
             Clear();
+            if(Next!=null)
+            {
+                Next.OnStateChanged -= OnNextStateChanged;
+            }
             Next = await m_NextRequest(this);
+
             Next.LoadImage();
+            Next.OnStateChanged -= OnNextStateChanged;
             Next.OnStateChanged += OnNextStateChanged;
         }
 
@@ -372,9 +375,11 @@ namespace Scuti.UI
             switch (state)
             {
                 case Model.State.Loaded:
+                    if (Next != null) Next.OnStateChanged -= OnNextStateChanged;
                     SwapToNext();
                     break;
                 case Model.State.Failed:
+                    if (Next != null) Next.OnStateChanged -= OnNextStateChanged;
                     Clear();
                     break;
             }
@@ -480,7 +485,7 @@ namespace Scuti.UI
                     {
                         p.Visual.SetActive(false);
                     }
-                    if(Data.Texture) AdImage.sprite = Data.Texture.ToSprite();
+                    if(Data.Texture && (displayImage.sprite == null || Data.Texture != displayImage.sprite.texture)) AdImage.sprite = Data.Texture.ToSprite();
                 }
                 else
                 {
@@ -489,7 +494,10 @@ namespace Scuti.UI
                     {
                         p.Visual.SetActive(!_isStatic || !p.HideIfStatic);
                     }
-                    if (Data.Texture) displayImage.sprite = Data.Texture.ToSprite();
+                    if (Data.Texture && ( displayImage.sprite == null || Data.Texture!=displayImage.sprite.texture))
+                    {
+                        displayImage.sprite = Data.Texture.ToSprite();
+                    }  
                 }
             }
         }
@@ -539,11 +547,17 @@ namespace Scuti.UI
         // ================================================
         protected override void OnSetState()
         {
-            gameObject.name = Data.Title;
-            UpdateUI();
+            if (Data != null)
+            {
+                gameObject.name = Data.Title;
+                UpdateUI();
 #pragma warning disable
-            Data.OnStateChanged += OnSetDataState;
+                Data.OnStateChanged += OnSetDataState;
 #pragma warning restore
+            } else 
+            {
+                gameObject.name = "Cleared";
+            }
         }
 
         protected virtual void OnSetDataState(Model.State state)
@@ -551,9 +565,11 @@ namespace Scuti.UI
             switch (state)
             {
                 case Model.State.Loaded:
+                    if (Data != null) Data.OnStateChanged -= OnSetDataState;
                     LoadCompleted();
                     break;
                 case Model.State.Failed:
+                    if (Data != null) Data.OnStateChanged -= OnSetDataState;
                     ScutiLogger.Log("Could not load summary image.");
                     break;
             }

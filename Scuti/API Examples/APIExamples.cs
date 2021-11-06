@@ -114,17 +114,6 @@ namespace Scuti.Examples
             GraphQL.Generated.Wallet res = await ScutiAPI.GetWallet(false);
         }
 
-        //[ContextMenu("Get games")]
-        //public async void GetGames()
-        //{
-        //    var games = await MetricsAPI.GetGames();
-        //    Debug.Log(games.Count);
-        //    foreach(var g in games)
-        //    {
-        //        Debug.Log($"{g.Name} {g.Id}");
-        //    }
-        //}
-
         [ContextMenu("Get game info")]
         public async void GetGameInfo()
         {

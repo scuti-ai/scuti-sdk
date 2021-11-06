@@ -27,8 +27,6 @@ namespace Scuti {
         public virtual void SetData(T data) {
 
             if (_destroyed) return;
-            if (data == null)
-                throw new Exception("Cannot set Presenter.Data to null");
 
             m_Data?.Dispose();
             m_Data = data;
