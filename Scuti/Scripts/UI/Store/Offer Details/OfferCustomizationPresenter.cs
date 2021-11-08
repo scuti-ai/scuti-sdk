@@ -206,14 +206,6 @@ namespace Scuti.UI {
             _dropdownHidden = 0;
         }
 
-        /*public override void Close()
-        {
-            Debug.Log("CLose offer customization ");
-            _isInitalize = false;
-            _dropdownHidden = 0;
-            base.Close();
-        }*/
-
         void HandleInteractions() {
             quantityStepper.OnValueChanged += value => {
                 value = Mathf.Clamp(value, 1, int.MaxValue);
@@ -305,7 +297,6 @@ namespace Scuti.UI {
 
         private void Populate(TMP_Dropdown dropdown, string[] options, int dropdownId)
         {
-           // Debug.Log("Populate interations ID: "+dropdownId);
             if(dropdownId == 1)
             {
                 Debug.Log("Numbers of items: " + Data.GetInfoItemOutOfStock().Count);
@@ -341,7 +332,6 @@ namespace Scuti.UI {
                         ColorOptionDataTMP colorOption = new ColorOptionDataTMP(options[i], colorLight, true);
                         if (_dropdownHidden <= 1)
                         {
-                            Debug.Log("ONE O MORE DROPDOWN AVAILABLE");
                             // Look in the out of stock list if all the variants of the second option are out of stock.
                             if (_option2OutOfStock.Count > 0)
                             {
@@ -363,17 +353,15 @@ namespace Scuti.UI {
                         // Only the first dropdown active
                         else if(_dropdownHidden == 2)
                         {
-                            //Debug.Log("*******************ONLY ONE DROPDOWN AVAILABLE: "+ options[i]);
-                            Debug.Log("*******************ONLY ONE DROPDOWN AVAILABLE: " + options.Length);
                             for (int j = 0; j < options.Length; j++)
                             {
                                 StockModelUpdated stock2 = Data.GetInfoItemOutOfStock().Find(f => f.labelOpt1 == options[i]);
                                 if (stock2 != null)
                                 {
-                                    Debug.Log("*******************ONLY ONE DROPDOWN AVAILABLE: FOUNDED!!!!");
                                     colorOption.text = options[i];
                                     colorOption.Color = colorOpaque;
                                     colorOption.Interactable = false;
+                                    break;
                                 }
                             }
                         }
