@@ -126,6 +126,11 @@ public class BannerWidget : MonoBehaviour {
         {
 
             _banner = (offerPage.Nodes as List<Offer>)[0];
+        } else
+        {
+            _index = 0;
+            _loading = false;
+           return;
         }
 
         if (_banner == null || string.IsNullOrEmpty(_banner.Media.Banner.BigUrl))

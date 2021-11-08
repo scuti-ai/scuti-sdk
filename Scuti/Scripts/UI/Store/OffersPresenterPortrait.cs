@@ -42,6 +42,7 @@ namespace Scuti.UI
                 {
                     var presenter = singleCopy[0];
                     presenter.Single = true;
+                    presenter.FirstColumn = true;
                     _allOffers.Add(presenter);
                     singleCopy.RemoveAt(0);
                 }
@@ -49,9 +50,11 @@ namespace Scuti.UI
                 {
                     var presenter = doubleCopy[0].Presenters[0];
                     presenter.Single = false;
+                    presenter.FirstColumn = true;
                     _allOffers.Add(presenter);
                     presenter = doubleCopy[0].Presenters[1];
                     presenter.Single = false;
+                    presenter.FirstColumn = false;
                     //presenter.titleText.cha
                     _allOffers.Add(presenter);
                     doubleCopy.RemoveAt(0);
@@ -98,9 +101,9 @@ namespace Scuti.UI
             OfferColorData colorData;
             foreach (var presenter in _allOffers)
             {
-                offerData = Data.UseSpecific(presenter.Single);
                 if (cancelToken.IsCancellationRequested) return;
 
+                offerData = Data.UseSpecific(presenter.Single);
                 m_Instantiated.Add(presenter);
                 presenter.Inject(GetNext);
                 presenter.gameObject.hideFlags = HideFlags.DontSave; 
