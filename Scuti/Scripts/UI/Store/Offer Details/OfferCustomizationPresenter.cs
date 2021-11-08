@@ -190,6 +190,10 @@ namespace Scuti.UI {
         [SerializeField] private int _dropdownHidden;
         [SerializeField] private bool _isInitalize;
 
+        [Header("Colors")]
+        [SerializeField] Color colorLight = new Color(0, 0, 0, 255);
+        [SerializeField] Color32 colorOpaque = new Color32(0, 0, 0, 180);
+
         public Action VariantChanged;
 
         protected override void Awake()
@@ -198,6 +202,14 @@ namespace Scuti.UI {
             HandleInteractions();
             _dropdownHidden = 0;
         }
+
+        /*public override void Close()
+        {
+            Debug.Log("CLose offer customization ");
+            _isInitalize = false;
+            _dropdownHidden = 0;
+            base.Close();
+        }*/
 
         void HandleInteractions() {
             quantityStepper.OnValueChanged += value => {
@@ -253,6 +265,8 @@ namespace Scuti.UI {
 
         protected override void OnSetState()
         {
+            Debug.Log("OFFERCUSTOMIZACION: ONSTATE");
+
             _isInitalize = false;
             _dropdownHidden = 0;
 
@@ -266,6 +280,8 @@ namespace Scuti.UI {
             Populate(secondVariant, Data.GetOption2DropDowns(), 2);
             Populate(firstVariant, Data.GetOption1DropDowns(), 1);
 
+            _isInitalize = true;
+
             // Initialize dropdowns with items availables
             if (Data.GetInfoItemIn().Count > 0)
             {
@@ -275,15 +291,21 @@ namespace Scuti.UI {
             }
 
             VariantChanged?.Invoke();
-            _isInitalize = true;
+           
         }
 
         private void Populate(TMP_Dropdown dropdown, string[] options, int dropdownId)
         {
-            Color colorLight = new Color(0, 0, 0, 255);
-            Color32 colorOpaque = new Color32(0, 0, 0, 180);
-
-            if (dropdownId == 2)
+           // Debug.Log("Populate interations ID: "+dropdownId);
+            /*if(dropdownId == 1)
+            {
+                Debug.Log("Numbers of items: " + Data.GetInfoItemOutOfStock().Count);
+                for (int j = 0; j < Data.GetInfoItemOutOfStock().Count; j++)
+                {
+                    Debug.Log("Item: " + Data.GetInfoItemOutOfStock()[j].labelOpt1);
+                }
+            }
+            else*/ if (dropdownId == 2)
             {
                 _option2OutOfStock = new List<string>(options);
 
@@ -308,22 +330,42 @@ namespace Scuti.UI {
                     if (dropdownId == 1)
                     {
                         ColorOptionDataTMP colorOption = new ColorOptionDataTMP(options[i], colorLight, true);
-
-                        // Look in the out of stock list if all the variants of the second option are out of stock.
-                        if (_option2OutOfStock.Count > 0)
+                        if (_dropdownHidden <= 1)
                         {
+                            Debug.Log("ONE O MORE DROPDOWN AVAILABLE");
+                            // Look in the out of stock list if all the variants of the second option are out of stock.
+                            if (_option2OutOfStock.Count > 0)
+                            {
+                                for (int j = 0; j < options.Length; j++)
+                                {
+                                    List<StockModelUpdated> stock2 = Data.GetInfoItemOutOfStock().FindAll(f => f.labelOpt1 == options[i]);
+                                    if (_option2OutOfStock.Count == stock2.Count)
+                                    {
+                                        colorOption.text = options[i];
+                                        colorOption.Color = colorOpaque;
+                                        colorOption.Interactable = false;
+                                    }
+
+                                }
+                            }
+                        }
+                        // Only the first dropdown active
+                        /*else if(_dropdownHidden == 2)
+                        {
+                            //Debug.Log("*******************ONLY ONE DROPDOWN AVAILABLE: "+ options[i]);
+                            Debug.Log("*******************ONLY ONE DROPDOWN AVAILABLE: " + options.Length);
                             for (int j = 0; j < options.Length; j++)
                             {
-                                List<StockModelUpdated> stock2 = Data.GetInfoItemOutOfStock().FindAll(f => f.labelOpt1 == options[i]);
-                                if (_option2OutOfStock.Count == stock2.Count)
+                                StockModelUpdated stock2 = Data.GetInfoItemOutOfStock().Find(f => f.labelOpt1 == options[i]);
+                                if (stock2 != null)
                                 {
+                                    Debug.Log("*******************ONLY ONE DROPDOWN AVAILABLE: FOUNDED!!!!");
                                     colorOption.text = options[i];
                                     colorOption.Color = colorOpaque;
                                     colorOption.Interactable = false;
                                 }
-
                             }
-                        }
+                        }*/
 
                         optionsColor.Add(colorOption);
                     }
