@@ -297,15 +297,7 @@ namespace Scuti.UI {
 
         private void Populate(TMP_Dropdown dropdown, string[] options, int dropdownId)
         {
-            if(dropdownId == 1)
-            {
-                Debug.Log("Numbers of items: " + Data.GetInfoItemOutOfStock().Count);
-                for (int j = 0; j < Data.GetInfoItemOutOfStock().Count; j++)
-                {
-                    Debug.Log("Item: " + Data.GetInfoItemOutOfStock()[j].labelOpt1);
-                }
-            }
-            else if (dropdownId == 2)
+            if (dropdownId == 2)
             {
                 _option2OutOfStock = new List<string>(options);
 
