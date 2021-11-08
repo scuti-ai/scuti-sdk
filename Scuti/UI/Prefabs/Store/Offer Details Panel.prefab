@@ -4923,7 +4923,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1440335506984046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+  m_Script: {fileID: 11500000, guid: 816cac7438761a446af8004058428a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -7723,7 +7723,16 @@ MonoBehaviour:
   secondVariant: {fileID: 1786672490995180546}
   thirdVariantLabel: {fileID: 6659091829613271877}
   thirdVariant: {fileID: 424936543984996517}
-  stock2Test: []
+  stockOut: []
+  _option2OutOfStock: []
+  _dropdownHidden: 0
+  _isInitalize: 0
+  colorLight: {r: 0, g: 0, b: 0, a: 255}
+  colorOpaque:
+    serializedVersion: 2
+    rgba: 3019898880
+  allOutOfStock: []
+  allInStock: []
 --- !u!114 &7053235884250556142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15651,7 +15660,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8769732423728266316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+  m_Script: {fileID: 11500000, guid: 816cac7438761a446af8004058428a9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
