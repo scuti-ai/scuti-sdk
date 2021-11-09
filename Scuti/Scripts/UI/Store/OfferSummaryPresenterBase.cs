@@ -251,7 +251,6 @@ namespace Scuti.UI
         #region LICECYCLE
         // ================================================
 
-
         protected override void Awake()
         {
             base.Awake();
@@ -268,19 +267,27 @@ namespace Scuti.UI
             {
                 _isPortrait = false;
             }*/
-
-            if (_isPortrait)
+            //Debug.LogError(this.name + " _isPortrait " + _isPortrait);
+            /*if (_isPortrait)
             {
                 _portraitImpressionTimer.Elapsed += _portraitImpressionTimer_Elapsed;
                 _portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
-            }
+            }*/            
 
-            timer.gameObject.SetActive(false);
-            AdContainer.SetActive(false);
             timerCompleted = false;
-            timer.Pause();
-            timer.onFinished.AddListener(OnTimerCompleted);
-            timer.onCustomEvent += OnTimerCustomEvent;
+            if (!_isPortrait)
+            {
+                timer.gameObject.SetActive(false);
+                timer.Pause();
+                timer.onFinished.AddListener(OnTimerCompleted);
+                timer.onCustomEvent += OnTimerCustomEvent;
+            }
+            else
+            {
+                timer.Pause();
+                timer.onFinished.AddListener(RecordOfferImpression);
+            }
+            AdContainer.SetActive(false);
             GlowImage.gameObject.SetActive(false);
 
         }
@@ -288,6 +295,12 @@ namespace Scuti.UI
         private void _portraitImpressionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             _portraitImpressionTimer.Stop();
+            ScutiAPI.RecordOfferImpression(Data.ID);
+        }
+
+        private void RecordOfferImpression()
+        {
+            timer.Pause();
             ScutiAPI.RecordOfferImpression(Data.ID);
         }
 
@@ -300,13 +313,16 @@ namespace Scuti.UI
             if (rect.IsHalfVisibleFrom() && rect.IsHalfVisibleFrom() != _lastVisibleState)
             {
                 _lastVisibleState = true;
-                _portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
-                _portraitImpressionTimer.Start();
+                timer.ResetTime(ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
+                timer.Begin();
+                //_portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
+                //_portraitImpressionTimer.Start();
             }
             else if (!rect.IsHalfVisibleFrom() && rect.IsHalfVisibleFrom() != _lastVisibleState)
             {
                 _lastVisibleState = false;
-                _portraitImpressionTimer.Stop();
+                timer.Pause();
+                //_portraitImpressionTimer.Stop();
             }
 
         }

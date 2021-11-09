@@ -1391,6 +1391,7 @@ MonoBehaviour:
       m_Calls: []
   Transitions: []
   Single: 0
+  FirstColumn: 0
   FirstLoad: 1
   animator: {fileID: 95641918555222256}
   timer: {fileID: 114432455225790650}
@@ -2383,7 +2384,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -5.3}
+  m_AnchoredPosition: {x: 0, y: -5.299988}
   m_SizeDelta: {x: -272.40057, y: -226.04468}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222391124480009636
@@ -3669,7 +3670,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &224396139515684426
 RectTransform:
   m_ObjectHideFlags: 0
