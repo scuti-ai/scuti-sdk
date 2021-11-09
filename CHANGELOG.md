@@ -4,7 +4,7 @@
 # 1.3
 - Added TextMesh Pro to improve performance on Portrait mode
 - Credit Card Management
-- New Offer Icon
+- New Product Feature
 - Handful of improvements (randomization of offers, UI fixes, etc)
 
 # 1.2
