@@ -1416,12 +1416,18 @@ MonoBehaviour:
     HideIfStatic: 0
   - Visual: {fileID: 1021160203009856}
     HideIfStatic: 0
-  - Visual: {fileID: 1526707172829468}
+  - Visual: {fileID: 8721542774120356252}
     HideIfStatic: 0
   - Visual: {fileID: 1523322735438136}
     HideIfStatic: 0
   - Visual: {fileID: 1869261115249192}
     HideIfStatic: 1
+  - Visual: {fileID: 2521974040032944}
+    HideIfStatic: 0
+  - Visual: {fileID: 1608256410101496}
+    HideIfStatic: 0
+  - Visual: {fileID: 1362557803142224}
+    HideIfStatic: 0
   AdImage: {fileID: 114472910378964086}
 --- !u!95 &95641918555222256
 Animator:
@@ -2210,13 +2216,13 @@ RectTransform:
   - {fileID: 224863705126125182}
   - {fileID: 224038558397366924}
   - {fileID: 224662232753845500}
-  m_Father: {fileID: 224345070204015222}
-  m_RootOrder: 1
+  m_Father: {fileID: 6506774958681426061}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: -2.9527588}
-  m_SizeDelta: {x: 0, y: -31.599731}
+  m_AnchoredPosition: {x: 268.1872, y: -246.62122}
+  m_SizeDelta: {x: 740, y: 567.74927}
   m_Pivot: {x: 0.8624153, y: 0.09344482}
 --- !u!222 &222933681030941776
 CanvasRenderer:
@@ -3067,7 +3073,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 432.79083, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &222697738918697638
 CanvasRenderer:
@@ -4100,7 +4106,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224067659490181608}
-  - {fileID: 224401740827730072}
+  - {fileID: 6506774958681426061}
   - {fileID: 224396139515684426}
   - {fileID: 224980779424820550}
   - {fileID: 224537977881133984}
@@ -4542,3 +4548,39 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
+--- !u!1 &8721542774120356252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6506774958681426061}
+  m_Layer: 5
+  m_Name: PromosContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6506774958681426061
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8721542774120356252}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224401740827730072}
+  m_Father: {fileID: 224345070204015222}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}

@@ -64,7 +64,7 @@ namespace Scuti
             bool displayAd = allowAd;
             if (displayAd || !string.IsNullOrEmpty(offer.Media.VideoUrl) && offer.Media.Banner!=null)
             {
-                displayAd = (!ScutiUtils.IsPortrait() && !string.IsNullOrEmpty(offer.Media.Banner.TallUrl)) || !string.IsNullOrEmpty(offer.Media.Banner.SmallUrl);
+                displayAd = (!ScutiUtils.IsPortrait() && !string.IsNullOrEmpty(offer.Media.Vertical)) || !string.IsNullOrEmpty(offer.Media.Tile);
             }
             if (offer.Product == null)
             {
@@ -86,8 +86,8 @@ namespace Scuti
             {
                 ID = offer.Id.ToString(),
                 ImageURL = images != null && images.Count > 0 ? images[0] : string.Empty,
-                TallURL = offer.Media.Banner.TallUrl,
-                SmallURL = offer.Media.Banner.SmallUrl,
+                TallURL = offer.Media.Vertical,
+                SmallURL = offer.Media.Tile,
                 VideoURL = offer.Media.VideoUrl,
                 Scutis = scutis,
                 DisplayAd = displayAd,
