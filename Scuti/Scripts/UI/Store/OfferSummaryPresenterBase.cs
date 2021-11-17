@@ -117,11 +117,6 @@ namespace Scuti.UI
                                     DisplayAd = false;
                                 }
                             }
-
-                            Debug.Log("---- ISTALL " + IsTall + " Nombre: "+ Title);
-                            Debug.Log("---- IMAGE URL: " + ImageURL);
-                            Debug.Log("---- URL: " + url);
-
                         }
                         ImageDownloader.New().Download(url,
                             result =>
@@ -533,12 +528,6 @@ namespace Scuti.UI
                     if (Data.Texture && ( displayImage.sprite == null || Data.Texture!=displayImage.sprite.texture))
                     {
                         displayImage.sprite = Data.Texture.ToSprite();
-                        if(Data.DisplayAd)
-                        {
-                            Debug.Log("******* HOLI -- "+ gameObject.name);
-
-                        }
-
                     }
                 }
             }
