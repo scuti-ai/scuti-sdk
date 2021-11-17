@@ -103,9 +103,10 @@ namespace Scuti.UI
                         {
                             if(isSingle)
                             {
-                                if (IsTall && !string.IsNullOrEmpty(TallURL))
+                                if (IsTall && !string.IsNullOrEmpty(TallURL) )
                                 {
-                                    url = TallURL;
+                                    if(!ScutiUtils.IsPortrait())
+                                        url = TallURL;
 
                                 }
                                 else if (!IsTall && !string.IsNullOrEmpty(SmallURL))
@@ -510,10 +511,6 @@ namespace Scuti.UI
                     if(Data.Texture && (displayImage.sprite == null || Data.Texture != displayImage.sprite.texture))
                     {
                         AdImage.sprite = Data.Texture.ToSprite();
-                    }
-                    else 
-                    {
-                        AdImage.sprite = displayImage.sprite.texture.ToSprite();
                     }
                        
                 }
