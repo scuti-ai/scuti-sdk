@@ -63,6 +63,7 @@ namespace Scuti.UI
 
             public bool DisplayAd = false;
             public bool IsTall = false;
+            public bool isSingle = false;
 
 
             //HashSet<OfferSummaryPresenterBase> References;
@@ -100,18 +101,27 @@ namespace Scuti.UI
                             url = url.Insert(url.LastIndexOf("."), "_large");
                         if (DisplayAd)
                         {
-                            if (IsTall && !string.IsNullOrEmpty(TallURL))
+                            if(isSingle)
                             {
-                                url = TallURL;
+                                if (IsTall && !string.IsNullOrEmpty(TallURL))
+                                {
+                                    url = TallURL;
+
+                                }
+                                else if (!IsTall && !string.IsNullOrEmpty(SmallURL))
+                                {                    
+                                    url = SmallURL;
+                                }
+                                else
+                                {
+                                    DisplayAd = false;
+                                }
                             }
-                            else if (!IsTall && !string.IsNullOrEmpty(SmallURL))
-                            {
-                                url = SmallURL;
-                            }
-                            else
-                            {
-                                DisplayAd = false;
-                            }
+
+                            Debug.Log("---- ISTALL " + IsTall + " Nombre: "+ Title);
+                            Debug.Log("---- IMAGE URL: " + ImageURL);
+                            Debug.Log("---- URL: " + url);
+
                         }
                         ImageDownloader.New().Download(url,
                             result =>
@@ -494,17 +504,27 @@ namespace Scuti.UI
         {
             if (!_destroyed)
             {
-                if (Data.DisplayAd)
+                //Debug.Log(gameObject.name + "Single? " + Single);
+                if (Data.DisplayAd && Single)
                 {
                     AdContainer.SetActive(true);
                     foreach (var p in ProductVisualRules)
                     {
                         p.Visual.SetActive(false);
                     }
-                    if(Data.Texture && (displayImage.sprite == null || Data.Texture != displayImage.sprite.texture)) AdImage.sprite = Data.Texture.ToSprite();
+                    if(Data.Texture && (displayImage.sprite == null || Data.Texture != displayImage.sprite.texture))
+                    {
+                        AdImage.sprite = Data.Texture.ToSprite();
+                    }
+                    else 
+                    {
+                        AdImage.sprite = displayImage.sprite.texture.ToSprite();
+                    }
+                       
                 }
                 else
                 {
+                    // Here doble offer
                     AdContainer.SetActive(false);
                     foreach (var p in ProductVisualRules)
                     {
@@ -513,7 +533,13 @@ namespace Scuti.UI
                     if (Data.Texture && ( displayImage.sprite == null || Data.Texture!=displayImage.sprite.texture))
                     {
                         displayImage.sprite = Data.Texture.ToSprite();
-                    }  
+                        if(Data.DisplayAd)
+                        {
+                            Debug.Log("******* HOLI -- "+ gameObject.name);
+
+                        }
+
+                    }
                 }
             }
         }

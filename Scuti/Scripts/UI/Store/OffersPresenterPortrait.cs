@@ -116,9 +116,11 @@ namespace Scuti.UI
                 {
                     continue;
                 }
-                presenter.Data = offerData;
+
+                presenter.Data = offerData;                
                 presenter.FirstLoad = true;
                 presenter.OnLoaded += OnWidgetLoaded;
+                presenter.Data.isSingle = presenter.Single;
                 presenter.Data.LoadImage();
                 presenter.OnClick -= OnPresenterClicked;
                 presenter.OnClick += OnPresenterClicked;
