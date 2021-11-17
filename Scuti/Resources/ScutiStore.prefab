@@ -374,13 +374,6 @@ MonoBehaviour:
     view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
-  - id: ABOUT
-    view: {fileID: 3468817519860186242, guid: 8ee182f0ddae3e041878c62e88a0edd8, type: 3}
-    view_portrait: {fileID: 3468817519860186242, guid: 1d2199056196b824eb49a4a6c12b2c6f,
-      type: 3}
-    view_pc: {fileID: 0}
-    parent: {fileID: 224471452044485110}
-    instance: {fileID: 0}
 --- !u!1 &1736270222254480
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,9 +455,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -737,6 +730,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: ACCOUNT
   creators:
+  - id: ABOUT
+    view: {fileID: 3468817519860186242, guid: 8ee182f0ddae3e041878c62e88a0edd8, type: 3}
+    view_portrait: {fileID: 3468817519860186242, guid: 1d2199056196b824eb49a4a6c12b2c6f,
+      type: 3}
+    view_pc: {fileID: 0}
+    parent: {fileID: 224120975414160842}
+    instance: {fileID: 0}
   - id: MYACCOUNT
     view: {fileID: 114809112739792404, guid: 97b265316cb28f14baf8dd9fe18e26f1, type: 3}
     view_portrait: {fileID: 114809112739792404, guid: c7c56b0bc2cccd842a96ce5f973d7d7a,

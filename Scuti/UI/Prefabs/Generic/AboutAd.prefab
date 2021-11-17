@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4aece8af11eef4c9236ad1445d4df7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isModal: 0
+  isModal: 1
   m_State: 3
   requiresLogin: 0
   alwaysEnabled: 0
@@ -301,7 +301,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3471577859187309628}
-        m_MethodName: TransitionIn
+        m_MethodName: TransitionOut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
