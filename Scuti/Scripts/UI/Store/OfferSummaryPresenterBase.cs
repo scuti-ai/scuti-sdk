@@ -105,8 +105,7 @@ namespace Scuti.UI
                             {
                                 if (IsTall && !string.IsNullOrEmpty(TallURL) )
                                 {
-                                    if(!ScutiUtils.IsPortrait())
-                                        url = TallURL;
+                                    url = TallURL;
 
                                 }
                                 else if (!IsTall && !string.IsNullOrEmpty(SmallURL))
