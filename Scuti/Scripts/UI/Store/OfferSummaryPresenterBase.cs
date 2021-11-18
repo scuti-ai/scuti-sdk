@@ -300,13 +300,15 @@ namespace Scuti.UI
         private void _portraitImpressionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             _portraitImpressionTimer.Stop();
-            ScutiAPI.RecordOfferImpression(Data.ID);
+            if(Data!=null)
+                ScutiAPI.RecordOfferImpression(Data.ID);
         }
 
         private void RecordOfferImpression()
         {
             timer.Pause();
-            ScutiAPI.RecordOfferImpression(Data.ID);
+            if (Data != null)
+                ScutiAPI.RecordOfferImpression(Data.ID);
         }
 
         void Update()
@@ -339,7 +341,8 @@ namespace Scuti.UI
                 case ScutiConstants.SCUTI_IMPRESSION_ID:
                     try
                     {
-                        ScutiAPI.RecordOfferImpression(Data.ID);
+                        if (Data != null)
+                            ScutiAPI.RecordOfferImpression(Data.ID);
                     }
                     catch
                     {
@@ -481,7 +484,7 @@ namespace Scuti.UI
         {
             if (!_destroyed)
             {
-                if (Data.IsMoreExposure && !_isStatic)
+                if (Data!=null && Data.IsMoreExposure && !_isStatic)
                 {
                     GlowImage.gameObject.SetActive(true);
                 }
@@ -497,7 +500,7 @@ namespace Scuti.UI
 
         public void DisplayCurrentImage()
         {
-            if (!_destroyed)
+            if (!_destroyed && Data!=null)
             {
                 //Debug.Log(gameObject.name + "Single? " + Single);
                 if (Data.DisplayAd && Single)
