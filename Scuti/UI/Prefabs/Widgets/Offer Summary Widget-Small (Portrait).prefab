@@ -1390,7 +1390,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Transitions: []
-  Single: 0
+  Single: 1
   FirstColumn: 0
   FirstLoad: 1
   animator: {fileID: 95641918555222256}

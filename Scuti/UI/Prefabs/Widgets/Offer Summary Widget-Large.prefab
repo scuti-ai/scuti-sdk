@@ -670,8 +670,7 @@ MonoBehaviour:
   m_text: Searching for best deals
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32e824016a68a6f4791104da92d25a05, type: 2}
-  m_sharedMaterial: {fileID: 21009341903750942, guid: 42fade36b1b1a7b41876618e3a9a70ab,
-    type: 2}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1107,7 +1106,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Transitions: []
-  Single: 0
+  Single: 1
+  FirstColumn: 0
   FirstLoad: 1
   animator: {fileID: 95563935576684128}
   timer: {fileID: 114392041837939036}

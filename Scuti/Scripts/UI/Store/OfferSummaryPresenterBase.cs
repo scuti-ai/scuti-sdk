@@ -389,6 +389,8 @@ namespace Scuti.UI
             }
             Next = await m_NextRequest(this);
 
+            Next.IsTall = false;
+            Next.isSingle = Single;
             Next.LoadImage();
             Next.OnStateChanged -= OnNextStateChanged;
             Next.OnStateChanged += OnNextStateChanged;
