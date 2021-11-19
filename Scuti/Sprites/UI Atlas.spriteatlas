@@ -31,7 +31,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 58e81dec8b5545d4a8e535db1ec50eee, type: 3}
-    totalSpriteSurfaceArea: 1585339
+    totalSpriteSurfaceArea: 1664276
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -59,6 +59,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: aaea00b1a2430c34fa6b6d370be100d5, type: 3}
   - {fileID: 21300000, guid: ed81413249d170343837f90b15568dbb, type: 3}
   - {fileID: 21300000, guid: 2ac88a72d4cbb9b4f87e138f6a8625ad, type: 3}
+  - {fileID: 21300000, guid: bd5385b256b5e7b4983a8e2a32950e95, type: 3}
   - {fileID: 21300000, guid: 1c0565c2002ab774985dd6480f9c0c94, type: 3}
   - {fileID: 21300000, guid: 93692013657a68d4ea445e106ffb0c2d, type: 3}
   - {fileID: 21300000, guid: 40036f13fb9675944b7650c48278109e, type: 3}
@@ -130,6 +131,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 055c55ac0788c074799464fe882df1f1, type: 3}
   - {fileID: 21300000, guid: f0c568bc85b45494a97c593b95e43543, type: 3}
   - {fileID: 21300000, guid: da59a6cca9d1e684788f70a6b7ea7ebc, type: 3}
+  - {fileID: 21300000, guid: 58416deca0fc29f4791c561b75e50a56, type: 3}
   - {fileID: 21300000, guid: 477c6f7d439bd5c458911d94f408557f, type: 3}
   - {fileID: 21300000, guid: f3b703addf1ada14dbfe19e22697e904, type: 3}
   - {fileID: 21300000, guid: 94a3f1dd7e9f8374f843aff27d0ad7ee, type: 3}
@@ -170,6 +172,7 @@ SpriteAtlas:
   - ScutiCoin_2
   - Home
   - scuty_img_offer_tag-1_empty
+  - Scuti_About_Image
   - Cameras
   - ButtonGreen
   - scuti_offer_card_bg-color_small-1
@@ -241,6 +244,7 @@ SpriteAtlas:
   - icon24hot@3x
   - ButtonBlue
   - Pet Supply
+  - About
   - color-block@3xgradient
   - navstepperchecked)@3x
   - cardSMstoreproducts@3x

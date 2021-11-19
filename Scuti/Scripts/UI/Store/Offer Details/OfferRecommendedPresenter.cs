@@ -112,23 +112,28 @@ namespace Scuti.UI {
 
                
                 widget.Data = Data.Items[index];
-                widget.Data.IsTall = false;
+                widget.Data.IsTall = false; 
+                widget.OnLoaded -= OnWidgetLoaded;
                 widget.OnLoaded += OnWidgetLoaded;
+                widget.Data.isSingle = widget.Single;
                 widget.Data.LoadImage();
 
-                widget.OnClick += async (presenter) =>
-                {
-                    var id = widget.Data.ID;
-                    var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
-                    var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
-                    UIManager.OfferDetails.SetData(panelModel);
-                    UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(widget.Data.VideoURL));
-                    UIManager.Open(UIManager.OfferDetails);
-                };
+                widget.OnClick -= OnPresenterClicked;
+                widget.OnClick += OnPresenterClicked;
             }
 
             OnPopulateFinished?.Invoke();
 
+        }
+
+        private async void OnPresenterClicked(OfferSummaryPresenterBase presenter)
+        {
+                var id = presenter.Data.ID;
+                var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
+                var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
+                UIManager.OfferDetails.SetData(panelModel);
+                UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(presenter.Data.VideoURL));
+                UIManager.Open(UIManager.OfferDetails);
         }
 
         private void OnWidgetLoaded(bool value, OfferSummaryPresenterBase widget)

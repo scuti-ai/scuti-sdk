@@ -70,6 +70,7 @@ namespace Scuti.UI
                 if (Next != null)
                 {
                     Next.IsTall = IsTall;
+                    Next.isSingle = Single;
                     Next.OnStateChanged += OnNextStateChanged;
                     Next.LoadImage();
                 }

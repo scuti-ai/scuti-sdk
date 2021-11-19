@@ -63,6 +63,7 @@ namespace Scuti.UI
 
             public bool DisplayAd = false;
             public bool IsTall = false;
+            public bool isSingle = false;
 
 
             //HashSet<OfferSummaryPresenterBase> References;
@@ -100,17 +101,21 @@ namespace Scuti.UI
                             url = url.Insert(url.LastIndexOf("."), "_large");
                         if (DisplayAd)
                         {
-                            if (IsTall && !string.IsNullOrEmpty(TallURL))
+                            if(isSingle)
                             {
-                                url = TallURL;
-                            }
-                            else if (!IsTall && !string.IsNullOrEmpty(SmallURL))
-                            {
-                                url = SmallURL;
-                            }
-                            else
-                            {
-                                DisplayAd = false;
+                                if (IsTall && !string.IsNullOrEmpty(TallURL) )
+                                {
+                                    url = TallURL;
+
+                                }
+                                else if (!IsTall && !string.IsNullOrEmpty(SmallURL))
+                                {                    
+                                    url = SmallURL;
+                                }
+                                else
+                                {
+                                    DisplayAd = false;
+                                }
                             }
                         }
                         ImageDownloader.New().Download(url,
@@ -295,13 +300,15 @@ namespace Scuti.UI
         private void _portraitImpressionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
             _portraitImpressionTimer.Stop();
-            ScutiAPI.RecordOfferImpression(Data.ID);
+            if(Data!=null)
+                ScutiAPI.RecordOfferImpression(Data.ID);
         }
 
         private void RecordOfferImpression()
         {
             timer.Pause();
-            ScutiAPI.RecordOfferImpression(Data.ID);
+            if (Data != null)
+                ScutiAPI.RecordOfferImpression(Data.ID);
         }
 
         void Update()
@@ -334,7 +341,8 @@ namespace Scuti.UI
                 case ScutiConstants.SCUTI_IMPRESSION_ID:
                     try
                     {
-                        ScutiAPI.RecordOfferImpression(Data.ID);
+                        if (Data != null)
+                            ScutiAPI.RecordOfferImpression(Data.ID);
                     }
                     catch
                     {
@@ -381,6 +389,8 @@ namespace Scuti.UI
             }
             Next = await m_NextRequest(this);
 
+            Next.IsTall = false;
+            Next.isSingle = Single;
             Next.LoadImage();
             Next.OnStateChanged -= OnNextStateChanged;
             Next.OnStateChanged += OnNextStateChanged;
@@ -476,7 +486,7 @@ namespace Scuti.UI
         {
             if (!_destroyed)
             {
-                if (Data.IsMoreExposure && !_isStatic)
+                if (Data!=null && Data.IsMoreExposure && !_isStatic)
                 {
                     GlowImage.gameObject.SetActive(true);
                 }
@@ -492,19 +502,25 @@ namespace Scuti.UI
 
         public void DisplayCurrentImage()
         {
-            if (!_destroyed)
+            if (!_destroyed && Data!=null)
             {
-                if (Data.DisplayAd)
+                //Debug.Log(gameObject.name + "Single? " + Single);
+                if (Data.DisplayAd && Single)
                 {
                     AdContainer.SetActive(true);
                     foreach (var p in ProductVisualRules)
                     {
                         p.Visual.SetActive(false);
                     }
-                    if(Data.Texture && (displayImage.sprite == null || Data.Texture != displayImage.sprite.texture)) AdImage.sprite = Data.Texture.ToSprite();
+                    if(Data.Texture && (displayImage.sprite == null || Data.Texture != displayImage.sprite.texture))
+                    {
+                        AdImage.sprite = Data.Texture.ToSprite();
+                    }
+                       
                 }
                 else
                 {
+                    // Here doble offer
                     AdContainer.SetActive(false);
                     foreach (var p in ProductVisualRules)
                     {
@@ -513,7 +529,7 @@ namespace Scuti.UI
                     if (Data.Texture && ( displayImage.sprite == null || Data.Texture!=displayImage.sprite.texture))
                     {
                         displayImage.sprite = Data.Texture.ToSprite();
-                    }  
+                    }
                 }
             }
         }

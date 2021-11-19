@@ -116,9 +116,12 @@ namespace Scuti.UI
                 {
                     continue;
                 }
-                presenter.Data = offerData;
+
+                presenter.Data = offerData;                
                 presenter.FirstLoad = true;
+                presenter.OnLoaded -= OnWidgetLoaded;
                 presenter.OnLoaded += OnWidgetLoaded;
+                presenter.Data.isSingle = presenter.Single;
                 presenter.Data.LoadImage();
                 presenter.OnClick -= OnPresenterClicked;
                 presenter.OnClick += OnPresenterClicked;
@@ -133,28 +136,28 @@ namespace Scuti.UI
 
         private async void OnPresenterClicked(OfferSummaryPresenterBase presenter)
         {
-                if (presenter.Data != null && !presenter.Data.ID.IsNullOrEmpty())
+            if (presenter.Data != null && !presenter.Data.ID.IsNullOrEmpty())
+            {
+                UIManager.ShowLoading(false);
+                var id = presenter.Data.ID;
+                var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
+                var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
+
+                try
                 {
-                    UIManager.ShowLoading(false);
-                    var id = presenter.Data.ID;
-                    var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
-                    var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
-
-                    try
-                    {
-                        UIManager.OfferDetails.SetData(panelModel);
-                        UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(presenter.Data.VideoURL));
-                        UIManager.Open(UIManager.OfferDetails);
-                    }
-                    catch (Exception e)
-                    {
-                        ScutiLogger.LogException(e);
-                        UIManager.Alert.SetHeader("Out of Stock").SetBody("This item is out of stock. Please try again later.").SetButtonText("OK").Show(() => { });
-                        //UIManager.Open(UIManager.Offers);
-                    }
-
-                    UIManager.HideLoading(false);
+                    UIManager.OfferDetails.SetData(panelModel);
+                    UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(presenter.Data.VideoURL));
+                    UIManager.Open(UIManager.OfferDetails);
                 }
+                catch (Exception e)
+                {
+                    ScutiLogger.LogException(e);
+                    UIManager.Alert.SetHeader("Out of Stock").SetBody("This item is out of stock. Please try again later.").SetButtonText("OK").Show(() => { });
+                    //UIManager.Open(UIManager.Offers);
+                }
+
+                UIManager.HideLoading(false);
+            }
         }
 
         protected override void OnWidgetLoaded(bool initial, OfferSummaryPresenterBase widget)

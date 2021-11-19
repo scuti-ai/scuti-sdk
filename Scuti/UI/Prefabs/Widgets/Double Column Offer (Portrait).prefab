@@ -231,6 +231,11 @@ PrefabInstance:
       propertyPath: m_Padding.m_Left
       value: -22
       objectReference: {fileID: 0}
+    - target: {fileID: 114999437136715084, guid: ebd9c7148f70262469779acab19fcc31,
+        type: 3}
+      propertyPath: Single
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 224018940921051374, guid: ebd9c7148f70262469779acab19fcc31,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -940,6 +945,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Padding.m_Left
       value: -22
+      objectReference: {fileID: 0}
+    - target: {fileID: 114999437136715084, guid: ebd9c7148f70262469779acab19fcc31,
+        type: 3}
+      propertyPath: Single
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224018940921051374, guid: ebd9c7148f70262469779acab19fcc31,
         type: 3}
