@@ -118,6 +118,7 @@ namespace Scuti.UI
                                 }
                             }
                         }
+                        //Debug.Log(url + " and " + DisplayAd);
                         ImageDownloader.New().Download(url,
                             result =>
                             {
@@ -372,6 +373,7 @@ namespace Scuti.UI
             if (Next != null)
             {
                 Next.OnStateChanged -= OnNextStateChanged;
+                //Debug.Log("Loaded Next: " + Next.Title);
                 Data = Next;
                 Next = null;
                 DisplayCurrentImage();
@@ -391,6 +393,7 @@ namespace Scuti.UI
 
             Next.IsTall = false;
             Next.isSingle = Single;
+            //Debug.LogError("Loading next "+ gameObject.GetInstanceID());
             Next.LoadImage();
             Next.OnStateChanged -= OnNextStateChanged;
             Next.OnStateChanged += OnNextStateChanged;
@@ -398,6 +401,7 @@ namespace Scuti.UI
 
         protected virtual void OnNextStateChanged(Model.State state)
         {
+            //Debug.LogError("On Next completed: " + gameObject);
             switch (state)
             {
                 case Model.State.Loaded:
@@ -504,7 +508,6 @@ namespace Scuti.UI
         {
             if (!_destroyed && Data!=null)
             {
-                //Debug.Log(gameObject.name + "Single? " + Single);
                 if (Data.DisplayAd && Single)
                 {
                     AdContainer.SetActive(true);
@@ -577,6 +580,34 @@ namespace Scuti.UI
         // ================================================
         #region PRESENTER
         // ================================================
+        public virtual OfferService.MediaType RollForMediaType()
+        {
+            var mediaType = OfferService.MediaType.Product;
+            var rand = UnityEngine.Random.Range(0, 3);
+            if (!ScutiUtils.IsPortrait() && this is OfferSummaryPresenterLandscape)
+            {
+                var landscape = this as OfferSummaryPresenterLandscape;
+                if (landscape.IsTall)
+                {
+                    // 50% chance
+                    if (rand > 1) mediaType = OfferService.MediaType.Vertical;
+                }
+                else
+                {
+                    // 25% chance
+                    if (rand == 0) mediaType = OfferService.MediaType.SmallTile;
+                }
+            }
+            else
+            {
+                if (Single)
+                {
+                    if (rand > 1) mediaType = OfferService.MediaType.SmallTile;
+                }
+            }
+            return mediaType;
+        }
+
         protected override void OnSetState()
         {
             if (Data != null)
@@ -588,6 +619,7 @@ namespace Scuti.UI
 #pragma warning restore
             } else 
             {
+                //Debug.LogError("Null state being set on " + gameObject.name +" "+gameObject.GetInstanceID());
                 gameObject.name = "Cleared";
             }
         }

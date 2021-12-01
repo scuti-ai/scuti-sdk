@@ -113,6 +113,7 @@ namespace Scuti.UI
         }
         protected override void OnNextStateChanged(Model.State state)
         {
+            Debug.LogError("On Next completed: " + gameObject);
             switch (state)
             {
                 case Model.State.Loaded:
@@ -125,6 +126,8 @@ namespace Scuti.UI
                     break;
             }
         }
+
+       
 
         // Updates UI based on values on View.Data
         protected override void UpdateUI()

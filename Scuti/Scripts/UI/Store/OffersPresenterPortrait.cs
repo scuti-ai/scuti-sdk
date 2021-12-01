@@ -103,7 +103,18 @@ namespace Scuti.UI
             {
                 if (cancelToken.IsCancellationRequested) return;
 
-                offerData = Data.UseSpecific(presenter.Single);
+
+                var mediaType = presenter.RollForMediaType();
+                offerData = Data.RequestOffer(mediaType);
+
+                // Fallback to products
+                if(offerData==null && mediaType != OfferService.MediaType.Product)
+                {
+                    mediaType = OfferService.MediaType.Product;
+                    offerData = Data.RequestOffer(mediaType);
+
+                }
+
                 m_Instantiated.Add(presenter);
                 presenter.Inject(GetNext);
                 presenter.gameObject.hideFlags = HideFlags.DontSave; 
