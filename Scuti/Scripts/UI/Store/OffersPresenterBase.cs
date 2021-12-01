@@ -201,12 +201,14 @@ namespace Scuti.UI
                 
                 if(item.DisplayAd)
                 {
-                    if (item.IsTall) mediaType = OfferService.MediaType.Vertical;
+                    if (!string.IsNullOrEmpty(item.TallURL)) mediaType = OfferService.MediaType.Vertical;
                     else
                     {
                         mediaType = OfferService.MediaType.SmallTile;
                     }
-                }  
+                }
+
+                //Debug.LogError("Adding " + mediaType + " due to " + item.DisplayAd + " and " + item.IsTall  +"  "+ item.TallURL);
                 OfferPool pool = GetPool(mediaType);
                 pool.AddNewItem(item);
             }

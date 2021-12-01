@@ -583,10 +583,11 @@ namespace Scuti.UI
         public virtual OfferService.MediaType RollForMediaType()
         {
             var mediaType = OfferService.MediaType.Product;
-            var rand = UnityEngine.Random.Range(0, 3);
+            var rand = UnityEngine.Random.Range(0, 4);
             if (!ScutiUtils.IsPortrait() && this is OfferSummaryPresenterLandscape)
             {
                 var landscape = this as OfferSummaryPresenterLandscape;
+                
                 if (landscape.IsTall)
                 {
                     // 50% chance
