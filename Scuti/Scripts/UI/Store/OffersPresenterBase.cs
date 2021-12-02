@@ -66,8 +66,13 @@ namespace Scuti.UI
                         VideoIndex = 0,
                         TotalCount = 0
                     };
-
                 _pagination = PaginationMap[category];
+
+                foreach(var active in ActiveItems)
+                {
+                    // ensure they do not return to pool
+                    active.OnDispose -= ReturnItem;
+                }
                 ActiveItems.Clear();
                 NewItems.Clear();
                 PooledItems.Clear();
