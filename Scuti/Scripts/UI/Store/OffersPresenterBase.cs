@@ -475,7 +475,7 @@ namespace Scuti.UI
         // ================================================
         public async void ShowCategory(string category)
         {
-            if (TrySetCategory(category))
+            if (!m_ChangingCategories && TrySetCategory(category))
             {
                 m_ChangingCategories = true;
                 Clear();
@@ -495,7 +495,6 @@ namespace Scuti.UI
                 if(!ScutiUtils.IsPortrait())await RequestMoreOffers(false, source.Token, offerDataToRequest, OfferService.MediaType.Vertical);
                 await RequestMoreOffers(false, source.Token, offerDataToRequest, OfferService.MediaType.SmallTile);
 
-                Clear();
 #pragma warning disable 4014
                 _loadingSource = new CancellationTokenSource();
                 PopulateOffers(_loadingSource.Token);
@@ -581,6 +580,10 @@ namespace Scuti.UI
                         {
                             ScutiLogger.LogException(e);
                         }
+                    }
+                    if (token.IsCancellationRequested)
+                    {
+                        return;
                     }
                     Data = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>);
                 }
