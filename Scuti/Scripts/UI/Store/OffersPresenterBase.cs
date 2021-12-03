@@ -177,6 +177,11 @@ namespace Scuti.UI
             }
         }
 
+        internal bool IsUnableToChangeCategory()
+        {
+            return m_ChangingCategories;
+        }
+
         [Serializable]
         public class Model : Presenter.Model
         {
@@ -355,7 +360,8 @@ namespace Scuti.UI
         // QUEUE HANDLERS
         protected LoadedWidgetQueue loadedWidgetQueue = new LoadedWidgetQueue();
 
-
+        
+         
         // ================================================
         #region LIFECYCLE
         // ================================================
@@ -416,6 +422,11 @@ namespace Scuti.UI
         protected override void Awake()
         {
             base.Awake();
+
+
+            // ugly coupling but needs to be done quickly. TODO: cleanup -mg
+            categoryNavigator.SetPresenter(this);
+
             TimeoutTimer.onFinished.AddListener(OnTimeout); 
             if (categoryNavigator)
                 categoryNavigator.OnOpenRequest += ShowCategory;
