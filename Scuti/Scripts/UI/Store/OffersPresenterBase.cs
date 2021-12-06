@@ -67,7 +67,8 @@ namespace Scuti.UI
                         TotalCount = 0
                     };
                 _pagination = PaginationMap[category];
-
+                _pagination.Index = 0;
+                _pagination.VideoIndex = 0;
                 foreach(var active in ActiveItems)
                 {
                     // ensure they do not return to pool
