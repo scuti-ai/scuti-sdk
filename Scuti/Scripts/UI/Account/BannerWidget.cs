@@ -115,7 +115,7 @@ public class BannerWidget : MonoBehaviour {
 
         try
         {
-            offerPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Banner }, FILTER_TYPE.Eq, null, null, null, _index, 1);
+            offerPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Banner }, OfferService.MediaType.Banner, FILTER_TYPE.Eq, null, null, null, _index, 1);
 
         } catch (Exception e)
         {

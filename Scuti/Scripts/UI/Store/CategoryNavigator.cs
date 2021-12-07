@@ -18,6 +18,8 @@ namespace Scuti.UI
 
         public event Action<string> OnOpenRequest;
 
+        private OffersPresenterBase _offersPresenterBase;
+
         private string[] m_Categories = { "DEFAULT" };
 
         public Text Label;
@@ -110,6 +112,12 @@ namespace Scuti.UI
         // Helpers
         private void ChangeCategory(int delta)
         {
+            if(_offersPresenterBase!=null)
+            {
+                if (_offersPresenterBase.IsUnableToChangeCategory()) return;
+            }
+
+
             m_Index += delta;
             ValidateIndex();
             OpenCurrent();
@@ -136,6 +144,11 @@ namespace Scuti.UI
         private void OnDestroy()
         {
             _destroyed = true;
+        }
+
+        internal void SetPresenter(OffersPresenterBase offersPresenterBase)
+        {
+            _offersPresenterBase = offersPresenterBase;
         }
     }
 }

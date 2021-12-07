@@ -60,7 +60,8 @@ namespace Scuti.UI
             
             if(container_Video!=null && videoWidget!=null) 
             {
-                var offersPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Video }, FILTER_TYPE.Eq, m_Pagination.Category, null, null, m_Pagination.VideoIndex, 1);
+                var pagination = Data.GetPagination(OfferService.MediaType.Product);
+                var offersPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Video }, OfferService.MediaType.Product, FILTER_TYPE.Eq, pagination.Category, null, null, pagination.VideoIndex, 1);
                 if(token.IsCancellationRequested)
                 {
                     return;
@@ -68,11 +69,11 @@ namespace Scuti.UI
                 
                 if (offersPage != null && offersPage.Nodes != null && offersPage.Nodes.Count>0)
                 {
-                    m_Pagination.VideoIndex++;
+                    pagination.VideoIndex++;
                     ShowVideo((offersPage.Nodes as List<Offer>)[0]);
                 } else
                 {
-                    m_Pagination.VideoIndex=0;
+                    pagination.VideoIndex=0;
                     HideVideo();
                 }
             }
@@ -83,6 +84,8 @@ namespace Scuti.UI
         {
             return largeOffers + _activeVideoOffers;
         }
+
+        
 
         private int GetActiveMax()
         {
@@ -167,7 +170,15 @@ namespace Scuti.UI
                     // If the index exceeds the count, we don't assign any data to it
                     // nor do we listen to the click event. The offer widget does get
                     // instantiated but it's just loading and doesn't do anything.
-                    var newData = Data.UseItem();
+                    var mediaType = widget.RollForMediaType();
+                    var newData = Data.RequestOffer(mediaType);
+
+                    if(newData==null && mediaType!= OfferService.MediaType.Product)
+                    {
+                        mediaType = OfferService.MediaType.Product;
+                        newData = Data.RequestOffer(mediaType);
+                    }
+
                     if (newData == null)
                     {
                         //Debug.LogError("Null data: " + gameObject);

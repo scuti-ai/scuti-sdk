@@ -126,6 +126,8 @@ namespace Scuti.UI
             }
         }
 
+       
+
         // Updates UI based on values on View.Data
         protected override void UpdateUI()
         {

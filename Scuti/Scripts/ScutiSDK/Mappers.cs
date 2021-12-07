@@ -29,10 +29,10 @@ namespace Scuti
                 {
                 var element = GetOfferSummaryPresenterModel(offer, true);// allowAd > 0);
                     //if (element.DisplayAd) allowAd--;
-                    result.NewItems.Add(element);
+                    result.AddNewItem(element);
                 });
             }
-            result.NewItems.Shuffle();
+            result.Shuffle();
             return result;
         }
 
