@@ -23,7 +23,6 @@ namespace Scuti.UI
         [SerializeField] InputField line1Input;
         [SerializeField] InputField line2Input;
         [SerializeField] InputField cityInput;
-        //[SerializeField] Dropdown stateDropDown;
         [SerializeField] InputField stateInput;
         [SerializeField] InputField zipInput;
         [SerializeField] InputField phoneInput;
@@ -78,7 +77,7 @@ namespace Scuti.UI
             line1Input.onValueChanged.AddListener(value => Data.Address.Line1 = value);
             line2Input.onValueChanged.AddListener(value => Data.Address.Line2 = value);
             cityInput.onValueChanged.AddListener(value => Data.Address.City = value);
-            //stateDropDown.onValueChanged.AddListener(value => Data.Address.State = stateDropDown.options[value].text);
+            stateInput.onValueChanged.AddListener(value => Data.Address.State = value);
             zipInput.onValueChanged.AddListener(value => Data.Address.Zip = value);
             phoneInput.onValueChanged.AddListener(value => Data.Address.Phone = value);
             countryDropDown.onValueChanged.AddListener(OnCountryChanged);
@@ -224,7 +223,6 @@ namespace Scuti.UI
                 Line2 = "",
                 Country = countryDropDown.options[countryDropDown.value].text,
                 State = stateInput.text
-                //State = stateDropDown.options[stateDropDown.value].text
             };
             return model;
         }

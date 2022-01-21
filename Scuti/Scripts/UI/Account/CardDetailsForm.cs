@@ -113,7 +113,7 @@ namespace Scuti.UI
                 });
             line2Input.onValueChanged.AddListener(value => Data.Address.Line2 = value);
             cityInput.onValueChanged.AddListener(value => Data.Address.City = value);
-            //stateDropDown.onValueChanged.AddListener(value => Data.Address.State = stateDropDown.options[value].text);
+            stateInput.onValueChanged.AddListener(value => Data.Address.State = value);
             zipInput.onValueChanged.AddListener(value => Data.Address.Zip = value);
             countryDropDown.onValueChanged.AddListener(OnCountryChanged);
 
@@ -356,8 +356,12 @@ namespace Scuti.UI
                     State = Data.Address.State,
                     ZipCode = Data.Address.Zip
                 };                
+            } else
+            {
+                Debug.LogError("Null or invalid address "+Data.Address);
+                //if (Data.Address != null) Debug.LogError("Valid? " + Data.Address.ToJson()); 
             }
-
+            //Debug.Log("Using: " + address.ToJson());
             return address;
         }
 
