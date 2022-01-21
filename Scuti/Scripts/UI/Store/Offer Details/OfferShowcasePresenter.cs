@@ -111,7 +111,7 @@ namespace Scuti.UI {
 
         public void ResetSizeImage()
         {
-            panningAndPinchImage.ResetSizeImage();
+            //panningAndPinchImage.ResetSizeImage();
         }
 
         async void DownloadImages() {

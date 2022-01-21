@@ -6,11 +6,11 @@ using UnityEngine.EventSystems;
 
 namespace Scuti.UI
 {
-    public class ZoomOfferDetails : PanningAndPinchImage, IDragHandler, IBeginDragHandler, IEndDragHandler, IScrollHandler
+    public class ZoomOfferDetails : MonoBehaviour, IPointerClickHandler
     {
         [Header("Sub Widget")]
         [SerializeField] private UIDisplayImageZoom displayLargeImage;
-        [SerializeField] private bool isDragDetected;
+        //[SerializeField] private bool isDragDetected;
 
         // ---------------------------------------------------------------------------------------
 
@@ -20,38 +20,38 @@ namespace Scuti.UI
                 displayLargeImage.Init();
         }
 
-        public void ResetSizeImage()
-        {
-            transform.localScale = initialScale;
-        }
+        //public void ResetSizeImage()
+        //{
+        //    transform.localScale = initialScale;
+        //}
 
         // ---------------------------------------------------------------------------------------
 
 
-        /// <summary>
-        /// This method will be called during the mouse/touch drag
-        /// </summary>
-        /// <param name="eventData">mouse pointer event data</param>
-        public override void OnDrag(PointerEventData eventData)
-        {
-            isDragDetected = true;
-            base.OnDrag(eventData);
-        }
+        ///// <summary>
+        ///// This method will be called during the mouse/touch drag
+        ///// </summary>
+        ///// <param name="eventData">mouse pointer event data</param>
+        //public override void OnDrag(PointerEventData eventData)
+        //{
+        //    isDragDetected = true;
+        //    base.OnDrag(eventData);
+        //}
 
 
-        /// <summary>
-        /// This method will be called at the end of mouse drag
-        /// </summary>
-        /// <param name="eventData"></param>
-        public override void OnEndDrag(PointerEventData eventData)
-        {
-            if (counterTouch == 0)
-            {
-                isDragDetected = false;
-            }
+        ///// <summary>
+        ///// This method will be called at the end of mouse drag
+        ///// </summary>
+        ///// <param name="eventData"></param>
+        //public override void OnEndDrag(PointerEventData eventData)
+        //{
+        //    if (counterTouch == 0)
+        //    {
+        //        isDragDetected = false;
+        //    }
 
-            base.OnEndDrag(eventData);
-        }
+        //    base.OnEndDrag(eventData);
+        //}
 
 
         // --------------------------------------------------------------------------- Event Trigger
@@ -61,12 +61,13 @@ namespace Scuti.UI
         /// Method to detect pointer click on the image
         /// </summary>
         /// <param name="eventData"></param>
-        public void OnPointerClick(BaseEventData eventData)
+        public void OnPointerClick(PointerEventData eventData)
         {
-            if (isDragDetected)
-                return;
+            //if (isDragDetected)
+                //return;
 
-            displayLargeImage.Show(GetComponent<Image>().sprite);
+            if(displayLargeImage)
+                displayLargeImage.Show(GetComponent<Image>().sprite);
         }
 
         

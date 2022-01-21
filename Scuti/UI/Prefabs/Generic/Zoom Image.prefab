@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3816486990427245664}
   - component: {fileID: 7037282529443357771}
   - component: {fileID: 7235078405747100251}
-  - component: {fileID: 3869561873114366970}
   - component: {fileID: 216524371054384838}
   - component: {fileID: 8547821395407299764}
   - component: {fileID: 6673112210164165626}
@@ -76,95 +75,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &3869561873114366970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4104031415681817790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 2
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6673112210164165626}
-          m_MethodName: OnPressDown
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 3
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6673112210164165626}
-          m_MethodName: OnPressUp
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6673112210164165626}
-          m_MethodName: OnPointerEnter
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6673112210164165626}
-          m_MethodName: OnPointerExit
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 6673112210164165626}
-          m_MethodName: OnPointerClick
-          m_Mode: 0
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  delegates: []
 --- !u!114 &216524371054384838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,9 +114,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929c07a3af759c749b80a6d3d3164673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTestingMobile: 0
   scrollRect: {fileID: 8793617788210010373}
   rectScroll: {fileID: 5024582829128870857}
   rectImagenToZoom: {fileID: 3816486990427245664}
+  EnabledPanning: 0
   zoomSpeed: 0.01
   maxZoomMobile: 10
   maxZoomDesktop: 4
@@ -214,7 +126,6 @@ MonoBehaviour:
   isEnterToImage: 0
   counterTouch: 0
   initialScale: {x: 1, y: 1, z: 1}
-  isTestingMobile: 0
   displayLargeImage: {fileID: 0}
   isDragDetected: 0
 --- !u!1 &7405563208517582192

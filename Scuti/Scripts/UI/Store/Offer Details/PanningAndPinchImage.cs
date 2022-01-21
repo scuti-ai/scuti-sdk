@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Scuti.UI
 {
-    public abstract class PanningAndPinchImage : MonoBehaviour
+    public class PanningAndPinchImage : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IScrollHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         [Header("Testing")]
         public bool isTestingMobile;
@@ -16,6 +16,7 @@ namespace Scuti.UI
         [SerializeField] private ScrollRect scrollRect;
         [SerializeField] private RectTransform rectScroll;
         [SerializeField] private RectTransform rectImagenToZoom;
+        
 
         [Header("Parameters")]
         [SerializeField] private float zoomSpeed = 0.1f;
@@ -25,7 +26,7 @@ namespace Scuti.UI
         [SerializeField] private bool isEnterToImage;
 
         [HideInInspector] public int counterTouch;
-        public Vector3 initialScale;
+        private Vector3 initialScale;
         private PointerEventData cachedEventData;
         private Vector2 lastMousePosition;
         private Vector2 averagePointBetweenTouch;
@@ -85,34 +86,33 @@ namespace Scuti.UI
 
         private void MouseDown(PointerEventData eventData)
         {
-            if (eventData == null)
-                return;
+                if (eventData == null)
+                    return;
 
-            Vector2 localCursor;
-            var pos1 = eventData.position;
-            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rectScroll, pos1,
-                null, out localCursor))
-                return;
+                Vector2 localCursor;
+                var pos1 = eventData.position;
+                if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(rectScroll, pos1,
+                    null, out localCursor))
+                    return;
 
-            int xpos = (int)(localCursor.x);
-            int ypos = (int)(localCursor.y);
+                int xpos = (int)(localCursor.x);
+                int ypos = (int)(localCursor.y);
 
-            if (xpos < 0) xpos = xpos + (int)rectScroll.rect.width / 2;
-            else xpos += (int)rectScroll.rect.width / 2;
+                if (xpos < 0) xpos = xpos + (int)rectScroll.rect.width / 2;
+                else xpos += (int)rectScroll.rect.width / 2;
 
-            if (ypos > 0) ypos = ypos + (int)rectScroll.rect.height / 2;
-            else ypos += (int)rectScroll.rect.height / 2;
-            // Calculate point in scale
-            float widthScroll = rectScroll.rect.width;
-            float heightScroll = rectScroll.rect.height;
+                if (ypos > 0) ypos = ypos + (int)rectScroll.rect.height / 2;
+                else ypos += (int)rectScroll.rect.height / 2;
+                // Calculate point in scale
+                float widthScroll = rectScroll.rect.width;
+                float heightScroll = rectScroll.rect.height;
 
-            float widthScroll2 = rectImagenToZoom.rect.width;
-            float heightScroll2 = rectImagenToZoom.rect.height;
+                float widthScroll2 = rectImagenToZoom.rect.width;
+                float heightScroll2 = rectImagenToZoom.rect.height;
 
-            // Move image in zoom 
-            rectImagenToZoom.anchoredPosition = new Vector2(widthScroll2 / 2, heightScroll2 / 2) - new Vector2(xpos, ypos);
-            rectImagenToZoom.anchoredPosition = new Vector2(rectImagenToZoom.anchoredPosition.x * (maxZoomDesktop * 0.95f), rectImagenToZoom.anchoredPosition.y * (maxZoomDesktop * 0.95f));
-
+                // Move image in zoom 
+                rectImagenToZoom.anchoredPosition = new Vector2(widthScroll2 / 2, heightScroll2 / 2) - new Vector2(xpos, ypos);
+                rectImagenToZoom.anchoredPosition = new Vector2(rectImagenToZoom.anchoredPosition.x * (maxZoomDesktop * 0.95f), rectImagenToZoom.anchoredPosition.y * (maxZoomDesktop * 0.95f));
         }
 
         // ----------------------------------------------------------------------------------------------
@@ -131,12 +131,12 @@ namespace Scuti.UI
         /// <param name="eventData"></param>
         public void OnScroll(PointerEventData eventData)
         {
-            var delta = Vector3.one * (eventData.scrollDelta.y * zoomSpeed);
-            var desiredScale = transform.localScale + delta;
+                var delta = Vector3.one * (eventData.scrollDelta.y * zoomSpeed);
+                var desiredScale = transform.localScale + delta;
 
-            desiredScale = ClampDesiredScale(desiredScale);
+                desiredScale = ClampDesiredScale(desiredScale);
 
-            transform.localScale = desiredScale;
+                transform.localScale = desiredScale;
         }    
 
         /// <summary>
@@ -145,8 +145,8 @@ namespace Scuti.UI
         /// <param name="eventData">mouse pointer event data</param>
         public void OnBeginDrag(PointerEventData eventData)
         {
-            lastMousePosition = eventData.position;
-            averagePointBetweenTouch = eventData.position;
+                lastMousePosition = eventData.position;
+                averagePointBetweenTouch = eventData.position;
         }
 
         /// <summary>
@@ -155,28 +155,28 @@ namespace Scuti.UI
         /// <param name="eventData">mouse pointer event data</param>
         public virtual void OnDrag(PointerEventData eventData)
         {
-            scrollRect.enabled = false;
+                scrollRect.enabled = false;
 
-            Vector2 currentMousePosition = new Vector2(0, 0);
+                Vector2 currentMousePosition = new Vector2(0, 0);
 
-            // Get de position touch
-            if (counterTouch == 1)
-            {
-                currentMousePosition = eventData.position;
-            }
+                // Get de position touch
+                if (counterTouch == 1)
+                {
+                    currentMousePosition = eventData.position;
+                }
 
-            if (counterTouch >= 2)
-            {
-                currentMousePosition = averagePointBetweenTouch;
-            }
+                if (counterTouch >= 2)
+                {
+                    currentMousePosition = averagePointBetweenTouch;
+                }
 
-            Vector2 diff = currentMousePosition - lastMousePosition;
+                Vector2 diff = currentMousePosition - lastMousePosition;
 
-            Vector3 newPosition = rectImagenToZoom.position + new Vector3(diff.x, diff.y, 0);
-            Vector3 oldPos = rectImagenToZoom.position;
-            rectImagenToZoom.position = newPosition;
+                Vector3 newPosition = rectImagenToZoom.position + new Vector3(diff.x, diff.y, 0);
+                Vector3 oldPos = rectImagenToZoom.position;
+                rectImagenToZoom.position = newPosition;
 
-            lastMousePosition = currentMousePosition;
+                lastMousePosition = currentMousePosition;
 
         }
 
@@ -242,7 +242,7 @@ namespace Scuti.UI
         /// Method to detect touch down on the image
         /// </summary>
         /// <param name="eventData"></param>
-        public void OnPressDown(BaseEventData eventData)
+        public void OnPointerDown(PointerEventData eventData)
         {
             counterTouch++;
         }
@@ -251,7 +251,7 @@ namespace Scuti.UI
         /// Method to detect touch up on the image
         /// </summary>
         /// <param name="eventData"></param>
-        public void OnPressUp(BaseEventData eventData)
+        public void OnPointerUp(PointerEventData eventData)
         {
             counterTouch--;
         }
