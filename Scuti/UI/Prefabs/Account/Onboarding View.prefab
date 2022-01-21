@@ -7531,7 +7531,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000041962, y: 8.140015}
+  m_AnchoredPosition: {x: 0.000045776367, y: 8.140015}
   m_SizeDelta: {x: -0.000030517578, y: 66.5}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &222981918644067992
@@ -16307,13 +16307,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114930077166081346}
   m_TextComponent: {fileID: 114398017861433164}
   m_Placeholder: {fileID: 114822653808555180}
-  m_ContentType: 6
+  m_ContentType: 0
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 7
+  m_KeyboardType: 0
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 5
+  m_CharacterValidation: 0
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
@@ -19251,13 +19251,13 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7284507806298033903}
   m_TextComponent: {fileID: 1243560888720098686}
   m_Placeholder: {fileID: 2612426641587598599}
-  m_ContentType: 2
+  m_ContentType: 0
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 4
+  m_KeyboardType: 0
   m_LineType: 0
   m_HideMobileInput: 0
-  m_CharacterValidation: 1
+  m_CharacterValidation: 0
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
@@ -19306,11 +19306,11 @@ MonoBehaviour:
   isValid: 0
   inputField: {fileID: 2973148017713507448}
   mode: 1
-  minLength: 5
-  maxLength: 7
+  minLength: 2
+  maxLength: 50
   msgOnNoValue: Please Enter a value
   msgOnShortValue: Enter at least 2 letters
-  msgOnLongValue: Zip*
+  msgOnLongValue: Enter at less letters
 --- !u!114 &3505038840463448638
 MonoBehaviour:
   m_ObjectHideFlags: 0
