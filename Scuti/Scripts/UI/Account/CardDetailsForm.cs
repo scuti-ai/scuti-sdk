@@ -9,6 +9,7 @@ using Scuti.GraphQL.Generated;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Scuti.UI
 {
@@ -34,7 +35,8 @@ namespace Scuti.UI
         [SerializeField] InputField line1Input;
         [SerializeField] InputField line2Input;
         [SerializeField] InputField cityInput;
-        [SerializeField] Dropdown stateDropDown;
+        //[SerializeField] Dropdown stateDropDown;
+        [SerializeField] InputField stateInput;
         [SerializeField] InputField zipInput;
         [SerializeField] Dropdown countryDropDown;
         [SerializeField] InputField expirationDateInput;
@@ -45,6 +47,8 @@ namespace Scuti.UI
 
         private List<Dropdown.OptionData> _states;
         private List<Dropdown.OptionData> _provinces;
+        private List<Dropdown.OptionData> _countries;
+        private List<string> _countriesList;
 
         private Vector2 _startPosition;
 
@@ -68,15 +72,27 @@ namespace Scuti.UI
 
             _states = new List<Dropdown.OptionData>();
             _provinces = new List<Dropdown.OptionData>();
-            foreach (var state in ScutiConstants.STATES)
+            _countries = new List<Dropdown.OptionData>();
+           
+            _countriesList = ScutiConstants.COUNTRIES.ToList();
+
+            foreach (var country in ScutiConstants.COUNTRIES)
             {
-                _states.Add(new Dropdown.OptionData(name = state));
+                _countries.Add(new Dropdown.OptionData(name = country));
+            }
+
+            /*foreach (var state in ScutiConstants.STATES)
+            {
+                _states.Add(new Dropdown.OptionData( name= state));
             }
 
             foreach (var prov in ScutiConstants.PROVINCES)
             {
                 _provinces.Add(new Dropdown.OptionData(name = prov));
-            }
+            }*/
+
+            countryDropDown.options = _countries;
+            Data.Address.Country = _countriesList[0];
         }
 
 
@@ -90,14 +106,14 @@ namespace Scuti.UI
         public override void Bind()
         {
             Data.Address.Country = countryDropDown.options[countryDropDown.value].text;
-            Data.Address.State = stateDropDown.options[stateDropDown.value].text;
+            Data.Address.State = stateInput.text;
 
             line1Input.onValueChanged.AddListener(value => {
                 Data.Address.Line1 = value;
                 });
             line2Input.onValueChanged.AddListener(value => Data.Address.Line2 = value);
             cityInput.onValueChanged.AddListener(value => Data.Address.City = value);
-            stateDropDown.onValueChanged.AddListener(value => Data.Address.State = stateDropDown.options[value].text);
+            //stateDropDown.onValueChanged.AddListener(value => Data.Address.State = stateDropDown.options[value].text);
             zipInput.onValueChanged.AddListener(value => Data.Address.Zip = value);
             countryDropDown.onValueChanged.AddListener(OnCountryChanged);
 
@@ -144,7 +160,9 @@ namespace Scuti.UI
             line2Input.text = Data.Address.Line2;
             cityInput.text = Data.Address.City;
             countryDropDown.SetDropDown(Data.Address.Country);
-            if (Data.Address.Country.Equals("US"))
+            stateLabel.text = ScutiConstants.PROVINCES_LABEL[_countriesList.IndexOf(Data.Address.Country)] + "*";
+            stateInput.placeholder.GetComponent<Text>().text = "Your " + ScutiConstants.PROVINCES_LABEL[_countriesList.IndexOf(Data.Address.Country)];
+            /*if (Data.Address.Country.Equals("US"))
             {
                 stateLabel.text = "State*";
                 stateDropDown.options = _states;
@@ -157,9 +175,9 @@ namespace Scuti.UI
                 stateDropDown.options = _provinces;
                 zipInput.characterLimit = 7;
                 zipInput.contentType = InputField.ContentType.Alphanumeric;
-            }
+            }*/
             zipInput.text = Data.Address.Zip;
-            stateDropDown.SetDropDown(Data.Address.State);
+            //stateDropDown.SetDropDown(Data.Address.State);
         }
 
         public void Save()
@@ -306,7 +324,7 @@ namespace Scuti.UI
             model.Card.Reset();
 
             model.Address.Country = countryDropDown.options[countryDropDown.value].text;
-            model.Address.State = stateDropDown.options[stateDropDown.value].text;
+            model.Address.State = stateInput.text;
 
             return model;
         }
