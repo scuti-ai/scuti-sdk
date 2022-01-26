@@ -45,5 +45,10 @@ namespace Scuti {
                 messageText.color = invalidColor;
             }
         }
+
+        public void SetMessage(string msg)
+        {
+            msgOnValid = msg;
+        }
     }
 }

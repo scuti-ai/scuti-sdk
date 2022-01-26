@@ -710,13 +710,14 @@ MonoBehaviour:
   line1Input: {fileID: 114642279647179638}
   line2Input: {fileID: 114888464032550856}
   cityInput: {fileID: 114058632699141244}
-  stateInput: {fileID: 6343083747896303865}
+  stateDropDown: {fileID: 114322955090313912}
   zipInput: {fileID: 114205914784697064}
   countryDropDown: {fileID: 114409612577228186}
   expirationDateInput: {fileID: 114721567086463076}
   ExpirationValidator: {fileID: 114974785054721112}
   SaveCard: {fileID: 114143062195322134}
-  stateLabel: {fileID: 7169569108979972872}
+  stateLabel: {fileID: 114782172847047890}
+  stateValidatable: {fileID: 0}
 --- !u!1 &1041325889573178
 GameObject:
   m_ObjectHideFlags: 0
@@ -4492,7 +4493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &224967047789456340
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4511,10 +4512,10 @@ RectTransform:
   m_Father: {fileID: 2348012357485496863}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 231.875, y: -45}
-  m_SizeDelta: {x: 88.75, y: 90}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222660944586048588
 CanvasRenderer:
@@ -6446,7 +6447,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 87a2f9622e9cbe84ca1a215bb1582de5, type: 3}
-    m_FontSize: 40
+    m_FontSize: 38
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -6454,7 +6455,7 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 0
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: AL
@@ -7924,13 +7925,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 87a2f9622e9cbe84ca1a215bb1582de5, type: 3}
-    m_FontSize: 40
+    m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -9895,7 +9896,7 @@ MonoBehaviour:
   validators:
   - {fileID: 114080337314605750}
   messageText: {fileID: 114579683513180528}
-  msgOnValid: Zip*
+  msgOnValid: Zip Code*
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
   validColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &114080337314605750
@@ -10320,7 +10321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &711315200593944547
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10338,10 +10339,10 @@ RectTransform:
   m_Father: {fileID: 2348012357485496863}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 132.5, y: -45}
+  m_SizeDelta: {x: 75, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8656281512749811975
 CanvasRenderer:
