@@ -14,6 +14,7 @@ using System.Threading;
 using Scuti.Net;
 using UnityEngine.Events;
 
+
 namespace Scuti.UI
 {
     public class OffersPresenterBase : Presenter<OffersPresenterBase.Model>
@@ -439,9 +440,15 @@ namespace Scuti.UI
 #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
             if(Input.touchCount>0)
 #else
-            if(Input.anyKey || Input.GetAxis("Mouse X") != 0)
+        #if ENABLE_LEGACY_INPUT_MANAGER
+             if (Input.anyKey || Input.GetAxis("Mouse X") != 0)
+               
+#else
+             //if (action.WasPressedThisFrame())
+
 #endif
-            {
+#endif
+                {
                 if (m_Paused && ShouldUpdateOffers)
                 {
                     ResumeAds();
