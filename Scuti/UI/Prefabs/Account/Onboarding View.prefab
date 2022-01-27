@@ -3616,7 +3616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &224675531662281242
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3635,10 +3635,10 @@ RectTransform:
   m_Father: {fileID: 3589771716139395579}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 145.69925, y: -45}
-  m_SizeDelta: {x: 291.3985, y: 90}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222221906550283166
 CanvasRenderer:
@@ -7112,14 +7112,15 @@ MonoBehaviour:
   line1Input: {fileID: 114926665316704284}
   line2Input: {fileID: 114147362584926174}
   cityInput: {fileID: 114195206523060566}
-  stateInput: {fileID: 2973148017713507448}
+  stateDropDown: {fileID: 114481787350474190}
   zipInput: {fileID: 114123474778138198}
   phoneInput: {fileID: 1896302977764226377}
   countryDropDown: {fileID: 114305428211301150}
   saveButton: {fileID: 114127901126567662}
   prevButton: {fileID: 114547380691496964}
   saveButtonLabel: {fileID: 114865946485021816}
-  stateLabel: {fileID: 8374563690333326008}
+  stateLabel: {fileID: 114181361841175554}
+  stateValidatable: {fileID: 9159908755591275073}
   UseAsOnboarding: 1
 --- !u!114 &114068482605342172
 MonoBehaviour:
@@ -12391,13 +12392,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 87a2f9622e9cbe84ca1a215bb1582de5, type: 3}
-    m_FontSize: 40
+    m_FontSize: 35
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -19154,7 +19155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9058616482256039072
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19172,10 +19173,10 @@ RectTransform:
   m_Father: {fileID: 3589771716139395579}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 412.09775, y: -45}
+  m_SizeDelta: {x: 181.39848, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5803034742218821742
 CanvasRenderer:
