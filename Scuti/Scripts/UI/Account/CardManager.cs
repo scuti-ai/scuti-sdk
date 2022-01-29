@@ -332,6 +332,7 @@ namespace Scuti.UI
             }
 
             UIManager.Card.IsRemoveCardAvailable(true);
+            Debug.Log("Refresh 2");
             UIManager.Card.Refresh();
         }
 

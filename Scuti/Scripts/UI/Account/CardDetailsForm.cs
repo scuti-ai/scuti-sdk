@@ -122,6 +122,8 @@ namespace Scuti.UI
         {
             onOpenCardDetails?.Invoke();
             base.Open();
+
+            Debug.Log("Refresh 1");
             Refresh();
         }   
 
@@ -179,6 +181,29 @@ namespace Scuti.UI
 
         public override void Refresh()
         {
+
+            string country = String.Empty;
+
+            if (UIManager.Card.Data.Address.Country == "GB")
+            {
+                country = "UK";
+            }
+            else if(UIManager.Card.Data.Address.Country == "CA")
+            {
+                country = "Canada";
+            }
+            else if(UIManager.Card.Data.Address.Country == "DE")
+            {
+                country = "Germany";
+            }
+            else
+            {
+                country = "US";
+            }
+
+            int index = countryDropDown.options.FindIndex((i) => { return i.text.Equals(country); });
+            UpdateStates(country);
+
             contentCardDetails.anchoredPosition = _startPosition;
 
             cardholderNameInput.text = Data.Card.Name;
@@ -206,6 +231,23 @@ namespace Scuti.UI
             zipInput.text = Data.Address.Zip;
             stateDropDown.SetDropDown(state.Name);
         }
+
+        private void UpdateStates(string country)
+        {
+            _selectedCountry = _supportedCountriesList.Find(c => c.Name.Equals(country));
+            Data.Address.Country = _selectedCountry.Code;
+            Data.Address.State = _selectedCountry.Divisions[0].Code;
+
+            _states.Clear();
+            foreach (var state in _selectedCountry.Divisions)
+            {
+                _states.Add(new Dropdown.OptionData(name = state.Name));
+            }
+
+            stateDropDown.options = _states;
+
+        }
+
 
         public void Save()
         {
