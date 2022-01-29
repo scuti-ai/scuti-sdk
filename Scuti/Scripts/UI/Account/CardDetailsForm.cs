@@ -122,8 +122,6 @@ namespace Scuti.UI
         {
             onOpenCardDetails?.Invoke();
             base.Open();
-
-            Debug.Log("Refresh 1");
             Refresh();
         }   
 
