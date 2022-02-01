@@ -56,7 +56,7 @@ namespace Scuti.UI
             return creditCardInfo.id;
         }
 
-        public CreditCardModel GetCredirCardInfo()
+        public CreditCardModel GetCreditCardInfo()
         {
             return creditCardInfo;
         }
