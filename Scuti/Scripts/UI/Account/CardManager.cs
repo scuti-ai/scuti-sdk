@@ -297,7 +297,7 @@ namespace Scuti.UI
         {
             if(creditCardList.Count > 0)
             {
-                SetCardByDefault(creditCardList[0].GetCredirCardInfo());
+                SetCardByDefault(creditCardList[0].GetCreditCardInfo());
             }        
 
         }
