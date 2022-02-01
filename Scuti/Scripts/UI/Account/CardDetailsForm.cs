@@ -69,9 +69,13 @@ namespace Scuti.UI
         }
 
 
+        private bool isUpdatedCountries;
+
         protected override void Awake()
         {
             base.Awake();
+
+            isUpdatedCountries = false;
 
             _startPosition = contentCardDetails.anchoredPosition;
 
@@ -85,8 +89,8 @@ namespace Scuti.UI
             _supportedCountriesList = ScutiConstants.SUPPORTED_COUNTRIES.Countries;
 
             foreach (var country in _supportedCountriesList)
-            {
-                _countries.Add(new Dropdown.OptionData(name = country.Name));
+            {               
+                _countries.Add(new Dropdown.OptionData(name = country.Code));    // Change Name by code
             }
 
             /*foreach (var state in ScutiConstants.STATES)
@@ -136,7 +140,9 @@ namespace Scuti.UI
             line2Input.onValueChanged.AddListener(value => Data.Address.Line2 = value);
             cityInput.onValueChanged.AddListener(value => Data.Address.City = value);
             stateDropDown.onValueChanged.AddListener(value => { 
-                Data.Address.State = _selectedCountry.Divisions.Find(d => d.Name.Equals(stateDropDown.options[value].text)).Code; 
+                Data.Address.State = _selectedCountry.Divisions.Find(d => d.Name.Equals(stateDropDown.options[value].text)).Code;
+                Debug.Log("Addlistener State: " + Data.Address.State);
+                Debug.Log("Addlistener State value: " + value);
             });
             //stateInput.onValueChanged.AddListener(value => Data.Address.State = value);
             zipInput.onValueChanged.AddListener(value => Data.Address.Zip = value);
@@ -155,7 +161,7 @@ namespace Scuti.UI
             var newValue = countryDropDown.options[value].text;
             if (!Data.Address.Country.Equals(newValue))
             {
-                _selectedCountry = _supportedCountriesList.Find(c => c.Name.Equals(newValue));
+                _selectedCountry = _supportedCountriesList.Find(c => c.Code.Equals(newValue)); //Change name by Code
                 Data.Address.Country = _selectedCountry.Code;
                 Data.Address.State = _selectedCountry.Divisions[0].Code;
 
@@ -179,8 +185,7 @@ namespace Scuti.UI
 
         public override void Refresh()
         {
-
-            string country = String.Empty;
+            /*string country = String.Empty;
 
             if (UIManager.Card.Data.Address.Country == "GB")
             {
@@ -197,10 +202,20 @@ namespace Scuti.UI
             else
             {
                 country = "US";
-            }
+            }*/
 
-            int index = countryDropDown.options.FindIndex((i) => { return i.text.Equals(country); });
-            UpdateStates(country);
+            //int index = countryDropDown.options.FindIndex((i) => { return i.text.Equals(UIManager.Card.Data.Address.Country); });
+            //UpdateStates(UIManager.Card.Data.Address.Country);
+
+            /*if (!isUpdatedCountries)
+                return;
+
+            isUpdatedCountries = false;*/
+
+            Debug.Log("Country UIMANAGER: " + UIManager.Card.Data.Address.Country);
+            Debug.Log("Country: " + Data.Address.Country);
+            Debug.Log("State: " + Data.Address.State);
+            Debug.Log("State: UIMANAGER " + UIManager.Card.Data.Address.State);
 
             contentCardDetails.anchoredPosition = _startPosition;
 
@@ -219,22 +234,42 @@ namespace Scuti.UI
             line2Input.text = Data.Address.Line2;
             cityInput.text = Data.Address.City;
 
-            var state = _selectedCountry.Divisions.Find(d => d.Code.Equals(Data.Address.State));
-            countryDropDown.SetDropDown(_selectedCountry.Name);
+            var state = _selectedCountry.Divisions.Find(d => d.Code.Equals(Data.Address.State)); //change state by country in Data.Address.Country
 
-            if(stateValidatable) stateValidatable.SetMessage(_selectedCountry.DivisionName + "*");
+            // HERE IS THE CONFLICT
+           // countryDropDown.SetDropDown(_selectedCountry.Name);
+            countryDropDown.SetDropDown(UIManager.Card.Data.Address.Country);
+
+           
+
+            Debug.Log("----------- Updated countryDropDown: " + _selectedCountry.Name);
+            Debug.Log("----------- Updated Data Country: " + Data.Address.Country);
+
+            //Debug.Log("----------- Updated state: " + state.Code);
+            //Debug.Log("----------- Updated state: " + state.Name);
+
+            if (stateValidatable) stateValidatable.SetMessage(_selectedCountry.DivisionName + "*");
             stateLabel.text = _selectedCountry.DivisionName + "*";
             //stateInput.placeholder.GetComponent<Text>().text = "Your " + ScutiConstants.PROVINCES_LABEL[_countriesList.IndexOf(countryDropDown.options[countryDropDown.value].text)];
             
             zipInput.text = Data.Address.Zip;
-            stateDropDown.SetDropDown(state.Name);
+            //stateDropDown.SetDropDown(state.Name);
+
+            
         }
 
-        private void UpdateStates(string country)
+        public void UpdatedAddresInfo(string country)
         {
-            _selectedCountry = _supportedCountriesList.Find(c => c.Name.Equals(country));
+            _selectedCountry = _supportedCountriesList.Find(c => c.Code.Equals(country)); //changed Name by code
+
+            Debug.Log("***UpdateStates: Code " + _selectedCountry.Code);
+            Debug.Log("***UpdateStates: Code " + _selectedCountry.Name);
+            Debug.Log("***UpdateStates: State " + _selectedCountry.Divisions[0].Code);
+            Debug.Log("***UpdateStates: State " + _selectedCountry.Divisions[0].Name);
+            Debug.Log("***UpdateStates: Address country " + Data.Address.Country);
+
             Data.Address.Country = _selectedCountry.Code;
-            Data.Address.State = _selectedCountry.Divisions[0].Code;
+            //Data.Address.State = _selectedCountry.Divisions[0].Code;
 
             _states.Clear();
             foreach (var state in _selectedCountry.Divisions)
@@ -242,9 +277,19 @@ namespace Scuti.UI
                 _states.Add(new Dropdown.OptionData(name = state.Name));
             }
 
+            Debug.Log("***UpdateStates: Address country " + Data.Address.State);
+
             stateDropDown.options = _states;
 
+            var currentState = _selectedCountry.Divisions.Find(x => x.Code == Data.Address.State);
+
+            Debug.Log("***UpdateStates: Address country " + currentState.Name);
+
+            stateDropDown.SetDropDown(currentState.Name);
+
+            isUpdatedCountries = true;
         }
+
 
 
         public void Save()

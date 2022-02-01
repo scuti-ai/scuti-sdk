@@ -331,7 +331,16 @@ namespace Scuti.UI
                 UIManager.Card.Close();
             }
 
-            UIManager.Card.IsRemoveCardAvailable(true);      
+            UIManager.Card.IsRemoveCardAvailable(true);
+
+
+            Debug.Log("--InBackedn: State: " + UIManager.Card.Data.Address.State);
+
+            Debug.Log("--InBackedn: Country: " + UIManager.Card.Data.Address.Country);
+
+            // new line
+            UIManager.Card.UpdatedAddresInfo(UIManager.Card.Data.Address.Country);
+
             UIManager.Card.Refresh();
         }
 
