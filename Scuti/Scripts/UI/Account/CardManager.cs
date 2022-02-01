@@ -136,6 +136,9 @@ namespace Scuti.UI
             UIManager.Card.onDeleteCard -= TryToLoadData;
             UIManager.Card.onDeleteCard += TryToLoadData;
 
+            UIManager.Card.onSelectNewCreditCard -= SelectNewCardDefault;
+            UIManager.Card.onSelectNewCreditCard += SelectNewCardDefault;
+
             UIManager.Card.onAddCard -= TryToLoadData;
             UIManager.Card.onAddCard += TryToLoadData;
 
@@ -164,6 +167,7 @@ namespace Scuti.UI
                     Data.Card.Reset();
                     _cachedCard = cards.Last();
                     ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
+                    
                 }
                 else if (Data.Card == null)
                 {
@@ -288,6 +292,16 @@ namespace Scuti.UI
             TryToLoadData();
         }
 
+
+        private void SelectNewCardDefault()
+        {
+            if(creditCardList.Count > 0)
+            {
+                SetCardByDefault(creditCardList[0].GetCredirCardInfo());
+            }        
+
+        }
+
         #endregion
 
         #region CardDetaildFom
@@ -301,7 +315,6 @@ namespace Scuti.UI
         public async void GetCardDetails(CreditCardView.CreditCardModel creditCardInfo)
         {
             UIManager.ShowLoading(false);
-
             try 
             {
                 var rest = await ScutiAPI.GetCardDetails(creditCardInfo.id);
@@ -319,8 +332,11 @@ namespace Scuti.UI
                     UIManager.Card.Data.Card.Name = rest.Name;
                     UIManager.Card.CurrentCardId = rest.Id;
 
-                    UIManager.Card.Data.Card.Number = "************"+rest.Last4;
+                    UIManager.Card.Data.Card.Number = "************" + rest.Last4;
                     UIManager.Card.Data.Card.CardType = rest.Scheme;
+
+                    UIManager.Card.Data.Card.MakeDefault = (bool)rest.IsDefault;
+                    
                 }
             }
             catch (Exception ex)
@@ -332,15 +348,8 @@ namespace Scuti.UI
             }
 
             UIManager.Card.IsRemoveCardAvailable(true);
-
-
-            Debug.Log("--InBackedn: State: " + UIManager.Card.Data.Address.State);
-
-            Debug.Log("--InBackedn: Country: " + UIManager.Card.Data.Address.Country);
-
-            // new line
+            // Update info for dropdown (Countries and states)
             UIManager.Card.UpdatedAddresInfo(UIManager.Card.Data.Address.Country);
-
             UIManager.Card.Refresh();
         }
 

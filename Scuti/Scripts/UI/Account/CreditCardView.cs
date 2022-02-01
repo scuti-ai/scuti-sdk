@@ -56,6 +56,11 @@ namespace Scuti.UI
             return creditCardInfo.id;
         }
 
+        public CreditCardModel GetCredirCardInfo()
+        {
+            return creditCardInfo;
+        }
+
         public void EditAndShowCardInfo()
         {
             onShowCardInfo?.Invoke(creditCardInfo);
