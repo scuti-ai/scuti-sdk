@@ -440,15 +440,18 @@ namespace Scuti.UI
 #if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
             if(Input.touchCount>0)
 #else
-        #if ENABLE_LEGACY_INPUT_MANAGER
-             if (Input.anyKey || Input.GetAxis("Mouse X") != 0)
-               
+#if ENABLE_INPUT_SYSTEM
+
+            if (Keyboard.current.anyKey.isPressed ||
+                    Mouse.current.delta.x.ReadValue() != 0)
+
 #else
-             //if (action.WasPressedThisFrame())
+            if (Input.anyKey || Input.GetAxis("Mouse X") != 0)
 
 #endif
+
 #endif
-                {
+            {
                 if (m_Paused && ShouldUpdateOffers)
                 {
                     ResumeAds();
@@ -458,6 +461,7 @@ namespace Scuti.UI
                     ResetTimeout();
                 }
             }
+
             ProcessGetNextRequestQueue();
         }
 
@@ -677,7 +681,13 @@ namespace Scuti.UI
         {
             bool shouldUpdate = ShouldUpdateOffers;
             if (shouldUpdate && m_Paused) ResumeAds();
-            else if (!shouldUpdate && !m_Paused) PauseAds();
+            else if (!shouldUpdate && !m_Paused)
+            {
+                Debug.Log("Pause Ads");
+                PauseAds();
+            }
+                
+                
 
             if (!m_Paused && GetNextRequestQueue.Count != 0 && !m_ChangingCategories)
             {
