@@ -667,7 +667,7 @@ MonoBehaviour:
   maxOffers: 6
   videoOfferBackFill: 3
   largeOffers: 2
-  showDuration: 10
+  showDuration: 5
   widgetPrefab_Large: {fileID: 7782772691687086893, guid: de6e7652dc39ea44f871305fcca64076,
     type: 3}
   widgetPrefab_Small: {fileID: 6617197698747965883, guid: 3f57bf63bac2c07428afd9d1a0adc55e,
@@ -835,6 +835,7 @@ GameObject:
   - component: {fileID: 114794332141595296}
   - component: {fileID: 114088850072355282}
   - component: {fileID: 114960528297549594}
+  - component: {fileID: 6189557474910775336}
   m_Layer: 5
   m_Name: Banner
   m_TagString: Untagged
@@ -935,9 +936,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abaf3739c95979429f7c9620983d18c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isModal: 0
+  m_State: 3
+  requiresLogin: 0
+  alwaysEnabled: 0
+  displayEvents: 0
+  onStartOpening:
+    m_PersistentCalls:
+      m_Calls: []
+  onOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  onStartClosing:
+    m_PersistentCalls:
+      m_Calls: []
+  onClosed:
+    m_PersistentCalls:
+      m_Calls: []
+  Transitions: []
   BannerImage: {fileID: 114112696992075480}
   SecondDelay: 10
   Rounded: {fileID: 114794332141595296}
+  timer: {fileID: 6189557474910775336}
 --- !u!114 &114960528297549594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -989,6 +1009,28 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6189557474910775336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910263493052902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b48b4a2fae55064bb5ece05798ff778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showEvents: 0
+  onFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  onTick:
+    m_PersistentCalls:
+      m_Calls: []
+  mode: 1
+  useUnscaledTime: 0
+  m_State: 2
 --- !u!1 &1974766342025828
 GameObject:
   m_ObjectHideFlags: 0

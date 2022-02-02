@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BannerWidget : MonoBehaviour {
+public class BannerWidget : View {
 
     public UnityEngine.UI.Image BannerImage;
     public int SecondDelay;
@@ -22,9 +22,28 @@ public class BannerWidget : MonoBehaviour {
 
     public RoundedImage Rounded;
 
-    private void Awake()
+
+
+
+    protected bool timerCompleted = false;
+    [SerializeField] protected Timer timer;
+
+
+    protected override void Awake()
     {
+        base.Awake();
         BannerImage.enabled = false;
+
+        timer.Pause();
+        timer.onFinished.AddListener(OnImpressionCompleted);
+    }
+
+    private void OnImpressionCompleted()
+    {
+        Debug.LogError("Banner impression. "+ _banner.Id.ToString());
+
+        if (_banner != null)
+            ScutiAPI.RecordOfferImpression(_banner.Id.ToString());
     }
 
     public void Start()
@@ -35,13 +54,35 @@ public class BannerWidget : MonoBehaviour {
     public void Pause()
     {
         _paused = true;
+        if (!_destroyed && timer != null)
+        {
+            timer.Pause();
+        }
     }
 
     public void Play()
     {
         _paused = false;
         if(Rounded != null) Rounded.Refresh();
+
+        if (!_destroyed && timer != null)
+        {
+            ResetTimer();
+        }
     }
+
+
+    public void ResetTimer()
+    {
+        if (!_destroyed)
+        {
+            timerCompleted = false;
+            timer.ResetTime(ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
+            timer.Begin();
+        }
+    }
+
+
 
 
     private void Update()
@@ -103,6 +144,7 @@ public class BannerWidget : MonoBehaviour {
                 UIManager.OfferDetails.SetData(panelModel);
                 UIManager.OfferDetails.SetIsVideo(isVideo);
                 UIManager.Open(UIManager.OfferDetails);
+              
             }
         }
     }
@@ -147,7 +189,7 @@ public class BannerWidget : MonoBehaviour {
         ImageDownloader.New().Download(_banner.Media.Banner.BigUrl,
                         result =>
                         {
-
+                            ResetTimer();
                             BannerImage.enabled = true;
                             BannerImage.sprite = result.ToSprite();
                             _loading = false;

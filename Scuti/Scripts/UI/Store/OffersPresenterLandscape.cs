@@ -20,7 +20,7 @@ namespace Scuti.UI
         [SerializeField] int maxOffers = 6;
         [SerializeField] int videoOfferBackFill = 3;
         [SerializeField] int largeOffers = 2;
-        [SerializeField] float showDuration = 10;
+        [SerializeField] float showDuration = 5;
 
         [Header("Instantiation")]
         [SerializeField] OfferSummaryPresenterLandscape widgetPrefab_Large;
