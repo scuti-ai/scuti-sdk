@@ -441,15 +441,15 @@ namespace Scuti.UI
             if(Input.touchCount>0)
 #else
 #if ENABLE_INPUT_SYSTEM
-             
-              if (Keyboard.current.anyKey.isPressed ||
-                      Mouse.current.delta.x.ReadValue() != 0)
-               
+
+            if (Keyboard.current.anyKey.isPressed ||
+                    Mouse.current.delta.x.ReadValue() != 0)
+
 #else
             if (Input.anyKey || Input.GetAxis("Mouse X") != 0)
 
-
 #endif
+
 #endif
             {
                 if (m_Paused && ShouldUpdateOffers)
