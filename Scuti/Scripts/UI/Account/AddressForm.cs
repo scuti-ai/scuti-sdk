@@ -180,6 +180,7 @@ namespace Scuti.UI
                             City = shippingInfo.City
                         };
                         _cachedAddress = true;
+                        _selectedCountry = _supportedCountriesList.Find(c => c.Code.Equals(Data.Address.Country));
                         Refresh();
                     }
                 }

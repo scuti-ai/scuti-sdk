@@ -40,10 +40,11 @@ public class BannerWidget : View {
 
     private void OnImpressionCompleted()
     {
-        Debug.LogError("Banner impression. "+ _banner.Id.ToString());
-
         if (_banner != null)
+        {
+            Debug.LogError("Banner impression. " + _banner.Id.ToString());
             ScutiAPI.RecordOfferImpression(_banner.Id.ToString());
+        }
     }
 
     public void Start()
