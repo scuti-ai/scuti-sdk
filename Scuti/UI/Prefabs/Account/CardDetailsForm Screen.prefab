@@ -710,7 +710,7 @@ MonoBehaviour:
   expirationDateInput: {fileID: 114721567086463076}
   ExpirationValidator: {fileID: 114974785054721112}
   SaveCard: {fileID: 114143062195322134}
-  stateLabel: {fileID: 838710306228923448}
+  stateLabel: {fileID: 114782172847047890}
   stateValidatable: {fileID: 0}
 --- !u!1 &1041325889573178
 GameObject:
@@ -2058,7 +2058,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224257659059251314}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.042396683
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
