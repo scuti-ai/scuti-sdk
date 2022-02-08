@@ -42,7 +42,6 @@ public class BannerWidget : View {
     {
         if (_banner != null)
         {
-            Debug.LogError("Banner impression. " + _banner.Id.ToString());
             ScutiAPI.RecordOfferImpression(_banner.Id.ToString());
         }
     }
