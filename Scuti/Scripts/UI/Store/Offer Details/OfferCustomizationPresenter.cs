@@ -25,7 +25,7 @@ namespace Scuti.UI {
         [Serializable]
         public class Model : Presenter.Model {
 
-            public static string DEFAULT = "null";
+            public static string DEFAULT = "Other";
 
             private List<StockModelUpdated> _stockOutModelUpdated;
             private List<StockModelUpdated> _stockIn;
@@ -60,8 +60,12 @@ namespace Scuti.UI {
                                 {
                                     secondLabel = variant.Option2;
                                     if (!string.IsNullOrEmpty(variant.Option3))
-                                    {
+                                    {    
                                         thirdLabel = variant.Option3;
+                                    }
+                                    else 
+                                    {
+                                        Debug.Log("Is emty Label 3-" + variant.Option3+"--");
                                     }
                                 }
                             }
@@ -78,6 +82,7 @@ namespace Scuti.UI {
                             {
                                 _stockIn.Add(stockUpdated);
                             }
+                             
 
                             var opt1 = (string.IsNullOrEmpty(variant.Option1)) ? DEFAULT : variant.Option1;
                             var opt2 = (string.IsNullOrEmpty(variant.Option2)) ? DEFAULT : variant.Option2;
@@ -101,7 +106,51 @@ namespace Scuti.UI {
                             var finalMap = innerMap[opt2];
                             finalMap[opt3] = variant;
                             //}
-                        } 
+                        }
+
+
+                        // Delete duplicates in same list: Out Stock
+                        for (int j = 0; j < _stockOutModelUpdated.Count; j++)
+                        {
+                            int index = _stockOutModelUpdated.FindIndex(f => f.labelOpt1 == _stockOutModelUpdated[j].labelOpt1 &&
+                                                                            f.labelOpt2 == _stockOutModelUpdated[j].labelOpt2 &&
+                                                                            f.labelOpt3 == _stockOutModelUpdated[j].labelOpt3);
+
+                            if (index >= 0)
+                            {
+                                _stockOutModelUpdated.RemoveAt(index);
+                            }
+                        }
+
+                        // Delete duplicates in same list. In stock
+                        for (int j = 0; j < _stockIn.Count; j++)
+                        {
+                            int index = _stockIn.FindIndex(f => f.labelOpt1 == _stockIn[j].labelOpt1 &&
+                                                                            f.labelOpt2 == _stockIn[j].labelOpt2 &&
+                                                                            f.labelOpt3 == _stockIn[j].labelOpt3);
+
+                            if (index >= 0)
+                            {
+                                _stockIn.RemoveAt(index);
+                            }
+                        }
+
+                        // Delete duplicates in different list: Priority is given to those in stock
+
+                        for (int j = 0; j < _stockIn.Count; j++)
+                        {
+                            int index = _stockOutModelUpdated.FindIndex(f => f.labelOpt1 == _stockIn[j].labelOpt1 &&
+                                                                            f.labelOpt2 == _stockIn[j].labelOpt2 &&
+                                                                            f.labelOpt3 == _stockIn[j].labelOpt3);
+
+                            if (index >= 0)
+                            {
+                                _stockOutModelUpdated.RemoveAt(index);
+                            }
+                        }
+
+
+
 
                     }
                 }
@@ -397,6 +446,8 @@ namespace Scuti.UI {
 
                     if (dropdownId == 3)
                     {
+                        Debug.Log("Option " + i + ": " + options[i]);
+
                         ColorOptionDataTMP colorOption = new ColorOptionDataTMP(options[i], colorLight, true);
 
                         stockOut = Data.GetInfoItemOutOfStock().FindAll(f => f.labelOpt2 == Data.GetCurrentSelectOption2() && f.labelOpt1 == Data.GetCurrentSelectOption1());
