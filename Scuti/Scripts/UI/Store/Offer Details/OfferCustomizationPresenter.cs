@@ -29,7 +29,10 @@ namespace Scuti.UI {
 
             private List<StockModelUpdated> _stockOutModelUpdated;
             private List<StockModelUpdated> _stockIn;
-            
+
+            private List<StockModelUpdated> distinctOut;
+            private List<StockModelUpdated> distinctIn;
+
             public int Quantity;
             public ProductVariant[] Variants
             {
@@ -108,35 +111,17 @@ namespace Scuti.UI {
                             //}
                         }
 
+                        Debug.Log("Stock Before: " + _stockIn.Count);
+                        _stockIn = RemoveDuplicatedItems(_stockIn);
+                        Debug.Log("Stock After: " + _stockIn.Count);
 
-                        // Delete duplicates in same list: Out Stock
-                        for (int j = 0; j < _stockOutModelUpdated.Count; j++)
-                        {
-                            int index = _stockOutModelUpdated.FindIndex(f => f.labelOpt1 == _stockOutModelUpdated[j].labelOpt1 &&
-                                                                            f.labelOpt2 == _stockOutModelUpdated[j].labelOpt2 &&
-                                                                            f.labelOpt3 == _stockOutModelUpdated[j].labelOpt3);
 
-                            if (index >= 0)
-                            {
-                                _stockOutModelUpdated.RemoveAt(index);
-                            }
-                        }
-
-                        // Delete duplicates in same list. In stock
-                        for (int j = 0; j < _stockIn.Count; j++)
-                        {
-                            int index = _stockIn.FindIndex(f => f.labelOpt1 == _stockIn[j].labelOpt1 &&
-                                                                            f.labelOpt2 == _stockIn[j].labelOpt2 &&
-                                                                            f.labelOpt3 == _stockIn[j].labelOpt3);
-
-                            if (index >= 0)
-                            {
-                                _stockIn.RemoveAt(index);
-                            }
-                        }
-
+                        Debug.Log("Stock Before: " + _stockOutModelUpdated.Count);
+                        _stockOutModelUpdated = RemoveDuplicatedItems(_stockOutModelUpdated);
+                        Debug.Log("Stock After: " + _stockOutModelUpdated.Count);
+     
                         // Delete duplicates in different list: Priority is given to those in stock
-
+                        
                         for (int j = 0; j < _stockIn.Count; j++)
                         {
                             int index = _stockOutModelUpdated.FindIndex(f => f.labelOpt1 == _stockIn[j].labelOpt1 &&
@@ -147,13 +132,29 @@ namespace Scuti.UI {
                             {
                                 _stockOutModelUpdated.RemoveAt(index);
                             }
-                        }
-
-
-
+                        }    
 
                     }
                 }
+            }
+
+
+            private List<StockModelUpdated> RemoveDuplicatedItems(List<StockModelUpdated> list)
+            {
+                List<StockModelUpdated> tempList = new List<StockModelUpdated>();
+
+                foreach (StockModelUpdated u1 in list)
+                {
+                    bool duplicatefound = false;
+                    foreach (StockModelUpdated u2 in tempList)
+                        if (u1.labelOpt1 == u2.labelOpt1 && u1.labelOpt2 == u2.labelOpt2 && u1.labelOpt3 == u2.labelOpt3)
+                            duplicatefound = true;
+
+                    if (!duplicatefound)
+                        tempList.Add(u1);
+                }
+
+                return tempList;
             }
 
             public string Option1;
