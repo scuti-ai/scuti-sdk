@@ -286,6 +286,8 @@ namespace Scuti.UI {
 
         private void OnFirstVariantChanged(int value)
         {
+            Debug.Log("OnChange first dropdown");
+
             Data.SelectOption1(firstVariant.options[value].text);
             Populate(secondVariant, Data.GetOption2DropDowns(), 2);
             Populate(thirdVariant, Data.GetOption3DropDowns(), 3);
