@@ -579,10 +579,11 @@ namespace Scuti.UI
         {
             // Opens the card manager window
             UIManager.CardManager.isSelectCardMode = true;
-            UIManager.CardManager.OnSubmit -= OnCreditCard;
-            UIManager.CardManager.OnSubmit += OnCreditCard;
+            UIManager.CardManager.OnCardSelected -= OnCreditCard;
+            UIManager.CardManager.OnCardSelected += OnCreditCard;
             UIManager.Open(UIManager.CardManager);
             UIManager.Card.SetCached(_cachedCard, Data.ShippingAddress);
+            Debug.Log("Open Edit credit card");
         }
 
 
@@ -596,15 +597,20 @@ namespace Scuti.UI
         }
 
         // Handlers
-        private void OnCreditCard(CardManager.Model data)
+        //private void OnCreditCard(CardManager.Model data)
+        private void OnCreditCard(CardDetailsForm.Model data)
         {
+            Debug.Log("Load data credit card added");
+
+            TryToLoadData(true);
+
             // Search in payment method list for one with "id" that matches payment method in "data"
-            _cachedCard = _cardsInformation.Find(f => f.Last4 == data.Card.Number);
+            /*_cachedCard = _cardsInformation.Find(f => f.Last4 == data.Card.Number);
             _cachedAddress = false;
 
             Data.Card = data.Card;
             Data.BillingAddress = data.Address;
-            RefreshText();
+            RefreshText();*/
         }
 
         private void OnShippingSubmitted(AddressForm.Model data)

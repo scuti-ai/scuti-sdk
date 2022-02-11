@@ -30,6 +30,9 @@ namespace Scuti.UI
         private UserCard _cachedCard = null;
 
         private List<UserCard> _cardsInformation;
+
+        public System.Action<CardDetailsForm.Model> OnCardSelected;
+
         public bool isSelectCardMode;
 
 
@@ -127,6 +130,9 @@ namespace Scuti.UI
 
         public override void Close()
         {
+            if (isSelectCardMode)
+                OnCardSelected?.Invoke(UIManager.Card.Data);
+
             isSelectCardMode = false;
             base.Close();
         }
