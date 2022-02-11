@@ -277,7 +277,7 @@ namespace Scuti.UI {
 
             if (Data.GetInfoItemIn().Count > 0)
             {
-                var thirdOpt = Data.GetInfoItemIn().Find(f => f.labelOpt2 == secondVariant.options[value].text);
+                var thirdOpt = allInStock.Find(f => f.labelOpt2 == secondVariant.options[value].text);
                 thirdVariant.value = thirdVariant.options.FindIndex(f => f.text == thirdOpt.labelOpt3);
             }
 
@@ -294,7 +294,7 @@ namespace Scuti.UI {
 
             if (Data.GetInfoItemIn().Count > 0)
             {
-                var secondOpt = Data.GetInfoItemIn().Find(f => f.labelOpt1 == firstVariant.options[value].text);
+                var secondOpt = allInStock.Find(f => f.labelOpt1 == firstVariant.options[value].text);
                 if(secondOpt != null)
                 {
                     secondVariant.value = secondVariant.options.FindIndex(f => f.text == secondOpt.labelOpt2);
