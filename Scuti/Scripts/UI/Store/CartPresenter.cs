@@ -364,7 +364,7 @@ namespace Scuti.UI
                         {
                             Data.ShippingFee = response.Breakdown.Shipping.Value;
                             Data.SalesTax = response.Breakdown.Tax.Value;
-                            subtotalAmountText.text = $"$ {response.Breakdown.Total.Value.ToString("0.00")}";
+                            subtotalAmountText.text = $"US$ {response.Breakdown.Total.Value.ToString("0.00")}";
                         } else
                         {
                             subtotalAmountText.text = "";

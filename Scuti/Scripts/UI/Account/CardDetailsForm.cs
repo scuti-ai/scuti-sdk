@@ -218,7 +218,7 @@ namespace Scuti.UI
 
         public void UpdatedAddresInfo(string country)
         {
-            _selectedCountry = _supportedCountriesList.Find(c => c.Code.Equals(country)); 
+            _selectedCountry = _supportedCountriesList.Find(c => c.Code.Equals(country));
 
             Data.Address.Country = _selectedCountry.Code;
 
@@ -402,7 +402,7 @@ namespace Scuti.UI
             if(address!=null)
             {
                 Data.Address = address;
-
+                UpdatedAddresInfo(Data.Address.Country);
             }
 
             Refresh();
