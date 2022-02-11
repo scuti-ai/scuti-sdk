@@ -118,7 +118,6 @@ namespace Scuti.UI
                 return;
             }
 
-
             AddToCartHelper();
             UIManager.Cart.PurchaseOnLoad(true);
             UIManager.Open(UIManager.Cart);

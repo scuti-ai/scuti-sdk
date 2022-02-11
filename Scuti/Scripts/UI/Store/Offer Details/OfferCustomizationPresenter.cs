@@ -104,16 +104,12 @@ namespace Scuti.UI {
 
                             var finalMap = innerMap[opt2];
                             finalMap[opt3] = variant;
-
-                            //Debug.Log("-----Variant: " + variant.Option3.ToString());
-
                             //}
                         }
 
 
                         _stockIn = RemoveDuplicatedItems(_stockIn);
                         _stockOutModelUpdated = RemoveDuplicatedItems(_stockOutModelUpdated);
-
      
                         // Delete duplicates in different list: Priority is given to those in stock                        
                         for (int j = 0; j < _stockIn.Count; j++)
@@ -317,7 +313,8 @@ namespace Scuti.UI {
             allOutOfStock = new List<StockModelUpdated>(Data.GetInfoItemOutOfStock());
             allInStock = new List<StockModelUpdated>(Data.GetInfoItemIn());
 
-
+            // Delete products with empty or null data.
+            // For products out of stock
             List<StockModelUpdated> auxOut = new List<StockModelUpdated>();
             for(int i = 0; i < allOutOfStock.Count; i++)
             {
@@ -329,7 +326,7 @@ namespace Scuti.UI {
             allOutOfStock.Clear();
             allOutOfStock = new List<StockModelUpdated>(auxOut);
 
-
+            // For products in stock
             List<StockModelUpdated> auxInt = new List<StockModelUpdated>();
             for (int i = 0; i < allInStock.Count; i++)
             {
@@ -350,38 +347,20 @@ namespace Scuti.UI {
 
             SetItemRandomAvailable();
 
-            Debug.Log("--- CONTROL 1---------------------------------");
-
-            Debug.Log("--- Select option 1: " + Data.GetCurrentSelectOption1());
-            Debug.Log("--- Select option 2: " + Data.GetCurrentSelectOption2());
-            Debug.Log("--- Select option 3: " + Data.GetCurrentSelectOption3());
-
-            //Debug.Log("--- CONTROL 2---------------------------------");
             Populate(thirdVariant, Data.GetOption3DropDowns(), 3);
             Populate(secondVariant, Data.GetOption2DropDowns(), 2);
             Populate(firstVariant, Data.GetOption1DropDowns(), 1);
-            //Debug.Log("--- CONTROL 3---------------------------------");
+
             _isInitalize = true;
-           //Debug.Log("--- CONTROL 4---------------------------------");
+
             // Initialize dropdowns with items availables
             if (allInStock.Count > 0)
             {
-                //int value1 = firstVariant.value = firstVariant.options.FindIndex(f => f.text == Data.GetInfoItemIn()[0].labelOpt1);
-                Debug.Log("------------------- Select option 1 STAR: " + Data.GetCurrentSelectOption1());
-                int value1 = firstVariant.value = firstVariant.options.FindIndex(f => f.text == Data.GetCurrentSelectOption1());
-                Debug.Log("-----VALUE 1: " + value1);
-                //int value2 = secondVariant.value = secondVariant.options.FindIndex(f => f.text == Data.GetInfoItemIn()[0].labelOpt2);
-                //Debug.Log("------------------- Select option 3 STAR: " + Data.GetCurrentSelectOption3());
-                int value2 = secondVariant.value = secondVariant.options.FindIndex(f => f.text == Data.GetCurrentSelectOption2());
-                //Debug.Log("-----VALUE 2: " + value2);
-                //Debug.Log("------------------- Select option 3: " + Data.GetCurrentSelectOption3());
-                //int value3 = thirdVariant.value = thirdVariant.options.FindIndex(f => f.text == Data.GetInfoItemIn()[0].labelOpt3);
-                //Debug.Log("------------------- Select option 3 STAR: " + Data.GetCurrentSelectOption3());
-                int value3 = thirdVariant.value = thirdVariant.options.FindIndex(f => f.text == Data.GetCurrentSelectOption3());
-                //Debug.Log("-----VALUE 3: " + value3);
-
+                firstVariant.value = firstVariant.options.FindIndex(f => f.text == Data.GetCurrentSelectOption1());
+                secondVariant.value = secondVariant.options.FindIndex(f => f.text == Data.GetCurrentSelectOption2());
+                thirdVariant.value = thirdVariant.options.FindIndex(f => f.text == Data.GetCurrentSelectOption3());
             }
-           // Debug.Log("--- CONTROL 5---------------------------------");
+
             VariantChanged?.Invoke();
            
         }
@@ -442,18 +421,16 @@ namespace Scuti.UI {
                             {
                                 for (int j = 0; j < options.Length; j++)
                                 {
-                                    /// NO ESTOY TOMANDO EN CUENTA QUE EXISTE UNA TERCERA OPCION
                                     List<StockModelUpdated> stock = allOutOfStock.FindAll(f => f.labelOpt1 == options[i]);
-                                    //Debug.Log("LISTA OPCIONES 1: " + stock.Count+ " - "+ "options: "+ options[i]);
                                     List<StockModelUpdated> stock2 = new List<StockModelUpdated>();
                                     int count3 = 0;
                                     int count2 = 0;
                                     int countAux = 0;
-                                    // Busco todos los de la lista previa pero con el segundod dropdown
+                                    // We look for the items in the list with the specified options 1 and create a new one with all possible options 2.
                                     for (int t = 0; t < _option2OutOfStock.Count; t++)
                                     {
                                         stock2.AddRange(stock.FindAll(f => f.labelOpt2 == _option2OutOfStock[t]));
-                                        // Detecto si se sumo algo nuevo a la lista. Entonces encontró coincidencias.
+                                        // It is detected if something new is added to the list. I.e., it found matches and it is added
                                         if (countAux < stock2.Count)
                                         {
                                             countAux = stock2.Count;
@@ -461,8 +438,7 @@ namespace Scuti.UI {
                                         }
                                     }
 
-                                    //Debug.Log("LISTA OPCIONES 2: " + stock2.Count);
-                                    // Busco ya en la nueva lista si estan todos las opciones 3
+                                    // Searching in the last list if there are all possible options 3
                                     for (int k = 0; k < _option2OutOfStock.Count; k++)
                                     {
                                         List<StockModelUpdated> stock3 = stock2.FindAll(f => f.labelOpt2 == _option2OutOfStock[k]);
@@ -493,7 +469,6 @@ namespace Scuti.UI {
                             {
                                 for (int j = 0; j < options.Length; j++)
                                 {
-                                    /// NO ESTOY TOMANDO EN CUENTA QUE EXISTE UNA TERCERA OPCION
                                     List<StockModelUpdated> stock2 = allOutOfStock.FindAll(f => f.labelOpt1 == options[i]);
                                     if (_option2OutOfStock.Count == stock2.Count)
                                     {
@@ -558,7 +533,6 @@ namespace Scuti.UI {
                                                                                               f.labelOpt2 == options[i] &&
                                                                                               f.labelOpt3 == _option3OutOfStock[k]))
                                    {
-                                      // Debug.Log("******* " +Data.GetCurrentSelectOption1() + " - " + options[i] + " - " + _option3OutOfStock[k]);
                                        count++;
                                    }
                                }
@@ -567,7 +541,7 @@ namespace Scuti.UI {
                                isOut = true;
 
 
-                            if (stock2 != null && /*_option3OutOfStock.Count == stock3.Count*/ isOut)
+                            if (stock2 != null && isOut)
                             {
                                 colorOption.text = options[i];
                                 colorOption.Color = colorOpaque;
@@ -581,23 +555,15 @@ namespace Scuti.UI {
                     if (dropdownId == 3)
                     {
 
-                        Debug.Log("--- Option 1: " + Data.GetCurrentSelectOption1() + " Option 2: "+ Data.GetCurrentSelectOption2());
-
                         ColorOptionDataTMP colorOption = new ColorOptionDataTMP(options[i], colorLight, true);
 
                         stockOut = allOutOfStock.FindAll(f => f.labelOpt2 == Data.GetCurrentSelectOption2() && f.labelOpt1 == Data.GetCurrentSelectOption1());
-                        //stockOut = allOutOfStock.FindAll(f => f.labelOpt2 == Data.GetCurrentSelectOption2() && f.labelOpt1 == Data.GetCurrentSelectOption1());
                         StockModelUpdated stock3 = stockOut.Find(f => f.labelOpt3 == options[i]);
                         if (stock3 != null)
                         {
-                            Debug.Log("This option: " + options[i] + " is Disable");
                             colorOption.text = options[i];
                             colorOption.Color = colorOpaque;
                             colorOption.Interactable = false;
-                        }
-                        else 
-                        {
-                            Debug.Log("This option: " + options[i] + " is AVAILABLE");
                         }
 
                         optionsColor.Add(colorOption);
