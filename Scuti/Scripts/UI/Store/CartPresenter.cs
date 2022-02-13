@@ -372,9 +372,20 @@ namespace Scuti.UI
                     }
                     catch (Exception ex)
                     {
+                        var errorMessage = ex.Message;
+                        if(ex.ToJson().Contains("gameId must be"))
+                        {
+#if UNITY_EDITOR
+                            errorMessage = "Invalid GameID. Please check Scuti Settings.";
+#else
+
+                            errorMessage = "Invalid GameID";
+#endif
+                        }
+
                         ScutiLogger.LogException(ex);
                         UIManager.Open(UIManager.Alert);
-                        UIManager.Alert.SetHeader("Failed To Calculate Cart").SetBody($"Failed to calculate cart with error: {ex.Message}").SetButtonText("Ok").Show(() => { });
+                        UIManager.Alert.SetHeader("Failed To Calculate Cart").SetBody($"Failed to calculate cart with error: '{errorMessage}'").SetButtonText("Ok").Show(() => { });
 
 
                         subtotalAmountText.text = "N/A";
