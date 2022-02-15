@@ -345,9 +345,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1009263924991670}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!114 &114795289184176958
 MonoBehaviour:
@@ -420,7 +420,7 @@ MonoBehaviour:
   m_ShowFields: 0
   m_UseUnscaledTime: 0
   m_ReferenceScreenResolution: {x: 1920, y: 1080}
-  m_State: 4
+  m_State: 2
   m_TransitionOnStart: 0
   displayEvents: 0
   onStartTransitionIn:
@@ -5459,9 +5459,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380053827147440}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &114218415307270258
 MonoBehaviour:
@@ -5537,7 +5537,7 @@ MonoBehaviour:
   m_ShowFields: 0
   m_UseUnscaledTime: 0
   m_ReferenceScreenResolution: {x: 1920, y: 1080}
-  m_State: 2
+  m_State: 4
   m_TransitionOnStart: 0
   displayEvents: 0
   onStartTransitionIn:
@@ -10610,8 +10610,8 @@ MonoBehaviour:
   mode: 1
   minLength: 8
   maxLength: 2147483647
-  msgOnNoValue: Password
-  msgOnShortValue: Password
+  msgOnNoValue: Please enter a password
+  msgOnShortValue: Password must be at least 8 characters
   msgOnLongValue: 
 --- !u!1 &1651511957204058
 GameObject:
@@ -10647,7 +10647,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.000052989297, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &114101639850121162
@@ -14696,9 +14696,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911322541728462}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &114251951474333310
 MonoBehaviour:
@@ -14715,7 +14715,7 @@ MonoBehaviour:
   m_ShowFields: 0
   m_UseUnscaledTime: 0
   m_ReferenceScreenResolution: {x: 1920, y: 1080}
-  m_State: 2
+  m_State: 4
   m_TransitionOnStart: 0
   displayEvents: 0
   onStartTransitionIn:

@@ -412,8 +412,8 @@ RectTransform:
   - {fileID: 224911957610487538}
   - {fileID: 224877269181791950}
   - {fileID: 224660738504022608}
-  - {fileID: 224333503808211246}
   - {fileID: 6326026836371875652}
+  - {fileID: 224333503808211246}
   - {fileID: 224227448792765870}
   - {fileID: 224857874369026802}
   - {fileID: 224846791436634664}
@@ -434,9 +434,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1009263924991670}
   m_Enabled: 1
-  m_Alpha: 0
-  m_Interactable: 0
-  m_BlocksRaycasts: 0
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!114 &114795289184176958
 MonoBehaviour:
@@ -510,7 +510,7 @@ MonoBehaviour:
   m_ShowFields: 0
   m_UseUnscaledTime: 0
   m_ReferenceScreenResolution: {x: 1920, y: 1080}
-  m_State: 4
+  m_State: 2
   m_TransitionOnStart: 0
   displayEvents: 0
   onStartTransitionIn:
@@ -11929,7 +11929,7 @@ RectTransform:
   - {fileID: 224150738009068116}
   - {fileID: 224863217754869502}
   m_Father: {fileID: 224099776286039068}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12045,8 +12045,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   validators:
   - {fileID: 114249290640651822}
-  messageText: {fileID: 114776716411207800}
-  msgOnValid: Password
+  messageText: {fileID: 8375848793095984477}
+  msgOnValid: 
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
   validColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &114249290640651822
@@ -12067,8 +12067,8 @@ MonoBehaviour:
   mode: 1
   minLength: 8
   maxLength: 2147483647
-  msgOnNoValue: Password
-  msgOnShortValue: Password
+  msgOnNoValue: Please enter a password
+  msgOnShortValue: Password must be at least 8 characters
   msgOnLongValue: 
 --- !u!114 &3008943907802071176
 MonoBehaviour:
@@ -16986,9 +16986,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911322541728462}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &114251951474333310
 MonoBehaviour:
@@ -17005,7 +17005,7 @@ MonoBehaviour:
   m_ShowFields: 0
   m_UseUnscaledTime: 0
   m_ReferenceScreenResolution: {x: 1920, y: 1080}
-  m_State: 2
+  m_State: 4
   m_TransitionOnStart: 0
   displayEvents: 0
   onStartTransitionIn:
@@ -19408,7 +19408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6326026836371875652
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19421,12 +19421,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 224099776286039068}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1218, y: -295.825}
-  m_SizeDelta: {x: 1012.35913, y: 40}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1012.35913, y: 0}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8821672301092862627
 CanvasRenderer:
@@ -19449,7 +19449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.23137257, b: 0.18823531, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -19461,13 +19461,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 2
     m_MaxSize: 40
-    m_Alignment: 0
+    m_Alignment: 6
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Please ensure all form fields are filled in correctly
+  m_Text: 
 --- !u!114 &4156528513220959965
 MonoBehaviour:
   m_ObjectHideFlags: 0
