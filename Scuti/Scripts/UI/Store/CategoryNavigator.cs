@@ -4,8 +4,8 @@ using Scuti.Net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Scuti.UI
 {
@@ -22,7 +22,8 @@ namespace Scuti.UI
 
         private string[] m_Categories = { "DEFAULT" };
 
-        public Text Label;
+        public TextMeshProUGUI Label;
+        public float SwipeThreshold = 50;
 
         int m_Index;
         private bool _invalid = true;
@@ -39,7 +40,7 @@ namespace Scuti.UI
             if (_invalid)
             {
                 string[] unordered = null;
-             
+
 
                 OfferStatistics readCategories = null;
                 try
@@ -85,7 +86,7 @@ namespace Scuti.UI
                 //ordered.Add("DEFAULT");
 
                 ordered.AddRange(preferred);
-                ordered.AddRange(other); 
+                ordered.AddRange(other);
                 m_Categories = ordered.ToArray();
 
                 _invalid = false;
@@ -144,6 +145,30 @@ namespace Scuti.UI
         private void OnDestroy()
         {
             _destroyed = true;
+        }
+
+        private void Update()
+        {
+	        if (Input.touchCount > 0)
+	        {
+		        var touch = Input.touches[0];
+		        if (touch.phase == TouchPhase.Began)
+		        {
+
+		        }
+		        else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+		        {
+			        Debug.Log(touch.deltaPosition.x);
+			        if (touch.deltaPosition.x < -SwipeThreshold)
+			        {
+				        Next();
+			        }
+			        else if (touch.deltaPosition.x > SwipeThreshold)
+			        {
+				        Previous();
+			        }
+		        }
+	        }
         }
 
         internal void SetPresenter(OffersPresenterBase offersPresenterBase)

@@ -88,7 +88,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82524e26630a5ff42bf1a76c0149efd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Label: {fileID: 0}
+  Label: {fileID: 2325533512204559411}
+  SwipeThreshold: 50
 --- !u!1 &1098689231511814
 GameObject:
   m_ObjectHideFlags: 0
