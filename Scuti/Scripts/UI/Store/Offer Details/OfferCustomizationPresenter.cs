@@ -324,42 +324,50 @@ namespace Scuti.UI {
             allInStock = new List<StockModelUpdated>(Data.GetInfoItemIn());
 
             #region Detect dropdown options amount
-            int count1 = 0;
-            int count2 = 0;
-            int count3 = 0;
+            int aux = 0;
+            int countDropdown = 0;
+
             //Detect if there is at least one valid option for each dropdown
             for (int i = 0; i < Data.GetOption3DropDowns().Length; i++)
             {
-                if (Data.GetOption3DropDowns()[i] != Model.DEFAULT)
-                {
-                    count3++;
-                }
+                if (Data.GetOption3DropDowns()[i] != Model.DEFAULT) aux++;  
             }
+
+            if (aux > 0)
+            {
+                countDropdown++;
+                aux = 0;
+            }            
 
             for (int i = 0; i < Data.GetOption2DropDowns().Length; i++)
             {
-                if (Data.GetOption2DropDowns()[i] != Model.DEFAULT)
-                {
-                    count2++;
-                }
+                if (Data.GetOption2DropDowns()[i] != Model.DEFAULT) aux++;
+            }
+
+            if (aux > 0)
+            {
+                countDropdown++;
+                aux = 0;
             }
 
             for (int i = 0; i < Data.GetOption1DropDowns().Length; i++)
             {
-                if (Data.GetOption1DropDowns()[i] != Model.DEFAULT)
-                {
-                    count1++;
-                }
+                if (Data.GetOption1DropDowns()[i] != Model.DEFAULT) aux++;
             }
+
+            if (aux > 0) countDropdown++;
+
             #endregion
 
-            // Delete products with empty or null data.
+
+            #region Delete products with empty or null data.
+
             // For products out of stock
             List<StockModelUpdated> auxOut = new List<StockModelUpdated>();
             for (int i = 0; i < allOutOfStock.Count; i++)
             {
 
-                if (count3 <= 0 && count2 <= 0)
+                if (countDropdown == 1)
                 {
                     if (allOutOfStock[i].labelOpt1 != Model.DEFAULT)
                     {
@@ -367,7 +375,7 @@ namespace Scuti.UI {
                         auxOut.Add(allOutOfStock[i]);
                     }
                 }
-                else if (count3 <= 0 && count2 > 0)
+                else if (countDropdown == 2)
                 {
                     if (allOutOfStock[i].labelOpt2 != Model.DEFAULT && allOutOfStock[i].labelOpt1 != Model.DEFAULT)
                     {
@@ -394,7 +402,7 @@ namespace Scuti.UI {
             for (int i = 0; i < allInStock.Count; i++)
             {
 
-                if (count3 <= 0 && count2 <= 0)
+                if (countDropdown == 1)
                 {
                     if (allInStock[i].labelOpt1 != Model.DEFAULT)
                     {
@@ -402,7 +410,7 @@ namespace Scuti.UI {
                         auxInt.Add(allInStock[i]);
                     }
                 }
-                else if(count3 <= 0)
+                else if(countDropdown == 2)
                 {
                     if (allInStock[i].labelOpt2 != Model.DEFAULT && allInStock[i].labelOpt1 != Model.DEFAULT)
                     {
@@ -420,9 +428,11 @@ namespace Scuti.UI {
                 }
 
             }
+           
             allInStock.Clear();
             allInStock = new List<StockModelUpdated>(auxInt);
 
+            #endregion
             quantityStepper.Value = Data.Quantity;
 
             firstVariantLabel.text = string.IsNullOrEmpty(Data.Option1) ? string.Empty : Data.Option1;
