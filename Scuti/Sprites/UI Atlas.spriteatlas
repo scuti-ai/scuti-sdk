@@ -31,7 +31,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 58e81dec8b5545d4a8e535db1ec50eee, type: 3}
-    totalSpriteSurfaceArea: 1664276
+    totalSpriteSurfaceArea: 1693426
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -44,6 +44,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 919bd23060fe4aa45ae60d7b0f358d51, type: 3}
   - {fileID: 21300000, guid: ef8bf440cdc215147b0a44ce7ae2db8b, type: 3}
   - {fileID: 21300000, guid: 88f8366078514ab4f8a6866ac339aa22, type: 3}
+  - {fileID: 21300000, guid: 37eb3370b1e19174e9f4abc380fe426b, type: 3}
   - {fileID: 21300000, guid: 46242ea0f0dd958488f0dd9498034504, type: 3}
   - {fileID: 21300000, guid: 44d0f9d01b1511946a6631cde3a033b1, type: 3}
   - {fileID: 21300000, guid: 36da8b111185c4f4bb26a50433637026, type: 3}
@@ -58,6 +59,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 28edf9811b606d14a8b367028f2667ef, type: 3}
   - {fileID: 21300000, guid: aaea00b1a2430c34fa6b6d370be100d5, type: 3}
   - {fileID: 21300000, guid: ed81413249d170343837f90b15568dbb, type: 3}
+  - {fileID: 21300000, guid: 5cc2c472673f8c7448744d5cbf11c630, type: 3}
   - {fileID: 21300000, guid: 2ac88a72d4cbb9b4f87e138f6a8625ad, type: 3}
   - {fileID: 21300000, guid: bd5385b256b5e7b4983a8e2a32950e95, type: 3}
   - {fileID: 21300000, guid: 1c0565c2002ab774985dd6480f9c0c94, type: 3}
@@ -88,6 +90,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: c350d255fae20f34896660ea4aefd8d0, type: 3}
   - {fileID: 21300000, guid: 722aa565a1987154cac7a4f8a2a9f275, type: 3}
   - {fileID: 21300000, guid: a1574795cb258bf4f96a01c61527c81e, type: 3}
+  - {fileID: 21300000, guid: 740a41b5851c3e640b671ec389f90d3e, type: 3}
   - {fileID: 21300000, guid: 37157de552e3730468c7f3e37f326453, type: 3}
   - {fileID: 21300000, guid: ce9efb16d31b3344491cdc0816d3d0ed, type: 3}
   - {fileID: 21300000, guid: 845876263efb78e4f8c240ae946ec98c, type: 3}
@@ -157,6 +160,7 @@ SpriteAtlas:
   - ClockCircle
   - wallet@3x
   - GlowFrame
+  - Logo
   - buttonmenudefault@3x_red
   - PhoneImage
   - scuti_brand_background
@@ -171,6 +175,7 @@ SpriteAtlas:
   - ScutiCoin_6
   - ScutiCoin_2
   - Home
+  - Gradient2
   - scuty_img_offer_tag-1_empty
   - Scuti_About_Image
   - Cameras
@@ -201,6 +206,7 @@ SpriteAtlas:
   - colorblack@3x
   - color-block
   - scuty_img_offer_tag-2_empty
+  - Menu
   - category@3x
   - "\u2013@3x"
   - icon24scuti-currency
