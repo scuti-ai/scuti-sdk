@@ -113,9 +113,6 @@ namespace Scuti.UI {
                             //}
                         }
 
-                        Debug.Log("_inStock: "+_stockIn.Count);
-                        Debug.Log("_outStock: " + _stockOutModelUpdated.Count);
-
                         _stockIn = RemoveDuplicatedItems(_stockIn);
                         _stockOutModelUpdated = RemoveDuplicatedItems(_stockOutModelUpdated);
      
@@ -278,8 +275,6 @@ namespace Scuti.UI {
 
         private void OnSecondVariantChanged(int value)
         {
-            Debug.Log("Show second options");
-
             Data.SelectOption2(secondVariant.options[value].text);
             Populate(thirdVariant, Data.GetOption3DropDowns(), 3);
 
@@ -294,8 +289,6 @@ namespace Scuti.UI {
 
         private void OnFirstVariantChanged(int value)
         {
-            Debug.Log("OnChange first dropdown");
-
             Data.SelectOption1(firstVariant.options[value].text);
             Populate(secondVariant, Data.GetOption2DropDowns(), 2);
             Populate(thirdVariant, Data.GetOption3DropDowns(), 3);
