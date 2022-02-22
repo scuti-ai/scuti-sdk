@@ -36,6 +36,15 @@ namespace Scuti.UI
 
         public async void OpenCurrent()
         {
+            if (!ScutiNetClient.Instance.IsInitialized)
+            {
+                System.Threading.CancellationTokenSource source = new System.Threading.CancellationTokenSource();
+                await System.Threading.Tasks.Task.Delay(500, source.Token);
+                source.Cancel();
+                OpenCurrent();
+                return;
+            }
+
             if (_invalid)
             {
                 string[] unordered = null;
