@@ -151,6 +151,16 @@ public class BannerWidget : View {
 
     private async void Rotate()
     {
+
+        if (!ScutiNetClient.Instance.IsInitialized)
+        {
+            System.Threading.CancellationTokenSource source = new System.Threading.CancellationTokenSource();
+            await System.Threading.Tasks.Task.Delay(500, source.Token);
+            source.Cancel();
+            Rotate();
+            return;
+        }
+
         _loading = true;
 
         OfferPage offerPage = null;
