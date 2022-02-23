@@ -46,16 +46,21 @@ namespace Scuti.UI
 
             userDetails.OnSubmit += (details) =>
             {
-                
                 if (!ScutiNetClient.Instance.FinishedOnBoarding)
+                {
                     ShowAddressForm();
+                    navigation.Close();
+                }
                 else
                     Close();
             };
             userDetails.OnCancel += () =>
             {
                 if (!ScutiNetClient.Instance.FinishedOnBoarding)
+                {
                     navigation.Open(credentials);
+                    navigation.Close();
+                }
                 else
                     Close();
             };
@@ -63,14 +68,20 @@ namespace Scuti.UI
             addressForm.OnSubmit += address =>
             {
                 if (!ScutiNetClient.Instance.FinishedOnBoarding)
+                {
                     ShowCategories();
+                    navigation.Close();
+                }
                 else
                     Close();
             };
             addressForm.OnCancel += () =>
             {
                 if (!ScutiNetClient.Instance.FinishedOnBoarding)
+                {
                     ShowDetails();
+                    navigation.Close();
+                }
                 else
                     Close();
             };
@@ -82,7 +93,10 @@ namespace Scuti.UI
             interestSelect.OnCancel += () =>
             {
                 if (!ScutiNetClient.Instance.FinishedOnBoarding)
+                {
                     ShowAddressForm();
+                    navigation.Close();
+                }
                 else
                     Close();
             };

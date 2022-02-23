@@ -2120,8 +2120,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114727241279556488}
   m_HandleRect: {fileID: 224257659059251314}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0
+  m_Value: 0.99999994
+  m_Size: 0.7139201
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6635,8 +6635,8 @@ MonoBehaviour:
   mode: 1
   minLength: 2
   maxLength: 50
-  msgOnNoValue: Please Enter City
-  msgOnShortValue: Enter at least 2 letters
+  msgOnNoValue: City*
+  msgOnShortValue: City*
   msgOnLongValue: 
 --- !u!1 &1680173024780996
 GameObject:
@@ -10475,8 +10475,8 @@ MonoBehaviour:
   mode: 1
   minLength: 2
   maxLength: 50
-  msgOnNoValue: Please Enter a value
-  msgOnShortValue: Enter at least 2 letters
+  msgOnNoValue: State*
+  msgOnShortValue: State*
   msgOnLongValue: 
 --- !u!1 &5187417333988946783
 GameObject:

@@ -136,7 +136,7 @@ namespace Scuti.UI
             try
             {
                 var cards = await ScutiAPI.GetPayments();
-                if(cards!=null && cards.Count>0)
+                if (cards!=null && cards.Count>0)
                 {
                     Data.Card = new CreditCardData();
                     Data.Card.Reset();
@@ -158,9 +158,14 @@ namespace Scuti.UI
                 } 
                 else if(Data.Card==null)
                 {
+                    checkout = false;
                     Data.Card = new CreditCardData();
                     Data.Card.Reset();
-                } 
+                
+                } else if (cards != null && cards.Count == 0)
+                {
+                    checkout = false;
+                }
 
                 if (!_cachedAddress)
                 {
@@ -609,7 +614,7 @@ namespace Scuti.UI
         // Handlers
         //private void OnCreditCard(CardManager.Model data)
         private void OnCreditCard(CardDetailsForm.Model data)
-        {           
+        {
             TryToLoadData(true);
             // Search in payment method list for one with "id" that matches payment method in "data"
             /*_cachedCard = _cardsInformation.Find(f => f.Last4 == data.Card.Number);

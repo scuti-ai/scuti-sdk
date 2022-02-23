@@ -117,6 +117,7 @@ namespace Scuti.UI {
                 _errorCount++;
             } else
             {
+                Instructions.color = Color.white;
 #pragma warning disable 4014
                 SaveChanges();
 #pragma warning restore 4014
