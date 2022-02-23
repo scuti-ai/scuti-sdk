@@ -49,7 +49,7 @@ namespace Scuti.UI
                 if (!ScutiNetClient.Instance.FinishedOnBoarding)
                 {
                     ShowAddressForm();
-                    navigation.Close();
+                    //navigation.Close();
                 }
                 else
                     Close();
@@ -59,7 +59,7 @@ namespace Scuti.UI
                 if (!ScutiNetClient.Instance.FinishedOnBoarding)
                 {
                     navigation.Open(credentials);
-                    navigation.Close();
+                    //navigation.Close();
                 }
                 else
                     Close();
@@ -70,7 +70,7 @@ namespace Scuti.UI
                 if (!ScutiNetClient.Instance.FinishedOnBoarding)
                 {
                     ShowCategories();
-                    navigation.Close();
+                    //navigation.Close();
                 }
                 else
                     Close();
@@ -80,7 +80,7 @@ namespace Scuti.UI
                 if (!ScutiNetClient.Instance.FinishedOnBoarding)
                 {
                     ShowDetails();
-                    navigation.Close();
+                    //navigation.Close();
                 }
                 else
                     Close();
@@ -95,7 +95,7 @@ namespace Scuti.UI
                 if (!ScutiNetClient.Instance.FinishedOnBoarding)
                 {
                     ShowAddressForm();
-                    navigation.Close();
+                    //navigation.Close();
                 }
                 else
                     Close();

@@ -74,7 +74,8 @@ namespace Scuti {
         void OpenNonModal(View view) {
             // If this is the first element being added,
             // add it to the list and open it
-            if (history.Count == 0) {
+            if (history.Count == 0)
+            {
                 history.Add(view);
                 view.Open();
                 view.OnDestroyed += () => {
@@ -88,7 +89,7 @@ namespace Scuti {
             // If the same element is being added again, return
             if (history.Last() == view)
                 return;
-            
+
 
             // If the element is the same as the second last one, 
             // we close and remove the last element and open the last element (AKA the incoming one)
@@ -110,6 +111,7 @@ namespace Scuti {
             // So if the history was A>B>C and the incoming one was D, the history now would become A>B>C>D
             else {
                 history.Last().Close();
+                history.RemoveLast();
                 history.Add(view);
                 history.Last().Open();
                 view.OnDestroyed += () => {
@@ -127,9 +129,12 @@ namespace Scuti {
                 currentNonModal = history.Last();
         }
 
-        public void Close() {
-            if (history.Count > 0)
+        public void Close()
+        {
+            if (history.Count > 0) { 
+                history.Last().Close();
                 history.RemoveLast();
+            }
         }
 
         public void Back()
