@@ -8175,10 +8175,10 @@ RectTransform:
   m_Father: {fileID: 224963185418699288}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 244.49841, y: 53.1398}
-  m_SizeDelta: {x: 489.11, y: 66.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 106.289795}
+  m_SizeDelta: {x: 0, y: 50.199997}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &222092413036936382
 CanvasRenderer:
@@ -8210,8 +8210,8 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 87a2f9622e9cbe84ca1a215bb1582de5, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 2
+    m_BestFit: 1
+    m_MinSize: 24
     m_MaxSize: 40
     m_Alignment: 3
     m_AlignByGeometry: 0
@@ -10647,7 +10647,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.00006099843, y: 0}
+  m_AnchoredPosition: {x: 0.00012207031, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &114101639850121162
@@ -11907,7 +11907,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -40, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222675998765846858
 CanvasRenderer:
@@ -11939,8 +11939,8 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: be182312a97d2ff4ebb2fc6154da15c1, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 2
+    m_BestFit: 1
+    m_MinSize: 30
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -14978,7 +14978,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -40, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222925722733269212
 CanvasRenderer:
@@ -15010,8 +15010,8 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: be182312a97d2ff4ebb2fc6154da15c1, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 2
+    m_BestFit: 1
+    m_MinSize: 30
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
