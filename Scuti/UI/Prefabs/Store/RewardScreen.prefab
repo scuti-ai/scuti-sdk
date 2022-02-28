@@ -849,7 +849,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Collect your Rewards
+  m_Text: Collect your account creation reward!
 --- !u!1 &1764823475646240
 GameObject:
   m_ObjectHideFlags: 0
