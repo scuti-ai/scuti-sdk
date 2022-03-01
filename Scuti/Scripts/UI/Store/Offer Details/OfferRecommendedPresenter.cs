@@ -128,12 +128,15 @@ namespace Scuti.UI {
 
         private async void OnPresenterClicked(OfferSummaryPresenterBase presenter)
         {
-                var id = presenter.Data.ID;
-                var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
+            var id = presenter.Data.ID;
+            var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
+            if (!ScutiUtils.HasLink(offer))
+            {
                 var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
                 UIManager.OfferDetails.SetData(panelModel);
                 UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(presenter.Data.VideoURL));
                 UIManager.Open(UIManager.OfferDetails);
+            }
         }
 
         private void OnWidgetLoaded(bool value, OfferSummaryPresenterBase widget)

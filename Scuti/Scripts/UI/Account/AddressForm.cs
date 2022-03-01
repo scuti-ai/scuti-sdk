@@ -238,7 +238,7 @@ namespace Scuti.UI
                 }
                 catch (Exception ex)
                 {
-                    ScutiLogger.LogError(ex);
+                    ScutiLogger.LogException(ex);
                     UIManager.Alert.SetHeader("Error").SetButtonText("Ok").SetBody("Setting shipping info failed").Show(() => { });
                 }
             } 

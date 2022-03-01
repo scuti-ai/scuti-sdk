@@ -198,7 +198,7 @@ namespace Scuti.UI
                     }
                 }
                 checkout = false;
-                ScutiLogger.LogError(ex);
+                ScutiLogger.LogException(ex);
 
             }
 

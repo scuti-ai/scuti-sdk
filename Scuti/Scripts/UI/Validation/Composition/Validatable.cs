@@ -46,6 +46,12 @@ namespace Scuti {
             }
         }
 
+        public void ResetView()
+        {
+            messageText.text = msgOnValid;
+            messageText.color = validColor;
+        }
+
         public void SetMessage(string msg)
         {
             msgOnValid = msg;

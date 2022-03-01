@@ -138,13 +138,15 @@ public class BannerWidget : View {
         var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(_banner.Id.ToString());
         if (offer != null)
         {
-            var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
-            if (panelModel != null)
+            if (!ScutiUtils.HasLink(offer))
             {
-                UIManager.OfferDetails.SetData(panelModel);
-                UIManager.OfferDetails.SetIsVideo(isVideo);
-                UIManager.Open(UIManager.OfferDetails);
-              
+                var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
+                if (panelModel != null)
+                {
+                    UIManager.OfferDetails.SetData(panelModel);
+                    UIManager.OfferDetails.SetIsVideo(isVideo);
+                    UIManager.Open(UIManager.OfferDetails);
+                } 
             }
         }
     }
