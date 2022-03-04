@@ -172,8 +172,6 @@ namespace Scuti.UI
             }*/
             if (!_cachedAddress)
             {
-
-                Debug.Log(" ---------------- Chache address first time");
                 var shippingInfo = await ScutiAPI.GetShippingInfo();
                 if (shippingInfo != null)
                 {
