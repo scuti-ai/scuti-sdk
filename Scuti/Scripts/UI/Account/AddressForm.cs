@@ -33,10 +33,15 @@ namespace Scuti.UI
         [SerializeField] Text saveButtonLabel;
         [SerializeField] Text stateLabel;
         [SerializeField] Validatable stateValidatable;
+        [SerializeField] Toggle setAddressDefault;
 
         public bool UseAsOnboarding = true;
         public bool isEditShippingInCart = false;
         private bool _cachedAddress = false;
+
+        public bool saveCurrentAddress = false;
+        private AddressData tempAddress;
+
 
         private List<Dropdown.OptionData> _states;
         private List<Dropdown.OptionData> _provinces;
@@ -106,6 +111,7 @@ namespace Scuti.UI
             //stateInput.onValueChanged.AddListener(value => Data.Address.State = value);
             zipInput.onValueChanged.AddListener(value => Data.Address.Zip = value);
             phoneInput.onValueChanged.AddListener(value => Data.Address.Phone = value);
+            setAddressDefault.onValueChanged.AddListener(value => saveCurrentAddress = value);
             countryDropDown.onValueChanged.AddListener(OnCountryChanged);
 #pragma warning disable 
             saveButton.onClick.AddListener(async () => SaveShippingInfo());
@@ -154,8 +160,8 @@ namespace Scuti.UI
                 }
             }
 
+            TryToLoadData();          
 
-            TryToLoadData();
         }
 
         private async void TryToLoadData()
@@ -166,6 +172,8 @@ namespace Scuti.UI
             }*/
             if (!_cachedAddress)
             {
+
+                Debug.Log(" ---------------- Chache address first time");
                 var shippingInfo = await ScutiAPI.GetShippingInfo();
                 if (shippingInfo != null)
                 {
@@ -181,10 +189,28 @@ namespace Scuti.UI
                     };
                     _cachedAddress = true;
                     _selectedCountry = _supportedCountriesList.Find(c => c.Code.Equals(Data.Address.Country));
+
+                    tempAddress = Data.Address;
+
                     Refresh();
                 }
             }
-
+            else 
+            {
+                if (!saveCurrentAddress)
+                {
+                    Data.Address = new AddressData()
+                    {
+                        Line1 = tempAddress.Line1,
+                        Line2 = tempAddress.Line2,
+                        State = tempAddress.State,
+                        Zip = tempAddress.Zip,
+                        Phone = tempAddress.Phone,
+                        Country = tempAddress.Country,
+                        City = tempAddress.City
+                    };
+                }
+            }
         }
 
         public override void Refresh()
@@ -229,7 +255,7 @@ namespace Scuti.UI
 
             saveButton.interactable = false;
             bool submit = !UseAsOnboarding;
-            if (UseAsOnboarding || !_cachedAddress)
+            if (UseAsOnboarding || !_cachedAddress || saveCurrentAddress)
             {
                 try
                 {
@@ -252,6 +278,7 @@ namespace Scuti.UI
 
             if(isEditShippingInCart)
             {
+                tempAddress = Data.Address;
                 Close();
             }
             saveButton.interactable = true;
