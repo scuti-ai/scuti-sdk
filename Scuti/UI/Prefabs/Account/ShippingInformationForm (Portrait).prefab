@@ -1683,7 +1683,8 @@ MonoBehaviour:
   saveButtonLabel: {fileID: 0}
   stateLabel: {fileID: 114798469950365696}
   stateValidatable: {fileID: 0}
-  UseAsOnboarding: 0
+  UseAsOnboarding: 1
+  isEditShippingInCart: 1
 --- !u!114 &114934144386765256
 MonoBehaviour:
   m_ObjectHideFlags: 0
