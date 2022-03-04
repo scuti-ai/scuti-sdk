@@ -138,7 +138,7 @@ public class BannerWidget : View {
         var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(_banner.Id.ToString());
         if (offer != null)
         {
-            if (!ScutiUtils.HasLink(offer))
+            if (!ScutiUtils.TryOpenLink(offer))
             {
                 var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
                 if (panelModel != null)

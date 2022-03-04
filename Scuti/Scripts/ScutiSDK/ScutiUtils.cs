@@ -121,43 +121,43 @@ public class ScutiUtils  {
 
     }
 
-    internal static bool HasLink(Offer offer)
+    internal static bool TryOpenLink(Offer offer)
     {
 #if (UNITY_STANDALONE_WIN || UNITY_EDITOR)
 
-        Debug.Log("Unity Windows/Editor");
         if (offer.PcLink == null)
         {
             return false;
         }
         else
         {
+            ScutiAPI.EngagementWithProductMetric(0, 1, offer.Id.ToString());
             Application.OpenURL(offer.PcLink);
             return true;
         }
 
 #elif UNITY_IOS
 
-            Debug.Log("Unity iOS");
             if (offer.AppleLink == null)
             {
                 return false;
             }
             else
             {
+                ScutiAPI.EngagementWithProductMetric(0, 1, offer.Id.ToString());
                 AppstoreHandler.Instance.OpenAppInStore(offer.AppleLink);
                 return true;
             }
 
 #elif UNITY_ANDROID
 
-            Debug.Log("Unity Android");
             if (offer.AndroidLink == null)
             {
                 return false;
             }
             else
             {
+                ScutiAPI.EngagementWithProductMetric(0, 1, offer.Id.ToString());
                 AppstoreHandler.Instance.OpenAppInStore(offer.AndroidLink);
                 return true;
             }

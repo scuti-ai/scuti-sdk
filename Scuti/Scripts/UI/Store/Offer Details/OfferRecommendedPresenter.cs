@@ -130,7 +130,7 @@ namespace Scuti.UI {
         {
             var id = presenter.Data.ID;
             var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
-            if (!ScutiUtils.HasLink(offer))
+            if (!ScutiUtils.TryOpenLink(offer))
             {
                 var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
                 UIManager.OfferDetails.SetData(panelModel);
