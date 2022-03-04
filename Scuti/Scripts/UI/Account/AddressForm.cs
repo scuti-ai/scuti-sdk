@@ -250,7 +250,6 @@ namespace Scuti.UI
                 Submit();
             }
 
-            //if(!UseAsOnboarding)
             if(isEditShippingInCart)
             {
                 Close();
