@@ -35,6 +35,7 @@ namespace Scuti.UI
         [SerializeField] Validatable stateValidatable;
 
         public bool UseAsOnboarding = true;
+        public bool isEditShippingInCart = false;
         private bool _cachedAddress = false;
 
         private List<Dropdown.OptionData> _states;
@@ -163,27 +164,27 @@ namespace Scuti.UI
             {
                 UIManager.Alert.SetHeader("Unsupported Location").SetButtonText("Ok").SetBody("We currently do not support your location. International support coming soon!").Show(() => { });
             }*/
-
             if (!_cachedAddress)
+            {
+                var shippingInfo = await ScutiAPI.GetShippingInfo();
+                if (shippingInfo != null)
                 {
-                    var shippingInfo = await ScutiAPI.GetShippingInfo();
-                    if (shippingInfo != null)
+                    Data.Address = new AddressData()
                     {
-                        Data.Address = new AddressData()
-                        {
-                            Line1 = shippingInfo.Address1,
-                            Line2 = shippingInfo.Address2,
-                            State = shippingInfo.State,
-                            Zip = shippingInfo.ZipCode,
-                            Phone = shippingInfo.Phone,
-                            Country = shippingInfo.Country,
-                            City = shippingInfo.City
-                        };
-                        _cachedAddress = true;
-                        _selectedCountry = _supportedCountriesList.Find(c => c.Code.Equals(Data.Address.Country));
-                        Refresh();
-                    }
+                        Line1 = shippingInfo.Address1,
+                        Line2 = shippingInfo.Address2,
+                        State = shippingInfo.State,
+                        Zip = shippingInfo.ZipCode,
+                        Phone = shippingInfo.Phone,
+                        Country = shippingInfo.Country,
+                        City = shippingInfo.City
+                    };
+                    _cachedAddress = true;
+                    _selectedCountry = _supportedCountriesList.Find(c => c.Code.Equals(Data.Address.Country));
+                    Refresh();
                 }
+            }
+
         }
 
         public override void Refresh()
@@ -249,7 +250,8 @@ namespace Scuti.UI
                 Submit();
             }
 
-            if(!UseAsOnboarding)
+            //if(!UseAsOnboarding)
+            if(isEditShippingInCart)
             {
                 Close();
             }
