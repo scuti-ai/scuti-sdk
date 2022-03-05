@@ -170,7 +170,6 @@ namespace Scuti.UI
             {
                 UIManager.Alert.SetHeader("Unsupported Location").SetButtonText("Ok").SetBody("We currently do not support your location. International support coming soon!").Show(() => { });
             }*/
-            Debug.Log("CacheAdrress: " + _cachedAddress);
             if (!_cachedAddress)
             {
                 var shippingInfo = await ScutiAPI.GetShippingInfo();
@@ -196,7 +195,6 @@ namespace Scuti.UI
             }
             else 
             {
-                Debug.Log("SaveCurrentAddress: " + saveCurrentAddress);
                 if (!saveCurrentAddress)
                 {
                     Data.Address = new AddressData()
@@ -278,8 +276,7 @@ namespace Scuti.UI
 
             if(isEditShippingInCart)
             {
-                Debug.Log("--------------- Closeeeee");
-                tempAddress = Data.Address;
+                tempAddress = Data.Address;                
                 Close();
             }
             saveButton.interactable = true;
