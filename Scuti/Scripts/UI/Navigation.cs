@@ -74,8 +74,15 @@ namespace Scuti {
         void OpenNonModal(View view) {
             // If this is the first element being added,
             // add it to the list and open it
+
+            Debug.Log("---- View open non modal: " + view.name);
+           
+            
+
             if (history.Count == 0)
             {
+                Debug.Log("History: ZERO");
+
                 history.Add(view);
                 view.Open();
                 view.OnDestroyed += () => {
@@ -96,6 +103,9 @@ namespace Scuti {
             // So, if the history was A>B>C and the incoming one was B, we are removing C and reopening B which makes is A>B
             // instead of adding B again and opening it, which would have made it A>B>C>B (unnecessary repeatition)
             if (history.Count >= 2 && history.FromLast(1) == view && !allowHistoryRepeatition) {
+
+                Debug.Log("History: more 2");
+
                 history.Last().Close();
                 history.RemoveLast();
                 history.Last().Open();
@@ -110,6 +120,9 @@ namespace Scuti {
             // If the incoming element is not the same as the second last, we just close the last, then add the incoming and open the new last
             // So if the history was A>B>C and the incoming one was D, the history now would become A>B>C>D
             else {
+
+                Debug.Log("History: if 1");
+
                 history.Last().Close();
                 history.RemoveLast();
                 history.Add(view);
@@ -120,6 +133,10 @@ namespace Scuti {
                 };
                 AssignCurrentNonModal();
             }
+
+
+            Debug.Log("---- Close LAST: " + history.Last().name);
+            Debug.Log("---- COUNT HISTORY: " + history.Count);
         }
 
         void AssignCurrentNonModal() {
@@ -148,7 +165,7 @@ namespace Scuti {
             if (history.Count < 1)
             {
                 // may happen if we do deep linking or ads
-                if (CurrentNonModal == UIManager.OfferDetails) Open(UIManager.Offers);
+                if (CurrentNonModal == UIManager.OfferDetails || CurrentNonModal == UIManager.Cart) Open(UIManager.Offers);
                 else
                     UIManager.LogoutPopup.Show(OnClosePopUp);
                 

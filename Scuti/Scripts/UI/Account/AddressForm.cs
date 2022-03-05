@@ -111,7 +111,7 @@ namespace Scuti.UI
             //stateInput.onValueChanged.AddListener(value => Data.Address.State = value);
             zipInput.onValueChanged.AddListener(value => Data.Address.Zip = value);
             phoneInput.onValueChanged.AddListener(value => Data.Address.Phone = value);
-            setAddressDefault.onValueChanged.AddListener(value => saveCurrentAddress = value);
+            if(setAddressDefault != null) setAddressDefault.onValueChanged.AddListener(value => saveCurrentAddress = value);
             countryDropDown.onValueChanged.AddListener(OnCountryChanged);
 #pragma warning disable 
             saveButton.onClick.AddListener(async () => SaveShippingInfo());
@@ -170,6 +170,7 @@ namespace Scuti.UI
             {
                 UIManager.Alert.SetHeader("Unsupported Location").SetButtonText("Ok").SetBody("We currently do not support your location. International support coming soon!").Show(() => { });
             }*/
+            Debug.Log("CacheAdrress: " + _cachedAddress);
             if (!_cachedAddress)
             {
                 var shippingInfo = await ScutiAPI.GetShippingInfo();
@@ -195,6 +196,7 @@ namespace Scuti.UI
             }
             else 
             {
+                Debug.Log("SaveCurrentAddress: " + saveCurrentAddress);
                 if (!saveCurrentAddress)
                 {
                     Data.Address = new AddressData()
@@ -276,6 +278,7 @@ namespace Scuti.UI
 
             if(isEditShippingInCart)
             {
+                Debug.Log("--------------- Closeeeee");
                 tempAddress = Data.Address;
                 Close();
             }

@@ -627,7 +627,7 @@ namespace Scuti.UI
 
         private void OnShippingSubmitted(AddressForm.Model data)
         {
-            _cachedAddress = false;
+            //_cachedAddress = false;
             Data.ShippingAddress = data.Address;
             UpdatePriceBreakdown();
         }
