@@ -32,6 +32,8 @@ namespace Scuti.UI
         public override void Open()
         {
             base.Open();
+
+            Debug.LogError("WElcome?? ");
             try
             {
                 PlayerPrefs.SetInt(ScutiConstants.KEY_WELCOME, 1);
