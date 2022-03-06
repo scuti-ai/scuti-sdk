@@ -85,6 +85,7 @@ namespace Scuti {
                     AssignCurrentNonModal();
                 };
                 AssignCurrentNonModal();
+                Debug.LogError("Added View: " + view + " and count " + history.Count);
                 return;
             }
 
@@ -100,12 +101,14 @@ namespace Scuti {
             if (history.Count >= 2 && history.FromLast(1) == view && !allowHistoryRepeatition) {
 
                 history.Last().Close();
-                history.RemoveLast();
+                history.RemoveAt(history.Count - 1);
+                Debug.LogError("Last Now: " + history.Last());
                 history.Last().Open();
                 view.OnDestroyed += () => {
                     history.Remove(view);
                     AssignCurrentNonModal();
                 };
+                Debug.LogError("Added View: " + view + " and count " + history.Count   +" what is a couple back? "+history.Last() +" vs "+view);
                 AssignCurrentNonModal();
                 return;
             }
@@ -114,13 +117,14 @@ namespace Scuti {
             // So if the history was A>B>C and the incoming one was D, the history now would become A>B>C>D
             else {
                 history.Last().Close();
-                history.RemoveLast();
+                //history.RemoveLast();
                 history.Add(view);
                 history.Last().Open();
                 view.OnDestroyed += () => {
                     history.Remove(view);
                     AssignCurrentNonModal();
                 };
+                Debug.LogError("Added View: " + view + " and count " + history.Count);
                 AssignCurrentNonModal();
             }
         }
@@ -136,22 +140,23 @@ namespace Scuti {
         {
             if (history.Count > 0) { 
                 history.Last().Close();
-                history.RemoveLast();
+                history.RemoveAt(history.Count - 1);
             }
         }
 
         public void Back()
         {
+            Debug.LogError("Back count: " + history.Count);
             if (history.Count > 0)
             {
                 history.Last().Close();
-                history.RemoveLast();
+                history.RemoveAt(history.Count - 1);
             }
 
             if (history.Count < 1)
             {
                 // may happen if we do deep linking or ads
-                if (CurrentNonModal == UIManager.OfferDetails || CurrentNonModal == UIManager.Cart) Open(UIManager.Offers);
+                if (CurrentNonModal == UIManager.OfferDetails) Open(UIManager.Offers);
                 else
                     UIManager.LogoutPopup.Show(OnClosePopUp);
                 
