@@ -73,11 +73,9 @@ namespace Scuti {
 
         void OpenNonModal(View view) {
             // If this is the first element being added,
-            // add it to the list and open it 
-
+            // add it to the list and open it
             if (history.Count == 0)
             {
-
                 history.Add(view);
                 view.Open();
                 view.OnDestroyed += () => {
@@ -99,16 +97,13 @@ namespace Scuti {
             // So, if the history was A>B>C and the incoming one was B, we are removing C and reopening B which makes is A>B
             // instead of adding B again and opening it, which would have made it A>B>C>B (unnecessary repeatition)
             if (history.Count >= 2 && history.FromLast(1) == view && !allowHistoryRepeatition) {
-
                 history.Last().Close();
                 history.RemoveAt(history.Count - 1);
-                Debug.LogError("Last Now: " + history.Last());
                 history.Last().Open();
                 view.OnDestroyed += () => {
                     history.Remove(view);
                     AssignCurrentNonModal();
                 };
-                Debug.LogError("Added View: " + view + " and count " + history.Count   +" what is a couple back? "+history.Last() +" vs "+view);
                 AssignCurrentNonModal();
                 return;
             }
