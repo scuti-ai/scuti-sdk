@@ -4,6 +4,6 @@
 // Root view controller of Unity screen
 extern UIViewController *UnityGetGLViewController();
 
-@interface NativeAppstore : NSObject <SKStoreProductViewControllerDelegate>
+@interface ScutiNativeAppstore : NSObject <SKStoreProductViewControllerDelegate>
 
 @end

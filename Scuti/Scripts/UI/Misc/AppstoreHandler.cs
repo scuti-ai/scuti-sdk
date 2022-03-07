@@ -6,7 +6,7 @@ namespace Scuti
 	public class AppstoreHandler : Singleton<AppstoreHandler>
 	{
 #if UNITY_IPHONE
-	[DllImport ("__Internal")] private static extern void _OpenAppInStore(int appID);
+	[DllImport ("__Internal")] private static extern void _ScutiOpenAppInStore(int appID);
 #endif
 
 #if UNITY_ANDROID
@@ -20,7 +20,7 @@ namespace Scuti
 			if (!Application.isEditor)
 			{
 #if UNITY_ANDROID
-				jo = new AndroidJavaObject("com.purplelilgirl.nativeappstore.NativeAppstore");
+				jo = new AndroidJavaObject("com.scuti.nativestore.NativeAppstore");
 #endif
 
 			}
@@ -38,12 +38,12 @@ namespace Scuti
 			int appIDIOS;
 
 			if(int.TryParse(appID, out appIDIOS))
-			{	_OpenAppInStore(appIDIOS);
+			{	_ScutiOpenAppInStore(appIDIOS);
 			}
 #endif
 
 #if UNITY_ANDROID
-				jo.Call("OpenInAppStore", "market://details?id=" + appID);
+				jo.Call("ScutiOpenInAppStore", "market://details?id=" + appID);
 #endif
 			}
 			else
