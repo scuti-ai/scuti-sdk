@@ -1,6 +1,6 @@
-#import "NativeAppstore.h"
+#import "ScutiNativeAppstore.h"
 
-@implementation NativeAppstore
+@implementation ScutiNativeAppstore
 
 - (id)init
 {
@@ -41,17 +41,17 @@
 
 @end
 
-static NativeAppstore *nativeAppstorePlugin = nil;
+static ScutiNativeAppstore *scutiNativeAppstorePlugin = nil;
 
 extern "C"
 {
-    void _OpenAppInStore(int appID)
+    void _ScutiOpenAppInStore(int appID)
     {
-        NSLog(@"NativeAppStore :: Open App %d", appID);
+        NSLog(@"ScutiNativeAppStore :: Open App %d", appID);
         
-        if (nativeAppstorePlugin == nil)
-            nativeAppstorePlugin = [[NativeAppstore alloc] init];
+        if (scutiNativeAppstorePlugin == nil)
+            scutiNativeAppstorePlugin = [[ScutiNativeAppstore alloc] init];
         
-        [nativeAppstorePlugin openAppInStore: appID];
+        [scutiNativeAppstorePlugin openAppInStore: appID];
     }
 }
