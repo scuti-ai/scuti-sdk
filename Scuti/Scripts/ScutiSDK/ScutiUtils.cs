@@ -127,27 +127,27 @@ public class ScutiUtils  {
 
 #if UNITY_IOS
 
-            if (offer.AppleLink == null)
+            if (offer.AppleId == null)
             {
                 return false;
             }
             else
             {
                 ScutiAPI.EngagementWithProductMetric(0, 1, offer.Id.ToString());
-                AppstoreHandler.Instance.OpenAppInStore(offer.AppleLink);
+                AppstoreHandler.Instance.OpenAppInStore(offer.AppleId.ToString());
                 return true;
             }
 
 #elif UNITY_ANDROID
 
-            if (offer.AndroidLink == null)
+            if (offer.AndroidId == null)
             {
                 return false;
             }
             else
             {
                 ScutiAPI.EngagementWithProductMetric(0, 1, offer.Id.ToString());
-                AppstoreHandler.Instance.OpenAppInStore(offer.AndroidLink);
+                AppstoreHandler.Instance.OpenAppInStore(offer.AndroidId);
                 return true;
             }
 #else
