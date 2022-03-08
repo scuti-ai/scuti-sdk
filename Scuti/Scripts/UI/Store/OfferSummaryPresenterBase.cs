@@ -281,6 +281,9 @@ namespace Scuti.UI
             }*/            
 
             timerCompleted = false;
+
+            // Blogs Here
+            /*
             if (!_isPortrait)
             {
                 timer.gameObject.SetActive(false);
@@ -293,8 +296,9 @@ namespace Scuti.UI
                 timer.Pause();
                 timer.onFinished.AddListener(RecordOfferImpression);
             }
-            AdContainer.SetActive(false);
-            GlowImage.gameObject.SetActive(false);
+            */
+            //AdContainer.SetActive(false);
+            //GlowImage.gameObject.SetActive(false);
 
         }
 
@@ -476,7 +480,7 @@ namespace Scuti.UI
             if (!_destroyed)
             {
                 backgroundImage.sprite = bg;
-                GlowImage.color = color;
+                //GlowImage.color = color;
             }
         }
 
@@ -492,11 +496,13 @@ namespace Scuti.UI
             {
                 if (Data!=null && Data.IsMoreExposure && !_isStatic)
                 {
-                    GlowImage.gameObject.SetActive(true);
+                    //Blogs here
+                   // GlowImage.gameObject.SetActive(true);
                 }
                 else
                 {
-                    GlowImage.gameObject.SetActive(false);
+                    // Blogs Here
+                    //GlowImage.gameObject.SetActive(false);
                 }
                 m_showing = true;
                 ResumeTimer();
@@ -524,7 +530,8 @@ namespace Scuti.UI
                 else
                 {
                     // Here doble offer
-                    AdContainer.SetActive(false);
+                    //Blogs here
+                   // AdContainer.SetActive(false);
                     foreach (var p in ProductVisualRules)
                     {
                         p.Visual.SetActive(!_isStatic || !p.HideIfStatic);

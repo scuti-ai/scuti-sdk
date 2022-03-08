@@ -31,7 +31,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 58e81dec8b5545d4a8e535db1ec50eee, type: 3}
-    totalSpriteSurfaceArea: 1726363
+    totalSpriteSurfaceArea: 3823515
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -103,6 +103,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 0b8eab479dd1d144381e39cac96a56b5, type: 3}
   - {fileID: 21300000, guid: e3821d4776f23974db85fabcf6948a10, type: 3}
   - {fileID: 21300000, guid: f1172b57bb072de4b8e5a0cd075bc67c, type: 3}
+  - {fileID: 21300000, guid: d03efb577bc39e847948fbf5be50520d, type: 3}
   - {fileID: 21300000, guid: 94704167fb10ced40a2aa474909df3f5, type: 3}
   - {fileID: 21300000, guid: 06335c77113197b4382d592cd127b419, type: 3}
   - {fileID: 21300000, guid: c10061b72b73b2542b1afe17f628809b, type: 3}
@@ -224,6 +225,7 @@ SpriteAtlas:
   - colorblack@3x3
   - navstepperinactive@3x
   - CVV
+  - OfferPlaceholder_600x300
   - scuti_brand_white2
   - Cosmetic Jewelry
   - Grafico_RestaurarRecurso 3@4x

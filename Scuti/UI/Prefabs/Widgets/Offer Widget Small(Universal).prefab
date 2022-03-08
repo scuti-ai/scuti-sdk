@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 5853530221274348618}
   - component: {fileID: 5853530221274348619}
   m_Layer: 5
-  m_Name: Offer Widget (Universal)
+  m_Name: Offer Widget Small(Universal)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -739,7 +739,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5853530221274348629}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34288ee76b62ab248b88c5f790d004da, type: 3}
+  m_Script: {fileID: 11500000, guid: 5cc8a382e53319d45bde1eb9121c4bcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isModal: 0
@@ -799,6 +799,7 @@ MonoBehaviour:
   - Visual: {fileID: 0}
     HideIfStatic: 0
   AdImage: {fileID: 0}
+  IsTall: 0
 --- !u!95 &5795079797880958981
 Animator:
   serializedVersion: 3

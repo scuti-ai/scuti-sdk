@@ -380,7 +380,7 @@ namespace Scuti.UI
             {
                 ResumeAds();
             }
-            Banner.Open();
+            //Banner.Open();
         }
 
         public override void Close()
