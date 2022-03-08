@@ -129,14 +129,6 @@ MonoBehaviour:
     view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
-  - id: TOPBAR
-    view: {fileID: 114704480669402606, guid: e520e917c8490f54a9399ac2fcb2c153, type: 3}
-    view_portrait: {fileID: 114704480669402606, guid: 7370cc218ce5d44498015542c47f31d8,
-      type: 3}
-    view_pc: {fileID: 114937602133350700, guid: d6a349bb9cf057b468388d76b13fedb3,
-      type: 3}
-    parent: {fileID: 224981712142982816}
-    instance: {fileID: 0}
   - id: BOTTOMBAR
     view: {fileID: 114437396300607642, guid: 732c304c6afe38a409607a6066db38d6, type: 3}
     view_portrait: {fileID: 0}
@@ -145,9 +137,17 @@ MonoBehaviour:
     instance: {fileID: 0}
   - id: OFFERS
     view: {fileID: 8612064632333804545, guid: c573fb3f8960f93478e445c51c66e4ad, type: 3}
-    view_portrait: {fileID: 7643613424775923764, guid: 4d0e46d0f3285214a9578ea02ee79c23,
+    view_portrait: {fileID: 8612064632333804545, guid: c573fb3f8960f93478e445c51c66e4ad,
       type: 3}
     view_pc: {fileID: 3080986844477801138, guid: d0014075c4db0094e83ff60b8f9eff67,
+      type: 3}
+    parent: {fileID: 224981712142982816}
+    instance: {fileID: 0}
+  - id: TOPBAR
+    view: {fileID: 114704480669402606, guid: e520e917c8490f54a9399ac2fcb2c153, type: 3}
+    view_portrait: {fileID: 114704480669402606, guid: 7370cc218ce5d44498015542c47f31d8,
+      type: 3}
+    view_pc: {fileID: 114937602133350700, guid: d6a349bb9cf057b468388d76b13fedb3,
       type: 3}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}

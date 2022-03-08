@@ -325,15 +325,17 @@ namespace Scuti.UI
             if (rect.IsHalfVisibleFrom() && rect.IsHalfVisibleFrom() != _lastVisibleState)
             {
                 _lastVisibleState = true;
-                timer.ResetTime(ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
-                timer.Begin();
+                //Blogs here
+                //timer.ResetTime(ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
+                //timer.Begin();
                 //_portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
                 //_portraitImpressionTimer.Start();
             }
             else if (!rect.IsHalfVisibleFrom() && rect.IsHalfVisibleFrom() != _lastVisibleState)
             {
                 _lastVisibleState = false;
-                timer.Pause();
+                //Blogshere
+                //timer.Pause();
                 //_portraitImpressionTimer.Stop();
             }
 
@@ -534,7 +536,8 @@ namespace Scuti.UI
                    // AdContainer.SetActive(false);
                     foreach (var p in ProductVisualRules)
                     {
-                        p.Visual.SetActive(!_isStatic || !p.HideIfStatic);
+                        // Blogs Here
+                        //p.Visual.SetActive(!_isStatic || !p.HideIfStatic);
                     }
                     if (Data.Texture && ( displayImage.sprite == null || Data.Texture!=displayImage.sprite.texture))
                     {
@@ -555,11 +558,12 @@ namespace Scuti.UI
         {
             if (!_isPortrait && !_destroyed && !_isStatic)
             {
-                timer.gameObject.SetActive(true);
-                timerCompleted = false;
-                timer.ResetTime(m_TimerDuration);
-                timer.AddCustomEvent(ScutiConstants.SCUTI_IMPRESSION_ID, ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
-                timer.Begin();
+                // BlogsHere
+                //timer.gameObject.SetActive(true);
+                //timerCompleted = false;
+                //timer.ResetTime(m_TimerDuration);
+                //timer.AddCustomEvent(ScutiConstants.SCUTI_IMPRESSION_ID, ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
+                //timer.Begin();
             }
         }
 
