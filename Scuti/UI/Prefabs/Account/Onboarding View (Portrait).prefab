@@ -2238,7 +2238,7 @@ MonoBehaviour:
   inputField: {fileID: 114131105012324518}
   mode: 1
   fieldToMatch: {fileID: 114073426364949038}
-  messageOnNotMatch: Confirm Password
+  messageOnNotMatch: Passwords should match!
 --- !u!1 &1177203670608620
 GameObject:
   m_ObjectHideFlags: 0
@@ -5968,7 +5968,10 @@ MonoBehaviour:
   saveButtonLabel: {fileID: 114865946485021816}
   stateLabel: {fileID: 114181361841175554}
   stateValidatable: {fileID: 4229356273592772138}
+  setAddressDefault: {fileID: 0}
   UseAsOnboarding: 1
+  isEditShippingInCart: 0
+  saveCurrentAddress: 0
 --- !u!114 &114068482605342172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10492,7 +10495,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0}
+  m_AnchoredPosition: {x: 0.000030707328, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &114101639850121162

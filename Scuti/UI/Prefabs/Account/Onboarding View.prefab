@@ -2925,7 +2925,7 @@ MonoBehaviour:
   inputField: {fileID: 114131105012324518}
   mode: 1
   fieldToMatch: {fileID: 114073426364949038}
-  messageOnNotMatch: Confirm Password
+  messageOnNotMatch: Passwords should match!
 --- !u!114 &760729934714433513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7274,7 +7274,10 @@ MonoBehaviour:
   saveButtonLabel: {fileID: 114865946485021816}
   stateLabel: {fileID: 114181361841175554}
   stateValidatable: {fileID: 9159908755591275073}
+  setAddressDefault: {fileID: 0}
   UseAsOnboarding: 1
+  isEditShippingInCart: 0
+  saveCurrentAddress: 0
 --- !u!114 &114068482605342172
 MonoBehaviour:
   m_ObjectHideFlags: 0
