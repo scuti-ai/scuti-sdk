@@ -11,13 +11,6 @@ namespace Scuti.UI
     public class LoginPromotionView : View
     {
         public TextMeshProUGUI Description;
-        public string DefaultText = "Create an Account to Earn Rewards";
-
-        public override void Open()
-        {
-            base.Open();
-            SetMessage(DefaultText);
-        }
 
         public void SetMessage(string message)
         {

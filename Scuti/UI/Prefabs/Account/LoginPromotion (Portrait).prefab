@@ -349,8 +349,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 13}
-  m_SizeDelta: {x: -120, y: 600}
+  m_AnchoredPosition: {x: 0, y: 53.9}
+  m_SizeDelta: {x: -120, y: 799.67456}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222411957701970440
 CanvasRenderer:
@@ -378,9 +378,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<b><size=50>WELCOME TO SCUTI</size>\r</b>\n\n<b>CREATE</b> your account\r\n\r\n<b>DISCOVER</b>
-    new stuff\r\n\r\n<b>EARN</b> Scutis - the Universal Video Game Currency\r\n\r\n<b>REDEEM</b>
-    your Scutis for digital and real things\r\n\r\n<b>HAVE FUN</b>"
+  m_text: "<b><size=50>WELCOME TO SCUTI</size>\r</b>\n\n<b>CREATE</b> your account\r\n\n<b>DISCOVER</b>
+    new stuff\n\r\n<b>EARN</b> Scuti$ - the Universal Video Game Currency\r\n\r\n<b>REDEEM</b>
+    your Scuti$ for digital and real things\r\n\n<b>HAVE FUN</b>"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 32e824016a68a6f4791104da92d25a05, type: 2}
   m_sharedMaterial: {fileID: 21009341903750942, guid: 32e824016a68a6f4791104da92d25a05,
@@ -416,7 +416,7 @@ MonoBehaviour:
   m_fontSizeMin: 17.5
   m_fontSizeMax: 70
   m_fontStyle: 0
-  m_textAlignment: 264
+  m_textAlignment: 520
   m_characterSpacing: 0
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -450,12 +450,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 2665390689370035688}
-    characterCount: 173
+    characterCount: 170
     spriteCount: 0
     spaceCount: 31
     wordCount: 27
     linkCount: 0
-    lineCount: 11
+    lineCount: 13
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -629,8 +629,8 @@ MonoBehaviour:
   - {fileID: 114491648362505000}
   Description: {fileID: 2665390689370035688}
   DefaultText: <b><size=50>WELCOME TO SCUTI</size> </b>  <b>CREATE</b> your account  <b>DISCOVER</b>
-    new stuff  <b>EARN</b> Scutis - the Universal Video Game Currency  <b>REDEEM</b>
-    your Scutis for digital and real things  <b>HAVE FUN</b>
+    new stuff  <b>EARN</b> Scuti$ - the Universal Video Game Currency  <b>REDEEM</b>
+    your Scuti$ for digital and real things  <b>HAVE FUN</b>
 --- !u!1 &1493548184138038
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,7 +1015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 489}
+  m_AnchoredPosition: {x: 0, y: 653}
   m_SizeDelta: {x: 561.87646, y: 235.26953}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5974075885083227576
