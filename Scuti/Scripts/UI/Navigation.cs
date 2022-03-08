@@ -83,7 +83,6 @@ namespace Scuti {
                     AssignCurrentNonModal();
                 };
                 AssignCurrentNonModal();
-                Debug.LogError("Added View: " + view + " and count " + history.Count);
                 return;
             }
 
