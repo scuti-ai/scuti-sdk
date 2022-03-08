@@ -31,7 +31,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 58e81dec8b5545d4a8e535db1ec50eee, type: 3}
-    totalSpriteSurfaceArea: 1693426
+    totalSpriteSurfaceArea: 1726363
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -86,6 +86,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 5c4d01e49f4ddef4ebccd27d3222c411, type: 3}
   - {fileID: 21300000, guid: 51d412e4bd0e4304eaba95daab9b0435, type: 3}
   - {fileID: 21300000, guid: 804a9035ca2f3c342a0a576e9cb821af, type: 3}
+  - {fileID: 21300000, guid: bec4fa3554ec0234da2f67472eb56463, type: 3}
   - {fileID: 21300000, guid: e46bb345674f8fd4f9ba6bb727459de2, type: 3}
   - {fileID: 21300000, guid: c350d255fae20f34896660ea4aefd8d0, type: 3}
   - {fileID: 21300000, guid: 722aa565a1987154cac7a4f8a2a9f275, type: 3}
@@ -104,13 +105,16 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f1172b57bb072de4b8e5a0cd075bc67c, type: 3}
   - {fileID: 21300000, guid: 94704167fb10ced40a2aa474909df3f5, type: 3}
   - {fileID: 21300000, guid: 06335c77113197b4382d592cd127b419, type: 3}
+  - {fileID: 21300000, guid: c10061b72b73b2542b1afe17f628809b, type: 3}
   - {fileID: 21300000, guid: 50e514c7c21edc147bd52067e12b28d0, type: 3}
   - {fileID: 21300000, guid: d1a5b6e72de2a0e4eb111c0ee8f1e3b2, type: 3}
   - {fileID: 21300000, guid: 3630f108a770b1a41ab2a39947a05def, type: 3}
   - {fileID: 21300000, guid: 5dc35c182bfa6f944ae6152a4d7546f1, type: 3}
   - {fileID: 21300000, guid: 48273d681b4b80e4fb1335f959bef633, type: 3}
   - {fileID: 21300000, guid: 1637d0c8621b09d4cb6abdb51f106c55, type: 3}
+  - {fileID: 21300000, guid: c9b554e83b74d214dbfa099d8c2c4e1a, type: 3}
   - {fileID: 21300000, guid: a7abeb29704c02c4ba7730616f260659, type: 3}
+  - {fileID: 21300000, guid: e53ff74920fce9141bb0b6dceb04d3a5, type: 3}
   - {fileID: 21300000, guid: 93c272691a7b99546ab14728502ed43c, type: 3}
   - {fileID: 21300000, guid: 08eb1d79fd66c1346b765d282d13f6da, type: 3}
   - {fileID: 21300000, guid: 7809a0b93a419c64d93e0ce570eea367, type: 3}
@@ -135,6 +139,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: f0c568bc85b45494a97c593b95e43543, type: 3}
   - {fileID: 21300000, guid: da59a6cca9d1e684788f70a6b7ea7ebc, type: 3}
   - {fileID: 21300000, guid: 58416deca0fc29f4791c561b75e50a56, type: 3}
+  - {fileID: 21300000, guid: e1de817d6855f0240b785a44a0af3553, type: 3}
   - {fileID: 21300000, guid: 477c6f7d439bd5c458911d94f408557f, type: 3}
   - {fileID: 21300000, guid: f3b703addf1ada14dbfe19e22697e904, type: 3}
   - {fileID: 21300000, guid: 94a3f1dd7e9f8374f843aff27d0ad7ee, type: 3}
@@ -202,6 +207,7 @@ SpriteAtlas:
   - componentquantitySM@3x2
   - icon24tag_1
   - buttonshareL@3x
+  - tintcirclecolor@3x 1
   - navsteppercurrent@3x
   - colorblack@3x
   - color-block
@@ -220,13 +226,16 @@ SpriteAtlas:
   - CVV
   - scuti_brand_white2
   - Cosmetic Jewelry
+  - Grafico_RestaurarRecurso 3@4x
   - BG
   - scuti_offer_card_bg-color_small-2
   - Toys
   - scuti_navigation_button_back
   - Computer Hardware
   - icon24search@3x
+  - Grafico_RestaurarRecurso 2@4x
   - buttonprimaryicondefault@3x
+  - circlegeneric
   - Scuti_Grey_3D_SM
   - Movies
   - icon16check@3x
@@ -251,6 +260,7 @@ SpriteAtlas:
   - ButtonBlue
   - Pet Supply
   - About
+  - Grafico_RestaurarRecurso 1@4x
   - color-block@3xgradient
   - navstepperchecked)@3x
   - cardSMstoreproducts@3x
