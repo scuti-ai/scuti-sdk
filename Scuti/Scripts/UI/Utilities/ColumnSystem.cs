@@ -14,7 +14,7 @@ namespace Scuti.UI
 		[SerializeField] private RectTransform _columPref;
 		[SerializeField] private RectTransform _container;
 		
-		private List<RectTransform> _columns;
+		private List<RectTransform> _columns = new List<RectTransform>();
 		private List<float> _heights = new List<float>();
 
 		internal void Init()
@@ -57,6 +57,7 @@ namespace Scuti.UI
 
 		internal void Clear()
 		{
+			if (_columns == null) return;
 			foreach (var col in _columns)
 			{
 				foreach (Transform child in col)
