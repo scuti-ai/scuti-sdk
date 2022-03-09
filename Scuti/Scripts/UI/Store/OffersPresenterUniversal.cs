@@ -25,6 +25,8 @@ namespace Scuti.UI
         [Header("Instantiation")]
         [SerializeField] OfferSummaryPresenterUniversal widgetPrefab_Large;
         [SerializeField] OfferSummaryPresenterUniversal widgetPrefab_Small;
+        [SerializeField] ColumnSystem columnSystem;
+        [SerializeField] ColumnSystem _colum;
         [SerializeField] Transform container_Large;
         [SerializeField] Transform container_Small;
         [SerializeField] Transform container_Video;
@@ -120,11 +122,15 @@ namespace Scuti.UI
         public override void Clear()
         {
             base.Clear();
+			columnSystem.Clear();
+
+			/*
             foreach (Transform child in container_Large)
                 Destroy(child.gameObject);
 
             foreach (Transform child in container_Small)
                 Destroy(child.gameObject);
+			*/
         }
 
    
@@ -155,8 +161,8 @@ namespace Scuti.UI
                     // Currently, the first two offers are large, the other are small
                     template = GetTemplateForIndex(index);
                     container = GetContainerForIndex(index);
-                    var widget = Instantiate(template, container);
-                    m_Instantiated.Add(widget);
+                    var widget = columnSystem.InstantiateWidget(template);
+					m_Instantiated.Add(widget);
                     widget.gameObject.hideFlags = HideFlags.DontSave;
                     widget.Inject(GetNext);
                     var colorData = GetColorInfo(index);
