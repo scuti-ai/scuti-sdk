@@ -784,9 +784,9 @@ MonoBehaviour:
   videoOfferBackFill: 3
   largeOffers: 2
   showDuration: 10
-  widgetPrefab_Large: {fileID: 5812290780585175457, guid: c4c595c2a6e8f244d9e46340574dbb6c,
+  widgetPrefab_Large: {fileID: 5812290780585175457, guid: b4278419cf16a214b90744df11333d5f,
     type: 3}
-  widgetPrefab_Small: {fileID: 5812290780585175457, guid: 9055f49f3f902fc47a9a97c977735acb,
+  widgetPrefab_Small: {fileID: 5812290780585175457, guid: 8252ca11f71e50b44882e79eedca011c,
     type: 3}
   columnSystem: {fileID: 8569693029584709572}
   _colum: {fileID: 0}
