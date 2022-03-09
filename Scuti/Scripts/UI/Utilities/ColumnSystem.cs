@@ -13,11 +13,11 @@ namespace Scuti.UI
 
 		[SerializeField] private RectTransform _columPref;
 		[SerializeField] private RectTransform _container;
-		[SerializeField] private List<RectTransform> _columns;
 		
+		private List<RectTransform> _columns;
 		private List<float> _heights = new List<float>();
 
-		private void Start()
+		internal void Init()
 		{
 #if UNITY_EDITOR
 			Debug.Assert(ColumnWidth > 0, "Column width not assigned");
@@ -26,7 +26,6 @@ namespace Scuti.UI
 			var transf = GetComponent<RectTransform>();
 			var containerSize = GetComponent<RectTransform>().rect.width;
 			var numberOfColumns = Math.Floor(containerSize / (ColumnWidth + 50));
-			//Debug.Log($"Number of Columns: {numberOfColumns}");
 			while (_columns.Count < numberOfColumns)
 			{
 				_columns.Add(Instantiate(_columPref, _container));
@@ -51,8 +50,6 @@ namespace Scuti.UI
 					minCol = i;
 				}
 			}
-			Debug.Log($">>>min col: {height}, {minCol}");
-
 			// 2. Add widget to column
 			_heights[minCol] += obj.IsTall ? 2 : 1;
 			return Instantiate(obj, _columns[minCol]);

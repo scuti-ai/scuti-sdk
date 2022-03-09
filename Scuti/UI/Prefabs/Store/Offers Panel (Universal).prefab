@@ -581,7 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 950dc12f8595efe42b1d45cdf390ead0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ColumnWidth: 300
+  ColumnWidth: 0
   _columPref: {fileID: 5866984886526167981, guid: 0160e5d656a502d48a2edd99d6c48e6a,
     type: 3}
   _container: {fileID: 6711852433903175478}

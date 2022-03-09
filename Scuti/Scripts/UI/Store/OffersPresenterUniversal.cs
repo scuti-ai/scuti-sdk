@@ -146,6 +146,7 @@ namespace Scuti.UI
         {
             try
             {
+				CalculateColumnWidth();
                 m_ChangingCategories = true;
                 var max = GetActiveMax();
                 for (int i = 0; i < max; i++)
@@ -214,9 +215,13 @@ namespace Scuti.UI
             }
         }
 
-         
+		private void CalculateColumnWidth()
+		{
+			columnSystem.ColumnWidth = widgetPrefab_Large.GetComponent<RectTransform>().rect.width;
+			columnSystem.Init();
+		}
 
-        private async void OnPresenterClicked(OfferSummaryPresenterBase presenter)
+		private async void OnPresenterClicked(OfferSummaryPresenterBase presenter)
         {
             UIManager.ShowLoading(false);
             var id = presenter.Data.ID;
