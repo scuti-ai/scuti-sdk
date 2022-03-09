@@ -104,7 +104,7 @@ PluginImporter:
       settings:
         AddToEmbeddedBinaries: false
         CompileFlags: 
-        FrameworkDependencies: 
+        FrameworkDependencies: StoreKit;
   userData: 
   assetBundleName: 
   assetBundleVariant: 
