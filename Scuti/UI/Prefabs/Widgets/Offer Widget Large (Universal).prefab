@@ -799,7 +799,7 @@ MonoBehaviour:
   - Visual: {fileID: 0}
     HideIfStatic: 0
   AdImage: {fileID: 0}
-  IsTall: 0
+  IsTall: 1
 --- !u!95 &5795079797880958981
 Animator:
   serializedVersion: 3

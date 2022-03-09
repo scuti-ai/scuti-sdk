@@ -8,7 +8,32 @@ namespace Scuti.UI
 {
 	public class ColumnSystem : MonoBehaviour
 	{
+		[Tooltip("This is the width of the column without the space between them, only the content width")]
+		public float ColumnWidth;
+
+		[SerializeField] private RectTransform _columPref;
+		[SerializeField] private RectTransform _container;
 		[SerializeField] private List<RectTransform> _columns;
+		
+		private List<float> _heights = new List<float>();
+
+		private void Start()
+		{
+#if UNITY_EDITOR
+			Debug.Assert(ColumnWidth > 0, "Column width not assigned");
+#endif
+
+			var transf = GetComponent<RectTransform>();
+			var containerSize = GetComponent<RectTransform>().rect.width;
+			var numberOfColumns = Math.Floor(containerSize / (ColumnWidth + 50));
+			//Debug.Log($"Number of Columns: {numberOfColumns}");
+			while (_columns.Count < numberOfColumns)
+			{
+				_columns.Add(Instantiate(_columPref, _container));
+				_heights.Add(0);
+			}
+		}
+
 		public OfferSummaryPresenterUniversal InstantiateWidget(OfferSummaryPresenterUniversal obj)
 		{
 #if UNITY_EDITOR
@@ -16,19 +41,21 @@ namespace Scuti.UI
 #endif
 			// 1. Select the shortest Column
 			float height = float.MaxValue;
-			RectTransform minCol = null;
-			foreach (var col in _columns)
+			int minCol = 0;
+			for (int i = 0; i < _heights.Count; i++)
 			{
-				if(col.sizeDelta.y < height)
+				float col = _heights[i];
+				if (col < height)
 				{
-					height = col.sizeDelta.y;
-					minCol = col;
+					height = col;
+					minCol = i;
 				}
 			}
-			if (minCol == null) return null;
+			Debug.Log($">>>min col: {height}, {minCol}");
 
 			// 2. Add widget to column
-			return Instantiate(obj, minCol);
+			_heights[minCol] += obj.IsTall ? 2 : 1;
+			return Instantiate(obj, _columns[minCol]);
 		}
 
 		internal void Clear()
