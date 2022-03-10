@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5866984886526167978}
   - component: {fileID: 7085201992030375972}
   m_Layer: 5
-  m_Name: column_0
+  m_Name: Container Column
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 20
+  m_Spacing: 40
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
