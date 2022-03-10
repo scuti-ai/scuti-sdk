@@ -308,6 +308,11 @@ namespace Scuti.UI
 
         [SerializeField] CategoryNavigator categoryNavigator;
 
+        public CategoryNavigator GetNavigator()
+        {
+            return categoryNavigator;
+        }
+
         public bool ShouldUpdateOffers
         {
             get
@@ -625,6 +630,7 @@ namespace Scuti.UI
                 }
             }
             requestInProgress = false;
+
         }
 
         // Maintains a queue of requests that fetches them one by one. This is 

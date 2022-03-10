@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Scuti.UI
 {
@@ -27,6 +28,9 @@ namespace Scuti.UI
 
         int m_Index;
         private bool _invalid = true;
+
+        [BoxGroup("Events")] public UnityEvent onShow;
+        [BoxGroup("Events")] public UnityEvent onHide;
 
         private void Start()
         {
@@ -132,6 +136,17 @@ namespace Scuti.UI
             ValidateIndex();
             OpenCurrent();
         }
+
+        public void Hide()
+        {
+            onHide?.Invoke();
+        }
+
+        public void Show()
+        {
+            onShow?.Invoke();
+        }
+
 
         private void ValidateIndex()
         {
