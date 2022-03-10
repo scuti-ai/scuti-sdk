@@ -481,7 +481,8 @@ namespace Scuti.UI
         {
             if (!_destroyed)
             {
-                backgroundImage.sprite = bg;
+                // Comment for no differnte background
+                //backgroundImage.sprite = bg;
                 //GlowImage.color = color;
             }
         }

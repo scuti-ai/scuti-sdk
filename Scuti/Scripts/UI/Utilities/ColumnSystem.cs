@@ -22,7 +22,6 @@ namespace Scuti.UI
 #if UNITY_EDITOR
 			Debug.Assert(ColumnWidth > 0, "Column width not assigned");
 #endif
-
 			var transf = GetComponent<RectTransform>();
 			var containerSize = GetComponent<RectTransform>().rect.width;
 			var numberOfColumns = Math.Floor(containerSize / (ColumnWidth + 50));

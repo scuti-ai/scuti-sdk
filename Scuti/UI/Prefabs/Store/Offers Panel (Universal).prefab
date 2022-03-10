@@ -228,7 +228,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 50
+  m_Spacing: -380
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -585,7 +585,6 @@ MonoBehaviour:
   _columPref: {fileID: 5866984886526167981, guid: 0160e5d656a502d48a2edd99d6c48e6a,
     type: 3}
   _container: {fileID: 6711852433903175478}
-  _columns: []
 --- !u!1001 &8100744180494442427
 PrefabInstance:
   m_ObjectHideFlags: 0
