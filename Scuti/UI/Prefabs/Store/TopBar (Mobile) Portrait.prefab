@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 4455418145988333032}
   - component: {fileID: 3045194167532694582}
   m_Layer: 5
-  m_Name: TopBar (Mobile)
+  m_Name: TopBar (Mobile) Portrait
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -632,7 +632,6 @@ MonoBehaviour:
   Transitions:
   - {fileID: 114950135582874602}
   Wallet: {fileID: 114707882297066518}
-  bannerImage: {fileID: 1875558634567633303}
   Banner: {fileID: 1875583720201930397}
 --- !u!222 &4455418145988333032
 CanvasRenderer:
@@ -1385,12 +1384,12 @@ PrefabInstance:
     - target: {fileID: 8770991523672852180, guid: 755d44a3c96e1d2479a763f353f55204,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 577
+      value: -444.83496
       objectReference: {fileID: 0}
     - target: {fileID: 8770991523672852180, guid: 755d44a3c96e1d2479a763f353f55204,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -17.225
+      value: -156
       objectReference: {fileID: 0}
     - target: {fileID: 8770991523672852180, guid: 755d44a3c96e1d2479a763f353f55204,
         type: 3}
@@ -1405,7 +1404,7 @@ PrefabInstance:
     - target: {fileID: 8770991523672852180, guid: 755d44a3c96e1d2479a763f353f55204,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8770991523672852180, guid: 755d44a3c96e1d2479a763f353f55204,
         type: 3}
@@ -1415,7 +1414,7 @@ PrefabInstance:
     - target: {fileID: 8770991523672852180, guid: 755d44a3c96e1d2479a763f353f55204,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8770991523672852180, guid: 755d44a3c96e1d2479a763f353f55204,
         type: 3}
@@ -1445,18 +1444,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7004938779026632633}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1875558634567633303 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8877113906807416366, guid: 755d44a3c96e1d2479a763f353f55204,
-    type: 3}
-  m_PrefabInstance: {fileID: 7004938779026632633}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1875583720201930397 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8877126755909495076, guid: 755d44a3c96e1d2479a763f353f55204,

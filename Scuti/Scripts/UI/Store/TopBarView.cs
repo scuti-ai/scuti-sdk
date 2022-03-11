@@ -10,12 +10,12 @@ public class TopBarView : View {
     public WalletWidget Wallet;
 
     [Header("Customization")]
-    [SerializeField] protected Image bannerImage;
+    //[SerializeField] protected Image bannerImage;
     public BannerWidget Banner;
 
-    public override void Open()
-    {
-        Debug.Log("OPEN BANNER");
+    //public override void Open()
+    //{
+        //Debug.Log("OPEN BANNER");
         //var first = (firstOpen);
         //if (first)
         //{
@@ -23,10 +23,10 @@ public class TopBarView : View {
         //}
         //else
         //{
-            Banner.Play();
+        //    Banner.Play();
         //}
-        Banner.Open();
-    }
+        //Banner.Open();
+    //}
 
     protected virtual void PauseAds()
     {
