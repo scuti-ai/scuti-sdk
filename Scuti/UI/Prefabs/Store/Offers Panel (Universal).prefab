@@ -245,7 +245,6 @@ GameObject:
   - component: {fileID: 6711852434147956971}
   - component: {fileID: 6711852434147956970}
   - component: {fileID: 6711852434147956969}
-  - component: {fileID: 3465972151528905085}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -338,35 +337,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &3465972151528905085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6711852434147956975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1862395651, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 14
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8612064632333804545}
-          m_MethodName: OnEndDrag
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  delegates: []
 --- !u!1 &6719652995991515295
 GameObject:
   m_ObjectHideFlags: 0
@@ -600,10 +570,11 @@ MonoBehaviour:
   container_Video: {fileID: 0}
   videoWidget: {fileID: 0}
   scrollOffers: {fileID: 6711852434147956971}
+  onTop: 0
+  lastValue: 0
   isDown: 0
-  scrollTag: 0
+  scrollState: 0
   isInitilize: 0
-  onTheTop: 0
 --- !u!114 &8569693029584709572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,7 +619,7 @@ MonoBehaviour:
   m_UseUnscaledTime: 0
   m_ReferenceScreenResolution: {x: 1920, y: 1080}
   m_State: 2
-  m_TransitionOnStart: 1
+  m_TransitionOnStart: 2
   displayEvents: 0
   onStartTransitionIn:
     m_PersistentCalls:
@@ -842,6 +813,26 @@ PrefabInstance:
       propertyPath: onHide.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 832299369986219809, guid: b643df62c68b3cb43bea1c7c33a03771,
+        type: 3}
+      propertyPath: onHide.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 832299369986219809, guid: b643df62c68b3cb43bea1c7c33a03771,
+        type: 3}
+      propertyPath: onHide.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 832299369986219809, guid: b643df62c68b3cb43bea1c7c33a03771,
+        type: 3}
+      propertyPath: onHide.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 8823085045541458596}
+    - target: {fileID: 832299369986219809, guid: b643df62c68b3cb43bea1c7c33a03771,
+        type: 3}
+      propertyPath: opacityTransition
+      value: 
+      objectReference: {fileID: 2727916517804823611}
     - target: {fileID: 2672694160404235733, guid: b643df62c68b3cb43bea1c7c33a03771,
         type: 3}
       propertyPath: m_textInfo.characterCount

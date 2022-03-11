@@ -35,9 +35,12 @@ namespace Scuti.UI
         [SerializeField] ScrollRect scrollOffers;
 
         [Header("Scroll")]
+        [SerializeField] bool onTop;
         [SerializeField] float lastValue = 0;
         [SerializeField] bool isDown;
         [SerializeField] ScrollStateTag scrollState;
+
+
         [SerializeField] bool isInitilize = false;
 
         public enum ScrollStateTag
@@ -291,7 +294,8 @@ namespace Scuti.UI
         void OnEnable()
         {
             scrollOffers.onValueChanged.AddListener(scrollRectCallBack);
-            lastValue = scrollOffers.horizontalNormalizedPosition;
+            lastValue = scrollOffers.verticalNormalizedPosition;
+            onTop = true;
             GetNavigator().Show();
         }
 
@@ -301,26 +305,44 @@ namespace Scuti.UI
             if (!isInitilize)
                 return;
 
-            if (lastValue <= scrollOffers.verticalNormalizedPosition)
-            {    
-                if (scrollState != ScrollStateTag.isUp)
-                {
-                    scrollState = ScrollStateTag.isUp;
-                    CheckChange();
-                    isDown = false;
 
-                }
-            }
-            else if (lastValue > scrollOffers.verticalNormalizedPosition)
+            if(scrollOffers.velocity.y <= 0f && lastValue >= 0.95f)
             {
+                if (onTop)
+                    return;
 
-                if (scrollState != ScrollStateTag.isDown)
+                Debug.Log("On the TOP");
+                scrollState = ScrollStateTag.isUp;
+                GetNavigator().Show();               
+                isDown = false;
+                onTop = true;
+                lastValue = scrollOffers.verticalNormalizedPosition;
+                return;
+            }
+            else
+            {
+                onTop = false;
+                if (lastValue <= scrollOffers.verticalNormalizedPosition)
                 {
-                    scrollState = ScrollStateTag.isDown;
-                    CheckChange();
-                    isDown = true;
+                    if (scrollState != ScrollStateTag.isUp)
+                    {
+                        scrollState = ScrollStateTag.isUp;
+                        CheckChange();
+                        isDown = false;
+
+                    }
                 }
-            }                     
+                else if (lastValue > scrollOffers.verticalNormalizedPosition)
+                {
+
+                    if (scrollState != ScrollStateTag.isDown)
+                    {
+                        scrollState = ScrollStateTag.isDown;
+                        CheckChange();
+                        isDown = true;
+                    }
+                }
+            }                 
 
             lastValue = scrollOffers.verticalNormalizedPosition;
 
@@ -328,11 +350,16 @@ namespace Scuti.UI
 
         private void CheckChange()
         {
+
             if(isDown && scrollState == ScrollStateTag.isUp)            
                 GetNavigator().Show();
             
-            else if(!isDown && scrollState == ScrollStateTag.isDown)                
+            else if(!isDown && scrollState == ScrollStateTag.isDown)
+            {
+                Debug.Log("HIDEN");
                 GetNavigator().Hide();
+            }
+               
             
         }
 

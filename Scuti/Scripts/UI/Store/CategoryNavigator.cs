@@ -17,6 +17,8 @@ namespace Scuti.UI
     {
         private bool _destroyed;
 
+        public Scuti.UISystem.OpacityTransition opacityTransition;
+
         public event Action<string> OnOpenRequest;
 
         private OffersPresenterBase _offersPresenterBase;
@@ -38,6 +40,14 @@ namespace Scuti.UI
             ScutiNetClient.Instance.OnLogout += ResetCategories;
         }
 
+        //---
+
+        public float GetCanvasGroup()
+        {
+            return opacityTransition.group.alpha;
+        }
+
+        //---
 
         public async void OpenCurrent()
         {
@@ -139,12 +149,14 @@ namespace Scuti.UI
 
         public void Hide()
         {
-            onHide?.Invoke();
+            if (GetCanvasGroup() > 0)
+                onHide?.Invoke();
         }
 
         public void Show()
         {
-            onShow?.Invoke();
+            if(GetCanvasGroup() < 1)
+                onShow?.Invoke();
         }
 
 
