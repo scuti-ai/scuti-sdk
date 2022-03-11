@@ -34,6 +34,20 @@ namespace Scuti.UI
         [SerializeField] OfferVideoPresenter videoWidget;
         [SerializeField] ScrollRect scrollOffers;
 
+        [Header("Scroll")]
+        [SerializeField] float lastValue = 0;
+        [SerializeField] bool isDown;
+        [SerializeField] ScrollStateTag scrollState;
+        [SerializeField] bool isInitilize = false;
+
+        public enum ScrollStateTag
+        {
+            isUp,
+            isDown,
+            Count
+        }
+
+
         private Vector3 _largeContainerDefaultPosition;
 
         // ================================================
@@ -264,18 +278,6 @@ namespace Scuti.UI
 
         // ================================================
         #region Scroll Detect
-        float lastValue = 0;
-        public bool isDown;
-        public ScrollTag scrollTag;
-        public bool isInitilize = false;
-        public bool onTheTop;
-
-        public enum ScrollTag
-        { 
-            isUp,
-            isDown,
-            Count
-        }
 
         /*protected override void Awake()
         {
@@ -288,16 +290,12 @@ namespace Scuti.UI
 
         void OnEnable()
         {
-            Debug.Log("Scroll initialize");
-            //Subscribe to the ScrollRect event
             scrollOffers.onValueChanged.AddListener(scrollRectCallBack);
             lastValue = scrollOffers.horizontalNormalizedPosition;
-            onTheTop = true;
             GetNavigator().Show();
-
         }
 
-        //Will be called when ScrollRect changes
+
         void scrollRectCallBack(Vector2 value)
         {
             if (!isInitilize)
@@ -305,10 +303,9 @@ namespace Scuti.UI
 
             if (lastValue <= scrollOffers.verticalNormalizedPosition)
             {    
-                if (scrollTag != ScrollTag.isUp)
+                if (scrollState != ScrollStateTag.isUp)
                 {
-                    scrollTag = ScrollTag.isUp;
-                    Debug.Log("Change! " + scrollTag);
+                    scrollState = ScrollStateTag.isUp;
                     CheckChange();
                     isDown = false;
 
@@ -317,10 +314,9 @@ namespace Scuti.UI
             else if (lastValue > scrollOffers.verticalNormalizedPosition)
             {
 
-                if (scrollTag != ScrollTag.isDown)
+                if (scrollState != ScrollStateTag.isDown)
                 {
-                    scrollTag = ScrollTag.isDown;
-                    Debug.Log("Change! " + scrollTag);
+                    scrollState = ScrollStateTag.isDown;
                     CheckChange();
                     isDown = true;
                 }
@@ -332,27 +328,16 @@ namespace Scuti.UI
 
         private void CheckChange()
         {
-            /*if (scrollOffers.verticalNormalizedPosition > 0.97f) 
-            {
+            if(isDown && scrollState == ScrollStateTag.isUp)            
                 GetNavigator().Show();
-            }
-            else */if(isDown && scrollTag == ScrollTag.isUp)
-            {
-                Debug.Log("---- UP-------");
-                GetNavigator().Show();
-            }
-            else if(!isDown && scrollTag == ScrollTag.isDown)
-            {
-                Debug.Log("---- DOWN -------");
-                // Cambio hacia abajo
+            
+            else if(!isDown && scrollState == ScrollStateTag.isDown)                
                 GetNavigator().Hide();
-
-            }
+            
         }
 
         void OnDisable()
         {
-            //Un-Subscribe To ScrollRect Event
             scrollOffers.onValueChanged.RemoveListener(scrollRectCallBack);
         }
         #endregion
