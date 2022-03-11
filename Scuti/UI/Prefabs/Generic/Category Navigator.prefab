@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -83, y: 1}
-  m_SizeDelta: {x: 18.905273, y: 31.50879}
+  m_SizeDelta: {x: 92, y: 92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &652987032082253847
 CanvasRenderer:
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c10061b72b73b2542b1afe17f628809b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9d5355d3cda3f0440b566827e708e7c0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -135,7 +135,7 @@ Animator:
   m_GameObject: {fileID: 727912019358584903}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 49e4f4529e0a4244893c8093b5418563, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9bbf233321796564fa40ebc4ad5222d4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -390,6 +390,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Label: {fileID: 2672694160404235733}
   SwipeThreshold: 50
+  onShow:
+    m_PersistentCalls:
+      m_Calls: []
+  onHide:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &728623841179695997
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +433,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 80, y: 1}
-  m_SizeDelta: {x: 18.90527, y: 31.50879}
+  m_SizeDelta: {x: 92, y: 92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &652561817104341701
 CanvasRenderer:
@@ -455,7 +461,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c9b554e83b74d214dbfa099d8c2c4e1a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a5690d85c836f3478e0b14707a527ed, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -525,7 +531,7 @@ Animator:
   m_GameObject: {fileID: 728623841179695997}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 49e4f4529e0a4244893c8093b5418563, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9bbf233321796564fa40ebc4ad5222d4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
