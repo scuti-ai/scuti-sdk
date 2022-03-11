@@ -22,9 +22,6 @@ public class BannerWidget : View {
 
     public RoundedImage Rounded;
 
-
-
-
     protected bool timerCompleted = false;
     [SerializeField] protected Timer timer;
 
