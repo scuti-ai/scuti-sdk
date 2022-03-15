@@ -598,7 +598,7 @@ MonoBehaviour:
   _container: {fileID: 6711852433903175478}
   _scrollRect: {fileID: 6711852434147956971}
   _scrollThreshold: 0.05
-  _delay: 0
+  _delay: 1
 --- !u!1001 &8100744180494442427
 PrefabInstance:
   m_ObjectHideFlags: 0

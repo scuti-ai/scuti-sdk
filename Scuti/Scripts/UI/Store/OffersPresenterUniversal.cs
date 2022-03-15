@@ -192,7 +192,7 @@ namespace Scuti.UI
 
                     if (newData == null)
                     {
-                        //Debug.LogError("Null data: " + gameObject);
+                        Debug.LogError("Null data: " + gameObject);
                         continue;
                     }
                     widget.Data = newData;

@@ -15,8 +15,11 @@ namespace Scuti.UI
 		[SerializeField] private RectTransform _columPref;
 		[SerializeField] private RectTransform _container;
 		[SerializeField] private ScrollRect _scrollRect;
+		[Tooltip("How close to the end it's going to check for new offers")]
 		[SerializeField] [Slider(0,1)] private float _scrollThreshold;
+		[Tooltip("If you want to add a delay to the check in order to control the frecuency of new offers")]
 		[SerializeField] private float _delay;
+		private float _time;
 		
 		private List<RectTransform> _columns = new List<RectTransform>();
 		private List<float> _heights = new List<float>();
@@ -45,18 +48,20 @@ namespace Scuti.UI
 
 		private void OnScroll(Vector2 arg0)
 		{
-			Debug.Log(_scrollRect.verticalNormalizedPosition);
-			if (_scrollRect.verticalNormalizedPosition < _scrollThreshold && _delay > 1)
+			if (_scrollRect.verticalNormalizedPosition < _scrollThreshold && _time > _delay)
 			{
 				ScrollPass?.Invoke();
-				_delay = 0;
+				_time = 0;
 			}
 		}
 		private void Update()
 		{
 			if (isInitialized)
 			{
-				_delay += Time.deltaTime;
+				if(_time <= _delay)
+				{
+					_time += Time.deltaTime;
+				}
 			}
 		}
 
@@ -111,28 +116,5 @@ namespace Scuti.UI
 		{
 			return _children;
 		}
-
-		//internal void SetObjectParent(Transform obj)
-		//{
-		//	// Remove from prevous Column
-
-		//	var widget = obj.GetComponent<OfferSummaryPresenterUniversal>();
-		//	Debug.Assert(widget != null, "No widget found in the object to move");
-
-		//	for (int i = 0; i < _columns.Count; i++)
-		//	{
-		//		if(obj.IsChildOf(_columns[i]))
-		//		{
-		//			obj.SetParent(null);
-		//			_heights[i] -= widget.IsTall ? 2 : 1;
-		//		}
-		//	}
-		//	// 1. Select the shortest Column
-		//	int minCol = ShortestColumn();
-		//	// 2. Add widget to column
-		//	obj.SetParent(_columns[minCol]);
-		//	_heights[minCol] += widget.IsTall ? 2 : 1;
-		//	_children.Add(obj.gameObject);
-		//}
 	}
 }
