@@ -146,7 +146,11 @@ namespace Scuti.UI
         {
             try
             {
-				CalculateColumnWidth();
+				if (!columnSystem.isInitialized)
+				{
+					IntiColumnSystem();
+				}
+
                 m_ChangingCategories = true;
                 var max = GetActiveMax();
                 for (int i = 0; i < max; i++)
@@ -215,10 +219,11 @@ namespace Scuti.UI
             }
         }
 
-		private void CalculateColumnWidth()
+		private void IntiColumnSystem()
 		{
 			columnSystem.ColumnWidth = widgetPrefab_Large.GetComponent<RectTransform>().rect.width;
 			columnSystem.Init();
+			columnSystem.ScrollPass += LaodMoreWidgets;
 		}
 
 		private async void OnPresenterClicked(OfferSummaryPresenterBase presenter)
@@ -256,6 +261,15 @@ namespace Scuti.UI
         {
             return index < GetActiveLarge() ? container_Large : container_Small;
         }
-#endregion
-    }
+
+		#endregion
+
+		public void LaodMoreWidgets()
+		{
+#pragma warning disable 4014
+			_loadingSource = new CancellationTokenSource();
+			PopulateOffers(_loadingSource.Token);
+#pragma warning restore 4014
+		}
+	}
 }
