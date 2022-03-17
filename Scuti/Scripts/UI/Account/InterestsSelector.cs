@@ -53,7 +53,7 @@ namespace Scuti.UI {
                 if(prevButton)
                     prevButton.gameObject.SetActive(true);
                 if(saveButtonLabel)
-                    saveButtonLabel.text = "NEXT STEP";
+                    saveButtonLabel.text = "SAVE";
             }
             if (!_init)
             {
