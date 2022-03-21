@@ -210,17 +210,17 @@ namespace Scuti.UI
             public void AddNewItem(OfferSummaryPresenterBase.Model item)
             {
                 OfferService.MediaType mediaType = OfferService.MediaType.Product;
-                
-                if(item.DisplayAd)
+
+                if (item.DisplayAd)
                 {
-                    if (!string.IsNullOrEmpty(item.TallURL)) mediaType = OfferService.MediaType.Vertical;
-                    else
+                    if (!string.IsNullOrEmpty(item.TallURL) && !ScutiUtils.IsPortrait()) mediaType = OfferService.MediaType.Vertical;
+                    else if(!string.IsNullOrEmpty(item.SmallURL))
                     {
                         mediaType = OfferService.MediaType.SmallTile;
                     }
                 }
 
-                //Debug.LogError("Adding " + mediaType + " due to " + item.DisplayAd + " and " + item.IsTall  +"  "+ item.TallURL);
+                Debug.LogError("Adding " + mediaType + " due to " + item.DisplayAd + " and " + item.IsTall  +"  "+ item.TallURL);
                 OfferPool pool = GetPool(mediaType);
                 pool.AddNewItem(item);
             }
@@ -567,7 +567,7 @@ namespace Scuti.UI
             OfferPage offerPage = null;
             try
             {
-                offerPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.ProductListing, CampaignType.AppDownload }, mediaType, FILTER_TYPE.In, pagination.Category, null, null, index, maxCount);
+                offerPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.AppDownload }, mediaType, FILTER_TYPE.In, pagination.Category, null, null, index, maxCount);
             }
             catch (Exception e)
             {
@@ -589,7 +589,7 @@ namespace Scuti.UI
                         {
                             index = 0;
                             pagination.Index = requestMore;
-                            var secondPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Product, CampaignType.ProductListing, CampaignType.AppDownload }, mediaType, FILTER_TYPE.In, pagination.Category, null, null, index, requestMore);
+                            var secondPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> {   CampaignType.AppDownload }, mediaType, FILTER_TYPE.In, pagination.Category, null, null, index, requestMore);
                             if (secondPage != null)
                             {
                                 foreach (var node in secondPage.Nodes)
