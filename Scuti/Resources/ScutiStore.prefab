@@ -508,6 +508,7 @@ GameObject:
   - component: {fileID: 114487081744072800}
   - component: {fileID: 114942104422593048}
   - component: {fileID: 114191979548969972}
+  - component: {fileID: 8942881100732373919}
   m_Layer: 0
   m_Name: ScutiStore
   m_TagString: Untagged
@@ -680,6 +681,18 @@ MonoBehaviour:
   - Category: 19
     Icon: {fileID: 21300000, guid: 48273d681b4b80e4fb1335f959bef633, type: 3}
     InActive: 0
+--- !u!114 &8942881100732373919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833577399175640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce5dd3527ca0e94597eb1bfd23519ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1882320012358154
 GameObject:
   m_ObjectHideFlags: 0
