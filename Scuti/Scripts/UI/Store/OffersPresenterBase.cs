@@ -595,6 +595,7 @@ namespace Scuti.UI
                                 foreach (var node in secondPage.Nodes)
                                 {
                                     offerPage.Nodes.Add(node);
+
                                 }
                             }
                         }
