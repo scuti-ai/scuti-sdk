@@ -305,19 +305,15 @@ namespace Scuti.UI
             if (!isInitilize)
                 return;
 
-
             if(scrollOffers.velocity.y <= 0f && lastValue >= 0.95f)
             {
                 if (onTop)
                     return;
 
-                Debug.Log("On the TOP");
                 scrollState = ScrollStateTag.isUp;
                 GetNavigator().Show();               
                 isDown = false;
                 onTop = true;
-                lastValue = scrollOffers.verticalNormalizedPosition;
-                return;
             }
             else
             {
@@ -351,12 +347,16 @@ namespace Scuti.UI
         private void CheckChange()
         {
 
-            if(isDown && scrollState == ScrollStateTag.isUp)            
+            if (isDown && scrollState == ScrollStateTag.isUp)
+            {
                 GetNavigator().Show();
-            
+            }            
             else if(!isDown && scrollState == ScrollStateTag.isDown)
             {
-                Debug.Log("HIDEN");
+                /*if (lastValue > 1)                
+                    return;
+                 */                  
+
                 GetNavigator().Hide();
             }
                
