@@ -305,17 +305,18 @@ namespace Scuti.UI
             if (!isInitilize)
                 return;
 
-            if(scrollOffers.velocity.y <= 0f && lastValue >= 0.95f)
+            if(scrollOffers.velocity.y <= 0.1f && lastValue >= 0.95f)
             {
                 if (onTop)
                     return;
 
+                Debug.Log("------------ asdfasdfadsf");
                 scrollState = ScrollStateTag.isUp;
                 GetNavigator().Show();               
                 isDown = false;
                 onTop = true;
             }
-            else
+            else if(lastValue < 0.95f)
             {
                 onTop = false;
                 if (lastValue <= scrollOffers.verticalNormalizedPosition)
