@@ -310,7 +310,6 @@ namespace Scuti.UI
                 if (onTop)
                     return;
 
-                Debug.Log("------------ asdfasdfadsf");
                 scrollState = ScrollStateTag.isUp;
                 GetNavigator().Show();               
                 isDown = false;
@@ -353,11 +352,7 @@ namespace Scuti.UI
                 GetNavigator().Show();
             }            
             else if(!isDown && scrollState == ScrollStateTag.isDown)
-            {
-                /*if (lastValue > 1)                
-                    return;
-                 */                  
-
+            { 
                 GetNavigator().Hide();
             }
                
