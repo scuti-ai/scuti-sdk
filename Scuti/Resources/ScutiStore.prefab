@@ -137,7 +137,7 @@ MonoBehaviour:
     instance: {fileID: 0}
   - id: OFFERS
     view: {fileID: 8612064632333804545, guid: c573fb3f8960f93478e445c51c66e4ad, type: 3}
-    view_portrait: {fileID: 7643613424775923764, guid: 4d0e46d0f3285214a9578ea02ee79c23,
+    view_portrait: {fileID: 8612064632333804545, guid: c573fb3f8960f93478e445c51c66e4ad,
       type: 3}
     view_pc: {fileID: 3080986844477801138, guid: d0014075c4db0094e83ff60b8f9eff67,
       type: 3}
