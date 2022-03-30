@@ -10,7 +10,6 @@ namespace Scuti.UI
 	public class ColumnSystem : MonoBehaviour
 	{
 		[Tooltip("This is the width of the column without the space between them, only the content width")]
-		public float ColumnWidth;
 
 		[SerializeField] private RectTransform _columPref;
 		[SerializeField] private RectTransform _container;
@@ -28,14 +27,15 @@ namespace Scuti.UI
 		internal bool isInitialized = false;
 		internal Action ScrollPass;
 
-		internal void Init()
+		internal void Init(float columnWidth)
 		{
+
 #if UNITY_EDITOR
-			Debug.Assert(ColumnWidth > 0, "Column width not assigned");
+			Debug.Assert(columnWidth > 0, "Column width not assigned");
 #endif
 			var transf = GetComponent<RectTransform>();
 			var containerSize = GetComponent<RectTransform>().rect.width;
-			var numberOfColumns = Math.Floor(containerSize / (ColumnWidth + 50));
+			var numberOfColumns = Math.Floor(containerSize / (columnWidth + 50));
 			while (_columns.Count < numberOfColumns)
 			{
 				_columns.Add(Instantiate(_columPref, _container));
@@ -73,7 +73,10 @@ namespace Scuti.UI
 			// 1. Select the shortest Column
 			int minCol = ShortestColumn();
 			// 2. Add widget to column
-			_heights[minCol] += obj.IsTall ? 2 : 1;
+			if(_heights.Count > minCol)
+			{
+				_heights[minCol] += obj.IsTall ? 2 : 1;
+			}
 			var child = Instantiate(obj, _columns[minCol]);
 			_children.Add(child.gameObject);
 			return child;

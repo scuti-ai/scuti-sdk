@@ -223,8 +223,8 @@ namespace Scuti.UI
 
 		private void IntiColumnSystem()
 		{
-			columnSystem.ColumnWidth = widgetPrefab_Large.GetComponent<RectTransform>().rect.width;
-			columnSystem.Init();
+			var tempColumnWidth = widgetPrefab_Large.GetComponent<RectTransform>().rect.width;
+			columnSystem.Init(tempColumnWidth);
 			columnSystem.ScrollPass += LaodMoreWidgets;
 		}
 
