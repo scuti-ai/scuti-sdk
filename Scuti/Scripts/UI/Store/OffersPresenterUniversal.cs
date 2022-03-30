@@ -167,6 +167,7 @@ namespace Scuti.UI
                     template = GetTemplateForIndex(index);
                     container = GetContainerForIndex(index);
                     var widget = columnSystem.InstantiateWidget(template);
+					widget.gameObject.SetActive(false);
 					m_Instantiated.Add(widget);
                     widget.gameObject.hideFlags = HideFlags.DontSave;
                     widget.Inject(GetNext);
@@ -207,10 +208,11 @@ namespace Scuti.UI
 
                     widget.OnClick -= OnPresenterClicked;
                     widget.OnClick += OnPresenterClicked;
-                }
+					widget.gameObject.SetActive(true);
+				}
 
 
-                await Task.Delay(250);
+				await Task.Delay(250);
                 //Debug.LogWarning(container_Large.childCount+"   ++++++++++++++    "+ container_Small.childCount);
                 OnPopulateFinished?.Invoke();
 

@@ -448,7 +448,7 @@ namespace Scuti.UI
             {
                 if (sprite != null)
                 {
-                    Destroy(sprite.texture);
+                    //Destroy(sprite.texture);
 #if !UNITY_EDITOR
                     Destroy(sprite);
 #endif
