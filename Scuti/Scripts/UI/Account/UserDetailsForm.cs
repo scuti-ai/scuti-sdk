@@ -90,7 +90,7 @@ namespace Scuti.UI
             }
             catch (Exception ex)
             {
-                ScutiLogger.LogError(ex);
+                ScutiLogger.LogException(ex);
                 UIManager.Alert.SetHeader("Error").SetBody("Loading user data failed").Show(() => Close());
             }
         }
@@ -111,7 +111,7 @@ namespace Scuti.UI
             }
             catch (Exception ex)
             {
-                ScutiLogger.LogError(ex);
+                ScutiLogger.LogException(ex);
                 UIManager.Alert.SetHeader("Error").SetBody("Setting personal info failed").Show(() => { });
             }
 

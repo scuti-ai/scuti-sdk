@@ -94,10 +94,9 @@ namespace Scuti.UI
 
                     var url = ImageURL;
 
-                    if (!string.IsNullOrEmpty(url))
-                    {
+                   
                         // had to check if image was from shopify because some images wasn't from shopify and I was getting an error
-                        if (url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1)
+                        if (!String.IsNullOrEmpty(url) && url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1)
                             url = url.Insert(url.LastIndexOf("."), "_large");
                         if (DisplayAd)
                         {
@@ -118,6 +117,8 @@ namespace Scuti.UI
                                 }
                             }
                         }
+                    if (!string.IsNullOrEmpty(url))
+                    {
                         //Debug.Log(url + " and " + DisplayAd);
                         ImageDownloader.New().Download(url,
                             result =>

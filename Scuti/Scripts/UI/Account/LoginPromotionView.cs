@@ -2,21 +2,15 @@
 using Scuti.GraphQL;
 using Scuti.Net;
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Scuti.UI
 {
     public class LoginPromotionView : View
-    { 
-        public Text Description;
-        public string DefaultText = "Create an Account to Earn Rewards";
-
-        public override void Open()
-        {
-            base.Open();
-            SetMessage(DefaultText);
-        }
+    {
+        public TextMeshProUGUI Description;
 
         public void SetMessage(string message)
         {

@@ -3,18 +3,19 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 using UnityEngine;
+using ScrollRect = UnityEngine.UI.ScrollRect;
 using Image = UnityEngine.UI.Image;
 using Scuti.GraphQL.Generated;
 
 using System.Threading;
 using Scuti.Net;
 using UnityEngine.Events;
+using UnityEngine.EventSystems; 
 
 namespace Scuti.UI
 {
     public class OffersPresenterUniversal : OffersPresenterBase
     {
-
 
         [Header("Settings")]
         [SerializeField] int maxOffers = 6;
@@ -31,6 +32,24 @@ namespace Scuti.UI
         [SerializeField] Transform container_Small;
         [SerializeField] Transform container_Video;
         [SerializeField] OfferVideoPresenter videoWidget;
+        [SerializeField] ScrollRect scrollOffers;
+
+        [Header("Scroll")]
+        [SerializeField] bool onTop;
+        [SerializeField] float lastValue = 0;
+        [SerializeField] bool isDown;
+        [SerializeField] ScrollStateTag scrollState;
+
+
+        [SerializeField] bool isInitilize = false;
+
+        public enum ScrollStateTag
+        {
+            isUp,
+            isDown,
+            Count
+        }
+
 
         private Vector3 _largeContainerDefaultPosition;
 
@@ -221,6 +240,8 @@ namespace Scuti.UI
             {
                 ScutiLogger.LogException(e);
             }
+
+            isInitilize = true;
         }
 
 		private void IntiColumnSystem()
@@ -266,8 +287,6 @@ namespace Scuti.UI
             return index < GetActiveLarge() ? container_Large : container_Small;
         }
 
-		#endregion
-
 		public void LaodMoreWidgets()
 		{
 #pragma warning disable 4014
@@ -276,4 +295,92 @@ namespace Scuti.UI
 #pragma warning restore 4014
 		}
 	}
+        #endregion
+
+        // ================================================
+        #region Scroll Detect
+
+        /*protected override void Awake()
+        {
+            Debug.Log("Scroll initialize");
+            scrollOffers.onValueChanged.AddListener(scrollRectCallBack);
+            lastValue = scrollOffers.horizontalNormalizedPosition;
+            isDown = true;
+            scrollTag = ScrollTag.isUp;
+        }*/
+
+        void OnEnable()
+        {
+            scrollOffers.onValueChanged.AddListener(scrollRectCallBack);
+            lastValue = scrollOffers.verticalNormalizedPosition;
+            onTop = true;
+            GetNavigator().Show();
+        }
+
+
+        void scrollRectCallBack(Vector2 value)
+        {
+            if (!isInitilize)
+                return;
+
+            if(scrollOffers.velocity.y <= 0.1f && lastValue >= 0.95f)
+            {
+                if (onTop)
+                    return;
+
+                scrollState = ScrollStateTag.isUp;
+                GetNavigator().Show();               
+                isDown = false;
+                onTop = true;
+            }
+            else if(lastValue < 0.95f)
+            {
+                onTop = false;
+                if (lastValue <= scrollOffers.verticalNormalizedPosition)
+                {
+                    if (scrollState != ScrollStateTag.isUp)
+                    {
+                        scrollState = ScrollStateTag.isUp;
+                        CheckChange();
+                        isDown = false;
+
+                    }
+                }
+                else if (lastValue > scrollOffers.verticalNormalizedPosition)
+                {
+
+                    if (scrollState != ScrollStateTag.isDown)
+                    {
+                        scrollState = ScrollStateTag.isDown;
+                        CheckChange();
+                        isDown = true;
+                    }
+                }
+            }                 
+
+            lastValue = scrollOffers.verticalNormalizedPosition;
+
+        }
+
+        private void CheckChange()
+        {
+
+            if (isDown && scrollState == ScrollStateTag.isUp)
+            {
+                GetNavigator().Show();
+            }            
+            else if(!isDown && scrollState == ScrollStateTag.isDown)
+            { 
+                GetNavigator().Hide();
+            }
+               
+            
+        }
+
+        void OnDisable()
+        {
+            scrollOffers.onValueChanged.RemoveListener(scrollRectCallBack);
+        }
+        #endregion
+    }
 }

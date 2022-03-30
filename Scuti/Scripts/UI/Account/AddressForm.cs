@@ -33,9 +33,15 @@ namespace Scuti.UI
         [SerializeField] Text saveButtonLabel;
         [SerializeField] Text stateLabel;
         [SerializeField] Validatable stateValidatable;
+        [SerializeField] Toggle setAddressDefault;
 
         public bool UseAsOnboarding = true;
+        public bool isEditShippingInCart = false;
         private bool _cachedAddress = false;
+
+        public bool saveCurrentAddress = false;
+        private AddressData tempAddress;
+
 
         private List<Dropdown.OptionData> _states;
         private List<Dropdown.OptionData> _provinces;
@@ -105,6 +111,7 @@ namespace Scuti.UI
             //stateInput.onValueChanged.AddListener(value => Data.Address.State = value);
             zipInput.onValueChanged.AddListener(value => Data.Address.Zip = value);
             phoneInput.onValueChanged.AddListener(value => Data.Address.Phone = value);
+            if(setAddressDefault != null) setAddressDefault.onValueChanged.AddListener(value => saveCurrentAddress = value);
             countryDropDown.onValueChanged.AddListener(OnCountryChanged);
 #pragma warning disable 
             saveButton.onClick.AddListener(async () => SaveShippingInfo());
@@ -153,8 +160,8 @@ namespace Scuti.UI
                 }
             }
 
+            TryToLoadData();          
 
-            TryToLoadData();
         }
 
         private async void TryToLoadData()
@@ -163,27 +170,45 @@ namespace Scuti.UI
             {
                 UIManager.Alert.SetHeader("Unsupported Location").SetButtonText("Ok").SetBody("We currently do not support your location. International support coming soon!").Show(() => { });
             }*/
-
             if (!_cachedAddress)
+            {
+                var shippingInfo = await ScutiAPI.GetShippingInfo();
+                if (shippingInfo != null)
                 {
-                    var shippingInfo = await ScutiAPI.GetShippingInfo();
-                    if (shippingInfo != null)
+                    Data.Address = new AddressData()
                     {
-                        Data.Address = new AddressData()
-                        {
-                            Line1 = shippingInfo.Address1,
-                            Line2 = shippingInfo.Address2,
-                            State = shippingInfo.State,
-                            Zip = shippingInfo.ZipCode,
-                            Phone = shippingInfo.Phone,
-                            Country = shippingInfo.Country,
-                            City = shippingInfo.City
-                        };
-                        _cachedAddress = true;
-                        _selectedCountry = _supportedCountriesList.Find(c => c.Code.Equals(Data.Address.Country));
-                        Refresh();
-                    }
+                        Line1 = shippingInfo.Address1,
+                        Line2 = shippingInfo.Address2,
+                        State = shippingInfo.State,
+                        Zip = shippingInfo.ZipCode,
+                        Phone = shippingInfo.Phone,
+                        Country = shippingInfo.Country,
+                        City = shippingInfo.City
+                    };
+                    _cachedAddress = true;
+                    _selectedCountry = _supportedCountriesList.Find(c => c.Code.Equals(Data.Address.Country));
+
+                    tempAddress = Data.Address;
+
+                    Refresh();
                 }
+            }
+            else 
+            {
+                if (!saveCurrentAddress)
+                {
+                    Data.Address = new AddressData()
+                    {
+                        Line1 = tempAddress.Line1,
+                        Line2 = tempAddress.Line2,
+                        State = tempAddress.State,
+                        Zip = tempAddress.Zip,
+                        Phone = tempAddress.Phone,
+                        Country = tempAddress.Country,
+                        City = tempAddress.City
+                    };
+                }
+            }
         }
 
         public override void Refresh()
@@ -228,7 +253,7 @@ namespace Scuti.UI
 
             saveButton.interactable = false;
             bool submit = !UseAsOnboarding;
-            if (UseAsOnboarding || !_cachedAddress)
+            if (UseAsOnboarding || !_cachedAddress || saveCurrentAddress)
             {
                 try
                 {
@@ -238,7 +263,7 @@ namespace Scuti.UI
                 }
                 catch (Exception ex)
                 {
-                    ScutiLogger.LogError(ex);
+                    ScutiLogger.LogException(ex);
                     UIManager.Alert.SetHeader("Error").SetButtonText("Ok").SetBody("Setting shipping info failed").Show(() => { });
                 }
             } 
@@ -249,8 +274,9 @@ namespace Scuti.UI
                 Submit();
             }
 
-            if(!UseAsOnboarding)
+            if(isEditShippingInCart)
             {
+                tempAddress = Data.Address;                
                 Close();
             }
             saveButton.interactable = true;

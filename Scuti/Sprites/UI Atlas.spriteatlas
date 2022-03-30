@@ -31,7 +31,7 @@ SpriteAtlas:
     variantMultiplier: 1
     packables:
     - {fileID: 102900000, guid: 58e81dec8b5545d4a8e535db1ec50eee, type: 3}
-    totalSpriteSurfaceArea: 3823515
+    totalSpriteSurfaceArea: 3852315
     bindAsDefault: 1
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
@@ -73,6 +73,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 489e247340b267f4488aa8667c2237ce, type: 3}
   - {fileID: 21300000, guid: 039f12831736a534aa45f59e34e21646, type: 3}
   - {fileID: 21300000, guid: 77d6b6b3fe91e3b4fb2b4e666d740c16, type: 3}
+  - {fileID: 21300000, guid: 9d5355d3cda3f0440b566827e708e7c0, type: 3}
   - {fileID: 21300000, guid: 26c955f3505cc5e4da5fa7266e413eee, type: 3}
   - {fileID: 21300000, guid: 16230704c9431b646bf1dc2716ec5256, type: 3}
   - {fileID: 21300000, guid: b726d704b0d590b4dba91588789215b1, type: 3}
@@ -113,6 +114,7 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 5dc35c182bfa6f944ae6152a4d7546f1, type: 3}
   - {fileID: 21300000, guid: 48273d681b4b80e4fb1335f959bef633, type: 3}
   - {fileID: 21300000, guid: 1637d0c8621b09d4cb6abdb51f106c55, type: 3}
+  - {fileID: 21300000, guid: 5a5690d85c836f3478e0b14707a527ed, type: 3}
   - {fileID: 21300000, guid: c9b554e83b74d214dbfa099d8c2c4e1a, type: 3}
   - {fileID: 21300000, guid: a7abeb29704c02c4ba7730616f260659, type: 3}
   - {fileID: 21300000, guid: e53ff74920fce9141bb0b6dceb04d3a5, type: 3}
@@ -195,6 +197,7 @@ SpriteAtlas:
   - color-block@3x4
   - ScutiLogoBlue
   - tintrounded16color@3x
+  - NextArrow_Big
   - scuti_navigation_button_shop
   - icon16close@3x
   - scuti_navigation_button_close
@@ -235,6 +238,7 @@ SpriteAtlas:
   - scuti_navigation_button_back
   - Computer Hardware
   - icon24search@3x
+  - PrevArrow_Big
   - Grafico_RestaurarRecurso 2@4x
   - buttonprimaryicondefault@3x
   - circlegeneric

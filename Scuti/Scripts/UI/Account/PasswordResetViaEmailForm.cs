@@ -56,7 +56,7 @@ namespace Scuti.UI
             {
                 UIManager.HideLoading(false);
                 UIManager.Alert.SetHeader("Password reset failed").SetBody($"Failed to reset password: {ex.Message}").SetButtonText("Ok").Show(() => { });
-                ScutiLogger.LogError(ex);
+                ScutiLogger.LogException(ex);
             }
             resetButton.interactable = true;
         }

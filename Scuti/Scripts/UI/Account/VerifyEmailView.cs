@@ -68,7 +68,7 @@ namespace Scuti.UI
             }
             catch (Exception ex)
             {
-                ScutiLogger.LogError(ex);
+                ScutiLogger.LogException(ex);
                 //VerifyButton.interactable = true;
                 //string message = ex.Message;
                 //if (ex is ScutiNetClient.UserAuthenticationException)

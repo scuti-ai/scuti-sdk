@@ -22,9 +22,6 @@ public class BannerWidget : View {
 
     public RoundedImage Rounded;
 
-
-
-
     protected bool timerCompleted = false;
     [SerializeField] protected Timer timer;
 
@@ -138,13 +135,15 @@ public class BannerWidget : View {
         var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(_banner.Id.ToString());
         if (offer != null)
         {
-            var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
-            if (panelModel != null)
+            if (!ScutiUtils.TryOpenLink(offer))
             {
-                UIManager.OfferDetails.SetData(panelModel);
-                UIManager.OfferDetails.SetIsVideo(isVideo);
-                UIManager.Open(UIManager.OfferDetails);
-              
+                var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
+                if (panelModel != null)
+                {
+                    UIManager.OfferDetails.SetData(panelModel);
+                    UIManager.OfferDetails.SetIsVideo(isVideo);
+                    UIManager.Open(UIManager.OfferDetails);
+                } 
             }
         }
     }

@@ -38,6 +38,7 @@ namespace Scuti.UI {
         public override void Open()
         {
             base.Open();
+            Debug.LogError("Open Interest Selector");
             Instructions.color = Color.white;
 
             if (ScutiNetClient.Instance.FinishedOnBoarding)
@@ -52,7 +53,7 @@ namespace Scuti.UI {
                 if(prevButton)
                     prevButton.gameObject.SetActive(true);
                 if(saveButtonLabel)
-                    saveButtonLabel.text = "NEXT STEP";
+                    saveButtonLabel.text = "SAVE";
             }
             if (!_init)
             {
@@ -112,7 +113,7 @@ namespace Scuti.UI {
                 Instructions.color = Color.red;
                 if(_errorCount>1)
                 {
-                    UIManager.Alert.SetHeader("Select Categories").SetBody("You must select at least 2 categories before continuing.").SetButtonText("OK").Show(() => { });
+                    UIManager.Alert.SetHeader("Select Categories").SetBody("You must select at least 3 categories before continuing.").SetButtonText("OK").Show(() => { });
                 }
                 _errorCount++;
             } else

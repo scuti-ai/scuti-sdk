@@ -152,21 +152,23 @@ namespace Scuti.UI
                 UIManager.ShowLoading(false);
                 var id = presenter.Data.ID;
                 var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
-                var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
-
-                try
+                if (!ScutiUtils.TryOpenLink(offer))
                 {
-                    UIManager.OfferDetails.SetData(panelModel);
-                    UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(presenter.Data.VideoURL));
-                    UIManager.Open(UIManager.OfferDetails);
-                }
-                catch (Exception e)
-                {
-                    ScutiLogger.LogException(e);
-                    UIManager.Alert.SetHeader("Out of Stock").SetBody("This item is out of stock. Please try again later.").SetButtonText("OK").Show(() => { });
-                    //UIManager.Open(UIManager.Offers);
-                }
+                    var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
 
+                    try
+                    {
+                        UIManager.OfferDetails.SetData(panelModel);
+                        UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(presenter.Data.VideoURL));
+                        UIManager.Open(UIManager.OfferDetails);
+                    }
+                    catch (Exception e)
+                    {
+                        ScutiLogger.LogException(e);
+                        UIManager.Alert.SetHeader("Out of Stock").SetBody("This item is out of stock. Please try again later.").SetButtonText("OK").Show(() => { });
+                        //UIManager.Open(UIManager.Offers);
+                    }
+                }
                 UIManager.HideLoading(false);
             }
         }
@@ -179,6 +181,6 @@ namespace Scuti.UI
         }
 
 
-        #endregion
+#endregion
     }
 }

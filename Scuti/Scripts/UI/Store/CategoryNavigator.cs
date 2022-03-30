@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Scuti.UI
 {
@@ -15,6 +16,8 @@ namespace Scuti.UI
     public class CategoryNavigator : MonoBehaviour
     {
         private bool _destroyed;
+
+        public Scuti.UISystem.OpacityTransition opacityTransition;
 
         public event Action<string> OnOpenRequest;
 
@@ -28,12 +31,23 @@ namespace Scuti.UI
         int m_Index;
         private bool _invalid = true;
 
+        [BoxGroup("Events")] public UnityEvent onShow;
+        [BoxGroup("Events")] public UnityEvent onHide;
+
         private void Start()
         {
             ScutiNetClient.Instance.OnAuthenticated += ResetCategories;
             ScutiNetClient.Instance.OnLogout += ResetCategories;
         }
 
+        //---
+
+        public float GetCanvasGroup()
+        {
+            return opacityTransition.group.alpha;
+        }
+
+        //---
 
         public async void OpenCurrent()
         {
@@ -132,6 +146,19 @@ namespace Scuti.UI
             ValidateIndex();
             OpenCurrent();
         }
+
+        public void Hide()
+        {
+            if (GetCanvasGroup() > 0)
+                onHide?.Invoke();
+        }
+
+        public void Show()
+        {
+            if(GetCanvasGroup() < 1)
+                onShow?.Invoke();
+        }
+
 
         private void ValidateIndex()
         {

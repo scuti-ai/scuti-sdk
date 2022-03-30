@@ -65,7 +65,7 @@ namespace Scuti.UI
             Debug.Log("DataCustomización: " + Data.Customization.SerializeJSON());
             customizationWidget.Data = Data.Customization;
             if(DescriptionScrollContent) DescriptionScrollContent.verticalNormalizedPosition = 1;
-            RecommendedWidget.SearchForRecommendations(Data.ShopName, Data.Info.ID);
+            //RecommendedWidget.SearchForRecommendations(Data.ShopName, Data.Info.ID); //TODO uncomment after we fix the issue with wrong offer prefab
         }
 
 
@@ -114,7 +114,6 @@ namespace Scuti.UI
             if (!ScutiNetClient.Instance.IsAuthenticated)
             {
                 UIManager.Open(UIManager.PromoAccount);
-                UIManager.PromoAccount.SetMessage("Create Account to Before Purchasing.");
                 return;
             }
 
@@ -127,7 +126,6 @@ namespace Scuti.UI
             if (!ScutiNetClient.Instance.IsAuthenticated)
             {
                 UIManager.Open(UIManager.PromoAccount);
-                UIManager.PromoAccount.SetMessage("Create Account to Add to Your Cart.");
                 return;
             }
 

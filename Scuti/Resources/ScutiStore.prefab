@@ -145,7 +145,7 @@ MonoBehaviour:
     instance: {fileID: 0}
   - id: TOPBAR
     view: {fileID: 114704480669402606, guid: e520e917c8490f54a9399ac2fcb2c153, type: 3}
-    view_portrait: {fileID: 114704480669402606, guid: 7370cc218ce5d44498015542c47f31d8,
+    view_portrait: {fileID: 114704480669402606, guid: a8d719a728153f040a787858ac03e9a8,
       type: 3}
     view_pc: {fileID: 114937602133350700, guid: d6a349bb9cf057b468388d76b13fedb3,
       type: 3}
@@ -508,6 +508,7 @@ GameObject:
   - component: {fileID: 114487081744072800}
   - component: {fileID: 114942104422593048}
   - component: {fileID: 114191979548969972}
+  - component: {fileID: 8942881100732373919}
   m_Layer: 0
   m_Name: ScutiStore
   m_TagString: Untagged
@@ -680,6 +681,18 @@ MonoBehaviour:
   - Category: 19
     Icon: {fileID: 21300000, guid: 48273d681b4b80e4fb1335f959bef633, type: 3}
     InActive: 0
+--- !u!114 &8942881100732373919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833577399175640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce5dd3527ca0e94597eb1bfd23519ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1882320012358154
 GameObject:
   m_ObjectHideFlags: 0
