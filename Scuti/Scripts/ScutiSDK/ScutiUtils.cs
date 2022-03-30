@@ -120,6 +120,52 @@ public class ScutiUtils  {
 #endif
 
     }
+
+    internal static bool TryOpenLink(Offer offer)
+    {
+
+
+#if UNITY_IOS
+
+            if (offer.AppleId == null)
+            {
+                return false;
+            }
+            else
+            {
+                ScutiAPI.EngagementWithProductMetric(0, 1, offer.Id.ToString());
+                AppstoreHandler.Instance.OpenAppInStore(offer.AppleId.ToString());
+                return true;
+            }
+
+#elif UNITY_ANDROID
+
+            if (offer.AndroidId == null)
+            {
+                return false;
+            }
+            else
+            {
+                ScutiAPI.EngagementWithProductMetric(0, 1, offer.Id.ToString());
+                AppstoreHandler.Instance.OpenAppInStore(offer.AndroidId);
+                return true;
+            }
+#else
+
+        if (offer.PcLink == null)
+        {
+            return false;
+        }
+        else
+        {
+            ScutiAPI.EngagementWithProductMetric(0, 1, offer.Id.ToString());
+            Application.OpenURL(offer.PcLink);
+            return true;
+        }
+#endif
+    }
+
+
     internal static string GetSupportInfo(string userInfo)
     {
         return ($"User {userInfo} | Game {ScutiNetClient.Instance.GameId} | Platform {Application.platform} | Device {SystemInfo.deviceModel}");

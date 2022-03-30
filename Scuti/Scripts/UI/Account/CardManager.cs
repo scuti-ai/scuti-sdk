@@ -212,7 +212,7 @@ namespace Scuti.UI
                         //Debug.LogError("SHOULD RE LOG NOW");
                     }
                 }    
-                ScutiLogger.LogError(ex);
+                ScutiLogger.LogException(ex);
             }
         }
 
@@ -238,7 +238,7 @@ namespace Scuti.UI
             {
                 UIManager.HideLoading(false);
                 UIManager.Alert.SetHeader("Error").SetBody("Card credit info failed.").SetButtonText("Ok").Show(() => { });
-                ScutiLogger.LogError(ex);
+                ScutiLogger.LogException(ex);
             }
         }
 
@@ -292,7 +292,7 @@ namespace Scuti.UI
             {
                 UIManager.HideLoading(false);
                 UIManager.Alert.SetHeader("Error").SetBody("Card credit info failed.").SetButtonText("Ok").Show(() => { });
-                ScutiLogger.LogError(ex);
+                ScutiLogger.LogException(ex);
             }
 
             TryToLoadData();
@@ -349,7 +349,7 @@ namespace Scuti.UI
             {
                 UIManager.HideLoading(false);
                 UIManager.Alert.SetHeader("Error").SetBody("Card credit info failed.").SetButtonText("Ok").Show(() => { });
-                ScutiLogger.LogError(ex);
+                ScutiLogger.LogException(ex);
                 UIManager.Card.Close();
             }
 

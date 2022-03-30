@@ -22,5 +22,17 @@ namespace Scuti {
 
             return flag;
         }
+
+        public void ResetView()
+        {
+            foreach (var subject in subjects)
+            {
+                var validatable = subject.GetComponent<Validatable>();
+                if (validatable == null) continue;
+
+                    validatable.ResetView();
+            }
+
+        }
     }
 }

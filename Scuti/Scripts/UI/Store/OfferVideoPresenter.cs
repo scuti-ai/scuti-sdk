@@ -175,10 +175,13 @@ namespace Scuti.UI
         {
             var id = Data.ID;
             var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
-            var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
-            UIManager.OfferDetails.SetData(panelModel);
-            UIManager.OfferDetails.SetIsVideo(true);
-            UIManager.Open(UIManager.OfferDetails);
+            if (!ScutiUtils.TryOpenLink(offer))
+            {
+                var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
+                UIManager.OfferDetails.SetData(panelModel);
+                UIManager.OfferDetails.SetIsVideo(true);
+                UIManager.Open(UIManager.OfferDetails);
+            }
         }
 
 

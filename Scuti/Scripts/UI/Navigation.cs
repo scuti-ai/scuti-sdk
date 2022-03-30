@@ -74,7 +74,8 @@ namespace Scuti {
         void OpenNonModal(View view) {
             // If this is the first element being added,
             // add it to the list and open it
-            if (history.Count == 0) {
+            if (history.Count == 0)
+            {
                 history.Add(view);
                 view.Open();
                 view.OnDestroyed += () => {
@@ -88,7 +89,7 @@ namespace Scuti {
             // If the same element is being added again, return
             if (history.Last() == view)
                 return;
-            
+
 
             // If the element is the same as the second last one, 
             // we close and remove the last element and open the last element (AKA the incoming one)
@@ -96,7 +97,7 @@ namespace Scuti {
             // instead of adding B again and opening it, which would have made it A>B>C>B (unnecessary repeatition)
             if (history.Count >= 2 && history.FromLast(1) == view && !allowHistoryRepeatition) {
                 history.Last().Close();
-                history.RemoveLast();
+                history.RemoveAt(history.Count - 1);
                 history.Last().Open();
                 view.OnDestroyed += () => {
                     history.Remove(view);
@@ -110,12 +111,14 @@ namespace Scuti {
             // So if the history was A>B>C and the incoming one was D, the history now would become A>B>C>D
             else {
                 history.Last().Close();
+                //history.RemoveLast();
                 history.Add(view);
                 history.Last().Open();
                 view.OnDestroyed += () => {
                     history.Remove(view);
                     AssignCurrentNonModal();
                 };
+                Debug.LogError("Added View: " + view + " and count " + history.Count);
                 AssignCurrentNonModal();
             }
         }
@@ -127,17 +130,21 @@ namespace Scuti {
                 currentNonModal = history.Last();
         }
 
-        public void Close() {
-            if (history.Count > 0)
-                history.RemoveLast();
+        public void Close()
+        {
+            if (history.Count > 0) { 
+                history.Last().Close();
+                history.RemoveAt(history.Count - 1);
+            }
         }
 
         public void Back()
         {
+            Debug.LogError("Back count: " + history.Count);
             if (history.Count > 0)
             {
                 history.Last().Close();
-                history.RemoveLast();
+                history.RemoveAt(history.Count - 1);
             }
 
             if (history.Count < 1)

@@ -438,5 +438,11 @@ namespace Scuti.UI
             removeCardButton.gameObject.SetActive(state);
         }
 
+        public override void Close()
+        {
+            base.Close();
+            if (validatorGroup != null)
+                validatorGroup.ResetView();
+        }
     }
 }

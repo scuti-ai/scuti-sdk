@@ -45,7 +45,7 @@ namespace Scuti.UI
             catch(Exception ex)
             {
                 UIManager.Alert.SetHeader("Failed to change password").SetBody($"Failed to change password").SetButtonText("Ok").Show(() => { });
-                ScutiLogger.LogError(ex);
+                ScutiLogger.LogException(ex);
             }
             changeButton.interactable = true;
         }
