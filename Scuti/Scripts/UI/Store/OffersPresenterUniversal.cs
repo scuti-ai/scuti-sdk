@@ -294,7 +294,6 @@ namespace Scuti.UI
 			PopulateOffers(_loadingSource.Token);
 #pragma warning restore 4014
 		}
-	}
         #endregion
 
         // ================================================
