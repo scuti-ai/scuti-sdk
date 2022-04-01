@@ -40,8 +40,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -73.310844}
-  m_SizeDelta: {x: 0, y: -146.62172}
+  m_AnchoredPosition: {x: 0, y: -124.99999}
+  m_SizeDelta: {x: 0, y: -250.00002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222989610099630442
 CanvasRenderer:
@@ -863,6 +863,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325533512204559411, guid: b332b56cb2338bb4aa1cea867241093f,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325533512204559411, guid: b332b56cb2338bb4aa1cea867241093f,
+        type: 3}
+      propertyPath: m_textInfo.spaceCount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325533512204559411, guid: b332b56cb2338bb4aa1cea867241093f,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325533512204559411, guid: b332b56cb2338bb4aa1cea867241093f,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325533512204559411, guid: b332b56cb2338bb4aa1cea867241093f,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5771120408004337090, guid: b332b56cb2338bb4aa1cea867241093f,
         type: 3}
