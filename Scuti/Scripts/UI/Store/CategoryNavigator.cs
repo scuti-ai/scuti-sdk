@@ -183,9 +183,35 @@ namespace Scuti.UI
             _destroyed = true;
         }
 
+
+        private Vector2 fingerDown;
+        private DateTime fingerDownTime;
+        private Vector2 fingerUp;
+        private DateTime fingerUpTime;
+
+        public float timeThreshold = 0.3f;
+
         private void Update()
         {
-	        if (Input.touchCount > 0)
+
+#if UNITY_STANDALONE || UNITY_EDITOR
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                fingerDown = Input.mousePosition;
+                fingerUp = Input.mousePosition;
+                fingerDownTime = DateTime.Now;
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                fingerDown = Input.mousePosition;
+                fingerUpTime = DateTime.Now;
+                CheckSwipe();
+            }
+
+#endif
+
+            if (Input.touchCount > 0)
 	        {
 		        var touch = Input.touches[0];
 		        if (touch.phase == TouchPhase.Began)
@@ -211,5 +237,26 @@ namespace Scuti.UI
         {
             _offersPresenterBase = offersPresenterBase;
         }
+
+        private void CheckSwipe()
+        {
+            float duration = (float) fingerUpTime.Subtract(fingerDownTime).TotalSeconds;
+            if (duration > timeThreshold) return;
+
+            Vector3 dirVector = fingerDown - fingerUp;
+            var direction = Vector3.Angle(Vector3.right, dirVector);
+
+            // Calculate swipe by angle
+            if(direction >= 135 && direction < 225)
+            {
+                Next();
+            }
+            else if (direction >= 315 && direction < 360 || direction >= 0 && direction < 45)
+            {
+                Previous();
+            }
+          
+        }
+
     }
 }

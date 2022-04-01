@@ -165,7 +165,11 @@ namespace Scuti.UI
         {
             try
             {
-				CalculateColumnWidth();
+				if (!columnSystem.isInitialized)
+				{
+					IntiColumnSystem();
+				}
+
                 m_ChangingCategories = true;
                 var max = GetActiveMax();
                 for (int i = 0; i < max; i++)
@@ -182,6 +186,7 @@ namespace Scuti.UI
                     template = GetTemplateForIndex(index);
                     container = GetContainerForIndex(index);
                     var widget = columnSystem.InstantiateWidget(template);
+					widget.gameObject.SetActive(false);
 					m_Instantiated.Add(widget);
                     widget.gameObject.hideFlags = HideFlags.DontSave;
                     widget.Inject(GetNext);
@@ -207,8 +212,10 @@ namespace Scuti.UI
 
                     if (newData == null)
                     {
-                        //Debug.LogError("Null data: " + gameObject);
-                        continue;
+                        //Debug.LogError("Null data: " + widget.gameObject);
+						m_Instantiated.Remove(widget);
+						Destroy(widget.gameObject);
+						continue;
                     }
                     widget.Data = newData;
                     widget.Data.Index = index;
@@ -220,10 +227,11 @@ namespace Scuti.UI
 
                     widget.OnClick -= OnPresenterClicked;
                     widget.OnClick += OnPresenterClicked;
-                }
+					widget.gameObject.SetActive(true);
+				}
 
 
-                await Task.Delay(250);
+				await Task.Delay(250);
                 //Debug.LogWarning(container_Large.childCount+"   ++++++++++++++    "+ container_Small.childCount);
                 OnPopulateFinished?.Invoke();
 
@@ -236,10 +244,11 @@ namespace Scuti.UI
             isInitilize = true;
         }
 
-		private void CalculateColumnWidth()
+		private void IntiColumnSystem()
 		{
-			columnSystem.ColumnWidth = widgetPrefab_Large.GetComponent<RectTransform>().rect.width;
-			columnSystem.Init();
+			var tempColumnWidth = widgetPrefab_Large.GetComponent<RectTransform>().rect.width;
+			columnSystem.Init(tempColumnWidth);
+			columnSystem.ScrollPass += LaodMoreWidgets;
 		}
 
 		private async void OnPresenterClicked(OfferSummaryPresenterBase presenter)
@@ -277,6 +286,14 @@ namespace Scuti.UI
         {
             return index < GetActiveLarge() ? container_Large : container_Small;
         }
+
+		public void LaodMoreWidgets()
+		{
+#pragma warning disable 4014
+			_loadingSource = new CancellationTokenSource();
+			PopulateOffers(_loadingSource.Token);
+#pragma warning restore 4014
+		}
         #endregion
 
         // ================================================
