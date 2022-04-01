@@ -243,22 +243,17 @@ namespace Scuti.UI
             float duration = (float) fingerUpTime.Subtract(fingerDownTime).TotalSeconds;
             if (duration > timeThreshold) return;
 
-            float deltaX = fingerDown.x - fingerUp.x;
+            Vector3 dirVector = fingerDown - fingerUp;
+            var direction = Vector3.Angle(Vector3.right, dirVector);
 
-            if (deltaX > SwipeThreshold)
-            {
-                Previous();
-                Debug.Log("Right swipe");
-            }
-            else if (deltaX < -SwipeThreshold)
+            // Calculate swipe by angle
+            if(direction >= 135 && direction < 225)
             {
                 Next();
-                Debug.Log("Left swipe");
             }
-            else 
-            
+            else if (direction >= 315 && direction < 360 || direction >= 0 && direction < 45)
             {
-                Debug.Log("NO SWIPE");
+                Previous();
             }
           
         }
