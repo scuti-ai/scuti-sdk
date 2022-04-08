@@ -35,7 +35,11 @@ public class TopBarView : View {
 
     public void Refresh()
     {
+        Debug.Log("TopBarView REFRESH");
+
         if (Wallet)
             Wallet.DoRefresh();
     }
+
+
 }
