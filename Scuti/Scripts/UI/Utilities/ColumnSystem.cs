@@ -14,6 +14,7 @@ namespace Scuti.UI
 		[SerializeField] private RectTransform _columPref;
 		[SerializeField] private RectTransform _container;
 		[SerializeField] private ScrollRect _scrollRect;
+		[SerializeField] private int _gapeBetweenColumns;
 		[Tooltip("How close to the end it's going to check for new offers")]
 		[SerializeField] [Slider(0,1)] private float _scrollThreshold;
 		[Tooltip("If you want to add a delay to the check in order to control the frecuency of new offers")]
@@ -35,7 +36,9 @@ namespace Scuti.UI
 #endif
 			var transf = GetComponent<RectTransform>();
 			var containerSize = GetComponent<RectTransform>().rect.width;
-			var numberOfColumns = Math.Floor(containerSize / (columnWidth + 50));
+			var numberOfColumns = Math.Floor(containerSize / (columnWidth + _gapeBetweenColumns));
+			Debug.Assert(numberOfColumns > 0, "Must be at least one column");
+
 			while (_columns.Count < numberOfColumns)
 			{
 				_columns.Add(Instantiate(_columPref, _container));
