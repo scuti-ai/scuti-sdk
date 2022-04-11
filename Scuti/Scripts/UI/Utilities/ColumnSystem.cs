@@ -69,6 +69,7 @@ namespace Scuti.UI
 		{
 #if UNITY_EDITOR
 			Debug.Assert(_columns != null, "Columns not assigned");
+			Debug.Assert(_columns.Count > 0, "Columns not assigned");
 #endif
 			// 1. Select the shortest Column
 			int minCol = ShortestColumn();

@@ -10678,7 +10678,7 @@ MonoBehaviour:
   Transitions: []
   MaxRecommendations: 3
   instantiationInterval: 0.5
-  widgetPrefab_Small: {fileID: 6617197698747965883, guid: 3f57bf63bac2c07428afd9d1a0adc55e,
+  widgetPrefab_Small: {fileID: 5812290780585175457, guid: 8252ca11f71e50b44882e79eedca011c,
     type: 3}
   container: {fileID: 224601116892076376}
   OnPopulateFinished:
