@@ -121,7 +121,7 @@ namespace Scuti {
                     AssignCurrentNonModal();
                 };
                 Debug.LogError("Added View: " + view + " and count " + history.Count);
-                UIManager.onBackButton?.Invoke(false);
+                ///UIManager.onBackButton?.Invoke(false);
                 AssignCurrentNonModal();
             }
         }
@@ -154,7 +154,7 @@ namespace Scuti {
 
             if (history.Count < 1)
             {
-                UIManager.onBackButton?.Invoke(true);
+                //UIManager.onBackButton?.Invoke(true);
                 // may happen if we do deep linking or ads
                 if (CurrentNonModal == UIManager.OfferDetails) Open(UIManager.Offers);
                 else
@@ -166,8 +166,8 @@ namespace Scuti {
             {               
                 history.Last().Open();
                 AssignCurrentNonModal();
-                if (history.Count < 2)
-                    UIManager.onBackButton?.Invoke(true);
+                //if (history.Count < 2)
+                  //  UIManager.onBackButton?.Invoke(true);
             }
 
         }
