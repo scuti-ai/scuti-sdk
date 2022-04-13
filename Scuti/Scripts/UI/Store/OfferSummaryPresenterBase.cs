@@ -449,7 +449,7 @@ namespace Scuti.UI
             {
                 if (sprite != null)
                 {
-                    //Destroy(sprite.texture);
+                    Destroy(sprite.texture);
 #if !UNITY_EDITOR
                     Destroy(sprite);
 #endif
@@ -633,7 +633,7 @@ namespace Scuti.UI
 #pragma warning restore
             } else 
             {
-                //Debug.LogError("Null state being set on " + gameObject.name +" "+gameObject.GetInstanceID());
+                Debug.LogError("Null state being set on " + gameObject.name +" "+gameObject.GetInstanceID());
                 gameObject.name = "Cleared";
             }
         }

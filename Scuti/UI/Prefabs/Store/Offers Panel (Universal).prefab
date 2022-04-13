@@ -604,8 +604,8 @@ MonoBehaviour:
   _container: {fileID: 6711852433903175478}
   _scrollRect: {fileID: 6711852434147956971}
   _gapeBetweenColumns: 50
-  _scrollThreshold: 0.05
-  _delay: 1
+  _scrollThreshold: 0.07
+  _delay: 0.5
 --- !u!225 &5550183489953691570
 CanvasGroup:
   m_ObjectHideFlags: 0

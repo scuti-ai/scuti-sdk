@@ -628,7 +628,6 @@ GameObject:
   - component: {fileID: 5812290780585175457}
   - component: {fileID: 5795079797880958981}
   - component: {fileID: 5811757302263620245}
-  - component: {fileID: 5811856700083974439}
   - component: {fileID: 5853530221274348618}
   - component: {fileID: 5853530221274348619}
   m_Layer: 5
@@ -835,33 +834,6 @@ MonoBehaviour:
   DownDuration: 0.05
   PressedScale: {x: 0.95, y: 0.95, z: 0.95}
   DefaultScale: {x: 1, y: 1, z: 1}
---- !u!114 &5811856700083974439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5853530221274348629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e74aa9da08038d4cb7d7793661cdb97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Enable: 0
-  OnSiblingIndexChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5812290780585175457}
-        m_MethodName: OnScrollIndexJumped
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &5853530221274348618
 MonoBehaviour:
   m_ObjectHideFlags: 0

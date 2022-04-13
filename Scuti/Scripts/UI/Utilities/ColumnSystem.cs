@@ -23,10 +23,12 @@ namespace Scuti.UI
 		
 		private List<RectTransform> _columns = new List<RectTransform>();
 		private List<float> _heights = new List<float>();
-		private List<GameObject> _children = new List<GameObject>();
+		private List<Transform> _children = new List<Transform>();
 
 		internal bool isInitialized = false;
 		internal Action ScrollPass;
+
+		private float columnSpacing;
 
 		internal void Init(float columnWidth)
 		{
@@ -47,6 +49,8 @@ namespace Scuti.UI
 			isInitialized = true;
 
 			_scrollRect.onValueChanged.AddListener(OnScroll);
+			//columnSpacing = 50; //TODO get this number from the actual column vertical layout
+			columnSpacing = _columPref.GetComponent<VerticalLayoutGroup>().spacing;
 		}
 
 		private void OnScroll(Vector2 arg0)
@@ -82,7 +86,7 @@ namespace Scuti.UI
 				_heights[minCol] += obj.IsTall ? 2 : 1;
 			}
 			var child = Instantiate(obj, _columns[minCol]);
-			_children.Add(child.gameObject);
+			_children.Add(child.transform);
 			return child;
 		}
 
@@ -119,9 +123,38 @@ namespace Scuti.UI
 			}
 		}
 
-		public List<GameObject> GetChildren()
+		private int RemoveElementFromItsColumn (Transform widget)
 		{
-			return _children;
+			var col = _columns.First(x => x.Find(widget.name));
+			var index = _columns.IndexOf(col);
+			_heights[index] -= widget.GetComponent<OfferSummaryPresenterUniversal>().IsTall ? 2 : 1;
+
+			return index;
+		}
+
+
+		internal void InfiniteScroll()
+		{
+			if (_children.Count <= 0) return;
+			// Get the frist element and add it to the end of the list.
+			var selected = _children[0];
+			_children.Remove(selected);
+			var col = RemoveElementFromItsColumn(selected);
+
+			_children.Add(selected);
+			int minCol = ShortestColumn();
+			selected.SetParent(_columns[minCol]); 
+			selected.SetAsLastSibling();
+			_heights[minCol] += selected.GetComponent<OfferSummaryPresenterUniversal>().IsTall ? 2 : 1;
+			var tempPos = _scrollRect.content.anchoredPosition;
+			tempPos.y -= selected.GetComponent<RectTransform>().sizeDelta.y - columnSpacing;
+			_scrollRect.content.anchoredPosition = tempPos;
+		}
+
+		internal void Remove(OfferSummaryPresenterUniversal widget)
+		{
+			_children.Remove(widget.transform);
+			RemoveElementFromItsColumn(widget.transform);
 		}
 	}
 }
