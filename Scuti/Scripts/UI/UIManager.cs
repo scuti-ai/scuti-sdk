@@ -127,6 +127,9 @@ namespace Scuti.UI {
             instance.navigation.Back();
         }
 
+        public static Action<bool> onBackButton;
+
+
         // OVERLAY
 
 
@@ -204,8 +207,6 @@ namespace Scuti.UI {
         {
             get { return Account["WELCOME"] as WelcomeView;  }
         }
-
-       
 
         public static WalletView Wallet {
             get { return Account["WALLET"] as WalletView; }

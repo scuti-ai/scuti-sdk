@@ -71,7 +71,8 @@ namespace Scuti {
             currentModal.Open();
         }
 
-        void OpenNonModal(View view) {
+        void OpenNonModal(View view) {         
+
             // If this is the first element being added,
             // add it to the list and open it
             if (history.Count == 0)
@@ -104,6 +105,7 @@ namespace Scuti {
                     AssignCurrentNonModal();
                 };
                 AssignCurrentNonModal();
+
                 return;
             }
 
@@ -119,6 +121,7 @@ namespace Scuti {
                     AssignCurrentNonModal();
                 };
                 Debug.LogError("Added View: " + view + " and count " + history.Count);
+                ///UIManager.onBackButton?.Invoke(false);
                 AssignCurrentNonModal();
             }
         }
@@ -141,14 +144,17 @@ namespace Scuti {
         public void Back()
         {
             Debug.LogError("Back count: " + history.Count);
+
             if (history.Count > 0)
             {
                 history.Last().Close();
-                history.RemoveAt(history.Count - 1);
+                history.RemoveAt(history.Count - 1);              
+
             }
 
             if (history.Count < 1)
             {
+                //UIManager.onBackButton?.Invoke(true);
                 // may happen if we do deep linking or ads
                 if (CurrentNonModal == UIManager.OfferDetails) Open(UIManager.Offers);
                 else
@@ -157,10 +163,13 @@ namespace Scuti {
                 return;
             }
             else
-            {
+            {               
                 history.Last().Open();
                 AssignCurrentNonModal();
+                //if (history.Count < 2)
+                  //  UIManager.onBackButton?.Invoke(true);
             }
+
         }
 
         public void Clear() {
