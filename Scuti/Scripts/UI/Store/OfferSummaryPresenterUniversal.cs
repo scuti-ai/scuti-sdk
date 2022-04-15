@@ -10,8 +10,6 @@ namespace Scuti.UI
 {
     public class OfferSummaryPresenterUniversal : OfferSummaryPresenterBase 
     {
-
-        
         public bool HasNext
         {
             get { return Next != null && !Next.ID.IsNullOrEmpty(); }
@@ -26,7 +24,6 @@ namespace Scuti.UI
         // ================================================
         #region LICECYCLE
         // ================================================
-
         public override void SetData(Model data)
         {
             if (m_Data != null)
@@ -38,7 +35,6 @@ namespace Scuti.UI
 
         protected override void SwapToNext()
         {
-
             if (HasNext)
             {
                 if (Next != null) Next.OnStateChanged -= OnNextStateChanged;

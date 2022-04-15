@@ -10,36 +10,32 @@ public class TopBarView : View {
     public WalletWidget Wallet;
 
     [Header("Customization")]
-    //[SerializeField] protected Image bannerImage;
     public BannerWidget Banner;
 
-    //public override void Open()
-    //{
-        //Debug.Log("OPEN BANNER");
-        //var first = (firstOpen);
-        //if (first)
-        //{
-        //    Scuti.UI.UIManager.ShowLoading(true);
-        //}
-        //else
-        //{
-        //    Banner.Play();
-        //}
-        //Banner.Open();
-    //}
-
-    protected virtual void PauseAds()
+    public override void Open()
     {
-        Banner.Pause();
+        base.Open();
+        Banner?.Open();
+    }
+
+    public void ResumeBanner()
+    {
+        ShowBanner(true);
+        Banner?.Play();
+    }
+    public void PauseBanner()
+    {
+        Banner?.Pause();
+    }
+
+    public void ShowBanner(bool value)
+    {
+        Banner?.gameObject.SetActive(value);
     }
 
     public void Refresh()
     {
-        Debug.Log("TopBarView REFRESH");
-
         if (Wallet)
             Wallet.DoRefresh();
     }
-
-
 }
