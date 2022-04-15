@@ -523,7 +523,8 @@ namespace Scuti.UI
                     AdContainer.SetActive(true);
                     foreach (var p in ProductVisualRules)
                     {
-                        p.Visual.SetActive(false);
+						if(p.Visual != null)
+							p.Visual.SetActive(false);
                     }
                     if(Data.Texture && (displayImage.sprite == null || Data.Texture != displayImage.sprite.texture))
                     {
