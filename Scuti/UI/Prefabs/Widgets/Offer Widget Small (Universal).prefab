@@ -847,7 +847,7 @@ MonoBehaviour:
     HideIfStatic: 0
   - Visual: {fileID: 0}
     HideIfStatic: 0
-  AdImage: {fileID: 0}
+  AdImage: {fileID: 8766155044024854979}
   IsTall: 0
 --- !u!95 &5795079797880958981
 Animator:
