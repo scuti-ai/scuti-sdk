@@ -534,7 +534,6 @@ namespace Scuti.UI
                 else
                 {
                     // Here doble offer
-                    //Blogs here
                    // AdContainer.SetActive(false);
                     foreach (var p in ProductVisualRules)
                     {

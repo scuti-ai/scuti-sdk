@@ -220,7 +220,6 @@ namespace Scuti.UI
                     }
                 }
 
-				//Debug.LogError("Adding " + mediaType + " due to " + item.DisplayAd + " and " + item.IsTall + "  " + item.TallURL);
                 OfferPool pool = GetPool(mediaType);
                 pool.AddNewItem(item);
             }
