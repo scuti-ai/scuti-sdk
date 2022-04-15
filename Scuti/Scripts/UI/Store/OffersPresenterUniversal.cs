@@ -214,6 +214,7 @@ namespace Scuti.UI
                     {
                         //Debug.LogError("Null data: " + widget.gameObject);
 						m_Instantiated.Remove(widget);
+						columnSystem.Remove(widget);
 						Destroy(widget.gameObject);
 						continue;
                     }
@@ -287,12 +288,20 @@ namespace Scuti.UI
             return index < GetActiveLarge() ? container_Large : container_Small;
         }
 
-		public void LaodMoreWidgets()
+		public async void LaodMoreWidgets()
 		{
+			var offersCount = m_Instantiated.Count;
+
 #pragma warning disable 4014
 			_loadingSource = new CancellationTokenSource();
-			PopulateOffers(_loadingSource.Token);
+			await PopulateOffers(_loadingSource.Token);
 #pragma warning restore 4014
+
+			//Nothing else is instantiated, then we need to invoke the infinite scroller
+			if (offersCount == m_Instantiated.Count)
+			{
+				columnSystem.InfiniteScroll();
+			}
 		}
         #endregion
 

@@ -65,7 +65,7 @@ namespace Scuti.UI
             Debug.Log("DataCustomización: " + Data.Customization.SerializeJSON());
             customizationWidget.Data = Data.Customization;
             if(DescriptionScrollContent) DescriptionScrollContent.verticalNormalizedPosition = 1;
-            //RecommendedWidget.SearchForRecommendations(Data.ShopName, Data.Info.ID); //TODO uncomment after we fix the issue with wrong offer prefab
+            RecommendedWidget.SearchForRecommendations(Data.ShopName, Data.Info.ID); //TODO uncomment after we fix the issue with wrong offer prefab
         }
 
 
