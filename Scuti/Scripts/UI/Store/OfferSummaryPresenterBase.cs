@@ -322,22 +322,15 @@ namespace Scuti.UI
             if (!_isPortrait || Data == null)
                 return;
 
+            var isHalfVisibleFrom = rect.IsHalfVisibleFrom();
             //rect.IsFullyVisibleFrom();
-            if (rect.IsHalfVisibleFrom() && rect.IsHalfVisibleFrom() != _lastVisibleState)
+            if (isHalfVisibleFrom && isHalfVisibleFrom != _lastVisibleState)
             {
                 _lastVisibleState = true;
-                //Blogs here
-                //timer.ResetTime(ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
-                //timer.Begin();
-                //_portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
-                //_portraitImpressionTimer.Start();
             }
-            else if (!rect.IsHalfVisibleFrom() && rect.IsHalfVisibleFrom() != _lastVisibleState)
+            else if (!isHalfVisibleFrom && isHalfVisibleFrom != _lastVisibleState)
             {
                 _lastVisibleState = false;
-                //Blogshere
-                //timer.Pause();
-                //_portraitImpressionTimer.Stop();
             }
 
         }
