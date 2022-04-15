@@ -300,7 +300,7 @@ namespace Scuti.UI
 			//Nothing else is instantiated, then we need to invoke the infinite scroller
 			if (offersCount == m_Instantiated.Count)
 			{
-			columnSystem.InfiniteScroll();
+				columnSystem.InfiniteScroll();
 			}
 		}
         #endregion

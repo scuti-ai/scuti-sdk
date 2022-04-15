@@ -38,9 +38,7 @@ namespace Scuti.UI
 #endif
 			var transf = GetComponent<RectTransform>();
 			var containerSize = GetComponent<RectTransform>().rect.width;
-			var numberOfColumns = Math.Floor(containerSize / (columnWidth + _gapeBetweenColumns));
-			Debug.Assert(numberOfColumns > 0, "Must be at least one column");
-
+			var numberOfColumns = Math.Max(1, Math.Floor(containerSize / (columnWidth + _gapeBetweenColumns)));
 			while (_columns.Count < numberOfColumns)
 			{
 				_columns.Add(Instantiate(_columPref, _container));
@@ -49,7 +47,6 @@ namespace Scuti.UI
 			isInitialized = true;
 
 			_scrollRect.onValueChanged.AddListener(OnScroll);
-			//columnSpacing = 50; //TODO get this number from the actual column vertical layout
 			columnSpacing = _columPref.GetComponent<VerticalLayoutGroup>().spacing;
 		}
 
@@ -115,12 +112,12 @@ namespace Scuti.UI
 		internal void Clear()
 		{
 			if (_columns == null) return;
-			foreach (var col in _columns)
+			foreach (var widget in _children)
 			{
-				foreach (Transform child in col)
-					if(child != col)
-						Destroy(child.gameObject);
+				RemoveElementFromItsColumn(widget);
+				Destroy(widget.gameObject);
 			}
+			_children.Clear();
 		}
 
 		private int RemoveElementFromItsColumn (Transform widget)
