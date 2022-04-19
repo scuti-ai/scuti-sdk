@@ -30,8 +30,6 @@ namespace Scuti.UI
         [SerializeField] ColumnSystem _colum;
         [SerializeField] Transform container_Large;
         [SerializeField] Transform container_Small;
-        [SerializeField] Transform container_Video;
-        [SerializeField] OfferVideoPresenter videoWidget;
         [SerializeField] ScrollRect scrollOffers;
 
         [Header("Scroll")]
@@ -50,9 +48,6 @@ namespace Scuti.UI
             Count
         }
 
-
-        private Vector3 _largeContainerDefaultPosition;
-
         // ================================================
         #region LIFECYCLE
         // ================================================
@@ -61,13 +56,13 @@ namespace Scuti.UI
         protected override void ResumeAds()
         {
             //base.ResumeAds();
-            videoWidget?.ResumeTimer();
+            UIManager.TopBar?.ResumeBanner();
         }
 
         protected override void PauseAds()
         {
             //base.PauseAds();
-            videoWidget?.PauseTimer();
+            if (!firstOpen) UIManager.TopBar?.PauseBanner();
         }
 
         #endregion
@@ -75,58 +70,15 @@ namespace Scuti.UI
         // ================================================
         #region CATEGORY AND PAGINATION
         // ================================================
-
-        protected override async Task ShowCategoryHelper(CancellationToken token) 
-        {
-            
-            if(container_Video!=null && videoWidget!=null) 
-            {
-                var pagination = Data.GetPagination(OfferService.MediaType.Product);
-                var offersPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Video }, OfferService.MediaType.Product, FILTER_TYPE.Eq, pagination.Category, null, null, pagination.VideoIndex, 1);
-                if(token.IsCancellationRequested)
-                {
-                    return;
-                }
-                
-                if (offersPage != null && offersPage.Nodes != null && offersPage.Nodes.Count>0)
-                {
-                    pagination.VideoIndex++;
-                    ShowVideo((offersPage.Nodes as List<Offer>)[0]);
-                } else
-                {
-                    pagination.VideoIndex=0;
-                    HideVideo();
-                }
-            }
-             
-        }
-
         private int GetActiveLarge()
         {
             return largeOffers + _activeVideoOffers;
         }
-
         
 
         private int GetActiveMax()
         {
             return maxOffers + _activeVideoOffers;
-        }
-
-        private void HideVideo()
-        {
-            _activeVideoOffers = videoOfferBackFill;
-            container_Video.gameObject.SetActive(false);
-            container_Large.position = container_Video.position;
-        }
-
-        private void ShowVideo(Offer offer)
-        {
-            _activeVideoOffers = 0;
-            container_Video.gameObject.SetActive(true);
-            container_Large.position = _largeContainerDefaultPosition;
-            videoWidget.SetDuration(15f);
-            videoWidget.Data = Mappers.GetVideoPresenterModel(offer);
         }
 
 
@@ -172,6 +124,7 @@ namespace Scuti.UI
 
                 m_ChangingCategories = true;
                 var max = GetActiveMax();
+                Debug.LogError("Popuplate offers: " + max);
                 for (int i = 0; i < max; i++)
                 { 
                     if (cancelToken.IsCancellationRequested) return;
@@ -257,18 +210,21 @@ namespace Scuti.UI
             UIManager.ShowLoading(false);
             var id = presenter.Data.ID;
             var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
-            var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
-            try
+            if (!ScutiUtils.TryOpenLink(offer))
             {
-                UIManager.OfferDetails.SetData(panelModel);
-                UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(presenter.Data.VideoURL));
-                UIManager.Open(UIManager.OfferDetails);
-            }
-            catch (Exception e)
-            {
-                ScutiLogger.LogException(e);
-                UIManager.Alert.SetHeader("Out of Stock").SetBody("This item is out of stock. Please try again later.").SetButtonText("OK").Show(() => { });
-                //UIManager.Open(UIManager.Offers);
+                var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
+                try
+                {
+                    UIManager.OfferDetails.SetData(panelModel);
+                    UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(presenter.Data.VideoURL));
+                    UIManager.Open(UIManager.OfferDetails);
+                }
+                catch (Exception e)
+                {
+                    ScutiLogger.LogException(e);
+                    UIManager.Alert.SetHeader("Out of Stock").SetBody("This item is out of stock. Please try again later.").SetButtonText("OK").Show(() => { });
+                    //UIManager.Open(UIManager.Offers);
+                }
             }
 
             UIManager.HideLoading(false);

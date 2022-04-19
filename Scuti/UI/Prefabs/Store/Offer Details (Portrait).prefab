@@ -6520,7 +6520,7 @@ MonoBehaviour:
     spaceCount: 25
     wordCount: 26
     linkCount: 0
-    lineCount: 3
+    lineCount: 4
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -15936,7 +15936,7 @@ PrefabInstance:
     - target: {fileID: 5024582829128870857, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 960
+      value: 904
       objectReference: {fileID: 0}
     - target: {fileID: 5024582829128870857, guid: 021f2a4c9ddc03c419635f9c4bd07ed2,
         type: 3}

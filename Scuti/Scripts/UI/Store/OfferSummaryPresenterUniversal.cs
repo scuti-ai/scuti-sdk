@@ -10,8 +10,6 @@ namespace Scuti.UI
 {
     public class OfferSummaryPresenterUniversal : OfferSummaryPresenterBase 
     {
-
-        
         public bool HasNext
         {
             get { return Next != null && !Next.ID.IsNullOrEmpty(); }
@@ -26,7 +24,6 @@ namespace Scuti.UI
         // ================================================
         #region LICECYCLE
         // ================================================
-
         public override void SetData(Model data)
         {
             if (m_Data != null)
@@ -38,7 +35,6 @@ namespace Scuti.UI
 
         protected override void SwapToNext()
         {
-
             if (HasNext)
             {
                 if (Next != null) Next.OnStateChanged -= OnNextStateChanged;
@@ -139,13 +135,13 @@ namespace Scuti.UI
                 //newBadge.SetActive(false);
                 //hotBadge.SetActive(false);
 
-            var list = new List<KeyValuePair<GameObject, bool>> {
-                new KeyValuePair<GameObject, bool>(hotPricePromo, Data.IsHotPrice),
-                new KeyValuePair<GameObject, bool>(recommendedPromo, Data.IsRecommended),
-                new KeyValuePair<GameObject, bool>(specialOfferPromo, Data.IsSpecialOffer),
-                new KeyValuePair<GameObject, bool>(bestsellerPromo, Data.IsBestSeller),
-                new KeyValuePair<GameObject, bool>(scutiPromo, Data.IsScuti)
-            };
+            //var list = new List<KeyValuePair<GameObject, bool>> {
+            //    new KeyValuePair<GameObject, bool>(hotPricePromo, Data.IsHotPrice),
+            //    new KeyValuePair<GameObject, bool>(recommendedPromo, Data.IsRecommended),
+            //    new KeyValuePair<GameObject, bool>(specialOfferPromo, Data.IsSpecialOffer),
+            //    new KeyValuePair<GameObject, bool>(bestsellerPromo, Data.IsBestSeller),
+            //    new KeyValuePair<GameObject, bool>(scutiPromo, Data.IsScuti)
+            //};
 
             //list.ForEach(x => x.Key.SetActive(false));
 

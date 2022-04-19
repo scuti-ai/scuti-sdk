@@ -136,21 +136,21 @@ namespace Scuti.UI
 
             //  New and Hot Badges only in portrait
            
-                newBadge.SetActive(false);
-                hotBadge.SetActive(false);
+            //    newBadge.SetActive(false);
+            //    hotBadge.SetActive(false);
 
-            var list = new List<KeyValuePair<GameObject, bool>> {
-                new KeyValuePair<GameObject, bool>(hotPricePromo, Data.IsHotPrice),
-                new KeyValuePair<GameObject, bool>(recommendedPromo, Data.IsRecommended),
-                new KeyValuePair<GameObject, bool>(specialOfferPromo, Data.IsSpecialOffer),
-                new KeyValuePair<GameObject, bool>(bestsellerPromo, Data.IsBestSeller),
-                new KeyValuePair<GameObject, bool>(scutiPromo, Data.IsScuti)
-            };
+            //var list = new List<KeyValuePair<GameObject, bool>> {
+            //    new KeyValuePair<GameObject, bool>(hotPricePromo, Data.IsHotPrice),
+            //    new KeyValuePair<GameObject, bool>(recommendedPromo, Data.IsRecommended),
+            //    new KeyValuePair<GameObject, bool>(specialOfferPromo, Data.IsSpecialOffer),
+            //    new KeyValuePair<GameObject, bool>(bestsellerPromo, Data.IsBestSeller),
+            //    new KeyValuePair<GameObject, bool>(scutiPromo, Data.IsScuti)
+            //};
 
-            list.ForEach(x => x.Key.SetActive(false));
+            //list.ForEach(x => x.Key.SetActive(false));
 
             brandText.text = Data.Brand;
-            GlowImage.gameObject.SetActive(false);
+            //GlowImage.gameObject.SetActive(false);
 
             // Show the rating if there is a rating
             bool hasRatingValue = Data.Rating > 0f && _isPortrait;

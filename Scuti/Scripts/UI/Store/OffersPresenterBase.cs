@@ -213,7 +213,7 @@ namespace Scuti.UI
 
                 if (item.DisplayAd)
                 {
-                    if (!string.IsNullOrEmpty(item.TallURL) && !ScutiUtils.IsPortrait()) mediaType = OfferService.MediaType.Vertical;
+                    if (!string.IsNullOrEmpty(item.TallURL) /*&& !ScutiUtils.IsPortrait()*/) mediaType = OfferService.MediaType.Vertical;
                     else if(!string.IsNullOrEmpty(item.SmallURL))
                     {
                         mediaType = OfferService.MediaType.SmallTile;
@@ -346,7 +346,6 @@ namespace Scuti.UI
 
 
         public Timer TimeoutTimer;
-        public BannerWidget Banner;
 
         public UnityEvent OnPopulateFinished;
         public UnityEvent OnClearFinished;
@@ -384,13 +383,11 @@ namespace Scuti.UI
             {
                 ResumeAds();
             }
-            Banner.Open();
         }
 
         public override void Close()
         {
             base.Close();
-
             PauseAds();
         }
 
@@ -399,7 +396,7 @@ namespace Scuti.UI
             m_Paused = false;
             m_Idle = false;
             TimeoutTimer.ResetTime(ScutiConstants.SCUTI_TIMEOUT);
-            Banner.Play();
+            UIManager.TopBar?.ResumeBanner();
             TimeoutTimer.Begin();
             foreach (var offer in m_Instantiated)
             {
@@ -410,8 +407,8 @@ namespace Scuti.UI
 
         protected virtual void PauseAds()
         {
-            Banner.Pause();
             m_Paused = true;
+            if (!firstOpen) UIManager.TopBar?.PauseBanner();
             TimeoutTimer.Pause();
             foreach (var offer in m_Instantiated)
             {
@@ -690,7 +687,6 @@ namespace Scuti.UI
 
             if (!m_Paused && GetNextRequestQueue.Count != 0 && !m_ChangingCategories)
             {
-
                 var tuple = GetNextRequestQueue.Peek();
                 var request = tuple.Item1;
                 var offerSummaryPresenter = tuple.Item2;

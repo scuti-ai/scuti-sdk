@@ -60,14 +60,7 @@ public class ScutiUtils  {
     {
         float pixelsWide = Camera.main.pixelWidth;
         float pixelsHigh = Camera.main.pixelHeight;
-
-        bool portrait = pixelsHigh > pixelsWide;
-        if(ScutiConstants.FORCE_LANDSCAPE)
-        {
-            portrait = false;
-        }
-
-        return portrait;
+        return  pixelsHigh > pixelsWide;
     }
 
     public static string StripHTML(string HTMLText)

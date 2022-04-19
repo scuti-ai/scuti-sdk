@@ -216,18 +216,7 @@ namespace Scuti.UI
         [SerializeField] protected TextMeshProUGUI ratingText;
         [SerializeField] protected TextMeshProUGUI brandText;
         [SerializeField] protected RatingStarsWidget ratingStarsWidget;
-
-        [Header("Badges")]
-        [SerializeField] protected GameObject newBadge;
-        [SerializeField] protected GameObject hotBadge;
-
-        [Header("Promos")]
-        [SerializeField] protected GameObject hotPricePromo;
-        [SerializeField] protected GameObject recommendedPromo;
-        [SerializeField] protected GameObject specialOfferPromo;
-        [SerializeField] protected GameObject bestsellerPromo;
-        [SerializeField] protected GameObject scutiPromo;
-        [SerializeField] protected Image GlowImage;
+ 
 
         float m_TimerDuration;
         float m_PriorSpeed = 1;
@@ -322,22 +311,15 @@ namespace Scuti.UI
             if (!_isPortrait || Data == null)
                 return;
 
+            var isHalfVisibleFrom = rect.IsHalfVisibleFrom();
             //rect.IsFullyVisibleFrom();
-            if (rect.IsHalfVisibleFrom() && rect.IsHalfVisibleFrom() != _lastVisibleState)
+            if (isHalfVisibleFrom && isHalfVisibleFrom != _lastVisibleState)
             {
                 _lastVisibleState = true;
-                //Blogs here
-                //timer.ResetTime(ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
-                //timer.Begin();
-                //_portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
-                //_portraitImpressionTimer.Start();
             }
-            else if (!rect.IsHalfVisibleFrom() && rect.IsHalfVisibleFrom() != _lastVisibleState)
+            else if (!isHalfVisibleFrom && isHalfVisibleFrom != _lastVisibleState)
             {
                 _lastVisibleState = false;
-                //Blogshere
-                //timer.Pause();
-                //_portraitImpressionTimer.Stop();
             }
 
         }
@@ -523,7 +505,8 @@ namespace Scuti.UI
                     AdContainer.SetActive(true);
                     foreach (var p in ProductVisualRules)
                     {
-                        p.Visual.SetActive(false);
+						if(p.Visual != null)
+							p.Visual.SetActive(false);
                     }
                     if(Data.Texture && (displayImage.sprite == null || Data.Texture != displayImage.sprite.texture))
                     {
@@ -660,43 +643,43 @@ namespace Scuti.UI
             titleText.text = TextElipsis(Data.Title, Single? 26:15);
             displayPriceText.text = ScutiUtils.FormatPrice(Data.DisplayPrice);
 
-            //  New and Hot Badges only in portrait
-            if (_isPortrait)
-            {
-                newBadge.SetActive(Data.IsNew);
-                hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
-            }
-            else
-            {
-                newBadge.SetActive(false);
-                hotBadge.SetActive(false);
-            }
+            ////  New and Hot Badges only in portrait
+            //if (_isPortrait)
+            //{
+            //    newBadge.SetActive(Data.IsNew);
+            //    hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
+            //}
+            //else
+            //{
+            //    newBadge.SetActive(false);
+            //    hotBadge.SetActive(false);
+            //}
 
             // Show ONLY THE FIRST promo that is applicable
-            var list = new List<KeyValuePair<GameObject, bool>> {
-                new KeyValuePair<GameObject, bool>(hotPricePromo, Data.IsHotPrice),
-                new KeyValuePair<GameObject, bool>(recommendedPromo, Data.IsRecommended),
-                new KeyValuePair<GameObject, bool>(specialOfferPromo, Data.IsSpecialOffer),
-                new KeyValuePair<GameObject, bool>(bestsellerPromo, Data.IsBestSeller),
-                new KeyValuePair<GameObject, bool>(scutiPromo, Data.IsScuti)
-            };
+            //var list = new List<KeyValuePair<GameObject, bool>> {
+            //    new KeyValuePair<GameObject, bool>(hotPricePromo, Data.IsHotPrice),
+            //    new KeyValuePair<GameObject, bool>(recommendedPromo, Data.IsRecommended),
+            //    new KeyValuePair<GameObject, bool>(specialOfferPromo, Data.IsSpecialOffer),
+            //    new KeyValuePair<GameObject, bool>(bestsellerPromo, Data.IsBestSeller),
+            //    new KeyValuePair<GameObject, bool>(scutiPromo, Data.IsScuti)
+            //};
 
-            list.ForEach(x => x.Key.SetActive(false));
+            //list.ForEach(x => x.Key.SetActive(false));
 
-            if (_isPortrait)
-            {
-                foreach (var pair in list)
-                {
-                    if (pair.Value)
-                    {
-                        pair.Key.SetActive(true);
-                        pair.Key.transform.localScale = Vector3.zero;
-                        break;
-                    }
-                }
-            }
+            //if (_isPortrait)
+            //{
+            //    foreach (var pair in list)
+            //    {
+            //        if (pair.Value)
+            //        {
+            //            pair.Key.SetActive(true);
+            //            pair.Key.transform.localScale = Vector3.zero;
+            //            break;
+            //        }
+            //    }
+            //}
 
-            GlowImage.gameObject.SetActive(false);
+            //GlowImage.gameObject.SetActive(false);
             brandText.text = Data.Brand;
             // Show the rating if there is a rating
             bool hasRatingValue = Data.Rating > 0f && _isPortrait;
