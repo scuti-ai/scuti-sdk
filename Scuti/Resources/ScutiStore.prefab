@@ -144,8 +144,8 @@ MonoBehaviour:
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
   - id: TOPBAR
-    view: {fileID: 114704480669402606, guid: e520e917c8490f54a9399ac2fcb2c153, type: 3}
-    view_portrait: {fileID: 114704480669402606, guid: a8d719a728153f040a787858ac03e9a8,
+    view: {fileID: 114704480669402606, guid: 0276557c835d32d49894dbae974a9c2d, type: 3}
+    view_portrait: {fileID: 114704480669402606, guid: 0276557c835d32d49894dbae974a9c2d,
       type: 3}
     view_pc: {fileID: 114937602133350700, guid: d6a349bb9cf057b468388d76b13fedb3,
       type: 3}

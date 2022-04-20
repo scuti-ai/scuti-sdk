@@ -245,7 +245,6 @@ namespace Scuti.UI
 
             Vector3 dirVector = fingerDown - fingerUp;
             var direction = Vector3.Angle(Vector3.right, dirVector);
-            var distance = Vector3.Distance(fingerDown, fingerUp);
 
             if(Vector3.Magnitude(dirVector) >= SwipeThreshold)
             {
