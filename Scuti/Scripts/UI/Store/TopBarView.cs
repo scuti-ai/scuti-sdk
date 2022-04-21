@@ -33,7 +33,11 @@ public class TopBarView : View {
             // Instance banners
             for (int i = 0; i < amountBanners - 1; i++)
             {
-                additionalBanners[i] = Instantiate(Banner, contentBanners.transform);
+                BannerWidget banner = Instantiate(Banner, contentBanners.transform);
+                banner.gameObject.name = "Banner -"+ (int)(i+1);
+                banner.SetIndex(i+1);
+                banner.SecondDelay = 10;
+                additionalBanners.Add(banner);
             }
             isAdditionalBanners = true;
         }

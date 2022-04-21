@@ -143,19 +143,19 @@ MonoBehaviour:
       type: 3}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
+  - id: DETAILS
+    view: {fileID: 114460696469063826, guid: e6593aaf93d797e4bbacaca49432347c, type: 3}
+    view_portrait: {fileID: 114460696469063826, guid: ad26bb25be468f840a0cac039278aaf2,
+      type: 3}
+    view_pc: {fileID: 0}
+    parent: {fileID: 224981712142982816}
+    instance: {fileID: 0}
   - id: TOPBAR
     view: {fileID: 114704480669402606, guid: 0276557c835d32d49894dbae974a9c2d, type: 3}
     view_portrait: {fileID: 114704480669402606, guid: a8d719a728153f040a787858ac03e9a8,
       type: 3}
     view_pc: {fileID: 114937602133350700, guid: d6a349bb9cf057b468388d76b13fedb3,
       type: 3}
-    parent: {fileID: 224981712142982816}
-    instance: {fileID: 0}
-  - id: DETAILS
-    view: {fileID: 114460696469063826, guid: e6593aaf93d797e4bbacaca49432347c, type: 3}
-    view_portrait: {fileID: 114460696469063826, guid: ad26bb25be468f840a0cac039278aaf2,
-      type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
   - id: CART

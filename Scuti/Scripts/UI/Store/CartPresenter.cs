@@ -126,6 +126,7 @@ namespace Scuti.UI
         {
             base.Open();
 
+            UIManager.TopBar.ShowBanner(false);
             TryToLoadData(_autoPurchase);
             _autoPurchase = false;
         }
