@@ -11,10 +11,11 @@ public class TopBarView : View {
 
     [SerializeField] private RectTransform contentBanners;
     [SerializeField] private float thresholdBanners = 30;
-    private float maxWidthContent;
-     private float widthBanner;
+    public float maxWidthContent;
+    public float widthBanner;
 
     [Header("Customization")]
+    public RectTransform rectBanner;
     public BannerWidget Banner;
     public List<BannerWidget> additionalBanners;
     private bool isAdditionalBanners;
@@ -23,8 +24,7 @@ public class TopBarView : View {
     {
         additionalBanners = new List<BannerWidget>();
 
-        widthBanner = Banner.GetComponent<RectTransform>().sizeDelta.x + thresholdBanners;
-        HorizontalLayoutGroup layout = contentBanners.GetComponent<HorizontalLayoutGroup>();
+        widthBanner = rectBanner.sizeDelta.x + thresholdBanners;
         maxWidthContent = contentBanners.rect.size.x;
         int amountBanners = (int)(maxWidthContent / widthBanner);
 
