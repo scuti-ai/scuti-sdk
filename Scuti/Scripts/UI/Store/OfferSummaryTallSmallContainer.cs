@@ -20,6 +20,8 @@ namespace Scuti.UI
         {
             Small.Clear();
             Tall.Clear();
+            Tall.gameObject.SetActive(false);
+            Small.gameObject.SetActive(false);
         }
 
         public virtual OfferService.MediaType RollForType(bool allowTall)
@@ -48,11 +50,16 @@ namespace Scuti.UI
 
         internal List<OfferSummaryPresenterBase> GetPresenters(OfferService.MediaType mediaType)
         {
+
             if (mediaType == OfferService.MediaType.Vertical)
             {
+                Tall.gameObject.SetActive(true);
+                Small.gameObject.SetActive(false);
                 return new List<OfferSummaryPresenterBase>() { Tall };
             } else
             {
+                Tall.gameObject.SetActive(false);
+                Small.gameObject.SetActive(true);
                 return Small.Presenters;
             }
 

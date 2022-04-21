@@ -33,9 +33,9 @@ public class TopBarView : View {
             // Instance banners
             for (int i = 0; i < amountBanners - 1; i++)
             {
-                additionalBanners[i] = Instantiate(Banner, contentBanners.transform);
+                //additionalBanners[i] = Instantiate(Banner, contentBanners.transform);
             }
-            isAdditionalBanners = true;
+            //isAdditionalBanners = true;
         }
     }
 

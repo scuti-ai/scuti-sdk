@@ -188,9 +188,8 @@ MonoBehaviour:
   - {fileID: 8462260927065788954, guid: bb741cf3dbd8e0946aa323ca823b8021, type: 3}
   - {fileID: 8462260927065788954, guid: c56e41c0905f77a47a4bae34706086e3, type: 3}
   - {fileID: 8462260927065788954, guid: ad80cfb20be3541439ad85bce063d9ca, type: 3}
-  SingleOffers: []
-  DoubleOffers: []
-  InfinityScroll: {fileID: 0}
+  InfinityScroll: {fileID: 3382885436544687115}
+  OfferContainer: {fileID: 1937714000244129893}
 --- !u!1 &1874380998344515918
 GameObject:
   m_ObjectHideFlags: 0
