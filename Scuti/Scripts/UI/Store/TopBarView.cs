@@ -34,8 +34,8 @@ public class TopBarView : View {
             for (int i = 0; i < amountBanners - 1; i++)
             {
                 BannerWidget banner = Instantiate(Banner, contentBanners.transform);
-                banner.gameObject.name = "Banner -"+ (int)(i+1);
-                banner.SetIndex(i+1);
+                banner.gameObject.name = "Banner - "+ (int)(i+1);
+                banner.SetIndex(i+amountBanners);
                 banner.SecondDelay = 10;
                 additionalBanners.Add(banner);
             }
