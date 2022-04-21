@@ -108,7 +108,7 @@ namespace Scuti.UI
                 offerData = Data.RequestOffer(mediaType);
 
                 // Fallback to products
-                if(offerData==null && mediaType != OfferService.MediaType.Product)
+                if(offerData==null && mediaType != OfferService.MediaType.Product && !presenter.Tall)
                 {
                     mediaType = OfferService.MediaType.Product;
                     offerData = Data.RequestOffer(mediaType);

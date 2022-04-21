@@ -189,6 +189,7 @@ namespace Scuti.UI
             base.SetData(data);
         }
 
+        public bool Tall = false;
         public bool Single = false;
         public bool FirstColumn = false;
         public bool FirstLoad = true;
