@@ -169,7 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6711852433903175478}
   - component: {fileID: 6711852433903175472}
-  - component: {fileID: 1228529093825565729}
+  - component: {fileID: 4920020039908410806}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
---- !u!114 &1228529093825565729
+--- !u!114 &4920020039908410806
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -219,20 +219,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 6711852433903175477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -405508275, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 50
-    m_Bottom: 180
-  m_ChildAlignment: 1
-  m_Spacing: 850
-  m_ChildForceExpandWidth: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 1
+  m_ChildControlHeight: 0
 --- !u!1 &6711852434147956975
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 6711852434147956971}
   - component: {fileID: 6711852434147956970}
   - component: {fileID: 6711852434147956969}
+  - component: {fileID: 6833632470825639025}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -337,6 +338,19 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &6833632470825639025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6711852434147956975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2a4de007475f744a9196927c90bfb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitByUser: 1
 --- !u!1 &6719652995991515295
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,6 +366,7 @@ GameObject:
   - component: {fileID: 6688462880291041945}
   - component: {fileID: 8612064632333804545}
   - component: {fileID: 8569693029584709572}
+  - component: {fileID: 7765180131126912137}
   m_Layer: 5
   m_Name: Offers Panel (Universal)
   m_TagString: Untagged
@@ -549,7 +564,6 @@ MonoBehaviour:
       serializedVersion: 2
       rgba: 4282029311
   TimeoutTimer: {fileID: 6688462880291041945}
-  Banner: {fileID: 9063960356049455529}
   OnPopulateFinished:
     m_PersistentCalls:
       m_Calls:
@@ -576,11 +590,9 @@ MonoBehaviour:
   widgetPrefab_Small: {fileID: 5812290780585175457, guid: 9055f49f3f902fc47a9a97c977735acb,
     type: 3}
   columnSystem: {fileID: 8569693029584709572}
-  _colum: {fileID: 0}
+  Rows: {fileID: 7765180131126912137}
   container_Large: {fileID: 6711852433903175478}
   container_Small: {fileID: 6711852433903175478}
-  container_Video: {fileID: 0}
-  videoWidget: {fileID: 0}
   scrollOffers: {fileID: 6711852434147956971}
   onTop: 0
   lastValue: 0
@@ -604,8 +616,28 @@ MonoBehaviour:
   _container: {fileID: 6711852433903175478}
   _scrollRect: {fileID: 6711852434147956971}
   _gapeBetweenColumns: 50
+  _preloadRows: 0
   _scrollThreshold: 0.07
   _delay: 0.5
+--- !u!114 &7765180131126912137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6719652995991515295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d5e55d9a06792742a8318b3d846f3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  widgetPrefab_Large: {fileID: 5853530221274348629, guid: c4c595c2a6e8f244d9e46340574dbb6c,
+    type: 3}
+  widgetPrefab_small: {fileID: 5853530221274348629, guid: 9055f49f3f902fc47a9a97c977735acb,
+    type: 3}
+  _rowPrefab: {fileID: 5866984886526167980, guid: c1c30e869facede42bdacf8a6b5d910d,
+    type: 3}
+  _contentTransform: {fileID: 6711852433903175478}
 --- !u!225 &5550183489953691570
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -658,6 +690,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6799217679093704245}
     m_Modifications:
+    - target: {fileID: 3405013027464347870, guid: 755d44a3c96e1d2479a763f353f55204,
+        type: 3}
+      propertyPath: mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8770991523672852180, guid: 755d44a3c96e1d2479a763f353f55204,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -773,6 +810,31 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8877126755909495076, guid: 755d44a3c96e1d2479a763f353f55204,
+        type: 3}
+      propertyPath: BannerImage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8877126755909495076, guid: 755d44a3c96e1d2479a763f353f55204,
+        type: 3}
+      propertyPath: SecondDelay
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8877126755909495076, guid: 755d44a3c96e1d2479a763f353f55204,
+        type: 3}
+      propertyPath: Rounded
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8877126755909495076, guid: 755d44a3c96e1d2479a763f353f55204,
+        type: 3}
+      propertyPath: timer
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8877549388625052246, guid: 755d44a3c96e1d2479a763f353f55204,
+        type: 3}
+      propertyPath: radius
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 755d44a3c96e1d2479a763f353f55204, type: 3}
 --- !u!224 &9169494293414372953 stripped
@@ -791,18 +853,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9063960356049455529 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8877126755909495076, guid: 755d44a3c96e1d2479a763f353f55204,
-    type: 3}
-  m_PrefabInstance: {fileID: 502226312620204173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4abaf3739c95979429f7c9620983d18c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8100744180494442427
@@ -925,12 +975,12 @@ PrefabInstance:
     - target: {fileID: 832299369986219809, guid: b643df62c68b3cb43bea1c7c33a03771,
         type: 3}
       propertyPath: onShow.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 832299369986219809, guid: b643df62c68b3cb43bea1c7c33a03771,
         type: 3}
       propertyPath: onHide.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 832299369986219809, guid: b643df62c68b3cb43bea1c7c33a03771,
         type: 3}
@@ -1001,7 +1051,12 @@ PrefabInstance:
         type: 3}
       propertyPath: opacityTransition
       value: 
-      objectReference: {fileID: 2727916517804823611}
+      objectReference: {fileID: 0}
+    - target: {fileID: 832299369986219809, guid: b643df62c68b3cb43bea1c7c33a03771,
+        type: 3}
+      propertyPath: Label
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2672694160404235733, guid: b643df62c68b3cb43bea1c7c33a03771,
         type: 3}
       propertyPath: m_textInfo.characterCount

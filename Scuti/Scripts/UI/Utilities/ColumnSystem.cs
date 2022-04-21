@@ -15,14 +15,15 @@ namespace Scuti.UI
 		[SerializeField] private RectTransform _container;
 		[SerializeField] private ScrollRect _scrollRect;
 		[SerializeField] private int _gapeBetweenColumns;
+		[SerializeField] private int _preloadRows;
 		[Tooltip("How close to the end it's going to check for new offers")]
 		[SerializeField] [Slider(0,1)] private float _scrollThreshold;
 		[Tooltip("If you want to add a delay to the check in order to control the frecuency of new offers")]
 		[SerializeField] private float _delay;
 		private float _time;
 		
-		private List<RectTransform> _columns = new List<RectTransform>();
-		private List<float> _heights = new List<float>();
+		private List<RectTransform> _rows = new List<RectTransform>();
+		//private List<float> _heights = new List<float>();
 		private List<Transform> _children = new List<Transform>();
 
 		internal bool isInitialized = false;
@@ -39,10 +40,10 @@ namespace Scuti.UI
 			var transf = GetComponent<RectTransform>();
 			var containerSize = GetComponent<RectTransform>().rect.width;
 			var numberOfColumns = Math.Max(1, Math.Floor(containerSize / (columnWidth + _gapeBetweenColumns)));
-			while (_columns.Count < numberOfColumns)
+			while (_rows.Count < numberOfColumns)
 			{
-				_columns.Add(Instantiate(_columPref, _container));
-				_heights.Add(0);
+				_rows.Add(Instantiate(_columPref, _container));
+				//_heights.Add(0);
 			}
 			isInitialized = true;
 
@@ -58,60 +59,61 @@ namespace Scuti.UI
 				_time = 0;
 			}
 		}
-		private void Update()
-		{
-			if (isInitialized)
-			{
-				if(_time <= _delay)
-				{
-					_time += Time.deltaTime;
-				}
-			}
-		}
+
+		//private void Update()
+		//{
+		//	if (isInitialized)
+		//	{
+		//		if(_time <= _delay)
+		//		{
+		//			_time += Time.deltaTime;
+		//		}
+		//	}
+		//}
 
 		public OfferSummaryPresenterUniversal InstantiateWidget(OfferSummaryPresenterUniversal obj)
 		{
 #if UNITY_EDITOR
-			Debug.Assert(_columns != null, "Columns not assigned");
-			Debug.Assert(_columns.Count > 0, "Columns not assigned");
+			Debug.Assert(_rows != null, "Columns not assigned");
+			Debug.Assert(_rows.Count > 0, "Columns not assigned");
 #endif
 			// 1. Select the shortest Column
-			int minCol = ShortestColumn();
+			int minCol = NextRow();
 			// 2. Add widget to column
-			if(_heights.Count > minCol)
-			{
-				_heights[minCol] += obj.IsTall ? 2 : 1;
-			}
-			var child = Instantiate(obj, _columns[minCol]);
+			//if(_heights.Count > minCol)
+			//{
+			//	_heights[minCol] += obj.IsTall ? 2 : 1;
+			//}
+			var child = Instantiate(obj, _rows[minCol]);
 			_children.Add(child.transform);
 			return child;
 		}
 
-		private int ShortestColumn()
+		private int NextRow()
 		{
-			if(_columns.Count == 1)
-			{
-				return 0;
-			}
+			//if(_rows.Count == 1)
+			//{
+			//	return _rows.Count;
+			//}
 
 			float height = float.MaxValue;
 			int minCol = 0;
-			for (int i = 0; i < _heights.Count; i++)
-			{
-				float col = _heights[i];
-				if (col < height)
-				{
-					height = col;
-					minCol = i;
-				}
-			}
+			//for (int i = 0; i < _heights.Count; i++)
+			//{
+			//	float col = _heights[i];
+			//	if (col < height)
+			//	{
+			//		height = col;
+			//		minCol = i;
+			//	}
+			//}
 
 			return minCol;
 		}
 
 		internal void Clear()
 		{
-			if (_columns == null) return;
+			if (_rows == null) return;
 			foreach (var widget in _children)
 			{
 				RemoveElementFromItsColumn(widget);
@@ -122,9 +124,9 @@ namespace Scuti.UI
 
 		private int RemoveElementFromItsColumn (Transform widget)
 		{
-			var col = _columns.First(x => x.Find(widget.name));
-			var index = _columns.IndexOf(col);
-			_heights[index] -= widget.GetComponent<OfferSummaryPresenterUniversal>().IsTall ? 2 : 1;
+			var col = _rows.First(x => x.Find(widget.name));
+			var index = _rows.IndexOf(col);
+			//_heights[index] -= widget.GetComponent<OfferSummaryPresenterUniversal>().IsTall ? 2 : 1;
 
 			return index;
 		}
@@ -139,10 +141,10 @@ namespace Scuti.UI
 			var col = RemoveElementFromItsColumn(selected);
 
 			_children.Add(selected);
-			int minCol = ShortestColumn();
-			selected.SetParent(_columns[minCol]); 
+			int minCol = NextRow();
+			selected.SetParent(_rows[minCol]); 
 			selected.SetAsLastSibling();
-			_heights[minCol] += selected.GetComponent<OfferSummaryPresenterUniversal>().IsTall ? 2 : 1;
+			//_heights[minCol] += selected.GetComponent<OfferSummaryPresenterUniversal>().IsTall ? 2 : 1;
 			var tempPos = _scrollRect.content.anchoredPosition;
 			tempPos.y -= selected.GetComponent<RectTransform>().sizeDelta.y - columnSpacing;
 			_scrollRect.content.anchoredPosition = tempPos;

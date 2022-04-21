@@ -27,7 +27,7 @@ namespace Scuti.UI
         [SerializeField] OfferSummaryPresenterUniversal widgetPrefab_Large;
         [SerializeField] OfferSummaryPresenterUniversal widgetPrefab_Small;
         [SerializeField] ColumnSystem columnSystem;
-        [SerializeField] ColumnSystem _colum;
+        [SerializeField] InfiniteScrollWithRows Rows;
         [SerializeField] Transform container_Large;
         [SerializeField] Transform container_Small;
         [SerializeField] ScrollRect scrollOffers;
@@ -120,10 +120,12 @@ namespace Scuti.UI
 				if (!columnSystem.isInitialized)
 				{
 					IntiColumnSystem();
+
 				}
 
                 m_ChangingCategories = true;
                 var max = GetActiveMax();
+				Rows.Init(max);
                 Debug.LogError("Popuplate offers: " + max);
                 for (int i = 0; i < max; i++)
                 { 
@@ -138,7 +140,7 @@ namespace Scuti.UI
                     // Currently, the first two offers are large, the other are small
                     template = GetTemplateForIndex(index);
                     container = GetContainerForIndex(index);
-                    var widget = columnSystem.InstantiateWidget(template);
+                    var widget = Rows.InstantiateWidget(template);
 					widget.gameObject.SetActive(false);
 					m_Instantiated.Add(widget);
                     widget.gameObject.hideFlags = HideFlags.DontSave;
@@ -202,7 +204,7 @@ namespace Scuti.UI
 		{
 			var tempColumnWidth = widgetPrefab_Large.GetComponent<RectTransform>().rect.width;
 			columnSystem.Init(tempColumnWidth);
-			columnSystem.ScrollPass += LaodMoreWidgets;
+			//columnSystem.ScrollPass += LaodMoreWidgets;
 		}
 
 		private async void OnPresenterClicked(OfferSummaryPresenterBase presenter)
