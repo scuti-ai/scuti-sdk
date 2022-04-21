@@ -3,8 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using HorizontalLayoutGroup = UnityEngine.UI.HorizontalLayoutGroup;
-using Image = UnityEngine.UI.Image;
+using UnityEngine.UI;
 
 public class TopBarView : View {
 
