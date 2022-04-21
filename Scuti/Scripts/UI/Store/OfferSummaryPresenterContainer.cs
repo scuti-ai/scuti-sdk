@@ -8,8 +8,16 @@ using Scuti.Net;
 
 namespace Scuti.UI
 {
-    public class OfferSummaryPresenterPortrait : View
+    public class OfferSummaryPresenterContainer : View
     {
         public List<OfferSummaryPresenterBase> Presenters;
+
+        internal void Clear()
+        {
+            foreach(var pres in Presenters)
+            {
+                pres.Clear();
+            }
+        }
     }
 }

@@ -8,7 +8,6 @@ namespace Scuti {
         public string id = "New View Instantiator";
         public View view;
         public View view_portrait;
-        public View view_pc;
         public Transform parent;
 
         [ReadOnly] [SerializeField] View instance;
@@ -24,7 +23,7 @@ namespace Scuti {
 
 
             bool portrait = ScutiUtils.IsPortrait();
-            var v = portrait && view_portrait != null ? view_portrait : (UIManager.IsLargeDisplay() && view_pc!=null) ? view_pc :  view;
+            var v = portrait && view_portrait != null ? view_portrait : view;
             instance = MonoBehaviour.Instantiate(v, parent);
             instance.gameObject.hideFlags = HideFlags.DontSave;
             return instance;

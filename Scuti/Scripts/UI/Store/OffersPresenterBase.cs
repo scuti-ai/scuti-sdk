@@ -339,12 +339,6 @@ namespace Scuti.UI
         }
 
 
-        [Header("Customization")]
-        [SerializeField] protected Image bannerImage;
-        [SerializeField] protected Sprite[] backgrounds;
-        [SerializeField] protected OfferColorData[] colorInfo;
-
-
         public Timer TimeoutTimer;
 
         public UnityEvent OnPopulateFinished;
@@ -515,8 +509,8 @@ namespace Scuti.UI
                 _offerSources.Add(source);
                 await ShowCategoryHelper(source.Token);
                 await RequestMoreOffers(false, source.Token, offerDataToRequest, OfferService.MediaType.Product);
-                if(!ScutiUtils.IsPortrait())await RequestMoreOffers(false, source.Token, offerDataToRequest, OfferService.MediaType.Vertical);
-                await RequestMoreOffers(false, source.Token, offerDataToRequest, OfferService.MediaType.SmallTile);
+                await RequestMoreOffers(false, source.Token, offerDataToRequest/3, OfferService.MediaType.Vertical);
+                await RequestMoreOffers(false, source.Token, offerDataToRequest/2, OfferService.MediaType.SmallTile);
 
 #pragma warning disable 4014
                 _loadingSource = new CancellationTokenSource();
@@ -748,16 +742,6 @@ namespace Scuti.UI
         protected virtual void OnWidgetLoaded(bool initial, OfferSummaryPresenterBase widget)
         {
         }
-
-        protected OfferColorData GetColorInfo(int index)
-        {
-            // Hack to force light blue for now
-            index = 4;
-
-            if (index >= colorInfo.Length) index = colorInfo.Length - (index % colorInfo.Length)-1;
-            return colorInfo[index];
-        }
-
         
 #endregion
     }

@@ -3,18 +3,19 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 using UnityEngine;
+using ScrollRect = UnityEngine.UI.ScrollRect;
 using Image = UnityEngine.UI.Image;
 using Scuti.GraphQL.Generated;
 
 using System.Threading;
 using Scuti.Net;
 using UnityEngine.Events;
+using UnityEngine.EventSystems; 
 
 namespace Scuti.UI
 {
-    public class OffersPresenterLandscape : OffersPresenterBase
+    public class OffersPresenterUniversalOld : OffersPresenterBase
     {
-
 
         [Header("Settings")]
         [SerializeField] int maxOffers = 6;
@@ -23,14 +24,29 @@ namespace Scuti.UI
         [SerializeField] float showDuration = 5;
 
         [Header("Instantiation")]
-        [SerializeField] OfferSummaryPresenterLandscape widgetPrefab_Large;
-        [SerializeField] OfferSummaryPresenterLandscape widgetPrefab_Small;
+        [SerializeField] OfferSummaryPresenterUniversal widgetPrefab_Large;
+        [SerializeField] OfferSummaryPresenterUniversal widgetPrefab_Small;
+        [SerializeField] ColumnSystem columnSystem;
+        [SerializeField] InfiniteScrollWithRows Rows;
         [SerializeField] Transform container_Large;
         [SerializeField] Transform container_Small;
-        [SerializeField] Transform container_Video;
-        [SerializeField] OfferVideoPresenter videoWidget;
+        [SerializeField] ScrollRect scrollOffers;
 
-        private Vector3 _largeContainerDefaultPosition;
+        [Header("Scroll")]
+        [SerializeField] bool onTop;
+        [SerializeField] float lastValue = 0;
+        [SerializeField] bool isDown;
+        [SerializeField] ScrollStateTag scrollState;
+
+
+        [SerializeField] bool isInitilize = false;
+
+        public enum ScrollStateTag
+        {
+            isUp,
+            isDown,
+            Count
+        }
 
         // ================================================
         #region LIFECYCLE
@@ -39,14 +55,14 @@ namespace Scuti.UI
 
         protected override void ResumeAds()
         {
-            base.ResumeAds();
-            videoWidget?.ResumeTimer();
+            //base.ResumeAds();
+            UIManager.TopBar?.ResumeBanner();
         }
 
         protected override void PauseAds()
         {
-            base.PauseAds();
-            videoWidget?.PauseTimer();
+            //base.PauseAds();
+            if (!firstOpen) UIManager.TopBar?.PauseBanner();
         }
 
         #endregion
@@ -54,58 +70,15 @@ namespace Scuti.UI
         // ================================================
         #region CATEGORY AND PAGINATION
         // ================================================
-
-        protected override async Task ShowCategoryHelper(CancellationToken token) 
-        {
-            
-            if(container_Video!=null && videoWidget!=null) 
-            {
-                var pagination = Data.GetPagination(OfferService.MediaType.Product);
-                var offersPage = await ScutiNetClient.Instance.Offer.GetOffers(new List<CampaignType> { CampaignType.Video }, OfferService.MediaType.Product, FILTER_TYPE.Eq, pagination.Category, null, null, pagination.VideoIndex, 1);
-                if(token.IsCancellationRequested)
-                {
-                    return;
-                }
-                
-                if (offersPage != null && offersPage.Nodes != null && offersPage.Nodes.Count>0)
-                {
-                    pagination.VideoIndex++;
-                    ShowVideo((offersPage.Nodes as List<Offer>)[0]);
-                } else
-                {
-                    pagination.VideoIndex=0;
-                    HideVideo();
-                }
-            }
-             
-        }
-
         private int GetActiveLarge()
         {
             return largeOffers + _activeVideoOffers;
         }
-
         
 
         private int GetActiveMax()
         {
             return maxOffers + _activeVideoOffers;
-        }
-
-        private void HideVideo()
-        {
-            _activeVideoOffers = videoOfferBackFill;
-            container_Video.gameObject.SetActive(false);
-            container_Large.position = container_Video.position;
-        }
-
-        private void ShowVideo(Offer offer)
-        {
-            _activeVideoOffers = 0;
-            container_Video.gameObject.SetActive(true);
-            container_Large.position = _largeContainerDefaultPosition;
-            videoWidget.SetDuration(15f);
-            videoWidget.Data = Mappers.GetVideoPresenterModel(offer);
         }
 
 
@@ -120,11 +93,15 @@ namespace Scuti.UI
         public override void Clear()
         {
             base.Clear();
+			columnSystem.Clear();
+
+			/*
             foreach (Transform child in container_Large)
                 Destroy(child.gameObject);
 
             foreach (Transform child in container_Small)
                 Destroy(child.gameObject);
+			*/
         }
 
    
@@ -140,13 +117,21 @@ namespace Scuti.UI
         {
             try
             {
+				if (!columnSystem.isInitialized)
+				{
+					IntiColumnSystem();
+
+				}
+
                 m_ChangingCategories = true;
                 var max = GetActiveMax();
+				Rows.Init(max);
+                Debug.LogError("Popuplate offers: " + max);
                 for (int i = 0; i < max; i++)
                 { 
                     if (cancelToken.IsCancellationRequested) return;
 
-                    OfferSummaryPresenterLandscape template;
+                    OfferSummaryPresenterUniversal template;
                     Transform container;
 
                     var index = i;
@@ -155,8 +140,9 @@ namespace Scuti.UI
                     // Currently, the first two offers are large, the other are small
                     template = GetTemplateForIndex(index);
                     container = GetContainerForIndex(index);
-                    var widget = Instantiate(template, container);
-                    m_Instantiated.Add(widget);
+                    var widget = Rows.InstantiateWidget(template);
+					widget.gameObject.SetActive(false);
+					m_Instantiated.Add(widget);
                     widget.gameObject.hideFlags = HideFlags.DontSave;
                     widget.Inject(GetNext);
                     //var colorData = GetColorInfo(index);
@@ -181,8 +167,11 @@ namespace Scuti.UI
 
                     if (newData == null)
                     {
-                        //Debug.LogError("Null data: " + gameObject);
-                        continue;
+                        //Debug.LogError("Null data: " + widget.gameObject);
+						m_Instantiated.Remove(widget);
+						columnSystem.Remove(widget);
+						Destroy(widget.gameObject);
+						continue;
                     }
                     widget.Data = newData;
                     widget.Data.Index = index;
@@ -194,10 +183,11 @@ namespace Scuti.UI
 
                     widget.OnClick -= OnPresenterClicked;
                     widget.OnClick += OnPresenterClicked;
-                }
+					widget.gameObject.SetActive(true);
+				}
 
 
-                await Task.Delay(250);
+				await Task.Delay(250);
                 //Debug.LogWarning(container_Large.childCount+"   ++++++++++++++    "+ container_Small.childCount);
                 OnPopulateFinished?.Invoke();
 
@@ -206,11 +196,18 @@ namespace Scuti.UI
             {
                 ScutiLogger.LogException(e);
             }
+
+            isInitilize = true;
         }
 
-         
+		private void IntiColumnSystem()
+		{
+			var tempColumnWidth = widgetPrefab_Large.GetComponent<RectTransform>().rect.width;
+			columnSystem.Init(tempColumnWidth);
+			//columnSystem.ScrollPass += LaodMoreWidgets;
+		}
 
-        private async void OnPresenterClicked(OfferSummaryPresenterBase presenter)
+		private async void OnPresenterClicked(OfferSummaryPresenterBase presenter)
         {
             UIManager.ShowLoading(false);
             var id = presenter.Data.ID;
@@ -231,6 +228,7 @@ namespace Scuti.UI
                     //UIManager.Open(UIManager.Offers);
                 }
             }
+
             UIManager.HideLoading(false);
         }
 
@@ -238,7 +236,7 @@ namespace Scuti.UI
         {
             loadedWidgetQueue.Enqueue(new Tuple<OfferSummaryPresenterBase, bool>(widget, initial));
         }
-        OfferSummaryPresenterLandscape GetTemplateForIndex(int index)
+        OfferSummaryPresenterUniversal GetTemplateForIndex(int index)
         {
             return index < GetActiveLarge() ? widgetPrefab_Large : widgetPrefab_Small;
         }
@@ -247,6 +245,108 @@ namespace Scuti.UI
         {
             return index < GetActiveLarge() ? container_Large : container_Small;
         }
-#endregion
+
+		public async void LaodMoreWidgets()
+		{
+			var offersCount = m_Instantiated.Count;
+
+#pragma warning disable 4014
+			_loadingSource = new CancellationTokenSource();
+			await PopulateOffers(_loadingSource.Token);
+#pragma warning restore 4014
+
+			//Nothing else is instantiated, then we need to invoke the infinite scroller
+			if (offersCount == m_Instantiated.Count)
+			{
+				columnSystem.InfiniteScroll();
+			}
+		}
+        #endregion
+
+        // ================================================
+        #region Scroll Detect
+
+        /*protected override void Awake()
+        {
+            Debug.Log("Scroll initialize");
+            scrollOffers.onValueChanged.AddListener(scrollRectCallBack);
+            lastValue = scrollOffers.horizontalNormalizedPosition;
+            isDown = true;
+            scrollTag = ScrollTag.isUp;
+        }*/
+
+        void OnEnable()
+        {
+            scrollOffers.onValueChanged.AddListener(scrollRectCallBack);
+            lastValue = scrollOffers.verticalNormalizedPosition;
+            onTop = true;
+            GetNavigator().Show();
+        }
+
+
+        void scrollRectCallBack(Vector2 value)
+        {
+            if (!isInitilize)
+                return;
+
+            if(scrollOffers.velocity.y <= 0.1f && lastValue >= 0.95f)
+            {
+                if (onTop)
+                    return;
+
+                scrollState = ScrollStateTag.isUp;
+                GetNavigator().Show();               
+                isDown = false;
+                onTop = true;
+            }
+            else if(lastValue < 0.95f)
+            {
+                onTop = false;
+                if (lastValue <= scrollOffers.verticalNormalizedPosition)
+                {
+                    if (scrollState != ScrollStateTag.isUp)
+                    {
+                        scrollState = ScrollStateTag.isUp;
+                        CheckChange();
+                        isDown = false;
+
+                    }
+                }
+                else if (lastValue > scrollOffers.verticalNormalizedPosition)
+                {
+
+                    if (scrollState != ScrollStateTag.isDown)
+                    {
+                        scrollState = ScrollStateTag.isDown;
+                        CheckChange();
+                        isDown = true;
+                    }
+                }
+            }                 
+
+            lastValue = scrollOffers.verticalNormalizedPosition;
+
+        }
+
+        private void CheckChange()
+        {
+
+            if (isDown && scrollState == ScrollStateTag.isUp)
+            {
+                GetNavigator().Show();
+            }            
+            else if(!isDown && scrollState == ScrollStateTag.isDown)
+            { 
+                GetNavigator().Hide();
+            }
+               
+            
+        }
+
+        void OnDisable()
+        {
+            scrollOffers.onValueChanged.RemoveListener(scrollRectCallBack);
+        }
+        #endregion
     }
 }

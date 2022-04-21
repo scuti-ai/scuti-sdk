@@ -136,8 +136,8 @@ MonoBehaviour:
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
   - id: OFFERS
-    view: {fileID: 8612064632333804545, guid: c573fb3f8960f93478e445c51c66e4ad, type: 3}
-    view_portrait: {fileID: 8612064632333804545, guid: c573fb3f8960f93478e445c51c66e4ad,
+    view: {fileID: 5220054516801358695, guid: 62f4c71f7cfc98c468474ae9a615a16b, type: 3}
+    view_portrait: {fileID: 5220054516801358695, guid: 62f4c71f7cfc98c468474ae9a615a16b,
       type: 3}
     view_pc: {fileID: 3080986844477801138, guid: d0014075c4db0094e83ff60b8f9eff67,
       type: 3}
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96

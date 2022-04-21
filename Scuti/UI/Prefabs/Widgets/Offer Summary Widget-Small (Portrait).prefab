@@ -1390,6 +1390,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Transitions: []
+  Tall: 0
   Single: 1
   FirstColumn: 0
   FirstLoad: 1
@@ -1402,14 +1403,6 @@ MonoBehaviour:
   ratingText: {fileID: 2149191937632664361}
   brandText: {fileID: 7043113048152663435}
   ratingStarsWidget: {fileID: 114622562493505216}
-  newBadge: {fileID: 1662791525431388}
-  hotBadge: {fileID: 1597992693908690}
-  hotPricePromo: {fileID: 1731074414370216}
-  recommendedPromo: {fileID: 1066748463993122}
-  specialOfferPromo: {fileID: 1047668284505080}
-  bestsellerPromo: {fileID: 1647026476508324}
-  scutiPromo: {fileID: 1113423411047398}
-  GlowImage: {fileID: 114770090461563716}
   AdContainer: {fileID: 1755216328285900}
   ProductVisualRules:
   - Visual: {fileID: 1572720323770944}
@@ -3070,10 +3063,10 @@ RectTransform:
   m_Father: {fileID: 224114643527486000}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 432.79083}
+  m_SizeDelta: {x: 432.79083, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &222697738918697638
 CanvasRenderer:

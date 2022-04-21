@@ -24,7 +24,6 @@ namespace Scuti.UI {
 
         void Awake() {
             instance = this;
-            DetermineLayout();
             LoadingBlocker.Close();
 
             var eventSystems = FindObjectsOfType<EventSystem>();
@@ -70,25 +69,6 @@ namespace Scuti.UI {
         }
 
        
-
-        private void DetermineLayout()
-        {
-            _useLargeLayout = false;
-            // TODO: Re-enable when we finish portrait mode + test PC mode -mg
-//#if UNITY_EDITOR
-//            _useLargeLayout = EditorUseLargeDisplay;
-//#elif UNITY_STANDALONE
-//            _useLargeLayout = true;
-//#else
-//            _useLargeLayout = false;
-//#endif
-        }
-
-        public static bool IsLargeDisplay()
-        {
-            return instance._useLargeLayout;
-        }
-
 
         public static Navigation Navigator
         {

@@ -18,7 +18,6 @@ namespace Scuti.UI
         private bool loadingNextCompleted = false;
 
 
-        public bool IsTall = false;
 
 
         // ================================================

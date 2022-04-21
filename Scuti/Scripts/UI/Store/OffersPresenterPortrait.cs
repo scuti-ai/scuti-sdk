@@ -24,7 +24,7 @@ namespace Scuti.UI
         //[SerializeField] Transform container;
 
         public List<OfferSummaryPresenterBase> SingleOffers;
-        public List<OfferSummaryPresenterPortrait> DoubleOffers;
+        public List<OfferSummaryPresenterContainer> DoubleOffers;
         private List<OfferSummaryPresenterBase> _allOffers;
 
         public ScutiInfiniteScroll InfinityScroll;
@@ -108,7 +108,7 @@ namespace Scuti.UI
                 offerData = Data.RequestOffer(mediaType);
 
                 // Fallback to products
-                if(offerData==null && mediaType != OfferService.MediaType.Product && !presenter.Tall)
+                if(offerData==null && mediaType != OfferService.MediaType.Product && !presenter.IsTall)
                 {
                     mediaType = OfferService.MediaType.Product;
                     offerData = Data.RequestOffer(mediaType);
@@ -118,8 +118,8 @@ namespace Scuti.UI
                 m_Instantiated.Add(presenter);
                 presenter.Inject(GetNext);
                 presenter.gameObject.hideFlags = HideFlags.DontSave; 
-                colorData = GetColorInfo(colorCount++);
-                presenter.SetColorData(colorData.Background, colorData.Glow);
+                //colorData = GetColorInfo(colorCount++);
+                //presenter.SetColorData(colorData.Background, colorData.Glow);
                 await Task.Delay((int)(instantiationInterval * 1000));
                 if (cancelToken.IsCancellationRequested) return;
 
