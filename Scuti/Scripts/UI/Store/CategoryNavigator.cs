@@ -208,7 +208,7 @@ namespace Scuti.UI
                 fingerUpTime = DateTime.Now;
                 CheckSwipe();
             }
-
+            
 #endif
 
             if (Input.touchCount > 0)
@@ -246,14 +246,17 @@ namespace Scuti.UI
             Vector3 dirVector = fingerDown - fingerUp;
             var direction = Vector3.Angle(Vector3.right, dirVector);
 
-            // Calculate swipe by angle
-            if(direction >= 135 && direction < 225)
+            if(Vector3.Magnitude(dirVector) >= SwipeThreshold)
             {
-                Next();
-            }
-            else if (direction >= 315 && direction < 360 || direction >= 0 && direction < 45)
-            {
-                Previous();
+                // Calculate swipe by angle
+                if (direction >= 135 && direction < 225)
+                {
+                    Next();
+                }
+                else if (direction >= 315 && direction < 360 || direction >= 0 && direction < 45)
+                {
+                    Previous();
+                }
             }
           
         }
