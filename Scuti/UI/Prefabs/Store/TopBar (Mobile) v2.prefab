@@ -633,8 +633,7 @@ MonoBehaviour:
   - {fileID: 114950135582874602}
   Wallet: {fileID: 114707882297066518}
   contentBanners: {fileID: 6832973836507651048}
-  maxWidthContent: 0
-  widthBanner: 0
+  thresholdBanners: 30
   Banner: {fileID: 1875583720201930397}
   additionalBanners: []
 --- !u!222 &4455418145988333032
@@ -1077,7 +1076,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 3
+  m_ChildAlignment: 4
   m_Spacing: 30.17
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
