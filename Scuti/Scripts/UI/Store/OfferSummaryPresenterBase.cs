@@ -236,10 +236,10 @@ namespace Scuti.UI
             public bool HideIfStatic;
         }
 
-        public GameObject AdContainer;
+        //public GameObject AdContainer;
         public VisualRules[] ProductVisualRules;
 
-        public Image AdImage;
+        //public Image AdImage;
 
         RectTransform rect;
         bool _lastVisibleState = false;
@@ -419,11 +419,11 @@ namespace Scuti.UI
                 CleanUp(displayImage.sprite);
                 displayImage.sprite = null;
             }
-            if (AdImage != null)
-            {
-                CleanUp(AdImage.sprite);
-                AdImage.sprite = null;
-            }
+            //if (AdImage != null)
+            //{
+            //    CleanUp(AdImage.sprite);
+            //    AdImage.sprite = null;
+            //}
         }
 
         private void CleanUp(Sprite sprite)
@@ -501,34 +501,37 @@ namespace Scuti.UI
         {
             if (!_destroyed && Data!=null)
             {
-                if (Data.DisplayAd && Single)
-                {
-                    AdContainer.SetActive(true);
-                    foreach (var p in ProductVisualRules)
-                    {
-						if(p.Visual != null)
-							p.Visual.SetActive(false);
-                    }
-                    if(Data.Texture && (displayImage.sprite == null || Data.Texture != displayImage.sprite.texture))
-                    {
-                        AdImage.sprite = Data.Texture.ToSprite();
-                    }
+                if (Data.Texture && (displayImage.sprite == null || Data.Texture != displayImage.sprite.texture))
+                { 
+                    displayImage.sprite = Data.Texture.ToSprite();
+                }
+
+
+      //          if (Data.DisplayAd && Single)
+      //          {
+      //              //AdContainer.SetActive(true);
+      ////              foreach (var p in ProductVisualRules)
+      ////              {
+						////if(p.Visual != null)
+						////	p.Visual.SetActive(false);
+      ////              }
+                    
                        
-                }
-                else
-                {
-                    // Here doble offer
-                   // AdContainer.SetActive(false);
-                    foreach (var p in ProductVisualRules)
-                    {
-                        // Blogs Here
-                        //p.Visual.SetActive(!_isStatic || !p.HideIfStatic);
-                    }
-                    if (Data.Texture && ( displayImage.sprite == null || Data.Texture!=displayImage.sprite.texture))
-                    {
-                        displayImage.sprite = Data.Texture.ToSprite();
-                    }
-                }
+      //          }
+      //          else
+      //          {
+      //              // Here doble offer
+      //             // AdContainer.SetActive(false);
+      //              foreach (var p in ProductVisualRules)
+      //              {
+      //                  // Blogs Here
+      //                  //p.Visual.SetActive(!_isStatic || !p.HideIfStatic);
+      //              }
+      //              if (Data.Texture && ( displayImage.sprite == null || Data.Texture!=displayImage.sprite.texture))
+      //              {
+      //                  displayImage.sprite = Data.Texture.ToSprite();
+      //              }
+      //          }
             }
         }
 
@@ -616,7 +619,7 @@ namespace Scuti.UI
 #pragma warning restore
             } else 
             {
-                Debug.LogError("Null state being set on " + gameObject.name +" "+gameObject.GetInstanceID());
+                //Debug.LogError("Null state being set on " + gameObject.name +" "+gameObject.GetInstanceID());
                 gameObject.name = "Cleared";
             }
         }
