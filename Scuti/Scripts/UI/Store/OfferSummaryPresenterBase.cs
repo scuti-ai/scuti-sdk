@@ -136,6 +136,7 @@ namespace Scuti.UI
             {
                 OnDispose?.Invoke(this);
 
+                //Debug.Log("Dispose " + this);
                 base.Dispose();
 
                 OnStateChanged = null;
@@ -311,7 +312,10 @@ namespace Scuti.UI
             switch (state)
             {
                 case Model.State.Loaded:
-                    if (Next != null) Next.OnStateChanged -= OnNextStateChanged;
+                    if (Next != null)
+                    {
+                        SwapToNext();
+                    }
                     break;
                 case Model.State.Failed:
                     Clear();
@@ -492,7 +496,7 @@ namespace Scuti.UI
                     break;
                 case Model.State.Failed:
                     if (Data != null) Data.OnStateChanged -= OnSetDataState;
-                    ScutiLogger.Log("Could not load summary image.");
+                    //ScutiLogger.Log("Could not load summary image.");
                     break;
             }
         }

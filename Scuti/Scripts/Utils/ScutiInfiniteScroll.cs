@@ -92,7 +92,7 @@ namespace Scuti.UI
         {
             if (initialized) return;
             initialized = true;
-            //Debug.LogWarning("-------------------------------------------- INIT --------------------------------------------");
+            Debug.LogWarning("-------------------------------------------- INIT --------------------------------------------");
             //Debug.LogWarning(" ==== childCount::  " + items.Count);
             _count = 0;
             //Debug.LogWarning("--------------------------------------- POST INIT ---------------------------------------");

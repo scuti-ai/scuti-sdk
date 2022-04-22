@@ -155,6 +155,7 @@ namespace Scuti.UI
                     ActiveItems.Remove(item);
                 if (PooledItems != null)
                     PooledItems.Add(item);
+                //Debug.LogError("Return to pool: " + PooledItems.Count +"  "+item.Title);
             }
 
             public void EmptyPool()
@@ -162,6 +163,7 @@ namespace Scuti.UI
                 if (_allowedToEmpty && PooledItems.Count > 0)
                 {
                     NewItems.AddRange(PooledItems);
+                    //Debug.LogError("emptied "+ PooledItems.Count + " and now size: "+NewItems.Count);
                     PooledItems.Clear();
                 }
             }
@@ -242,6 +244,7 @@ namespace Scuti.UI
                 OfferPool pool = GetPool(mediaType);
                 return pool.GetNewItems();
             }
+
 
             public void EmptyPool(OfferService.MediaType mediaType)
             {
@@ -336,7 +339,7 @@ namespace Scuti.UI
 
 
         private int _columns = 2;
-        private int _rows = 6;
+        private int _rows = 4;
 
 
         protected int _activeVideoOffers = 0;
@@ -346,7 +349,7 @@ namespace Scuti.UI
         [SerializeField] protected float instantiationInterval = .5f;
         [SerializeField] protected float showInterval = .5f;
         [SerializeField] protected int MinDataCached = 6;
-
+        public RectTransform Viewport;
 
         [Serializable]
         public struct OfferColorData
@@ -377,6 +380,8 @@ namespace Scuti.UI
         // QUEUE HANDLERS
         protected LoadedWidgetQueue loadedWidgetQueue = new LoadedWidgetQueue();
 
+        private bool _started;
+        private bool _loadOnStart;
          
         // ================================================
         #region LIFECYCLE
@@ -388,7 +393,18 @@ namespace Scuti.UI
             if (first)
             {
                 UIManager.ShowLoading(true);
-                categoryNavigator.OpenCurrent();
+
+                if(!_started)
+                {
+                    _loadOnStart = true;
+                } else
+                {
+                    _loadOnStart = false;
+                    InitScrollArea();
+                }
+
+
+
             }
             else
             {
@@ -448,16 +464,13 @@ namespace Scuti.UI
             ProcessLoadedWidgetQueue();
 
 
-            var prefab = RowContainerPrefabs[_columns - 1];
-
+            var prefab = RowContainerPrefabs[0];
             var columnWidth = prefab.Columns[0].GetComponent<RectTransform>().rect.width;
             var screenWidth = Screen.width;
             var containerSize = screenWidth;
-            Debug.LogError("Size: " + containerSize + " vs " + screenWidth);
             var numberOfColumns = Math.Max(1, Mathf.FloorToInt(containerSize / (columnWidth)));
             _columns = numberOfColumns;
-
-
+            prefab = RowContainerPrefabs[_columns - 1];
             for (var r = 0; r < _rows; r++)
             {
                 var row = Instantiate(prefab, OfferContainer);
@@ -467,6 +480,7 @@ namespace Scuti.UI
                 {
                     var col = row.Columns[c];
                     _allCells.Add(col.Tall);
+                    col.Tall.Viewport = Viewport;
                     _allCells.AddRange(col.Small.Presenters.ToArray());
                 }
 
@@ -475,7 +489,24 @@ namespace Scuti.UI
             offerDataToRequest = (_rows * _columns) * 2;
         }
 
-        
+        private void Start()
+        {
+            _started = true;
+            if(_loadOnStart)
+            {
+                InitScrollArea();
+            }
+        }
+
+
+        async protected Task InitScrollArea()
+        {
+            await Task.Delay(250);
+            InfinityScroll.Init();
+            InfinityScroll.CheckBounds();
+            categoryNavigator.OpenCurrent();
+        }
+
 
         private void Update()
         {
@@ -510,12 +541,12 @@ namespace Scuti.UI
 
         private void OnSiblingUpdated(Transform obj)
         {
-            Debug.LogError("Sib "+obj);
+            //Debug.LogError("Sib "+obj);
             if (_rowMap.ContainsKey(obj))
             {
                 var col = _rowMap[obj];
                 col.Clear();
-                Debug.Log("Queue : " + col);
+                //Debug.Log("Queue : " + col);
                 GetNextRequestQueue.Enqueue(col);
             }
         }
@@ -747,6 +778,7 @@ namespace Scuti.UI
                 if (productCount < MinDataCached && pagination.Index < pagination.TotalCount && !requestInProgress)
                 {
 #pragma warning disable 4014
+                    //Debug.LogError("Request more!!!");
                     var source = new CancellationTokenSource();
                     _offerSources.Add(source);
                     RequestMoreOffers(false, source.Token, offerDataToRequest, mediaType);
@@ -756,11 +788,11 @@ namespace Scuti.UI
                 if(productCount > needed-1)
                 {
                     var offerSummaryRowContainer = GetNextRequestQueue.Dequeue();
-                    Debug.Log("Populate " + offerSummaryRowContainer);
                     PopulateRow(offerSummaryRowContainer, false);
 
                 }else if (pagination.Index >= pagination.TotalCount && !requestInProgress)
                 {
+                    //Debug.LogError("Empty pool");
                     if (mediaType == OfferService.MediaType.Product || mediaType == OfferService.MediaType.Banner)
                         Data.EmptyPool(mediaType);
                 }
@@ -778,8 +810,7 @@ namespace Scuti.UI
             }
 
             await Task.Delay(250);
-            OnPopulateFinished?.Invoke();
-            InfinityScroll.CheckBounds();
+            //OnPopulateFinished?.Invoke();
             InfinityScroll.OnSiblingUpdate -= OnSiblingUpdated;
             InfinityScroll.OnSiblingUpdate += OnSiblingUpdated;
             m_ChangingCategories = false;
