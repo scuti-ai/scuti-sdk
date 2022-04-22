@@ -21,6 +21,7 @@ namespace Scuti.UI
 
         [Header("Instantiation")]
         public List<OfferSummaryRowContainer> RowContainerPrefabs;
+        public RectTransform Viewport;
 
 
         private List<OfferSummaryRowContainer> _allRows = new List<OfferSummaryRowContainer>();
@@ -70,6 +71,7 @@ namespace Scuti.UI
 
                 offerDataToRequest = _allColumns.Count*2;
             }
+            _allCells.ForEach(x => x.Viewport = Viewport);
         }
 
         private int colorCount = 0;

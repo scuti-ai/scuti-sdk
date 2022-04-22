@@ -91,7 +91,7 @@ namespace Scuti
                 VideoURL = offer.Media.VideoUrl,
                 Scutis = scutis,
                 DisplayAd = displayAd,
-                Title = offer.Product.Name,
+                Title = offer.Product.Name?? offer.Name,
                 Description = offer.Product.Description,
                 Brand = brandName,
                 DisplayPrice = $"${offer.Product.Price.Amount.Value.ToString("F2")}",
