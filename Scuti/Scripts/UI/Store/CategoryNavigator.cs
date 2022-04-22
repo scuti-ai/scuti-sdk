@@ -28,6 +28,8 @@ namespace Scuti.UI
         public TextMeshProUGUI Label;
         public float SwipeThreshold = 50;
 
+        public bool isShowingCategories;
+
         int m_Index;
         private bool _invalid = true;
 
@@ -155,6 +157,7 @@ namespace Scuti.UI
 
         public void Show()
         {
+
             if(GetCanvasGroup() < 1)
                 onShow?.Invoke();
         }
@@ -193,44 +196,43 @@ namespace Scuti.UI
 
         private void Update()
         {
-
+            if(isShowingCategories)
+            {
 #if UNITY_STANDALONE || UNITY_EDITOR
 
-            if (Input.GetMouseButtonDown(0))
-            {
-                fingerDown = Input.mousePosition;
-                fingerUp = Input.mousePosition;
-                fingerDownTime = DateTime.Now;
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                fingerDown = Input.mousePosition;
-                fingerUpTime = DateTime.Now;
-                CheckSwipe();
-            }
-            
+                if (Input.GetMouseButtonDown(0))
+                {
+                    fingerDown = Input.mousePosition;
+                    fingerUp = Input.mousePosition;
+                    fingerDownTime = DateTime.Now;
+                }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    fingerDown = Input.mousePosition;
+                    fingerUpTime = DateTime.Now;
+                    CheckSwipe();
+                }
+
 #endif
 
-            if (Input.touchCount > 0)
-	        {
-		        var touch = Input.touches[0];
-		        if (touch.phase == TouchPhase.Began)
-		        {
+                if (Input.touchCount > 0)
+                {
+                    var touch = Input.touches[0];
+                    if (touch.phase == TouchPhase.Began)
+                    {
+                        fingerDown = touch.position;
+                        fingerUp = touch.position;
+                    }
+                    else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                    {
+                        fingerDown = touch.position;
 
-		        }
-		        else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
-		        {
-			        Debug.Log(touch.deltaPosition.x);
-			        if (touch.deltaPosition.x < -SwipeThreshold)
-			        {
-				        Next();
-			        }
-			        else if (touch.deltaPosition.x > SwipeThreshold)
-			        {
-				        Previous();
-			        }
-		        }
-	        }
+                        // This is alternative for unify both methods
+                        CheckSwipe();
+                    }
+                }
+            }
+
         }
 
         internal void SetPresenter(OffersPresenterBase offersPresenterBase)
