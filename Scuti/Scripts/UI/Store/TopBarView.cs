@@ -28,26 +28,29 @@ public class TopBarView : View {
       
     }
 
-    private void CreateBanners(int amount)
+    private void CreateBanners(int offerCount)
     {
         additionalBanners = new List<BannerWidget>();
 
-        if (amount < 2) return;
+        if (offerCount < 2) return;
 
         widthBanner = rectBanner.sizeDelta.x + thresholdBanners;
         maxWidthContent = contentBanners.rect.size.x;
-        int amountBanners = (int)(maxWidthContent / widthBanner);
+        int bannerCount = (int)(maxWidthContent / widthBanner);
 
-        if (amountBanners > amount) amountBanners = amount;
+        if (bannerCount > offerCount) bannerCount = offerCount;
 
-        if (amountBanners > 1)
+        if (bannerCount > 1)
         {
+            int increment = offerCount / bannerCount;
+            if (increment < 1) increment = 1;
+
             // Instance banners
-            for (int i = 0; i < amountBanners - 1; i++)
+            for (int i = 0; i < bannerCount - 1; i++)
             {
                 BannerWidget banner = Instantiate(Banner, contentBanners.transform);
                 banner.gameObject.name = "Banner - " + (int)(i + 1);
-                banner.SetIndex(i + amountBanners - 1);
+                banner.SetIndex((i + increment >= offerCount)? offerCount: i+increment);
                 banner.SecondDelay = 10;
                 additionalBanners.Add(banner);
             }
