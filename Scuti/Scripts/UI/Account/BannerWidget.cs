@@ -23,6 +23,8 @@ public class BannerWidget : View {
 
     public RoundedImage Rounded;
 
+    public System.Action<int> onCreateBanners;
+
     protected bool timerCompleted = false;
     [SerializeField] protected Timer timer;
 
@@ -173,7 +175,12 @@ public class BannerWidget : View {
             ScutiLogger.LogException(e);
         }
 
-        if(offerPage != null && offerPage.Nodes.Count>0)
+        if (offerPage != null && offerPage.Paging.TotalCount > 0)
+        {
+            onCreateBanners?.Invoke((int)offerPage.Paging.TotalCount);
+        }
+
+        if (offerPage != null && offerPage.Nodes.Count>0)
         {
             _banner = (offerPage.Nodes as List<Offer>)[0];
         } else
