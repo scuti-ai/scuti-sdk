@@ -32,13 +32,12 @@ public class TopBarView : View {
     {
         additionalBanners = new List<BannerWidget>();
 
-        Debug.Log("2. Topbar: total count: ---------------: "+amount);
         if (amount < 2) return;
 
         widthBanner = rectBanner.sizeDelta.x + thresholdBanners;
         maxWidthContent = contentBanners.rect.size.x;
         int amountBanners = (int)(maxWidthContent / widthBanner);
-        Debug.Log("3. Topbar: amount banners: ---------------: " + amountBanners);
+
         if (amountBanners > amount) amountBanners = amount;
 
         if (amountBanners > 1)

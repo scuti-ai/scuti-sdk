@@ -177,10 +177,8 @@ public class BannerWidget : View {
 
         if (offerPage != null && offerPage.Paging.TotalCount > 0)
         {
-            Debug.Log("1. Banner Widget: total count: " + offerPage.Paging.TotalCount);
             onCreateBanners?.Invoke((int)offerPage.Paging.TotalCount);
         }
-
 
         if (offerPage != null && offerPage.Nodes.Count>0)
         {
