@@ -367,6 +367,8 @@ namespace Scuti.UI
         // ================================================
         public override void Open()
         {
+            categoryNavigator.isShowingCategories = true;
+
             var first = (firstOpen);
             base.Open();
             if (first)
@@ -382,6 +384,8 @@ namespace Scuti.UI
 
         public override void Close()
         {
+            categoryNavigator.isShowingCategories = false;
+
             base.Close();
             PauseAds();
         }
