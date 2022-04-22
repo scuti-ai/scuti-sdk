@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Scuti.Net;
 using TMPro;
+using System.Timers;
 
 namespace Scuti.UI
 {
@@ -251,41 +252,10 @@ namespace Scuti.UI
         {
             base.Awake();
 
-
+            Debug.LogError("HERE??");
             rect = GetComponent<RectTransform>();
-
-            /*float pixelsWide = Camera.main.pixelWidth;
-            float pixelsHigh = Camera.main.pixelHeight;
-
-            _isPortrait = pixelsHigh > pixelsWide;
-            if (ScutiConstants.FORCE_LANDSCAPE)
-            {
-                _isPortrait = false;
-            }*/
-            //Debug.LogError(this.name + " _isPortrait " + _isPortrait);
-            /*if (_isPortrait)
-            {
-                _portraitImpressionTimer.Elapsed += _portraitImpressionTimer_Elapsed;
-                _portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
-            }*/            
-
-            timerCompleted = false;
             _portraitImpressionTimer.Elapsed += _portraitImpressionTimer_Elapsed;
-            // Blogs Here
-            /*
-            if (!_isPortrait)
-            {
-                timer.gameObject.SetActive(false);
-                timer.Pause();
-                timer.onFinished.AddListener(OnTimerCompleted);
-                timer.onCustomEvent += OnTimerCustomEvent;
-            }
-            else
-            {
-            }
-            */
-            //AdContainer.SetActive(false);
-            //GlowImage.gameObject.SetActive(false);
+            _portraitImpressionTimer.Enabled = false;
 
         }
 
@@ -293,7 +263,7 @@ namespace Scuti.UI
         {
             Debug.LogError("Record impression for: " + gameObject);
             _portraitImpressionTimer.Stop();
-            if(Data!=null)
+            if(Data!=null && Data.CurrentState == Model.State.Loaded)
                 ScutiAPI.RecordOfferImpression(Data.ID);
         }
 
@@ -308,18 +278,20 @@ namespace Scuti.UI
         void Update()
         {
             var isHalfVisibleFrom = rect.IsHalfVisibleFrom();
-            //rect.IsFullyVisibleFrom();
-            if (isHalfVisibleFrom && isHalfVisibleFrom != _lastVisibleState)
+            if (isHalfVisibleFrom && isHalfVisibleFrom != _lastVisibleState && Data!=null && Data.CurrentState == Model.State.Loaded)
             {
+                Debug.LogError("HALF "+gameObject +"  "+ ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
                 _lastVisibleState = true;
                 _portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
-                _portraitImpressionTimer.Start();
+                _portraitImpressionTimer.Enabled = true;
+                //_portraitImpressionTimer.Start();
             }
             else if (!isHalfVisibleFrom && isHalfVisibleFrom != _lastVisibleState)
             {
                 _lastVisibleState = false;
                 //timer.Pause();
-                _portraitImpressionTimer.Stop();
+                Debug.LogError("STOP " + gameObject);
+                _portraitImpressionTimer.Enabled = false;
 
             }
 
