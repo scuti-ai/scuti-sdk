@@ -237,14 +237,16 @@ namespace Scuti.UI
         {
             base.Awake();
             rect = GetComponent<RectTransform>();
-            _portraitImpressionTimer.Elapsed += _portraitImpressionTimer_Elapsed;
-            _portraitImpressionTimer.Enabled = false;
+            _portraitImpressionTimer.Elapsed += ImpressionTimer_Elapsed;
+            //_portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
+            //_portraitImpressionTimer.Enabled = false;
         }
 
-        private void _portraitImpressionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        private void ImpressionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            Debug.LogError("Record impression for: " + gameObject);
-            _portraitImpressionTimer.Stop();
+            //Debug.LogError(" -------->> Record impression for: "  + " " + Data);
+            _portraitImpressionTimer.Enabled = false;
+            //_portraitImpressionTimer.Stop();
             if(Data!=null && Data.CurrentState == Model.State.Loaded)
                 ScutiAPI.RecordOfferImpression(Data.ID);
         }
@@ -268,7 +270,7 @@ namespace Scuti.UI
 
             _lastVisibleState = false;
             //Debug.LogError("OffScreen " + gameObject);
-            _portraitImpressionTimer.Stop();
+            //_portraitImpressionTimer.Stop();
             _portraitImpressionTimer.Enabled = false;
         }
 
@@ -277,8 +279,7 @@ namespace Scuti.UI
             //Debug.LogError("OnScreen "+gameObject +"  "+ ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
             _portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
             _portraitImpressionTimer.Enabled = true;
-            _portraitImpressionTimer.Start();
-
+            //_portraitImpressionTimer.Start();
         }
 
         public void OnScrollIndexJumped()
