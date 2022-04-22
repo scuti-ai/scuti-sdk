@@ -12,6 +12,7 @@ using System.Threading;
 using Scuti.Net;
 using UnityEngine.Events;
 using System.Linq;
+using UnityEngine.UI;
 
 namespace Scuti.UI
 {
@@ -36,9 +37,23 @@ namespace Scuti.UI
         protected override void Awake()
         {
             base.Awake();
+			try
+			{
+				var defaultrow = RowContainerPrefabs[0]; // -> TODO Is there a better way to get these numbers? -je
+				var columnWidth = defaultrow.Columns[0].GetComponent<RectTransform>().rect.width;
+				var gapeBetweenColumns = defaultrow.GetComponent<HorizontalLayoutGroup>().spacing;
+				var containerSize = Screen.width; // OfferContainer.GetComponent<RectTransform>().rect.width;
+				var numberOfColumns = Math.Max(1, Mathf.FloorToInt(containerSize / (columnWidth /*+ gapeBetweenColumns*/)));
+				_columns = numberOfColumns;
+			}
+			catch (Exception)
+			{
 
-            // figure out columns here
-            var prefab = RowContainerPrefabs[_columns - 1];
+				throw;
+			}
+
+			// figure out columns here
+			var prefab = RowContainerPrefabs[_columns - 1];
 
             for (var r = 0; r < _rows; r++)
             {
