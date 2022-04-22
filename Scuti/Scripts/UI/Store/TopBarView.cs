@@ -20,22 +20,35 @@ public class TopBarView : View {
     public List<BannerWidget> additionalBanners;
     private bool isAdditionalBanners;
 
+    
     private void Awake()
     {
+        Banner.onCreateBanners -= CreateBanners;
+        Banner.onCreateBanners += CreateBanners;
+      
+    }
+
+    private void CreateBanners(int amount)
+    {
         additionalBanners = new List<BannerWidget>();
+
+        Debug.Log("2. Topbar: total count: ---------------: "+amount);
+        if (amount < 2) return;
 
         widthBanner = rectBanner.sizeDelta.x + thresholdBanners;
         maxWidthContent = contentBanners.rect.size.x;
         int amountBanners = (int)(maxWidthContent / widthBanner);
+        Debug.Log("3. Topbar: amount banners: ---------------: " + amountBanners);
+        if (amountBanners > amount) amountBanners = amount;
 
-        if(amountBanners > 1)
+        if (amountBanners > 1)
         {
             // Instance banners
             for (int i = 0; i < amountBanners - 1; i++)
             {
                 BannerWidget banner = Instantiate(Banner, contentBanners.transform);
-                banner.gameObject.name = "Banner - "+ (int)(i+1);
-                banner.SetIndex(i+amountBanners);
+                banner.gameObject.name = "Banner - " + (int)(i + 1);
+                banner.SetIndex(i + amountBanners);
                 banner.SecondDelay = 10;
                 additionalBanners.Add(banner);
             }
