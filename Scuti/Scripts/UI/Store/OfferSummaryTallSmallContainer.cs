@@ -13,6 +13,12 @@ namespace Scuti.UI
         public OfferSummaryPresenterContainer Small;
         public OfferSummaryPresenterBase Tall;
 
+        protected void Start()
+        {
+            Small.InjectContainer(this);
+            Tall.InjectContainer(this);
+        }
+
         internal void Clear()
         {
             Small.Clear();

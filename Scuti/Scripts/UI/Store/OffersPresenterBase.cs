@@ -701,22 +701,21 @@ namespace Scuti.UI
 
                 //Debug.Log("Rolled " + mediaType + " >> " + offerSummaryPresenter.gameObject + "  count " + newItemCount  +"  "+requestInProgress  +" "+offerSummaryPresenter.gameObject.GetInstanceID());
                 if (newItemCount > 0)
-                { 
-                    // no longer using doubles
-                    //if(newItemCount < 2 && ScutiUtils.IsPortrait())
-                    //{
-                    //    // Check if it is a two column row and we need to fill both columns.  If FirstColumn is False then we only need 1
-                    //    if (!offerSummaryPresenter.Single && offerSummaryPresenter.FirstColumn)
-                    //    {
-                    //        if(requestInProgress)
-                    //            return;
-                    //        else
-                    //        {
-                    //            Data.EmptyPool(mediaType);
-                    //            return;
-                    //        }
-                    //    }
-                    //}
+                {
+                    if (newItemCount < 2 )
+                    {
+                        // Check if it is a two column row and we need to fill both columns.  If FirstColumn is False then we only need 1
+                        //if (!offerSummaryPresenter.Single && offerSummaryPresenter.FirstColumn)
+                        //{
+                        //    if (requestInProgress)
+                        //        return;
+                        //    else
+                        //    {
+                        //        Data.EmptyPool(mediaType);
+                        //        return;
+                        //    }
+                        //}
+                    }
 
                     OfferSummaryPresenterBase.Model model = Data.RequestOffer(mediaType);
 
