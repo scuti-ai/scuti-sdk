@@ -336,7 +336,6 @@ namespace Scuti.UI
             loadingNextCompleted = false;
             if (!_isStatic)
             {
-                Debug.LogError("LoadNext");
                 Next = await m_NextRequest(this);
                 if (Next != null)
                 {
