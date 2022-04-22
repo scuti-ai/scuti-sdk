@@ -196,10 +196,9 @@ namespace Scuti.UI
         [SerializeField] protected Image backgroundImage;
         [SerializeField] protected Image displayImage;
         [SerializeField] public TextMeshProUGUI titleText;
-        [SerializeField] protected TextMeshProUGUI displayPriceText;
-        [SerializeField] protected TextMeshProUGUI ratingText;
         [SerializeField] protected TextMeshProUGUI brandText;
-        [SerializeField] protected RatingStarsWidget ratingStarsWidget;
+       
+        public RectTransform Viewport;
 
 
         float m_TimerDuration;
@@ -237,7 +236,7 @@ namespace Scuti.UI
 
         private void ImpressionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
-            //Debug.LogError(" -------->> Record impression for: "  + " " + Data);
+            //Debug.LogError("      -------->> Record impression for: " + Data.Title );
             _portraitImpressionTimer.Enabled = false;
             //_portraitImpressionTimer.Stop();
             if(Data!=null && Data.CurrentState == Model.State.Loaded)
@@ -246,7 +245,7 @@ namespace Scuti.UI
 
         void Update()
         {
-            var isHalfVisibleFrom = rect.IsHalfVisibleFrom();
+            var isHalfVisibleFrom = rect.IsHalfVisibleFrom(Viewport);
             if (!_timerPaused &&  m_showing && isHalfVisibleFrom &&  !_lastVisibleState && Data!=null && Data.CurrentState == Model.State.Loaded)
             {
                 OnScreen();
@@ -263,14 +262,14 @@ namespace Scuti.UI
         private void OffScreen()
         {
             _lastVisibleState = false;
-            //Debug.LogError("OffScreen " + gameObject);
+            //Debug.LogError("  --> OffScreen " + Data.Title);
             //_portraitImpressionTimer.Stop();
             _portraitImpressionTimer.Enabled = false;
         }
 
         private void OnScreen()
         {
-            //Debug.LogError("OnScreen "+gameObject +"  "+ ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
+            //Debug.LogError("  =0=> OnScreen "+ Data.Title + "  "/*+ ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION*/);
             _portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
             _portraitImpressionTimer.Enabled = true;
             //_portraitImpressionTimer.Start();
@@ -450,6 +449,8 @@ namespace Scuti.UI
         }
 
         private bool _timerPaused = false;
+        
+
         public void PauseTimer()
         {
             _timerPaused = true;

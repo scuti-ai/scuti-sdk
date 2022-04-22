@@ -44,9 +44,8 @@ public static class RendererExtensions
     /// <returns><c>true</c> if is half visible; otherwise, <c>false</c>.</returns>
     /// <param name="rectTransform">Rect transform.</param>
     /// <param name="camera">Camera. Leave it null for Overlay Canvasses.</param>
-    public static bool IsHalfVisibleFrom(this RectTransform rectTransform, Camera camera = null)
+    public static bool IsHalfVisibleFrom(this RectTransform rectTransform, RectTransform viewport, Camera camera = null)
     {
-        Rect screenBounds = new Rect(0f, 0f, Screen.width, Screen.height); // Screen space bounds (assumes camera renders across the entire screen)
         Vector3[] objectCorners = new Vector3[4];
         rectTransform.GetWorldCorners(objectCorners);
 
@@ -61,7 +60,8 @@ public static class RendererExtensions
                 tempScreenSpaceCorner = Vector3.Scale(objectCorners[i], TOP_HALF_DIVIDERS[i]); // If no camera is provided we assume the canvas is Overlay and world space == screen space
             }
 
-            if (screenBounds.Contains(tempScreenSpaceCorner)) // If the corner is inside the screen
+            //if (screenBounds.Contains(tempScreenSpaceCorner)) // If the corner is inside the screen
+            if (RectTransformUtility.RectangleContainsScreenPoint(viewport, tempScreenSpaceCorner)) // If the corner is inside the screen
             {
                 visibleCorners++;
             }
@@ -84,7 +84,8 @@ public static class RendererExtensions
                 tempScreenSpaceCorner = Vector3.Scale(objectCorners[i], BOTTOM_HALF_DIVIDERS[i]); // If no camera is provided we assume the canvas is Overlay and world space == screen space
             }
 
-            if (screenBounds.Contains(tempScreenSpaceCorner)) // If the corner is inside the screen
+            //if (screenBounds.Contains(tempScreenSpaceCorner)) // If the corner is inside the screen
+            if (RectTransformUtility.RectangleContainsScreenPoint(viewport, tempScreenSpaceCorner)) // If the corner is inside the screen
             {
                 visibleCorners++;
             }

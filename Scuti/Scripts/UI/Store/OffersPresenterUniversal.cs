@@ -17,8 +17,6 @@ using UnityEngine.UI;
 namespace Scuti.UI
 {
     public class OffersPresenterUniversal : OffersPresenterBase
-    {
-
-
+    { 
     }
 }
