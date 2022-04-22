@@ -256,6 +256,7 @@ namespace Scuti.UI
                     case OfferService.MediaType.SmallTile:
                         return TileOffers;
                     case OfferService.MediaType.Vertical:
+                        //Debug.LogError("Vertical Count "+VerticalOffers.TotalItemCount);
                         return  VerticalOffers;
                     case OfferService.MediaType.Banner:
                         return BannerOffers;
@@ -685,7 +686,7 @@ namespace Scuti.UI
                 var request = tuple.Item1;
                 var offerSummaryPresenter = tuple.Item2;
 
-                var mediaType = offerSummaryPresenter.RollForMediaType();
+                var mediaType = ScutiUtils.RollForType(true);
                 var pagination = Data.GetPagination(mediaType);
 
                 var newItemCount = Data.NewItemsCount(mediaType);
@@ -701,20 +702,21 @@ namespace Scuti.UI
                 //Debug.Log("Rolled " + mediaType + " >> " + offerSummaryPresenter.gameObject + "  count " + newItemCount  +"  "+requestInProgress  +" "+offerSummaryPresenter.gameObject.GetInstanceID());
                 if (newItemCount > 0)
                 { 
-                    if(newItemCount < 2 && ScutiUtils.IsPortrait())
-                    {
-                        // Check if it is a two column row and we need to fill both columns.  If FirstColumn is False then we only need 1
-                        if (!offerSummaryPresenter.Single && offerSummaryPresenter.FirstColumn)
-                        {
-                            if(requestInProgress)
-                                return;
-                            else
-                            {
-                                Data.EmptyPool(mediaType);
-                                return;
-                            }
-                        }
-                    }
+                    // no longer using doubles
+                    //if(newItemCount < 2 && ScutiUtils.IsPortrait())
+                    //{
+                    //    // Check if it is a two column row and we need to fill both columns.  If FirstColumn is False then we only need 1
+                    //    if (!offerSummaryPresenter.Single && offerSummaryPresenter.FirstColumn)
+                    //    {
+                    //        if(requestInProgress)
+                    //            return;
+                    //        else
+                    //        {
+                    //            Data.EmptyPool(mediaType);
+                    //            return;
+                    //        }
+                    //    }
+                    //}
 
                     OfferSummaryPresenterBase.Model model = Data.RequestOffer(mediaType);
 

@@ -148,7 +148,7 @@ namespace Scuti.UI
             //GlowImage.gameObject.SetActive(false);
 
             // Show the rating if there is a rating
-            bool hasRatingValue = Data.Rating > 0f && _isPortrait;
+            //bool hasRatingValue = Data.Rating > 0f && _isPortrait;
 
             //ratingText.gameObject.SetActive(hasRatingValue);
             //ratingStarsWidget.gameObject.SetActive(hasRatingValue);

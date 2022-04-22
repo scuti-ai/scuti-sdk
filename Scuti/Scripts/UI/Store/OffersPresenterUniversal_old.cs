@@ -115,6 +115,7 @@ namespace Scuti.UI
 
         async protected override Task PopulateOffers(CancellationToken cancelToken)
         {
+            /*
             try
             {
 				if (!columnSystem.isInitialized)
@@ -198,6 +199,7 @@ namespace Scuti.UI
             }
 
             isInitilize = true;
+            */
         }
 
 		private void IntiColumnSystem()

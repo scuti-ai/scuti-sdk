@@ -1390,12 +1390,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Transitions: []
-  Tall: 0
+  IsTall: 0
   Single: 1
   FirstColumn: 0
   FirstLoad: 1
   animator: {fileID: 95641918555222256}
-  timer: {fileID: 114432455225790650}
   backgroundImage: {fileID: 114740763463083730}
   displayImage: {fileID: 114019555032766228}
   titleText: {fileID: 764582368738745695}
@@ -1403,7 +1402,6 @@ MonoBehaviour:
   ratingText: {fileID: 2149191937632664361}
   brandText: {fileID: 7043113048152663435}
   ratingStarsWidget: {fileID: 114622562493505216}
-  AdContainer: {fileID: 1755216328285900}
   ProductVisualRules:
   - Visual: {fileID: 1572720323770944}
     HideIfStatic: 0
@@ -1421,7 +1419,6 @@ MonoBehaviour:
     HideIfStatic: 0
   - Visual: {fileID: 1362557803142224}
     HideIfStatic: 0
-  AdImage: {fileID: 114472910378964086}
 --- !u!95 &95641918555222256
 Animator:
   serializedVersion: 3
@@ -3066,7 +3063,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 432.79083, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &222697738918697638
 CanvasRenderer:

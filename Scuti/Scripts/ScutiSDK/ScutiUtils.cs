@@ -19,7 +19,24 @@ public class ScutiURL
 }
 
 public class ScutiUtils  {
-     
+
+
+    internal static OfferService.MediaType RollForType(bool allowTall)
+    {
+        var mediaType = OfferService.MediaType.Product;
+        int rand = UnityEngine.Random.Range(0, 4);
+        if (rand > 2) // 3
+        {
+            mediaType = OfferService.MediaType.Vertical;
+        }
+        else
+        {
+            if (rand == 0) mediaType = OfferService.MediaType.SmallTile;
+        }
+
+        return mediaType;
+    }
+
     internal static ScutiURL ParseScutiURL(string args)
     {
         if (args == null || !args.Contains("/"))

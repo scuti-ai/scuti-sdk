@@ -207,7 +207,7 @@ namespace Scuti.UI
         }
 
         [SerializeField] protected Animator animator;
-        [SerializeField] protected Timer timer;
+        //[SerializeField] protected Timer timer;
 
         [Header("Fields")]
         [SerializeField] protected Image backgroundImage;
@@ -225,7 +225,6 @@ namespace Scuti.UI
 
         protected bool timerCompleted = false;
         protected bool _isStatic = false;
-        protected bool _isPortrait = false;
 
         System.Timers.Timer _portraitImpressionTimer = new System.Timers.Timer();
 
@@ -252,7 +251,6 @@ namespace Scuti.UI
         {
             base.Awake();
 
-            _isPortrait = ScutiUtils.IsPortrait();
 
             rect = GetComponent<RectTransform>();
 
@@ -272,7 +270,7 @@ namespace Scuti.UI
             }*/            
 
             timerCompleted = false;
-
+            _portraitImpressionTimer.Elapsed += _portraitImpressionTimer_Elapsed;
             // Blogs Here
             /*
             if (!_isPortrait)
@@ -284,8 +282,6 @@ namespace Scuti.UI
             }
             else
             {
-                timer.Pause();
-                timer.onFinished.AddListener(RecordOfferImpression);
             }
             */
             //AdContainer.SetActive(false);
@@ -295,54 +291,41 @@ namespace Scuti.UI
 
         private void _portraitImpressionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
         {
+            Debug.LogError("Record impression for: " + gameObject);
             _portraitImpressionTimer.Stop();
             if(Data!=null)
                 ScutiAPI.RecordOfferImpression(Data.ID);
         }
 
-        private void RecordOfferImpression()
-        {
-            timer.Pause();
-            if (Data != null)
-                ScutiAPI.RecordOfferImpression(Data.ID);
-        }
+        //private void RecordOfferImpression()
+        //{
+        //    Debug.LogError("Record impression");
+        //    //timer.Pause();
+        //    if (Data != null)
+        //        ScutiAPI.RecordOfferImpression(Data.ID);
+        //}
 
         void Update()
         {
-            if (!_isPortrait || Data == null)
-                return;
-
             var isHalfVisibleFrom = rect.IsHalfVisibleFrom();
             //rect.IsFullyVisibleFrom();
             if (isHalfVisibleFrom && isHalfVisibleFrom != _lastVisibleState)
             {
                 _lastVisibleState = true;
+                _portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
+                _portraitImpressionTimer.Start();
             }
             else if (!isHalfVisibleFrom && isHalfVisibleFrom != _lastVisibleState)
             {
                 _lastVisibleState = false;
+                //timer.Pause();
+                _portraitImpressionTimer.Stop();
+
             }
 
         }
 
-        private void OnTimerCustomEvent(string id)
-        {
-            switch(id)
-            {
-                case ScutiConstants.SCUTI_IMPRESSION_ID:
-                    try
-                    {
-                        if (Data != null)
-                            ScutiAPI.RecordOfferImpression(Data.ID);
-                    }
-                    catch
-                    {
-
-                    }
-                    break;
-            }
-        }
-
+         
         protected virtual void OnTimerCompleted()
         {
             timerCompleted = true;
@@ -481,16 +464,6 @@ namespace Scuti.UI
         {
             if (!_destroyed)
             {
-                if (Data!=null && Data.IsMoreExposure && !_isStatic)
-                {
-                    //Blogs here
-                   // GlowImage.gameObject.SetActive(true);
-                }
-                else
-                {
-                    // Blogs Here
-                    //GlowImage.gameObject.SetActive(false);
-                }
                 m_showing = true;
                 ResumeTimer();
                 animator?.SetTrigger("LoadingFinished");
@@ -544,69 +517,41 @@ namespace Scuti.UI
 
         public void ResetTimer()
         {
-            if (!_isPortrait && !_destroyed && !_isStatic)
-            {
-                // BlogsHere
-                //timer.gameObject.SetActive(true);
-                //timerCompleted = false;
-                //timer.ResetTime(m_TimerDuration);
-                //timer.AddCustomEvent(ScutiConstants.SCUTI_IMPRESSION_ID, ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
-                //timer.Begin();
-            }
+            //if (!_isPortrait && !_destroyed && !_isStatic)
+            //{
+            //    // BlogsHere
+            //    //timer.gameObject.SetActive(true);
+            //    //timerCompleted = false;
+            //    //timer.ResetTime(m_TimerDuration);
+            //    //timer.AddCustomEvent(ScutiConstants.SCUTI_IMPRESSION_ID, ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
+            //    //timer.Begin();
+            //}
         }
 
         public void PauseTimer()
         {
-            if (!_isPortrait && !_destroyed && timer != null)
-            {
-                if (animator.speed != 0) m_PriorSpeed = animator.speed;
-                animator.speed = 0;
-                timer.Pause();
-            }
+            //if (!_isPortrait && !_destroyed && timer != null)
+            //{
+            //    if (animator.speed != 0) m_PriorSpeed = animator.speed;
+            //    animator.speed = 0;
+            //    timer.Pause();
+            //}
         }
 
         public void ResumeTimer()
         {
-            if (!_isPortrait && !_destroyed && timer != null && m_showing && !_isStatic)
-            {
-                timer.gameObject.SetActive(true);
-                animator.speed = m_PriorSpeed;
-                timer.Begin();
-            }
+            //if (!_isPortrait && !_destroyed && timer != null && m_showing && !_isStatic)
+            //{
+            //    timer.gameObject.SetActive(true);
+            //    animator.speed = m_PriorSpeed;
+            //    timer.Begin();
+            //}
         }
         #endregion
 
         // ================================================
         #region PRESENTER
         // ================================================
-        public virtual OfferService.MediaType RollForMediaType()
-        {
-            var mediaType = OfferService.MediaType.Product;
-            var rand = UnityEngine.Random.Range(0, 4);
-            if (!ScutiUtils.IsPortrait() && this is OfferSummaryPresenterLandscape)
-            {
-                var landscape = this as OfferSummaryPresenterLandscape;
-                
-                if (landscape.IsTall)
-                {
-                    // 50% chance
-                    if (rand > 1) mediaType = OfferService.MediaType.Vertical;
-                }
-                else
-                {
-                    // 25% chance
-                    if (rand == 0) mediaType = OfferService.MediaType.SmallTile;
-                }
-            }
-            else
-            {
-                if (Single)
-                {
-                    if (rand > 1) mediaType = OfferService.MediaType.SmallTile;
-                }
-            }
-            return mediaType;
-        }
 
         protected override void OnSetState()
         {
@@ -686,16 +631,16 @@ namespace Scuti.UI
             //GlowImage.gameObject.SetActive(false);
             brandText.text = Data.Brand;
             // Show the rating if there is a rating
-            bool hasRatingValue = Data.Rating > 0f && _isPortrait;
+            //bool hasRatingValue = Data.Rating > 0f && _isPortrait;
 
 
-            ratingText.gameObject.SetActive(hasRatingValue);
-            ratingStarsWidget.gameObject.SetActive(hasRatingValue);
-            if (hasRatingValue)
-            {
-                ratingText.text = Data.Rating.ToString("0.0");
-                ratingStarsWidget.Value = Data.Rating / ratingStarsWidget.Levels;
-            }
+            //ratingText.gameObject.SetActive(hasRatingValue);
+            //ratingStarsWidget.gameObject.SetActive(hasRatingValue);
+            //if (hasRatingValue)
+            //{
+            //    ratingText.text = Data.Rating.ToString("0.0");
+            //    ratingStarsWidget.Value = Data.Rating / ratingStarsWidget.Levels;
+            //}
         }
 
         protected string TextElipsis(string text, int truncateSize = 26)

@@ -716,6 +716,7 @@ GameObject:
   - component: {fileID: 5811757302263620245}
   - component: {fileID: 5853530221274348618}
   - component: {fileID: 5853530221274348619}
+  - component: {fileID: 6371792463523734709}
   m_Layer: 5
   m_Name: Offer Widget Large (Universal)
   m_TagString: Untagged
@@ -846,6 +847,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Transitions: []
+  IsTall: 1
   Single: 1
   FirstColumn: 0
   FirstLoad: 1
@@ -858,15 +860,6 @@ MonoBehaviour:
   ratingText: {fileID: 0}
   brandText: {fileID: 0}
   ratingStarsWidget: {fileID: 0}
-  newBadge: {fileID: 0}
-  hotBadge: {fileID: 0}
-  hotPricePromo: {fileID: 0}
-  recommendedPromo: {fileID: 0}
-  specialOfferPromo: {fileID: 0}
-  bestsellerPromo: {fileID: 0}
-  scutiPromo: {fileID: 0}
-  GlowImage: {fileID: 0}
-  AdContainer: {fileID: 7791962226690841819}
   ProductVisualRules:
   - Visual: {fileID: 5853023579475081909}
     HideIfStatic: 0
@@ -884,8 +877,6 @@ MonoBehaviour:
     HideIfStatic: 0
   - Visual: {fileID: 0}
     HideIfStatic: 0
-  AdImage: {fileID: 4992121313717467821}
-  IsTall: 1
 --- !u!95 &5795079797880958981
 Animator:
   serializedVersion: 3
@@ -958,6 +949,28 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
+--- !u!114 &6371792463523734709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5853530221274348629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b48b4a2fae55064bb5ece05798ff778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showEvents: 0
+  onFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  onTick:
+    m_PersistentCalls:
+      m_Calls: []
+  mode: 0
+  useUnscaledTime: 0
+  m_State: 2
 --- !u!1 &7107476165900547068
 GameObject:
   m_ObjectHideFlags: 0

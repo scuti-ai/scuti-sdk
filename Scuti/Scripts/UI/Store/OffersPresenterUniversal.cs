@@ -113,7 +113,7 @@ namespace Scuti.UI
                 var columns = row.Columns;
                 foreach (var col in columns)
                 {
-                    var mediaType = col.RollForType(true);
+                    var mediaType = ScutiUtils.RollForType(true);
                     offerData = Data.RequestOffer(mediaType);
 
                     // Fallback to products
