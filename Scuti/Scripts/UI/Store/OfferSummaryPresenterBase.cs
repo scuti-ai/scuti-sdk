@@ -155,12 +155,6 @@ namespace Scuti.UI
         }
 
         public OfferSummaryPresenterBase.Model Next { get; protected set; }
-        public delegate Task<Model> GetNext(OfferSummaryPresenterBase presenter);
-        protected GetNext m_NextRequest;
-        public void Inject(GetNext getNextMethod)
-        {
-            m_NextRequest = getNextMethod;
-        }
 
         internal void Clear()
         {
@@ -208,7 +202,6 @@ namespace Scuti.UI
         [SerializeField] protected RatingStarsWidget ratingStarsWidget;
 
 
-        private bool loadingNextCompleted = false;
         float m_TimerDuration;
         float m_PriorSpeed = 1;
         protected bool m_showing = false;
@@ -265,9 +258,10 @@ namespace Scuti.UI
             }
         }
 
+
+
         private void OffScreen()
         {
-
             _lastVisibleState = false;
             //Debug.LogError("OffScreen " + gameObject);
             //_portraitImpressionTimer.Stop();
@@ -282,22 +276,17 @@ namespace Scuti.UI
             //_portraitImpressionTimer.Start();
         }
 
-        public void OnScrollIndexJumped()
+    
+        public void LoadNext(Model data)
         {
-            SwapToNextHelper();
-        }
-
-        protected async virtual void SwapToNextHelper()
-        {
-            Clear();
+            //Clear();
             if (Next != null)
             {
                 Next.OnStateChanged -= OnNextStateChanged;
             }
-            Debug.LogError("Swap helper");
-            Next = await m_NextRequest(this);
+            Next = data;
 
-            Next.IsTall = false;
+            Next.IsTall = data.IsTall;
             Next.isSingle = Single;
             Next.LoadImage();
             Next.OnStateChanged -= OnNextStateChanged;
@@ -324,30 +313,14 @@ namespace Scuti.UI
             {
                 case Model.State.Loaded:
                     if (Next != null) Next.OnStateChanged -= OnNextStateChanged;
-                    loadingNextCompleted = true;
                     break;
                 case Model.State.Failed:
-                    LoadNext();
+                    Clear();
                     break;
             }
         }
 
-        private async void LoadNext()
-        {
-            loadingNextCompleted = false;
-            if (!_isStatic)
-            {
-                Next = await m_NextRequest(this);
-                if (Next != null)
-                {
-                    Next.IsTall = IsTall;
-                    Next.isSingle = Single;
-                    Next.OnStateChanged += OnNextStateChanged;
-                    Next.LoadImage();
-                }
-            }
-        }
-
+       
         public void Click()
         {
             OnClick?.Invoke(this);
@@ -387,7 +360,6 @@ namespace Scuti.UI
         {
             if (OnLoaded != null) OnLoaded.Invoke(IsFirstLoad(), this);
             FirstLoad = false;
-            LoadNext();
         }
 
         protected virtual bool IsFirstLoad()
