@@ -20,27 +20,45 @@ public class TopBarView : View {
     public List<BannerWidget> additionalBanners;
     private bool isAdditionalBanners;
 
+    
     private void Awake()
+    {
+        // Only the default banner is enrolled.        
+        Banner.onCreateBanners += CreateBanners;
+      
+    }
+
+    private void CreateBanners(int offerCount)
     {
         additionalBanners = new List<BannerWidget>();
 
+        if (offerCount < 2) return;
+
         widthBanner = rectBanner.sizeDelta.x + thresholdBanners;
         maxWidthContent = contentBanners.rect.size.x;
-        int amountBanners = (int)(maxWidthContent / widthBanner);
+        int bannerCount = (int)(maxWidthContent / widthBanner);
 
-        if(amountBanners > 1)
+        if (bannerCount > offerCount) bannerCount = offerCount;
+
+        if (bannerCount > 1)
         {
+            int increment = offerCount / bannerCount;
+            if (increment < 1) increment = 1;
+
             // Instance banners
-            for (int i = 0; i < amountBanners - 1; i++)
+            for (int i = 0; i < bannerCount - 1; i++)
             {
                 BannerWidget banner = Instantiate(Banner, contentBanners.transform);
-                banner.gameObject.name = "Banner - "+ (int)(i+1);
-                banner.SetIndex(i+amountBanners);
+                banner.gameObject.name = "Banner - " + (int)(i + 1);
+                //It is added 1 because the default banner is already instantiated with index zero.
+                banner.SetIndex(((i+1)* + increment >= offerCount)? offerCount - 1: (i+1)*increment);
                 banner.SecondDelay = 10;
                 additionalBanners.Add(banner);
             }
             isAdditionalBanners = true;
         }
+
+        Banner.onCreateBanners -= CreateBanners;
     }
 
     public override void Open()
