@@ -67,23 +67,6 @@ namespace Scuti.UI
             public bool isSingle = false;
 
 
-            //HashSet<OfferSummaryPresenterBase> References;
-
-            //public void AddReference(OfferSummaryPresenterBase r)
-            //{
-            //    References.Add(r);
-            //}
-
-            //public void RemoveReference(OfferSummaryPresenterBase r)
-            //{
-            //    References.Remove(r);
-            //    if(References.Count<1)
-            //    {
-            //        GarbageCollect();
-            //    }
-            //}
-
-
             [SerializeField] Texture2D texture;
             public Texture2D Texture { get { return texture; } }
 
@@ -236,10 +219,7 @@ namespace Scuti.UI
             public bool HideIfStatic;
         }
 
-        //public GameObject AdContainer;
         public VisualRules[] ProductVisualRules;
-
-        //public Image AdImage;
 
         RectTransform rect;
         bool _lastVisibleState = false;
@@ -251,12 +231,9 @@ namespace Scuti.UI
         protected override void Awake()
         {
             base.Awake();
-
-            Debug.LogError("HERE??");
             rect = GetComponent<RectTransform>();
             _portraitImpressionTimer.Elapsed += _portraitImpressionTimer_Elapsed;
             _portraitImpressionTimer.Enabled = false;
-
         }
 
         private void _portraitImpressionTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -267,36 +244,37 @@ namespace Scuti.UI
                 ScutiAPI.RecordOfferImpression(Data.ID);
         }
 
-        //private void RecordOfferImpression()
-        //{
-        //    Debug.LogError("Record impression");
-        //    //timer.Pause();
-        //    if (Data != null)
-        //        ScutiAPI.RecordOfferImpression(Data.ID);
-        //}
-
         void Update()
         {
             var isHalfVisibleFrom = rect.IsHalfVisibleFrom();
-            if (isHalfVisibleFrom && isHalfVisibleFrom != _lastVisibleState && Data!=null && Data.CurrentState == Model.State.Loaded)
+            if (!_timerPaused &&  m_showing && isHalfVisibleFrom &&  !_lastVisibleState && Data!=null && Data.CurrentState == Model.State.Loaded)
             {
-                Debug.LogError("HALF "+gameObject +"  "+ ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
+                OnScreen();
                 _lastVisibleState = true;
-                _portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
-                _portraitImpressionTimer.Enabled = true;
-                //_portraitImpressionTimer.Start();
             }
-            else if (!isHalfVisibleFrom && isHalfVisibleFrom != _lastVisibleState)
+            else if (_lastVisibleState && (!isHalfVisibleFrom || !m_showing || _timerPaused ))
             {
-                _lastVisibleState = false;
-                //timer.Pause();
-                Debug.LogError("STOP " + gameObject);
-                _portraitImpressionTimer.Enabled = false;
-
+                OffScreen();
             }
-
         }
 
+        private void OffScreen()
+        {
+
+            _lastVisibleState = false;
+            //Debug.LogError("OffScreen " + gameObject);
+            _portraitImpressionTimer.Stop();
+            _portraitImpressionTimer.Enabled = false;
+        }
+
+        private void OnScreen()
+        {
+            //Debug.LogError("OnScreen "+gameObject +"  "+ ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
+            _portraitImpressionTimer.Interval = ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION * 1000;
+            _portraitImpressionTimer.Enabled = true;
+            _portraitImpressionTimer.Start();
+
+        }
          
         protected virtual void OnTimerCompleted()
         {
@@ -318,7 +296,6 @@ namespace Scuti.UI
             if (Next != null)
             {
                 Next.OnStateChanged -= OnNextStateChanged;
-                //Debug.Log("Loaded Next: " + Next.Title);
                 Data = Next;
                 Next = null;
                 DisplayCurrentImage();
@@ -338,7 +315,6 @@ namespace Scuti.UI
 
             Next.IsTall = false;
             Next.isSingle = Single;
-            //Debug.LogError("Loading next "+ gameObject.GetInstanceID());
             Next.LoadImage();
             Next.OnStateChanged -= OnNextStateChanged;
             Next.OnStateChanged += OnNextStateChanged;
@@ -346,7 +322,6 @@ namespace Scuti.UI
 
         protected virtual void OnNextStateChanged(Model.State state)
         {
-            //Debug.LogError("On Next completed: " + gameObject);
             switch (state)
             {
                 case Model.State.Loaded:
@@ -374,11 +349,6 @@ namespace Scuti.UI
                 CleanUp(displayImage.sprite);
                 displayImage.sprite = null;
             }
-            //if (AdImage != null)
-            //{
-            //    CleanUp(AdImage.sprite);
-            //    AdImage.sprite = null;
-            //}
         }
 
         private void CleanUp(Sprite sprite)
@@ -437,7 +407,6 @@ namespace Scuti.UI
             if (!_destroyed)
             {
                 m_showing = true;
-                ResumeTimer();
                 animator?.SetTrigger("LoadingFinished");
             }
         }
@@ -447,7 +416,8 @@ namespace Scuti.UI
             if (!_destroyed && Data!=null)
             {
                 if (Data.Texture && (displayImage.sprite == null || Data.Texture != displayImage.sprite.texture))
-                { 
+                {
+                    CleanUp(displayImage.sprite);
                     displayImage.sprite = Data.Texture.ToSprite();
                 }
 
@@ -489,35 +459,19 @@ namespace Scuti.UI
 
         public void ResetTimer()
         {
-            //if (!_isPortrait && !_destroyed && !_isStatic)
-            //{
-            //    // BlogsHere
-            //    //timer.gameObject.SetActive(true);
-            //    //timerCompleted = false;
-            //    //timer.ResetTime(m_TimerDuration);
-            //    //timer.AddCustomEvent(ScutiConstants.SCUTI_IMPRESSION_ID, ScutiConstants.SCUTI_VALID_IMPRESSION_DURATION);
-            //    //timer.Begin();
-            //}
+            OffScreen();
+            _lastVisibleState = false;
         }
 
+        private bool _timerPaused = false;
         public void PauseTimer()
         {
-            //if (!_isPortrait && !_destroyed && timer != null)
-            //{
-            //    if (animator.speed != 0) m_PriorSpeed = animator.speed;
-            //    animator.speed = 0;
-            //    timer.Pause();
-            //}
+            _timerPaused = true;
         }
 
         public void ResumeTimer()
         {
-            //if (!_isPortrait && !_destroyed && timer != null && m_showing && !_isStatic)
-            //{
-            //    timer.gameObject.SetActive(true);
-            //    animator.speed = m_PriorSpeed;
-            //    timer.Begin();
-            //}
+            _timerPaused = false;
         }
         #endregion
 
