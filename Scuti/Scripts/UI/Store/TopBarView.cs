@@ -50,7 +50,8 @@ public class TopBarView : View {
             {
                 BannerWidget banner = Instantiate(Banner, contentBanners.transform);
                 banner.gameObject.name = "Banner - " + (int)(i + 1);
-                banner.SetIndex((i + increment >= offerCount)? offerCount: i+increment);
+                //It is added 1 because the default banner is already instantiated with index zero.
+                banner.SetIndex(((i+1)* + increment >= offerCount)? offerCount - 1: (i+1)*increment);
                 banner.SecondDelay = 10;
                 additionalBanners.Add(banner);
             }
