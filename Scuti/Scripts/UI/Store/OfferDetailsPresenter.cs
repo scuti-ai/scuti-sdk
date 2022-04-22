@@ -72,10 +72,10 @@ namespace Scuti.UI
         {
             base.Open();
             browseTime = Time.time;
-            if (ScutiUtils.IsPortrait())
-            {
-                UIManager.TopBar.ShowBanner(false);
-            }
+            //if (ScutiUtils.IsPortrait())
+            //{
+            UIManager.TopBar.ShowBanner(false);
+            //}
         }
 
         public override void Close()
