@@ -23,7 +23,7 @@ public class TopBarView : View {
     
     private void Awake()
     {
-        Banner.onCreateBanners -= CreateBanners;
+        // Only the default banner is enrolled.        
         Banner.onCreateBanners += CreateBanners;
       
     }
@@ -48,12 +48,14 @@ public class TopBarView : View {
             {
                 BannerWidget banner = Instantiate(Banner, contentBanners.transform);
                 banner.gameObject.name = "Banner - " + (int)(i + 1);
-                banner.SetIndex(i + amountBanners);
+                banner.SetIndex(i + amountBanners - 1);
                 banner.SecondDelay = 10;
                 additionalBanners.Add(banner);
             }
             isAdditionalBanners = true;
         }
+
+        Banner.onCreateBanners -= CreateBanners;
     }
 
     public override void Open()
