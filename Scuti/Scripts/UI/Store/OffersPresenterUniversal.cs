@@ -41,9 +41,9 @@ namespace Scuti.UI
 			{
 				var defaultrow = RowContainerPrefabs[0]; // -> TODO Is there a better way to get these numbers? -je
 				var columnWidth = defaultrow.Columns[0].GetComponent<RectTransform>().rect.width;
-				var gapeBetweenColumns = defaultrow.GetComponent<HorizontalLayoutGroup>().spacing;
-				var containerSize = Screen.width; // OfferContainer.GetComponent<RectTransform>().rect.width; --> why this always gives 1920??
-				var numberOfColumns = Math.Max(1, Mathf.FloorToInt(containerSize / (columnWidth /*+ gapeBetweenColumns*/)));
+				var screenWidth = Screen.width;
+				var containerSize = screenWidth;
+				var numberOfColumns = Math.Max(1, Mathf.FloorToInt(containerSize / (columnWidth)));
 				_columns = numberOfColumns;
 			}
 			catch (Exception)
