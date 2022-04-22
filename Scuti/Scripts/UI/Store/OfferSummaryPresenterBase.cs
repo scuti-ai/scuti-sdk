@@ -131,15 +131,12 @@ namespace Scuti.UI
                 }
             }
 
-            //private void GarbageCollect()
-            //{
-
-            //}
 
             public override void Dispose()
             {
                 OnDispose?.Invoke(this);
 
+                //Debug.Log("Dispose " + this);
                 base.Dispose();
 
                 OnStateChanged = null;
@@ -148,14 +145,17 @@ namespace Scuti.UI
             }
         }
 
+        public void OnRotateOutComplete()
+        {
+            SwapToNext();
+        }
+
+        internal void InjectContainer(OfferSummaryTallSmallContainer offerSummaryTallSmallContainer)
+        {
+
+        }
 
         public OfferSummaryPresenterBase.Model Next { get; protected set; }
-        public delegate Task<Model> GetNext(OfferSummaryPresenterBase presenter);
-        protected GetNext m_NextRequest;
-        public void Inject(GetNext getNextMethod)
-        {
-            m_NextRequest = getNextMethod;
-        }
 
         internal void Clear()
         {
@@ -197,10 +197,8 @@ namespace Scuti.UI
         [SerializeField] protected Image backgroundImage;
         [SerializeField] protected Image displayImage;
         [SerializeField] public TextMeshProUGUI titleText;
-        [SerializeField] protected TextMeshProUGUI displayPriceText;
-        [SerializeField] protected TextMeshProUGUI ratingText;
         [SerializeField] protected TextMeshProUGUI brandText;
-        [SerializeField] protected RatingStarsWidget ratingStarsWidget;
+       
         public RectTransform Viewport;
 
 
@@ -208,7 +206,6 @@ namespace Scuti.UI
         float m_PriorSpeed = 1;
         protected bool m_showing = false;
 
-        protected bool timerCompleted = false;
         protected bool _isStatic = false;
 
         System.Timers.Timer _portraitImpressionTimer = new System.Timers.Timer();
@@ -261,9 +258,10 @@ namespace Scuti.UI
             }
         }
 
+
+
         private void OffScreen()
         {
-
             _lastVisibleState = false;
             //Debug.LogError("  --> OffScreen " + Data.Title);
             //_portraitImpressionTimer.Stop();
@@ -277,26 +275,29 @@ namespace Scuti.UI
             _portraitImpressionTimer.Enabled = true;
             //_portraitImpressionTimer.Start();
         }
-         
-        protected virtual void OnTimerCompleted()
-        {
-            timerCompleted = true;
-        }
 
-        public void OnScrollIndexJumped()
+    
+        public void LoadNext(Model data)
         {
-            SwapToNextHelper();
-        }
+            //Clear();
+            if (Next != null)
+            {
+                Next.OnStateChanged -= OnNextStateChanged;
+            }
+            Next = data;
 
-        public void OnRotateOutComplete()
-        {
-            SwapToNext();
+            Next.IsTall = data.IsTall;
+            Next.isSingle = Single;
+            Next.LoadImage();
+            Next.OnStateChanged -= OnNextStateChanged;
+            Next.OnStateChanged += OnNextStateChanged;
         }
 
         protected virtual void SwapToNext()
         {
             if (Next != null)
             {
+                //todo: what happens if we scroll too fast and Next is not ready? -mg
                 Next.OnStateChanged -= OnNextStateChanged;
                 Data = Next;
                 Next = null;
@@ -306,37 +307,23 @@ namespace Scuti.UI
             }
         }
 
-        protected async virtual void SwapToNextHelper()
-        {
-            Clear();
-            if(Next!=null)
-            {
-                Next.OnStateChanged -= OnNextStateChanged;
-            }
-            Next = await m_NextRequest(this);
-
-            Next.IsTall = false;
-            Next.isSingle = Single;
-            Next.LoadImage();
-            Next.OnStateChanged -= OnNextStateChanged;
-            Next.OnStateChanged += OnNextStateChanged;
-        }
-
         protected virtual void OnNextStateChanged(Model.State state)
         {
             switch (state)
             {
                 case Model.State.Loaded:
-                    if (Next != null) Next.OnStateChanged -= OnNextStateChanged;
-                    SwapToNext();
+                    if (Next != null)
+                    {
+                        SwapToNext();
+                    }
                     break;
                 case Model.State.Failed:
-                    if (Next != null) Next.OnStateChanged -= OnNextStateChanged;
                     Clear();
                     break;
             }
         }
 
+       
         public void Click()
         {
             OnClick?.Invoke(this);
@@ -509,68 +496,16 @@ namespace Scuti.UI
                     break;
                 case Model.State.Failed:
                     if (Data != null) Data.OnStateChanged -= OnSetDataState;
-                    ScutiLogger.Log("Could not load summary image.");
+                    //ScutiLogger.Log("Could not load summary image.");
                     break;
             }
         }
 
-
-
         // Updates UI based on values on View.Data
         protected virtual void UpdateUI()
         {
-            titleText.text = TextElipsis(Data.Title, Single? 26:15);
-            displayPriceText.text = ScutiUtils.FormatPrice(Data.DisplayPrice);
-
-            ////  New and Hot Badges only in portrait
-            //if (_isPortrait)
-            //{
-            //    newBadge.SetActive(Data.IsNew);
-            //    hotBadge.SetActive(Data.IsNew ? false : Data.IsHot);
-            //}
-            //else
-            //{
-            //    newBadge.SetActive(false);
-            //    hotBadge.SetActive(false);
-            //}
-
-            // Show ONLY THE FIRST promo that is applicable
-            //var list = new List<KeyValuePair<GameObject, bool>> {
-            //    new KeyValuePair<GameObject, bool>(hotPricePromo, Data.IsHotPrice),
-            //    new KeyValuePair<GameObject, bool>(recommendedPromo, Data.IsRecommended),
-            //    new KeyValuePair<GameObject, bool>(specialOfferPromo, Data.IsSpecialOffer),
-            //    new KeyValuePair<GameObject, bool>(bestsellerPromo, Data.IsBestSeller),
-            //    new KeyValuePair<GameObject, bool>(scutiPromo, Data.IsScuti)
-            //};
-
-            //list.ForEach(x => x.Key.SetActive(false));
-
-            //if (_isPortrait)
-            //{
-            //    foreach (var pair in list)
-            //    {
-            //        if (pair.Value)
-            //        {
-            //            pair.Key.SetActive(true);
-            //            pair.Key.transform.localScale = Vector3.zero;
-            //            break;
-            //        }
-            //    }
-            //}
-
-            //GlowImage.gameObject.SetActive(false);
-            brandText.text = Data.Brand;
-            // Show the rating if there is a rating
-            //bool hasRatingValue = Data.Rating > 0f && _isPortrait;
-
-
-            //ratingText.gameObject.SetActive(hasRatingValue);
-            //ratingStarsWidget.gameObject.SetActive(hasRatingValue);
-            //if (hasRatingValue)
-            //{
-            //    ratingText.text = Data.Rating.ToString("0.0");
-            //    ratingStarsWidget.Value = Data.Rating / ratingStarsWidget.Levels;
-            //}
+            titleText.text = TextElipsis(Data.Title); 
+            if(brandText!=null) brandText.text = Data.Brand; 
         }
 
         protected string TextElipsis(string text, int truncateSize = 26)
