@@ -107,9 +107,10 @@ namespace Scuti.UI
                 _newAnchoredPosition = Vector2.zero;
             }
 
-            if (GetComponent<ScrollRect>() != null)
+            var tempRect = GetComponent<ScrollRect>();
+            if (tempRect != null)
             {
-                _scrollRect = GetComponent<ScrollRect>();
+                _scrollRect = tempRect;
                 _scrollRect.onValueChanged.AddListener(OnScroll);
                 _scrollRect.movementType = ScrollRect.MovementType.Unrestricted;
 
@@ -168,7 +169,12 @@ namespace Scuti.UI
                         _recordOffsetY += _verticalLayoutGroup.padding.top;
                         _recordOffsetY += _verticalLayoutGroup.spacing * items.Count;
                     }
+
+
                     _disableMarginY = _recordOffsetY / 2;
+
+                    _disableMarginY *= _scrollRect.content.localScale.y;
+
                     _recordOffsetY /= items.Count;
                     /*Debug.LogWarning("       "+ items[1].name+" ** "+ items[0].name);
                     _recordOffsetY = items[1].GetComponent<RectTransform>().anchoredPosition.y - items[0].GetComponent<RectTransform>().anchoredPosition.y;

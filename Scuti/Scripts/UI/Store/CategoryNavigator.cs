@@ -113,7 +113,7 @@ namespace Scuti.UI
                 ordered.AddRange(preferred);
                 ordered.AddRange(other);
                 m_Categories = ordered.ToArray();
-
+                Debug.LogError(ordered.ToJson());
                 _invalid = false;
             }
             var category = m_Categories[m_Index];

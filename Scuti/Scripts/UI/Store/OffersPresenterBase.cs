@@ -521,6 +521,7 @@ namespace Scuti.UI
             var canvasScale = canvas.scaleFactor;
 
             OfferContainer.localScale = Vector3.one * (tempScale / canvasScale);
+
         }
 
 //        private bool Landscape()
@@ -545,7 +546,9 @@ namespace Scuti.UI
 
         async protected Task InitScrollArea()
         {
+            //ResizeScrollRect();
             await Task.Delay(250);
+            ResizeScrollRect();
             InfinityScroll.Init();
             InfinityScroll.CheckBounds();
             categoryNavigator.OpenCurrent();
