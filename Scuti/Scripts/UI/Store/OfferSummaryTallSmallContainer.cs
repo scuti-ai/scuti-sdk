@@ -19,11 +19,6 @@ namespace Scuti.UI
             Clear();
         }
 
-        protected void Start()
-        {
-            Small.InjectContainer(this);
-            Tall.InjectContainer(this);
-        }
 
         internal void Clear()
         {

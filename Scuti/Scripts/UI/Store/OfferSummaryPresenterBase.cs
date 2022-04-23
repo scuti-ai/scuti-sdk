@@ -145,15 +145,7 @@ namespace Scuti.UI
             }
         }
 
-        public void OnRotateOutComplete()
-        {
-            SwapToNext();
-        }
 
-        internal void InjectContainer(OfferSummaryTallSmallContainer offerSummaryTallSmallContainer)
-        {
-
-        }
 
         public OfferSummaryPresenterBase.Model Next { get; protected set; }
 

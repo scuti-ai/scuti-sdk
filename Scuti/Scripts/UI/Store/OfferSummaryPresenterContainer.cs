@@ -12,21 +12,12 @@ namespace Scuti.UI
     {
         public List<OfferSummaryPresenterBase> Presenters;
 
-        public OfferSummaryTallSmallContainer Container { get; private set; }
-          
-
-
         internal void Clear()
         {
             foreach(var pres in Presenters)
             {
                 pres.Clear();
             }
-        }
-
-        internal void InjectContainer(OfferSummaryTallSmallContainer offerSummaryTallSmallContainer)
-        {
-            Container = offerSummaryTallSmallContainer;
         }
     }
 }
