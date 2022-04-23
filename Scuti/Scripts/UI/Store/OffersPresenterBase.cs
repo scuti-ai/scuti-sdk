@@ -457,6 +457,7 @@ namespace Scuti.UI
         {
             base.Awake();
 
+          
 
 
             // ugly coupling but needs to be done quickly. TODO: cleanup -mg
@@ -469,11 +470,27 @@ namespace Scuti.UI
 
 
             var prefab = RowContainerPrefabs[0];
-            var columnWidth = prefab.Columns[0].GetComponent<RectTransform>().rect.width;
-            var screenWidth = Screen.width;
-            var containerSize = screenWidth;
-            var numberOfColumns = Math.Max(1, Mathf.FloorToInt(containerSize / (columnWidth)));
-            _columns = numberOfColumns;
+            if (!ScutiUtils.IsPortrait())
+            {
+                var columnWidth = prefab.Columns[0].GetComponent<RectTransform>().rect.width;
+                var canvasWidth = OfferContainer.GetComponentInParent<Canvas>().GetComponent<RectTransform>().rect.width;
+                var screenWidth = Screen.width;
+
+                var containerSize = screenWidth * (1920f / canvasWidth);
+                var numberOfColumns = Math.Max(1, Mathf.FloorToInt(containerSize / (columnWidth)));
+
+                if (numberOfColumns >= RowContainerPrefabs.Count)
+                {
+                    numberOfColumns = RowContainerPrefabs.Count - 1;
+                }
+                _columns = numberOfColumns;
+            }
+            else
+            {
+                Debug.LogError("TODO: Should handle portrait on tablets here");
+                _columns = 1;
+            }
+             
             prefab = RowContainerPrefabs[_columns - 1];
             for (var r = 0; r < _rows; r++)
             {
@@ -492,6 +509,31 @@ namespace Scuti.UI
             }
             offerDataToRequest = (_rows * _columns) * 2;
         }
+
+        public void ResizeScrollRect()
+        {
+            if (_columns == 1) return;
+            // scale ->
+            // 4, 1920 => 0.521976  (screenwidth/row.rect.width)/ scaleFactor
+            // 4, 2778 => 0.64399    0.7716666/1.1889
+            // 3, 859 => 0.71172  
+
+            var tempScale = Screen.width / (_allRows[0].transform.GetComponent<RectTransform>().rect.width + 125);
+            var canvas = GetComponentInParent<Canvas>();
+            var canvasScale = canvas.scaleFactor;
+
+            OfferContainer.localScale = Vector3.one * (tempScale / canvasScale);
+        }
+
+//        private bool Landscape()
+//        {
+//            var _landscape = Screen.orientation == ScreenOrientation.Landscape || Screen.orientation == ScreenOrientation.LandscapeLeft || Screen.orientation == ScreenOrientation.LandscapeRight;
+//#if UNITY_EDITOR
+//            _landscape = Camera.main.pixelWidth > Camera.main.pixelHeight;
+//#endif
+//            return _landscape;
+
+//        }
 
         private void Start()
         {
@@ -814,7 +856,7 @@ namespace Scuti.UI
             }
 
             await Task.Delay(250);
-            //OnPopulateFinished?.Invoke();
+            OnPopulateFinished?.Invoke();
             InfinityScroll.OnSiblingUpdate -= OnSiblingUpdated;
             InfinityScroll.OnSiblingUpdate += OnSiblingUpdated;
             m_ChangingCategories = false;
