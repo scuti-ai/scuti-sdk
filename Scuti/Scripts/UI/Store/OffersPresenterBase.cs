@@ -467,7 +467,7 @@ namespace Scuti.UI
             var prefab = RowContainerPrefabs[0];
             if (!ScutiUtils.IsPortrait())
             {
-                var columnWidth = prefab.Columns[0].GetComponent<RectTransform>().rect.width;
+                var columnWidth = prefab.Columns[0].GetComponent<RectTransform>().rect.width  / 3; // Assuming the right value is 300px for a 1920px screen
                 var canvasWidth = OfferContainer.GetComponentInParent<Canvas>().GetComponent<RectTransform>().rect.width;
                 var screenWidth = Screen.width;
                 Debug.LogError(Screen.width + " vs " + Camera.main.pixelWidth);
