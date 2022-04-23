@@ -139,7 +139,7 @@ namespace Scuti.UI {
             }
         }
 
-        private void OnWidgetLoaded(bool value, OfferSummaryPresenterBase widget)
+        private void OnWidgetLoaded(OfferSummaryPresenterBase widget)
         {
             widget.Show();
             widget.DisplayCurrentImage();

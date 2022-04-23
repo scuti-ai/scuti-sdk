@@ -9,7 +9,6 @@ using Image = UnityEngine.UI.Image;
 using Scuti.GraphQL.Generated;
 
 using LoadedWidgetQueue = System.Collections.Generic.Queue<System.Tuple<Scuti.UI.OfferSummaryPresenterBase, bool>>;
-//using GetNextRequestQueue = System.Collections.Generic.Queue<System.Tuple<System.Action<Scuti.UI.OfferSummaryPresenterBase.Model>, Scuti.UI.OfferSummaryPresenterBase>>;
 using System.Threading;
 using Scuti.Net;
 using UnityEngine.Events;
@@ -215,7 +214,7 @@ namespace Scuti.UI
 
                 if (item.DisplayAd)
                 {
-                    if (!string.IsNullOrEmpty(item.TallURL) /*&& !ScutiUtils.IsPortrait()*/) mediaType = OfferService.MediaType.Vertical;
+                    if (!string.IsNullOrEmpty(item.TallURL)) mediaType = OfferService.MediaType.Vertical;
                     else if(!string.IsNullOrEmpty(item.SmallURL))
                     {
                         mediaType = OfferService.MediaType.SmallTile;
@@ -259,7 +258,7 @@ namespace Scuti.UI
                     case OfferService.MediaType.SmallTile:
                         return TileOffers;
                     case OfferService.MediaType.Vertical:
-                        //Debug.LogError("Vertical Count "+VerticalOffers.TotalItemCount);
+                        //Debug.LogError("Vertical Count " + VerticalOffers.TotalItemCount);
                         return  VerticalOffers;
                     case OfferService.MediaType.Banner:
                         return BannerOffers;
@@ -369,9 +368,8 @@ namespace Scuti.UI
         protected bool m_ChangingCategories = false;
 
         //protected GetNextRequestQueue GetNextRequestQueue = new GetNextRequestQueue();
-        protected Queue<OfferSummaryRowContainer> GetNextRequestQueue = new Queue<OfferSummaryRowContainer>();
         protected bool m_requestOffersInProgress = false;
-        protected List<OfferSummaryPresenterBase> m_Instantiated = new List<OfferSummaryPresenterBase>();
+        //protected List<OfferSummaryPresenterBase> m_Instantiated = new List<OfferSummaryPresenterBase>();
          
 
 
@@ -404,9 +402,6 @@ namespace Scuti.UI
                     _loadOnStart = false;
                     InitScrollArea();
                 }
-
-
-
             }
             else
             {
@@ -429,7 +424,7 @@ namespace Scuti.UI
             TimeoutTimer.ResetTime(ScutiConstants.SCUTI_TIMEOUT);
             UIManager.TopBar?.ResumeBanner();
             TimeoutTimer.Begin();
-            foreach (var offer in m_Instantiated)
+            foreach (var offer in _allCells)
             {
                 if (offer.HasData)
                     offer.ResumeTimer();
@@ -441,7 +436,7 @@ namespace Scuti.UI
             m_Paused = true;
             if (!firstOpen) UIManager.TopBar?.PauseBanner();
             TimeoutTimer.Pause();
-            foreach (var offer in m_Instantiated)
+            foreach (var offer in _allCells)
             {
                 offer.PauseTimer();
             }
@@ -503,11 +498,14 @@ namespace Scuti.UI
                     _allCells.Add(col.Tall);
                     col.Tall.Viewport = Viewport;
                     _allCells.AddRange(col.Small.Presenters.ToArray());
+
+                    //m_Instantiated.Add(presenter);
                 }
 
                 _rowMap[row.transform] = row;
             }
-            offerDataToRequest = (_rows * _columns) * 2;
+            offerDataToRequest = (_rows * _columns) * 3;
+            MinDataCached = offerDataToRequest/2;
         }
 
         public void ResizeScrollRect()
@@ -580,20 +578,19 @@ namespace Scuti.UI
                     ResetTimeout();
                 }
             }
-            ProcessGetNextRequestQueue();
         }
 
 
 
         private void OnSiblingUpdated(Transform obj)
         {
-            //Debug.LogError("Sib "+obj);
+            //Debug.LogError("Sib >>>> "+obj);
             if (_rowMap.ContainsKey(obj))
             {
                 var col = _rowMap[obj];
                 col.Clear();
                 //Debug.Log("Queue : " + col);
-                GetNextRequestQueue.Enqueue(col);
+                GetOffers(col);
             }
         }
 
@@ -770,7 +767,7 @@ namespace Scuti.UI
             {
                 _loadingSource.Cancel();
             }
-            foreach (var widget in m_Instantiated)
+            foreach (var widget in _allCells)
             {
                 widget.OnLoaded -= OnWidgetLoaded;
             }
@@ -779,8 +776,7 @@ namespace Scuti.UI
                 presenter.Clear();
             }
 
-            m_Instantiated.Clear();
-            GetNextRequestQueue.Clear();
+            //m_Instantiated.Clear();
             loadedWidgetQueue.Clear();
             Resources.UnloadUnusedAssets();
             OnClearFinished?.Invoke();
@@ -805,17 +801,16 @@ namespace Scuti.UI
             
         }
 
-        void ProcessGetNextRequestQueue()
+        void GetOffers(OfferSummaryRowContainer offerSummaryRowContainer)
         {
             bool shouldUpdate = ShouldUpdateOffers;
             if (shouldUpdate && m_Paused) ResumeAds();
             else if (!shouldUpdate && !m_Paused)
             {
-
                 PauseAds();
             }
 
-            if (!m_Paused && GetNextRequestQueue.Count != 0 && !m_ChangingCategories)
+            if (!m_ChangingCategories)
             {
                 var needed = _columns*2;
                 var mediaType = OfferService.MediaType.Product;
@@ -827,13 +822,16 @@ namespace Scuti.UI
                     //Debug.LogError("Request more!!!");
                     var source = new CancellationTokenSource();
                     _offerSources.Add(source);
-                    RequestMoreOffers(false, source.Token, offerDataToRequest, mediaType);
+                    //RequestMoreOffers(false, source.Token, offerDataToRequest, mediaType);
+                    RequestMoreOffers(false, source.Token, offerDataToRequest, OfferService.MediaType.Product);
+                    RequestMoreOffers(false, source.Token, offerDataToRequest / 3, OfferService.MediaType.Vertical);
+                    RequestMoreOffers(false, source.Token, offerDataToRequest / 2, OfferService.MediaType.SmallTile);
 #pragma warning restore 4014
                 }
 
                 if(productCount > needed-1)
                 {
-                    var offerSummaryRowContainer = GetNextRequestQueue.Dequeue();
+                    //var offerSummaryRowContainer = GetNextRequestQueue.Dequeue();
                     PopulateRow(offerSummaryRowContainer, false);
 
                 }else if (pagination.Index >= pagination.TotalCount && !requestInProgress)
@@ -841,6 +839,15 @@ namespace Scuti.UI
                     //Debug.LogError("Empty pool");
                     if (mediaType == OfferService.MediaType.Product || mediaType == OfferService.MediaType.Banner)
                         Data.EmptyPool(mediaType);
+
+                    // At least show what we can
+                    productCount = Data.NewItemsCount(mediaType);
+                    if (productCount > 0)
+                    {
+                        //Debug.LogError("Filling: " + productCount + " of " + needed);
+                        //var offerSummaryRowContainer = GetNextRequestQueue.Dequeue();
+                        PopulateRow(offerSummaryRowContainer, false);
+                    }
                 }
             }
         }
@@ -900,8 +907,6 @@ namespace Scuti.UI
                         var oData = offerData;
                         if (count > 0) oData = offerData2;
 
-                        if(firstLoad) m_Instantiated.Add(presenter);
-
                         presenter.gameObject.hideFlags = HideFlags.DontSave;
 
                         if (oData == null)
@@ -909,22 +914,25 @@ namespace Scuti.UI
                             continue;
                         }
 
-                        if (firstLoad)
-                        {
+                        oData.DisplayAd = (mediaType != OfferService.MediaType.Product);
+                        //Debug.LogError(oData.DisplayAd + " and " + mediaType + " "+oData.Title); 
+                        //if (firstLoad)
+                        //{
+
                             presenter.Data = oData;
-                            presenter.FirstLoad = firstLoad;
+                            //presenter.FirstLoad = firstLoad;
                             presenter.OnLoaded -= OnWidgetLoaded;
                             presenter.OnLoaded += OnWidgetLoaded;
                             presenter.Data.isSingle = presenter.Single;
-                            presenter.Data.LoadImage();
                             presenter.Data.IsTall = (mediaType == OfferService.MediaType.Vertical);
+                            presenter.Data.LoadImage();
                             
                             presenter.OnClick -= OnPresenterClicked;
                             presenter.OnClick += OnPresenterClicked;
-                        } else
-                        {
-                            presenter.LoadNext(oData);
-                        }
+                        //} else
+                        //{
+                        //    presenter.LoadNext(oData);
+                        //}
                         count++;
                     }
                 }
@@ -935,7 +943,7 @@ namespace Scuti.UI
 
         }
 
-        protected void OnWidgetLoaded(bool initial, OfferSummaryPresenterBase widget)
+        protected void OnWidgetLoaded(OfferSummaryPresenterBase widget)
         {
             widget.Show();
             widget.DisplayCurrentImage();

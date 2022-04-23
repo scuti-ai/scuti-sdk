@@ -272,7 +272,7 @@ namespace Scuti.UI
 
                             var trans = _scrollRect.content.GetChild(_itemCount - 1).transform;
                             trans.SetAsFirstSibling();
-                            OnSiblingUpdate?.Invoke(trans);
+                            OnSiblingUpdate?.Invoke(items[i].transform);
                         }
                         else if (_scrollRect.transform.InverseTransformPoint(items[i].gameObject.transform.position).x < -_disableMarginX)
                         {
@@ -282,7 +282,7 @@ namespace Scuti.UI
 
                             var trans = _scrollRect.content.GetChild(0);
                             trans.transform.SetAsLastSibling();
-                            OnSiblingUpdate?.Invoke(trans);
+                            OnSiblingUpdate?.Invoke(items[i].transform);
                         }
                     }
 
@@ -295,7 +295,7 @@ namespace Scuti.UI
                             items[i].anchoredPosition = _newAnchoredPosition;
                             var trans = _scrollRect.content.GetChild(_itemCount - 1).transform;
                             trans.SetAsFirstSibling();
-                            OnSiblingUpdate?.Invoke(trans);
+                            OnSiblingUpdate?.Invoke(items[i].transform);
                         }
                         else if (_scrollRect.transform.InverseTransformPoint(items[i].gameObject.transform.position).y < -_disableMarginY)
                         {
@@ -304,7 +304,7 @@ namespace Scuti.UI
                             items[i].anchoredPosition = _newAnchoredPosition;
                             var trans = _scrollRect.content.GetChild(0);
                             trans.transform.SetAsLastSibling();
-                            OnSiblingUpdate?.Invoke(trans);
+                            OnSiblingUpdate?.Invoke(items[i].transform);
                         }
                     }
                 }

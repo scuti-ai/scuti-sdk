@@ -97,6 +97,7 @@ namespace Scuti.UI
                                 }
                                 else
                                 {
+                                //Debug.LogError("DisplayAd is false because: " + IsTall + "  " + TallURL + " and " + SmallURL +"  on "+Title);
                                     DisplayAd = false;
                                 }
                             }
@@ -168,14 +169,13 @@ namespace Scuti.UI
         public bool IsTall = false; 
         public bool Single = false;
         public bool FirstColumn = false;
-        public bool FirstLoad = true;
         public event Action<OfferSummaryPresenterBase> OnClick;
 
         /// <summary>
         /// Fired when the model loads an image. True if this is the
         /// first model that the instance loads.
         /// </summary>
-        public event Action<bool, OfferSummaryPresenterBase> OnLoaded;
+        public event Action<OfferSummaryPresenterBase> OnLoaded;
 
         public bool HasData
         {
@@ -277,7 +277,7 @@ namespace Scuti.UI
                 Next.OnStateChanged -= OnNextStateChanged;
             }
             Next = data;
-
+            Next.DisplayAd = data.DisplayAd;
             Next.IsTall = data.IsTall;
             Next.isSingle = Single;
             Next.LoadImage();
@@ -353,13 +353,7 @@ namespace Scuti.UI
 
         protected virtual void LoadCompleted()
         {
-            if (OnLoaded != null) OnLoaded.Invoke(IsFirstLoad(), this);
-            FirstLoad = false;
-        }
-
-        protected virtual bool IsFirstLoad()
-        {
-            return FirstLoad;
+            if (OnLoaded != null) OnLoaded.Invoke(this);
         }
 
         #endregion
