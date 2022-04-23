@@ -21,7 +21,7 @@ namespace Scuti.UI
 
         public event Action<string> OnOpenRequest;
 
-        private OffersPresenterBase _offersPresenterBase;
+        private OffersPresenter _offersPresentere;
 
         private string[] m_Categories = { "DEFAULT" };
 
@@ -138,9 +138,9 @@ namespace Scuti.UI
         // Helpers
         private void ChangeCategory(int delta)
         {
-            if(_offersPresenterBase!=null)
+            if(_offersPresentere!=null)
             {
-                if (_offersPresenterBase.IsUnableToChangeCategory()) return;
+                if (_offersPresentere.IsUnableToChangeCategory()) return;
             }
 
 
@@ -235,9 +235,9 @@ namespace Scuti.UI
 
         }
 
-        internal void SetPresenter(OffersPresenterBase offersPresenterBase)
+        internal void SetPresenter(OffersPresenter offersPresenterBase)
         {
-            _offersPresenterBase = offersPresenterBase;
+            _offersPresentere = offersPresenterBase;
         }
 
         private void CheckSwipe()

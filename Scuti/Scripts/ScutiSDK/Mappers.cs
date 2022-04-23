@@ -20,9 +20,9 @@ namespace Scuti
         // ================================================
         #region OFFERS
         // ================================================
-        public static OffersPresenterBase.Model GetOffersPresenterModel(List<Offer> offers)
+        public static OffersPresenter.Model GetOffersPresenterModel(List<Offer> offers)
         {
-            var result = new OffersPresenterBase.Model();
+            var result = new OffersPresenter.Model();
             if (offers != null)
             {
                 offers.ToList().ForEach(offer =>

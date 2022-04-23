@@ -64,7 +64,6 @@ namespace Scuti.UI
 
             public bool DisplayAd = false;
             public bool IsTall = false;
-            public bool isSingle = false;
 
 
             [SerializeField] Texture2D texture;
@@ -78,30 +77,28 @@ namespace Scuti.UI
 
                     var url = ImageURL;
 
-                   
-                        // had to check if image was from shopify because some images wasn't from shopify and I was getting an error
-                        if (!String.IsNullOrEmpty(url) && url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1)
-                            url = url.Insert(url.LastIndexOf("."), "_large");
-                        if (DisplayAd)
-                        {
-                            if(isSingle)
-                            {
-                                if (IsTall && !string.IsNullOrEmpty(TallURL) )
-                                {
-                                    url = TallURL;
 
-                                }
-                                else if (!IsTall && !string.IsNullOrEmpty(SmallURL))
-                                {                    
-                                    url = SmallURL;
-                                }
-                                else
-                                {
-                                //Debug.LogError("DisplayAd is false because: " + IsTall + "  " + TallURL + " and " + SmallURL +"  on "+Title);
-                                    DisplayAd = false;
-                                }
+                    // had to check if image was from shopify because some images wasn't from shopify and I was getting an error
+                    if (!String.IsNullOrEmpty(url) && url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1)
+                        url = url.Insert(url.LastIndexOf("."), "_large");
+
+                    if (DisplayAd)
+                    {
+                            if (IsTall && !string.IsNullOrEmpty(TallURL))
+                            {
+                                url = TallURL;
+
                             }
-                        }
+                            else if (!IsTall && !string.IsNullOrEmpty(SmallURL))
+                            {
+                                url = SmallURL;
+                            }
+                            else
+                            {
+                                //Debug.LogError("DisplayAd is false because: " + IsTall + "  " + TallURL + " and " + SmallURL +"  on "+Title);
+                                DisplayAd = false;
+                            }
+                    }
                     if (!string.IsNullOrEmpty(url))
                     {
                         //Debug.Log(url + " and " + DisplayAd);
@@ -126,7 +123,8 @@ namespace Scuti.UI
 #endif
                         CurrentState = State.Failed;
                     }
-                } else
+                }
+                else
                 {
                     CurrentState = State.Loaded;
                 }
@@ -279,7 +277,6 @@ namespace Scuti.UI
             Next = data;
             Next.DisplayAd = data.DisplayAd;
             Next.IsTall = data.IsTall;
-            Next.isSingle = Single;
             Next.LoadImage();
             Next.OnStateChanged -= OnNextStateChanged;
             Next.OnStateChanged += OnNextStateChanged;

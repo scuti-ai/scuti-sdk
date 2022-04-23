@@ -115,7 +115,6 @@ namespace Scuti.UI {
                 widget.Data.IsTall = false; 
                 widget.OnLoaded -= OnWidgetLoaded;
                 widget.OnLoaded += OnWidgetLoaded;
-                widget.Data.isSingle = widget.Single;
                 widget.Data.LoadImage();
 
                 widget.OnClick -= OnPresenterClicked;

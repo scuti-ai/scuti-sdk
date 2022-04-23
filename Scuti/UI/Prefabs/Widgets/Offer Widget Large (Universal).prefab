@@ -463,7 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: -1
+  m_MinWidth: 780
   m_MinHeight: -1
   m_PreferredWidth: -1
   m_PreferredHeight: 700
@@ -850,7 +850,6 @@ MonoBehaviour:
   IsTall: 1
   Single: 1
   FirstColumn: 0
-  FirstLoad: 1
   animator: {fileID: 5795079797880958981}
   backgroundImage: {fileID: 5811947631418222119}
   displayImage: {fileID: 8522798051530715264}

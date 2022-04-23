@@ -21,8 +21,9 @@ public class TopBarView : View {
     private bool isAdditionalBanners;
 
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         // Only the default banner is enrolled.        
         Banner.onCreateBanners += CreateBanners;
       

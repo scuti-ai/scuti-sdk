@@ -226,9 +226,9 @@ namespace Scuti.UI {
             get { return instance.generator["STORE", true]; }
         }
 
-        public static OffersPresenterBase Offers {
+        public static OffersPresenter Offers {
             get { 
-                return Store["OFFERS"] as OffersPresenterBase; 
+                return Store["OFFERS"] as OffersPresenter; 
             }
         }
 

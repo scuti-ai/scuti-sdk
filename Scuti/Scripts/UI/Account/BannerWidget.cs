@@ -222,8 +222,9 @@ public class BannerWidget : View {
         }
     }
 
-    internal void Open()
+    public override void Open()
     {
+        base.Open();
 	    if(Rounded != null) Rounded.Refresh();
     }
 
