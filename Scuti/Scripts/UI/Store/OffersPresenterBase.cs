@@ -470,10 +470,11 @@ namespace Scuti.UI
                 var columnWidth = prefab.Columns[0].GetComponent<RectTransform>().rect.width;
                 var canvasWidth = OfferContainer.GetComponentInParent<Canvas>().GetComponent<RectTransform>().rect.width;
                 var screenWidth = Screen.width;
+                Debug.LogError(Screen.width + " vs " + Camera.main.pixelWidth);
 
                 var containerSize = screenWidth * (1920f / canvasWidth);
                 var numberOfColumns = Math.Max(1, Mathf.FloorToInt(containerSize / (columnWidth)));
-
+                Debug.LogError(containerSize + " and " + columnWidth);
                 if (numberOfColumns >= RowContainerPrefabs.Count)
                 {
                     numberOfColumns = RowContainerPrefabs.Count - 1;
