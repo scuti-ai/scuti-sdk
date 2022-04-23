@@ -37,20 +37,28 @@ namespace Scuti.UI
         protected override void Awake()
         {
             base.Awake();
-			try
+
+			if (Landscape())
 			{
 				var defaultrow = RowContainerPrefabs[0]; // -> TODO Is there a better way to get these numbers? -je
-				var columnWidth = defaultrow.Columns[0].GetComponent<RectTransform>().rect.width;
+				var columnWidth = defaultrow.Columns[0].GetComponent<RectTransform>().rect.width /3f;
+				var canvasWidth = OfferContainer.GetComponentInParent<Canvas>().GetComponent<RectTransform>().rect.width;
 				var screenWidth = Screen.width;
-				var containerSize = screenWidth;
-				var numberOfColumns = Math.Max(1, Mathf.FloorToInt(containerSize / (columnWidth)));
-				_columns = numberOfColumns;
-			}
-			catch (Exception)
-			{
 
-				throw;
+				var containerSize = screenWidth * (1920f / canvasWidth);
+				var numberOfColumns = Math.Max(1, Mathf.FloorToInt(containerSize / (columnWidth)));
+				if(numberOfColumns >= RowContainerPrefabs.Count)
+				{
+					numberOfColumns = RowContainerPrefabs.Count - 1;
+				}
+				_columns = numberOfColumns;
+
 			}
+			else
+			{
+				_columns = 1;
+			}
+
 
 			// figure out columns here
 			var prefab = RowContainerPrefabs[_columns - 1];
@@ -58,7 +66,9 @@ namespace Scuti.UI
             for (var r = 0; r < _rows; r++)
             {
                 var row = Instantiate(prefab, OfferContainer);
-                _allRows.Add(row);
+
+
+				_allRows.Add(row);
                 for (var c = 0; c < row.Columns.Count; c++)
                 {
                     var col = row.Columns[c];
@@ -66,13 +76,38 @@ namespace Scuti.UI
                     _allCells.Add(col.Tall);
                     _allCells.AddRange(col.Small.Presenters.ToArray());
                 }
-                 
-
                 offerDataToRequest = _allColumns.Count*2;
             }
-        }
 
-        private int colorCount = 0;
+		}
+
+		public void ResizeScrollRect()
+		{
+			if (_columns == 1) return;
+			// scale ->
+			// 4, 1920 => 0.521976  (screenwidth/row.rect.width)/ scaleFactor
+			// 4, 2778 => 0.64399    0.7716666/1.1889
+			// 3, 859 => 0.71172  
+
+			var tempScale = Screen.width / (_allRows[0].transform.GetComponent<RectTransform>().rect.width + 125);
+			var canvas = GetComponentInParent<Canvas>();
+			var canvasScale = canvas.scaleFactor;
+
+			OfferContainer.localScale = Vector3.one * (tempScale / canvasScale);
+		}
+
+		private bool Landscape()
+		{
+				var _landscape = Screen.orientation == ScreenOrientation.Landscape || Screen.orientation == ScreenOrientation.LandscapeLeft || Screen.orientation == ScreenOrientation.LandscapeRight;
+#if UNITY_EDITOR
+				_landscape = Camera.main.pixelWidth > Camera.main.pixelHeight;
+#endif
+				return _landscape;
+			
+		}
+
+
+		private int colorCount = 0;
         // ================================================
         #region API
 
