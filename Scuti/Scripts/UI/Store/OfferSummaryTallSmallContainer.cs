@@ -13,12 +13,19 @@ namespace Scuti.UI
         public OfferSummaryPresenterContainer Small;
         public OfferSummaryPresenterBase Tall;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            Clear();
+        }
+
+
         internal void Clear()
         {
             Small.Clear();
             Tall.Clear();
             Tall.gameObject.SetActive(false);
-            Small.gameObject.SetActive(false);
+            Small.gameObject.SetActive(true);
         }
 
 
