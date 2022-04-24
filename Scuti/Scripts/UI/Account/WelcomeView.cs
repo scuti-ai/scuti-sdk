@@ -33,7 +33,6 @@ namespace Scuti.UI
         {
             base.Open();
 
-            Debug.LogError("WElcome?? ");
             try
             {
                 PlayerPrefs.SetInt(ScutiConstants.KEY_WELCOME, 1);

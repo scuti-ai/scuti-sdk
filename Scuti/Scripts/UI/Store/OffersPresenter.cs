@@ -467,11 +467,9 @@ namespace Scuti.UI
                 var columnWidth = prefab.Columns[0].GetComponent<RectTransform>().rect.width / 3; // Assuming the right value is 300px for a 1920px screen
                 var canvasWidth = OfferContainer.GetComponentInParent<Canvas>().GetComponent<RectTransform>().rect.width;
                 var screenWidth = Screen.width;
-                Debug.LogError(Screen.width + " vs " + Camera.main.pixelWidth);
 
                 var containerSize = screenWidth * (1920f / canvasWidth);
                 var numberOfColumns = Math.Max(1, Mathf.FloorToInt(containerSize / (columnWidth)));
-                Debug.LogError(containerSize + " and " + columnWidth);
                 if (numberOfColumns >= RowContainerPrefabs.Count)
                 {
                     numberOfColumns = RowContainerPrefabs.Count - 1;
@@ -481,7 +479,7 @@ namespace Scuti.UI
             else
             {
                 _verticalLayoutGroup.childAlignment = TextAnchor.UpperCenter;
-                Debug.LogError("TODO: Should handle portrait on tablets here");
+                //Debug.LogError("TODO: Should handle portrait on tablets here");
                 _columns = 1;
             }
 

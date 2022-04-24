@@ -38,7 +38,6 @@ namespace Scuti.UI {
         public override void Open()
         {
             base.Open();
-            Debug.LogError("Open Interest Selector");
             Instructions.color = Color.white;
 
             if (ScutiNetClient.Instance.FinishedOnBoarding)

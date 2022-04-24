@@ -120,7 +120,6 @@ namespace Scuti {
                     history.Remove(view);
                     AssignCurrentNonModal();
                 };
-                Debug.LogError("Added View: " + view + " and count " + history.Count);
                 ///UIManager.onBackButton?.Invoke(false);
                 AssignCurrentNonModal();
             }
@@ -143,7 +142,6 @@ namespace Scuti {
 
         public void Back()
         {
-            Debug.LogError("Back count: " + history.Count);
 
             if (history.Count > 0)
             {
