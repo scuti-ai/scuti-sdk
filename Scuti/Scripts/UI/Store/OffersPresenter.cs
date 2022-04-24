@@ -546,7 +546,8 @@ namespace Scuti.UI
         async protected Task InitScrollArea()
         {
             //ResizeScrollRect();
-            await Task.Delay(250);
+            //await Task.Delay(250);
+            await Task.Delay(1000);
             ResizeScrollRect();
             InfinityScroll.Init();
             InfinityScroll.CheckBounds();
@@ -622,10 +623,10 @@ namespace Scuti.UI
         }
 
 
-        #endregion
+#endregion
 
         // ================================================
-        #region CATEGORY AND PAGINATION
+#region CATEGORY AND PAGINATION
         // ================================================
         public async void ShowCategory(string category)
         {
@@ -669,10 +670,10 @@ namespace Scuti.UI
         }
 
 
-        #endregion
+#endregion
 
         // ================================================
-        #region API
+#region API
         // ================================================
         /// <summary>
         /// Returns a list of offers, based on the current paginataion status
@@ -792,10 +793,10 @@ namespace Scuti.UI
         }
 
 
-        #endregion
+#endregion
 
         // ================================================
-        #region PRESENTATION
+#region PRESENTATION
         // ================================================
         override protected void OnSetState()
         {
@@ -979,6 +980,6 @@ namespace Scuti.UI
             }
         }
 
-        #endregion
+#endregion
     }
 }
