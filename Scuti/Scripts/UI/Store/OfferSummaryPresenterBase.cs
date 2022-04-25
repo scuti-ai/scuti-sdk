@@ -153,7 +153,7 @@ namespace Scuti.UI
 				}
 				else
 				{
-					Destroy(shoptexture);
+					if (shoptexture != null) Destroy(shoptexture);
 					shoptexture = null;
 					
 				}
