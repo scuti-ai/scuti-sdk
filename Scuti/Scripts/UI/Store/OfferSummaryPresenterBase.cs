@@ -42,6 +42,7 @@ namespace Scuti.UI
             public string TallURL;
             public string SmallURL;
             public string VideoURL;
+            public string ShopURL;
             public string Title;
             public string DisplayPrice;
             public string Description;
@@ -84,7 +85,9 @@ namespace Scuti.UI
 
 
             [SerializeField] Texture2D texture;
+            [SerializeField] Texture2D shoptexture;
             public Texture2D Texture { get { return texture; } }
+            public Texture2D Shoptexture { get { return shoptexture; } }
 
             public void LoadImage()
             {
@@ -146,12 +149,45 @@ namespace Scuti.UI
                 }
             }
 
+<<<<<<< Updated upstream
             //private void GarbageCollect()
             //{
 
             //}
+=======
+			public void LoadShopImage()
+			{
+                var url = ShopURL;
+				if (!string.IsNullOrEmpty(url))
+				{
+					//Debug.Log(url + " and " + DisplayAd);
+					ImageDownloader.New().Download(url,
+						result =>
+						{
+							shoptexture = result;
+							//CurrentState = State.Loaded;
 
-            public override void Dispose()
+						},
+						error =>
+						{
+							ScutiLogger.LogError("Failed to load: " + url + " for " + Title);
+							//CurrentState = State.Failed;
+						}
+					);
+				}
+				else
+				{
+#if UNITY_EDITOR
+					ScutiLogger.LogError("No URL for " + this.ToJson());
+#endif
+					shoptexture = null;
+					//CurrentState = State.Failed;
+				}
+			}
+
+>>>>>>> Stashed changes
+
+			public override void Dispose()
             {
                 OnDispose?.Invoke(this);
 
@@ -210,6 +246,7 @@ namespace Scuti.UI
         [Header("Fields")]
         [SerializeField] protected Image backgroundImage;
         [SerializeField] protected Image displayImage;
+        [SerializeField] protected Image ShopImage;
         [SerializeField] public TextMeshProUGUI titleText;
         [SerializeField] protected TextMeshProUGUI displayPriceText;
         [SerializeField] protected TextMeshProUGUI ratingText;
@@ -510,6 +547,7 @@ namespace Scuti.UI
             {
                 if (Data.DisplayAd && Single)
                 {
+<<<<<<< Updated upstream
                     AdContainer.SetActive(true);
                     foreach (var p in ProductVisualRules)
                     {
@@ -535,6 +573,44 @@ namespace Scuti.UI
                     }
                 }
             }
+=======
+                    CleanUp(displayImage.sprite);
+                    displayImage.sprite = Data.Texture.ToSprite();
+                }
+
+				if (Data.Shoptexture && (ShopImage.sprite == null || Data.Shoptexture != ShopImage.sprite.texture))
+				{
+					CleanUp(ShopImage.sprite);
+					ShopImage.sprite = Data.Shoptexture.ToSprite();
+				}
+
+				//          if (Data.DisplayAd && Single)
+				//          {
+				//              //AdContainer.SetActive(true);
+				////              foreach (var p in ProductVisualRules)
+				////              {
+				////if(p.Visual != null)
+				////	p.Visual.SetActive(false);
+				////              }
+
+
+				//          }
+				//          else
+				//          {
+				//              // Here doble offer
+				//             // AdContainer.SetActive(false);
+				//              foreach (var p in ProductVisualRules)
+				//              {
+				//                  // Blogs Here
+				//                  //p.Visual.SetActive(!_isStatic || !p.HideIfStatic);
+				//              }
+				//              if (Data.Texture && ( displayImage.sprite == null || Data.Texture!=displayImage.sprite.texture))
+				//              {
+				//                  displayImage.sprite = Data.Texture.ToSprite();
+				//              }
+				//          }
+			}
+>>>>>>> Stashed changes
         }
 
 

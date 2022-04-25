@@ -89,6 +89,7 @@ namespace Scuti
                 TallURL = offer.Media.Vertical,
                 SmallURL = offer.Media.Tile,
                 VideoURL = offer.Media.VideoUrl,
+				ShopURL = offer.Shop.Thumbnail,
                 Scutis = scutis,
                 DisplayAd = displayAd,
                 Title = offer.Product.Name,
