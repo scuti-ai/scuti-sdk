@@ -185,12 +185,6 @@ MonoBehaviour:
   MinDataCached: 6
   Viewport: {fileID: 8997016454454647021}
   TimeoutTimer: {fileID: 114806180505998378}
-  OnPopulateFinished:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClearFinished:
-    m_PersistentCalls:
-      m_Calls: []
   _verticalLayoutGroup: {fileID: 593981291431978924}
 --- !u!1 &1874380998344515918
 GameObject:
@@ -394,7 +388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &593981291431978924
@@ -444,6 +438,11 @@ PrefabInstance:
     - target: {fileID: 1388535844230700, guid: b332b56cb2338bb4aa1cea867241093f, type: 3}
       propertyPath: m_Name
       value: BottomBar (Portrait)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114028708058672736, guid: b332b56cb2338bb4aa1cea867241093f,
+        type: 3}
+      propertyPath: SwipeThreshold
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 114113394509939892, guid: b332b56cb2338bb4aa1cea867241093f,
         type: 3}
