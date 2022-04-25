@@ -43,7 +43,8 @@ namespace Scuti.UI
             public string TallURL;
             public string SmallURL;
             public string VideoURL;
-            public string Title;
+			public string ShopURL;
+			public string Title;
             public string DisplayPrice;
             public string Description;
             public string Brand;
@@ -67,9 +68,11 @@ namespace Scuti.UI
 
 
             [SerializeField] Texture2D texture;
-            public Texture2D Texture { get { return texture; } }
+			[SerializeField] Texture2D shoptexture;
+			public Texture2D Texture { get { return texture; } }
+			public Texture2D Shoptexture { get { return shoptexture; } }
 
-            public void LoadImage()
+			public void LoadImage()
             {
                 if (texture == null)
                 {
@@ -130,8 +133,33 @@ namespace Scuti.UI
                 }
             }
 
+			public void LoadShopImage()
+			{
+				var url = ShopURL;
+				if (!string.IsNullOrEmpty(url))
+				{
+					//Debug.Log(url + " and " + DisplayAd);
+					ImageDownloader.New().Download(url,
+						result =>
+						{
+							shoptexture = result;
 
-            public override void Dispose()
+						},
+						error =>
+						{
+							ScutiLogger.LogError("Failed to load: " + url + " for " + Title);
+						}
+					);
+				}
+				else
+				{
+					if (shoptexture != null) Destroy(shoptexture);
+					shoptexture = null;
+					
+				}
+			}
+
+			public override void Dispose()
             {
                 OnDispose?.Invoke(this);
 
@@ -186,6 +214,7 @@ namespace Scuti.UI
         [Header("Fields")]
         [SerializeField] protected Image backgroundImage;
         [SerializeField] protected Image displayImage;
+        [SerializeField] protected Image shopImage;
         [SerializeField] public TextMeshProUGUI titleText;
         [SerializeField] protected TextMeshProUGUI brandText;
        
@@ -393,34 +422,39 @@ namespace Scuti.UI
                     displayImage.sprite = Data.Texture.ToSprite();
                 }
 
+				if (Data.Shoptexture && (shopImage.sprite == null || Data.Shoptexture != shopImage.sprite.texture))
+				{
+					CleanUp(shopImage.sprite);
+					shopImage.sprite = Data.Shoptexture.ToSprite();
+				}
 
-      //          if (Data.DisplayAd && Single)
-      //          {
-      //              //AdContainer.SetActive(true);
-      ////              foreach (var p in ProductVisualRules)
-      ////              {
-						////if(p.Visual != null)
-						////	p.Visual.SetActive(false);
-      ////              }
-                    
-                       
-      //          }
-      //          else
-      //          {
-      //              // Here doble offer
-      //             // AdContainer.SetActive(false);
-      //              foreach (var p in ProductVisualRules)
-      //              {
-      //                  // Blogs Here
-      //                  //p.Visual.SetActive(!_isStatic || !p.HideIfStatic);
-      //              }
-      //              if (Data.Texture && ( displayImage.sprite == null || Data.Texture!=displayImage.sprite.texture))
-      //              {
-      //                  displayImage.sprite = Data.Texture.ToSprite();
-      //              }
-      //          }
-            }
-        }
+				//          if (Data.DisplayAd && Single)
+				//          {
+				//              //AdContainer.SetActive(true);
+				////              foreach (var p in ProductVisualRules)
+				////              {
+				////if(p.Visual != null)
+				////	p.Visual.SetActive(false);
+				////              }
+
+
+				//          }
+				//          else
+				//          {
+				//              // Here doble offer
+				//             // AdContainer.SetActive(false);
+				//              foreach (var p in ProductVisualRules)
+				//              {
+				//                  // Blogs Here
+				//                  //p.Visual.SetActive(!_isStatic || !p.HideIfStatic);
+				//              }
+				//              if (Data.Texture && ( displayImage.sprite == null || Data.Texture!=displayImage.sprite.texture))
+				//              {
+				//                  displayImage.sprite = Data.Texture.ToSprite();
+				//              }
+				//          }
+			}
+		}
 
 
 
