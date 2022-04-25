@@ -888,13 +888,17 @@ namespace Scuti.UI
                         offerData = Data.RequestOffer(mediaType);
                     }
 
-                    OfferSummaryPresenterBase.Model offerData2 = null;
-                    if (mediaType == OfferService.MediaType.Product)
-                    {
-                        offerData2 = Data.RequestOffer(mediaType);
-                    }
-
                     List<OfferSummaryPresenterBase> presenters = col.GetPresenters(mediaType);
+
+                    OfferSummaryPresenterBase.Model offerData2 = null;
+                    if (presenters.Count>1)
+                    {
+                            offerData2 = Data.RequestOffer(mediaType);
+                        if(offerData2==null)
+                        {
+                            offerData2 = Data.RequestOffer(OfferService.MediaType.Product);
+                        }
+                    }
 
                     // still needed?
                     //await Task.Delay((int)(instantiationInterval * 1000));
@@ -911,16 +915,14 @@ namespace Scuti.UI
 
                         if (oData == null)
                         {
+                            //Debug.LogError("NULL on : " + presenter + " " + row + "   Prods: " + Data.NewItemsCount(OfferService.MediaType.Product) + "   Small: " + Data.NewItemsCount(OfferService.MediaType.SmallTile) + "   Tall: " + Data.NewItemsCount(OfferService.MediaType.Vertical) +"  attempted: "+ mediaType);
                             continue;
                         }
 
-                        oData.DisplayAd = (mediaType != OfferService.MediaType.Product);
-                        //Debug.LogError(oData.DisplayAd + " and " + mediaType + " "+oData.Title); 
-                        //if (firstLoad)
-                        //{
 
+
+                        oData.DisplayAd = (mediaType != OfferService.MediaType.Product);
                         presenter.Data = oData;
-                        //presenter.FirstLoad = firstLoad;
                         presenter.OnLoaded -= OnWidgetLoaded;
                         presenter.OnLoaded += OnWidgetLoaded;
                         presenter.Data.IsTall = (mediaType == OfferService.MediaType.Vertical);
@@ -928,10 +930,6 @@ namespace Scuti.UI
 
                         presenter.OnClick -= OnPresenterClicked;
                         presenter.OnClick += OnPresenterClicked;
-                        //} else
-                        //{
-                        //    presenter.LoadNext(oData);
-                        //}
                         count++;
                     }
                 }
