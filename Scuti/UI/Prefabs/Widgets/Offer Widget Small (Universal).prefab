@@ -762,10 +762,10 @@ MonoBehaviour:
   IsTall: 0
   Single: 1
   FirstColumn: 0
-  FirstLoad: 1
   animator: {fileID: 5795079797880958981}
   backgroundImage: {fileID: 5811947631418222119}
   displayImage: {fileID: 8522798051530715264}
+  shopImage: {fileID: 8522798051838616075}
   titleText: {fileID: 8522798052679582709}
   brandText: {fileID: 0}
   Viewport: {fileID: 0}

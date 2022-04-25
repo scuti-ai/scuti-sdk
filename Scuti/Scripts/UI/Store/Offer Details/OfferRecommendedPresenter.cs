@@ -116,6 +116,7 @@ namespace Scuti.UI {
                 widget.OnLoaded -= OnWidgetLoaded;
                 widget.OnLoaded += OnWidgetLoaded;
                 widget.Data.LoadImage();
+                widget.Data.LoadShopImage();
 
                 widget.OnClick -= OnPresenterClicked;
                 widget.OnClick += OnPresenterClicked;
