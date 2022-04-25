@@ -143,23 +143,22 @@ namespace Scuti.UI
 						result =>
 						{
 							shoptexture = result;
-							//CurrentState = State.Loaded;
 
 						},
 						error =>
 						{
 							ScutiLogger.LogError("Failed to load: " + url + " for " + Title);
-							//CurrentState = State.Failed;
 						}
 					);
 				}
 				else
 				{
 #if UNITY_EDITOR
-					ScutiLogger.LogError("No URL for " + this.ToJson());
+					ScutiLogger.LogError("[Shop] No URL for " + this.ToJson());
 #endif
+					Destroy(shoptexture);
 					shoptexture = null;
-					//CurrentState = State.Failed;
+					
 				}
 			}
 
