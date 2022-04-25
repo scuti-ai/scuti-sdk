@@ -153,9 +153,6 @@ namespace Scuti.UI
 				}
 				else
 				{
-#if UNITY_EDITOR
-					ScutiLogger.LogError("[Shop] No URL for " + this.ToJson());
-#endif
 					Destroy(shoptexture);
 					shoptexture = null;
 					
