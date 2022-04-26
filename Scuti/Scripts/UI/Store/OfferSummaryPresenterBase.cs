@@ -133,7 +133,7 @@ namespace Scuti.UI
                 }
             }
 
-			public void LoadShopImage()
+			public void LoadShopImage(Action callback)
 			{
 				var url = ShopURL;
 				if (!string.IsNullOrEmpty(url))
@@ -143,7 +143,7 @@ namespace Scuti.UI
 						result =>
 						{
 							shoptexture = result;
-
+							callback?.Invoke();
 						},
 						error =>
 						{
@@ -155,7 +155,6 @@ namespace Scuti.UI
 				{
 					if (shoptexture != null) Destroy(shoptexture);
 					shoptexture = null;
-					
 				}
 			}
 
@@ -216,8 +215,9 @@ namespace Scuti.UI
         [SerializeField] protected Image displayImage;
         [SerializeField] protected Image shopImage;
         [SerializeField] public TextMeshProUGUI titleText;
-        [SerializeField] protected TextMeshProUGUI brandText;
+		[SerializeField] protected TextMeshProUGUI brandText;
        
+        [SerializeField] protected Sprite defaultStoreSprite;
         public RectTransform Viewport;
 
 
@@ -421,13 +421,6 @@ namespace Scuti.UI
                     CleanUp(displayImage.sprite);
                     displayImage.sprite = Data.Texture.ToSprite();
                 }
-
-				if (Data.Shoptexture && (shopImage.sprite == null || Data.Shoptexture != shopImage.sprite.texture))
-				{
-					CleanUp(shopImage.sprite);
-					shopImage.sprite = Data.Shoptexture.ToSprite();
-				}
-
 				//          if (Data.DisplayAd && Single)
 				//          {
 				//              //AdContainer.SetActive(true);
@@ -456,6 +449,18 @@ namespace Scuti.UI
 			}
 		}
 
+		public void DisplayShopBrandImage()
+		{
+			if (Data.Shoptexture && (shopImage.sprite == null || Data.Shoptexture != shopImage.sprite.texture))
+			{
+				CleanUp(shopImage.sprite);
+				shopImage.sprite = Data.Shoptexture.ToSprite();
+			}
+			else if (Data.Shoptexture == null)
+			{
+				shopImage.sprite = defaultStoreSprite;
+			}
+		}
 
 
         public void SetDuration(float duration)

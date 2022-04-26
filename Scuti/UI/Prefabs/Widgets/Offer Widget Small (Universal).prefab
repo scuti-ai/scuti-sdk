@@ -768,6 +768,7 @@ MonoBehaviour:
   shopImage: {fileID: 8522798051838616075}
   titleText: {fileID: 8522798052679582709}
   brandText: {fileID: 0}
+  defaultStoreSprite: {fileID: 21300000, guid: 4760e11f6e079104d916a66d555f146f, type: 3}
   Viewport: {fileID: 0}
   ProductVisualRules: []
 --- !u!95 &5795079797880958981
