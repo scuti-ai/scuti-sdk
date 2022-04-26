@@ -131,13 +131,11 @@ namespace Scuti.UI
                 }
             }
 
-            public async void LoadShopImage(Action callback)
+            public async void LoadShopImage(Action callback, Action noImageCallback)
             {
                 try
                 {
-
                     var url = ShopURL;
-
                     if (!string.IsNullOrEmpty(url))
                     {
                         var result = await ImageDownloader.New().Download(url);
@@ -149,9 +147,9 @@ namespace Scuti.UI
                     }
                     else
                     {
-
                         if (shoptexture != null) Destroy(shoptexture);
                         shoptexture = null;
+						noImageCallback?.Invoke();
                     }
                 }
                 catch
@@ -159,8 +157,9 @@ namespace Scuti.UI
 
                     if (shoptexture != null) Destroy(shoptexture);
                     shoptexture = null;
-                }
-            }
+					noImageCallback?.Invoke();
+				}
+			}
 
 			public override void Dispose()
             {
@@ -466,8 +465,13 @@ namespace Scuti.UI
 			}
 		}
 
+		public void SetDefaultBrandShopImage()
+		{
+			shopImage.sprite = defaultStoreSprite;
+		}
 
-        public void SetDuration(float duration)
+
+		public void SetDuration(float duration)
         {
             m_TimerDuration = duration;
         }

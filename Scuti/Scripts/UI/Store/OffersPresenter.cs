@@ -947,7 +947,7 @@ namespace Scuti.UI
                         presenter.OnLoaded -= OnWidgetLoaded;
                         presenter.OnLoaded += OnWidgetLoaded;
                         presenter.Data.IsTall = (mediaType == OfferService.MediaType.Vertical);
-						presenter.Data.LoadShopImage(presenter.DisplayShopBrandImage);
+						presenter.Data.LoadShopImage(presenter.DisplayShopBrandImage, presenter.SetDefaultBrandShopImage);
                         presenter.Data.LoadImage();
 
 						presenter.OnClick -= OnPresenterClicked;
