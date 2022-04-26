@@ -58,7 +58,7 @@ namespace Scuti
 
         private async Task<bool> ShowOffer()
         {
-            ScutiLogger.Log("Checking deep link: " + deepLinkOffer);
+            //ScutiLogger.Log("Checking deep link: " + deepLinkOffer);
             if (!string.IsNullOrEmpty(deepLinkOffer))
             {
                 var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(deepLinkOffer);

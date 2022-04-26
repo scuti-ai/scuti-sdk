@@ -63,7 +63,6 @@ namespace Scuti.UI
             public bool IsSpecialOffer;
             public bool IsScuti;
 
-            public bool DisplayAd = false;
             public bool IsTall = false;
 
 
@@ -72,91 +71,93 @@ namespace Scuti.UI
 			public Texture2D Texture { get { return texture; } }
 			public Texture2D Shoptexture { get { return shoptexture; } }
 
-			public void LoadImage()
+			public async void LoadImage()
             {
-                if (texture == null)
+                try
                 {
-                    CurrentState = State.Loading;
-
-                    var url = ImageURL;
-
-
-                    // had to check if image was from shopify because some images wasn't from shopify and I was getting an error
-                    if (!String.IsNullOrEmpty(url) && url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1)
-                        url = url.Insert(url.LastIndexOf("."), "_large");
-
-                    if (DisplayAd)
+                    if (texture == null)
                     {
-                            if (IsTall && !string.IsNullOrEmpty(TallURL))
-                            {
-                                url = TallURL;
+                        CurrentState = State.Loading;
 
-                            }
-                            else if (!IsTall && !string.IsNullOrEmpty(SmallURL))
-                            {
-                                url = SmallURL;
-                            }
-                            else
-                            {
-                                //Debug.LogError("DisplayAd is false because: " + IsTall + "  " + TallURL + " and " + SmallURL +"  on "+Title);
-                                DisplayAd = false;
-                            }
-                    }
-                    if (!string.IsNullOrEmpty(url))
-                    {
-                        //Debug.Log(url + " and " + DisplayAd);
-                        ImageDownloader.New().Download(url,
-                            result =>
+                        var url = ImageURL;
+
+
+                        // had to check if image was from shopify because some images wasn't from shopify and I was getting an error
+                        if (!String.IsNullOrEmpty(url) && url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1)
+                            url = url.Insert(url.LastIndexOf("."), "_large");
+
+                        if (IsTall && !string.IsNullOrEmpty(TallURL))
+                        {
+                            url = TallURL;
+
+                        }
+                        else if (!IsTall && !string.IsNullOrEmpty(SmallURL))
+                        {
+                            url = SmallURL;
+                        }
+                        else
+                        {
+                            //Debug.LogError("DisplayAd is false because: " + IsTall + "  " + TallURL + " and " + SmallURL +"  on "+Title);
+                        }
+                        if (!string.IsNullOrEmpty(url))
+                        {
+                            //Debug.Log(url + " and " + DisplayAd);
+                            var result = await ImageDownloader.New().Download(url);
+                            if (result != null)
                             {
                                 texture = result;
                                 CurrentState = State.Loaded;
-
-                            },
-                            error =>
+                            } else
                             {
                                 ScutiLogger.LogError("Failed to load: " + url + " for " + Title);
                                 CurrentState = State.Failed;
                             }
-                        );
+                        }
+                        else
+                        {
+#if UNITY_EDITOR
+                            ScutiLogger.LogError("No URL for " + this.ToJson());
+#endif
+                            CurrentState = State.Failed;
+                        }
                     }
                     else
                     {
-#if UNITY_EDITOR
-                        ScutiLogger.LogError("No URL for " + this.ToJson());
-#endif
-                        CurrentState = State.Failed;
+                        CurrentState = State.Loaded;
                     }
-                }
-                else
+                } catch
                 {
-                    CurrentState = State.Loaded;
+                    CurrentState = State.Failed;
                 }
             }
 
-			public void LoadShopImage()
+			public async void LoadShopImage()
 			{
-				var url = ShopURL;
-				if (!string.IsNullOrEmpty(url))
-				{
-					//Debug.Log(url + " and " + DisplayAd);
-					ImageDownloader.New().Download(url,
-						result =>
-						{
-							shoptexture = result;
+                try
+                {
 
-						},
-						error =>
-						{
-							ScutiLogger.LogError("Failed to load: " + url + " for " + Title);
-						}
-					);
-				}
+				var url = ShopURL;
+
+                if (!string.IsNullOrEmpty(url))
+				{
+                    var result = await ImageDownloader.New().Download(url);
+                    if (result != null)
+                    {
+                        shoptexture = result;
+                    } 
+                }
 				else
 				{
-					if (shoptexture != null) Destroy(shoptexture);
-					shoptexture = null;
-					
-				}
+
+                    if (shoptexture != null) Destroy(shoptexture);
+                    shoptexture = null;
+                }
+                }catch
+                {
+
+                    if (shoptexture != null) Destroy(shoptexture);
+                    shoptexture = null;
+                }
 			}
 
 			public override void Dispose()
@@ -304,7 +305,6 @@ namespace Scuti.UI
                 Next.OnStateChanged -= OnNextStateChanged;
             }
             Next = data;
-            Next.DisplayAd = data.DisplayAd;
             Next.IsTall = data.IsTall;
             Next.LoadImage();
             Next.OnStateChanged -= OnNextStateChanged;
@@ -419,6 +419,7 @@ namespace Scuti.UI
                 if (Data.Texture && (displayImage.sprite == null || Data.Texture != displayImage.sprite.texture))
                 {
                     CleanUp(displayImage.sprite);
+                    //displayImage.material.SetTexture("_MainTex", Data.Texture);
                     displayImage.sprite = Data.Texture.ToSprite();
                 }
 

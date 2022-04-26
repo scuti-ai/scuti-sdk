@@ -199,26 +199,36 @@ public class BannerWidget : View {
                 _index = _prevIndex;
 
             _loading = false;
-        } else
+        }
+        else
         {
             _index++;
-        ImageDownloader.New().Download(_banner.Media.Banner.BigUrl,
-                        result =>
-                        {
-                            ResetTimer();
-                            BannerImage.enabled = true;
-                            BannerImage.sprite = result.ToSprite();
-                            _loading = false;
-                            _timePassed = 0;
-                        },
-                        error =>
-                        {
-                            ScutiLogger.LogError("Failed to load: " + _banner.Media.Banner.BigUrl);
-                            _loading = false;
-                            _timePassed = 0;
-                        }
-                    );
 
+            try
+            {
+                var result = await ImageDownloader.New().Download(_banner.Media.Banner.BigUrl);
+                if (result != null)
+                {
+                    ResetTimer();
+                    BannerImage.enabled = true;
+                    BannerImage.sprite = result.ToSprite();
+                    _loading = false;
+                    _timePassed = 0;
+
+                }
+                else
+                {
+                    ScutiLogger.LogError("Failed to load: " + _banner.Media.Banner.BigUrl);
+                    _loading = false;
+                    _timePassed = 0;
+                }
+            }
+            catch
+            {
+                ScutiLogger.LogError("Failed to load: " + _banner.Media.Banner.BigUrl);
+                _loading = false;
+                _timePassed = 0;
+            }
         }
     }
 

@@ -43,7 +43,7 @@ namespace Scuti.UI {
                     {
                         if (offer.Id.ToString() != currentOfferId)
                         {
-                            tempData.Items.Add(Mappers.GetOfferSummaryPresenterModel(offer, true));
+                            tempData.Items.Add(Mappers.GetOfferSummaryPresenterModel(offer));
                         }
 
                         // we requested 1 more than we needed in case they returned the item we are currently looking at

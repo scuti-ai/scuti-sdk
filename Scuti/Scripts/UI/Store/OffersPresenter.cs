@@ -177,6 +177,11 @@ namespace Scuti.UI
             {
                 NewItems.Shuffle();
             }
+
+            public override string ToString()
+            {
+                return base.ToString() + " Active: " + ActiveItemsCount + " Pool: " + PooledItemsCount + " New: " + NewItemsCount;
+            }
         }
 
         internal bool IsUnableToChangeCategory()
@@ -211,13 +216,11 @@ namespace Scuti.UI
             {
                 OfferService.MediaType mediaType = OfferService.MediaType.Product;
 
-                if (item.DisplayAd)
+
+                if (!string.IsNullOrEmpty(item.TallURL)) mediaType = OfferService.MediaType.Vertical;
+                else if (!string.IsNullOrEmpty(item.SmallURL))
                 {
-                    if (!string.IsNullOrEmpty(item.TallURL)) mediaType = OfferService.MediaType.Vertical;
-                    else if (!string.IsNullOrEmpty(item.SmallURL))
-                    {
-                        mediaType = OfferService.MediaType.SmallTile;
-                    }
+                    mediaType = OfferService.MediaType.SmallTile;
                 }
 
                 OfferPool pool = GetPool(mediaType);
@@ -237,6 +240,21 @@ namespace Scuti.UI
                 return pool.NewItemsCount;
             }
 
+            public int GetPoolSize(OfferService.MediaType mediaType)
+            {
+                OfferPool pool = GetPool(mediaType);
+                return pool.PooledItemsCount;
+            }
+
+            public int GetActiveSize(OfferService.MediaType mediaType)
+            {
+
+                OfferPool pool = GetPool(mediaType);
+                return pool.ActiveItemsCount;
+            }
+
+
+
             public OfferSummaryPresenterBase.Model[] GetNewItems(OfferService.MediaType mediaType)
             {
                 OfferPool pool = GetPool(mediaType);
@@ -249,6 +267,13 @@ namespace Scuti.UI
                 OfferPool pool = GetPool(mediaType);
                 pool.EmptyPool();
             }
+
+            public string PrintPool(OfferService.MediaType mediaType)
+            {
+                return GetPool(mediaType).ToString();
+            }
+
+
 
             private OfferPool GetPool(OfferService.MediaType mediaType)
             {
@@ -644,7 +669,7 @@ namespace Scuti.UI
                 var source = new CancellationTokenSource();
                 _offerSources.Add(source);
                 await ShowCategoryHelper(source.Token);
-                await RequestMoreOffers(false, source.Token, offerDataToRequest, OfferService.MediaType.Product);
+                await RequestMoreOffers(false, source.Token, offerDataToRequest, OfferService.MediaType.Product, _columns*_rows*2);
                 await RequestMoreOffers(false, source.Token, offerDataToRequest / 3, OfferService.MediaType.Vertical);
                 await RequestMoreOffers(false, source.Token, offerDataToRequest / 2, OfferService.MediaType.SmallTile);
 
@@ -677,7 +702,7 @@ namespace Scuti.UI
         /// Returns a list of offers, based on the current paginataion status
         /// </summary>
         private bool requestInProgress = false;
-        public async Task RequestMoreOffers(bool replaceData, CancellationToken token, int maxCount, OfferService.MediaType mediaType)
+        public async Task RequestMoreOffers(bool replaceData, CancellationToken token, int maxCount, OfferService.MediaType mediaType, int backfillRequirement = -1)
         {
             int requestMore = 0;
             var pagination = Data.GetPagination(mediaType);
@@ -739,12 +764,11 @@ namespace Scuti.UI
                     {
                         return;
                     }
-                    Data = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>);
+                    Data = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>, backfillRequirement);
                 }
                 else
                 {
-                    var appendData = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>);
-
+                    var appendData = Mappers.GetOffersPresenterModel(offerPage.Nodes as List<Offer>, backfillRequirement);
                     Data.AddNewItems(mediaType, appendData.GetNewItems(mediaType));
                 }
             }
@@ -832,7 +856,7 @@ namespace Scuti.UI
                 if (productCount > needed - 1)
                 {
                     //var offerSummaryRowContainer = GetNextRequestQueue.Dequeue();
-                    PopulateRow(offerSummaryRowContainer, false);
+                    PopulateRow(offerSummaryRowContainer, false, _loadingSource.Token);
 
                 }
                 else if (pagination.Index >= pagination.TotalCount && !requestInProgress)
@@ -847,7 +871,7 @@ namespace Scuti.UI
                     {
                         //Debug.LogError("Filling: " + productCount + " of " + needed);
                         //var offerSummaryRowContainer = GetNextRequestQueue.Dequeue();
-                        PopulateRow(offerSummaryRowContainer, false);
+                        PopulateRow(offerSummaryRowContainer, false, _loadingSource.Token);
                     }
                 }
             }
@@ -858,9 +882,10 @@ namespace Scuti.UI
         {
             foreach (var row in _allRows)
             {
+                await Task.Delay((int)(instantiationInterval * 1000));
                 if (cancelToken.IsCancellationRequested) return;
 
-                PopulateRow(row, true);
+                PopulateRow(row, true, cancelToken);
             }
 
             await Task.Delay(250);
@@ -869,7 +894,7 @@ namespace Scuti.UI
             m_ChangingCategories = false;
         }
 
-        private void PopulateRow(OfferSummaryRowContainer row, bool firstLoad)
+        async private void PopulateRow(OfferSummaryRowContainer row, bool firstLoad, CancellationToken cancelToken)
         {
             try
             {
@@ -901,9 +926,8 @@ namespace Scuti.UI
                     }
 
                     // still needed?
-                    //await Task.Delay((int)(instantiationInterval * 1000));
-
-                    //if (cancelToken.IsCancellationRequested) return;
+                    await Task.Delay((int)(instantiationInterval * 1000));
+                    if (cancelToken.IsCancellationRequested) return;
 
                     int count = 0;
                     foreach (var presenter in presenters)
@@ -915,13 +939,10 @@ namespace Scuti.UI
 
                         if (oData == null)
                         {
-                            //Debug.LogError("NULL on : " + presenter + " " + row + "   Prods: " + Data.NewItemsCount(OfferService.MediaType.Product) + "   Small: " + Data.NewItemsCount(OfferService.MediaType.SmallTile) + "   Tall: " + Data.NewItemsCount(OfferService.MediaType.Vertical) +"  attempted: "+ mediaType);
+                            Debug.LogError("NULL on : " + presenter + " " + row + "   Prods: " + Data.NewItemsCount(OfferService.MediaType.Product) + "   Small: " + Data.NewItemsCount(OfferService.MediaType.SmallTile) + "   Tall: " + Data.NewItemsCount(OfferService.MediaType.Vertical) +"  attempted: "+ mediaType +" and pool: "+ Data.PrintPool(mediaType));
                             continue;
                         }
 
-
-
-                        oData.DisplayAd = (mediaType != OfferService.MediaType.Product);
                         presenter.Data = oData;
                         presenter.OnLoaded -= OnWidgetLoaded;
                         presenter.OnLoaded += OnWidgetLoaded;
