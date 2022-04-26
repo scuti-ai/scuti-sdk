@@ -131,34 +131,36 @@ namespace Scuti.UI
                 }
             }
 
-			public async void LoadShopImage()
-			{
+            public async void LoadShopImage(Action callback)
+            {
                 try
                 {
 
-				var url = ShopURL;
+                    var url = ShopURL;
 
-                if (!string.IsNullOrEmpty(url))
-				{
-                    var result = await ImageDownloader.New().Download(url);
-                    if (result != null)
+                    if (!string.IsNullOrEmpty(url))
                     {
-                        shoptexture = result;
-                    } 
-                }
-				else
-				{
+                        var result = await ImageDownloader.New().Download(url);
+                        if (result != null)
+                        {
+                            shoptexture = result;
+                            callback?.Invoke();
+                        }
+                    }
+                    else
+                    {
 
-                    if (shoptexture != null) Destroy(shoptexture);
-                    shoptexture = null;
+                        if (shoptexture != null) Destroy(shoptexture);
+                        shoptexture = null;
+                    }
                 }
-                }catch
+                catch
                 {
 
                     if (shoptexture != null) Destroy(shoptexture);
                     shoptexture = null;
                 }
-			}
+            }
 
 			public override void Dispose()
             {
@@ -217,8 +219,9 @@ namespace Scuti.UI
         [SerializeField] protected Image displayImage;
         [SerializeField] protected Image shopImage;
         [SerializeField] public TextMeshProUGUI titleText;
-        [SerializeField] protected TextMeshProUGUI brandText;
+		[SerializeField] protected TextMeshProUGUI brandText;
        
+        [SerializeField] protected Sprite defaultStoreSprite;
         public RectTransform Viewport;
 
 
@@ -422,13 +425,6 @@ namespace Scuti.UI
                     //displayImage.material.SetTexture("_MainTex", Data.Texture);
                     displayImage.sprite = Data.Texture.ToSprite();
                 }
-
-				if (Data.Shoptexture && (shopImage.sprite == null || Data.Shoptexture != shopImage.sprite.texture))
-				{
-					CleanUp(shopImage.sprite);
-					shopImage.sprite = Data.Shoptexture.ToSprite();
-				}
-
 				//          if (Data.DisplayAd && Single)
 				//          {
 				//              //AdContainer.SetActive(true);
@@ -457,6 +453,18 @@ namespace Scuti.UI
 			}
 		}
 
+		public void DisplayShopBrandImage()
+		{
+			if (Data.Shoptexture && (shopImage.sprite == null || Data.Shoptexture != shopImage.sprite.texture))
+			{
+				CleanUp(shopImage.sprite);
+				shopImage.sprite = Data.Shoptexture.ToSprite();
+			}
+			else if (Data.Shoptexture == null)
+			{
+				shopImage.sprite = defaultStoreSprite;
+			}
+		}
 
 
         public void SetDuration(float duration)
