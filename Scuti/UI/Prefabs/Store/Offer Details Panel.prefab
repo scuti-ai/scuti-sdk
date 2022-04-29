@@ -13267,7 +13267,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1148858299771305061}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1367256648, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: f92eace8283ce7b46bdc9136f9ec4a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 3824669177320167678}
@@ -13288,6 +13288,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+  parentScrollRect: {fileID: 114081155038368860}
 --- !u!222 &3845324985980780198
 CanvasRenderer:
   m_ObjectHideFlags: 0
