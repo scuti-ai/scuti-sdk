@@ -140,37 +140,23 @@ namespace Scuti {
             }
         }
 
-        View lastView;
         public void Back()
         {
 
             if (history.Count > 0)
             {
-                //Debug.Log("BACK! THE APP ---------------- :"+ history.Count);
                 history.Last().Close();
-                if(history.Count < 2)
-                {
-                    lastView = history[history.Count - 1];
-                }                   
-                history.RemoveAt(history.Count - 1);  
+                history.RemoveAt(history.Count - 1);              
+
             }
 
             if (history.Count < 1)
             {
-                //Debug.Log("BACK! THE APP 2 ---------------- :" + history.Count);
                 //UIManager.onBackButton?.Invoke(true);
                 // may happen if we do deep linking or ads
-                if (CurrentNonModal == UIManager.OfferDetails)
-                {
-                    Debug.Log("BACK! TO THE OFFERS");
-                    Open(UIManager.Offers);
-                }  
+                if (CurrentNonModal == UIManager.OfferDetails) Open(UIManager.Offers);
                 else
-                {
-                    Debug.Log("EXIT THE APP");
                     UIManager.LogoutPopup.Show(OnClosePopUp);
-                }
-                  
                 
                 return;
             }
@@ -190,17 +176,7 @@ namespace Scuti {
 
         private void OnClosePopUp(bool val)
         {
-            if (val)
-                ScutiSDK.Instance.UnloadUI();
-            else
-            {
-                if(lastView != null)
-                {
-                    OpenNonModal(lastView);                    
-                    //history.Last().Open();
-                    lastView = null;
-                }
-            }                
+            ScutiSDK.Instance.UnloadUI();
         }
 
         internal BreadCrumbs GetHistory()
