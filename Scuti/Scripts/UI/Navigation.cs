@@ -163,11 +163,10 @@ namespace Scuti {
                 // may happen if we do deep linking or ads
                 if (CurrentNonModal == UIManager.OfferDetails)
                 {
-
                     Open(UIManager.Offers);
                 }  
                 else
-                { 
+                {
                     UIManager.LogoutPopup.Show(OnClosePopUp);
                 }
                   
