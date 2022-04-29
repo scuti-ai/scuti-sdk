@@ -63,11 +63,14 @@ namespace Scuti {
                 if (currentModal == v)
                 {
                     currentModal = null;
-
+                    UIManager.Offers.GetNavigator().isShowingCategories = true;
                     // Sanity Check
-                     if (CurrentNonModal == null) OpenNonModal(UIManager.Offers);
+                    if (CurrentNonModal == null) OpenNonModal(UIManager.Offers);
                 }
             };
+
+            // Here open Modal
+            UIManager.Offers.GetNavigator().isShowingCategories = false;
             currentModal.Open();
         }
 
@@ -146,7 +149,6 @@ namespace Scuti {
 
             if (history.Count > 0)
             {
-                //Debug.Log("BACK! THE APP ---------------- :"+ history.Count);
                 history.Last().Close();
                 if(history.Count < 2)
                 {
@@ -157,7 +159,6 @@ namespace Scuti {
 
             if (history.Count < 1)
             {
-                //Debug.Log("BACK! THE APP 2 ---------------- :" + history.Count);
                 //UIManager.onBackButton?.Invoke(true);
                 // may happen if we do deep linking or ads
                 if (CurrentNonModal == UIManager.OfferDetails)
