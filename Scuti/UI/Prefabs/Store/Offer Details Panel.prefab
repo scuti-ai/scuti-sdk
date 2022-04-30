@@ -4216,7 +4216,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1297700209812188}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1367256648, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: f92eace8283ce7b46bdc9136f9ec4a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1931020315149888008}
@@ -4226,7 +4226,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 60
   m_Viewport: {fileID: 4677479308144528910}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 0}
@@ -4237,6 +4237,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+  parentScrollRect: {fileID: 114081155038368860}
 --- !u!1 &1318382162056194
 GameObject:
   m_ObjectHideFlags: 0
@@ -13267,7 +13268,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1148858299771305061}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1367256648, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: f92eace8283ce7b46bdc9136f9ec4a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 3824669177320167678}
@@ -13288,6 +13289,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+  parentScrollRect: {fileID: 114081155038368860}
 --- !u!222 &3845324985980780198
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14300,7 +14302,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5053991190025335012}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 60}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1833626709616255551}
@@ -14332,7 +14334,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 60
   m_Viewport: {fileID: 1833626709616255551}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 3466262451353296716}
