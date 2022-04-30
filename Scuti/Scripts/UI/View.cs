@@ -121,6 +121,7 @@ namespace Scuti {
                 _closingRoutine = StartCoroutine(CloseHelper());
             } else
             {
+                Debug.Log("View close: FALSE "+gameObject.name);
                 SetClosed(false);
             }
         }
@@ -130,6 +131,7 @@ namespace Scuti {
             yield return new WaitForSeconds(outDuration);
             if(m_State == State.Closing)
             {
+                Debug.Log("View close: TRUE "+gameObject.name);
                 SetClosed(true);
             }
         }
