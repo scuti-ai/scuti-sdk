@@ -29,6 +29,7 @@ namespace Scuti {
         }
 
         View lastView;
+        [ReadOnly] [SerializeField] private int counterModals = 0;
 
         public void Open<T>(T component) where T : Component {
             Open(component.gameObject);
@@ -61,8 +62,6 @@ namespace Scuti {
                 OpenNonModal(view);
         }
 
-        public int counterModals = 0;
-
         void OpenModal(View view) {
             currentModal = view;
             view.OnViewClosed += CloseView;
@@ -78,20 +77,21 @@ namespace Scuti {
             counterModals--;
             if (currentModal == v)
             {
-                currentModal = null;
-                if (history.Count > 1)
-                {
-                    UIManager.Offers.GetNavigator().isShowingCategories = false;
-                }
-                else
-                {
-                    UIManager.Offers.GetNavigator().isShowingCategories = true;
-                }
+                currentModal = null;                
                 // Sanity Check
                 if (CurrentNonModal == null)
                 {
                     OpenNonModal(UIManager.Offers);
                 }
+            }
+
+            if (counterModals >= 1)
+            {
+                UIManager.Offers.GetNavigator().isShowingCategories = false;
+            }
+            else
+            {
+                UIManager.Offers.GetNavigator().isShowingCategories = true;
             }
         }
 
