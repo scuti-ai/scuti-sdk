@@ -185,18 +185,18 @@ namespace Scuti {
 
             if (history.Count < 1)
             {
-                
+
                 //UIManager.onBackButton?.Invoke(true);
                 // may happen if we do deep linking or ads
                 if (CurrentNonModal == UIManager.OfferDetails)
                 {
                     UIManager.Offers.GetNavigator().isShowingCategories = true;
                     Open(UIManager.Offers);
-                }  
+                }
                 else
                 {
                     UIManager.LogoutPopup.Show(OnClosePopUp);
-                
+                }
                 return;
             }
             else
