@@ -121,7 +121,7 @@ namespace Scuti {
             onClosed.AddListener(() => m_Callback = null);
             if (negativeButton) negativeButton.GetComponent<Button>().onClick.AddListener(OnClickNegative);
             if (positiveButton) positiveButton.GetComponent<Button>().onClick.AddListener(OnClickPositive);
-            if (crossButton) crossButton.GetComponent<Button>().onClick.AddListener(OnClickNegative); 
+            if (crossButton) crossButton.GetComponent<Button>().onClick.AddListener(OnClickNegative);
         }
 
         void OnClickNegative() {
@@ -137,7 +137,6 @@ namespace Scuti {
             Close();
             m_Callback?.Invoke(true);
         }
-
 
         async Task SanitizeFields() {
             // Ensure a graphic

@@ -179,11 +179,8 @@ namespace Scuti {
             if (history.Count > 0)
             {
                 history.Last().Close();
-                if(history.Count < 2)
-                {
-                    lastView = history[history.Count - 1];
-                }                   
-                history.RemoveAt(history.Count - 1);  
+                history.RemoveAt(history.Count - 1);              
+
             }
 
             if (history.Count < 1)
@@ -199,8 +196,6 @@ namespace Scuti {
                 else
                 {
                     UIManager.LogoutPopup.Show(OnClosePopUp);
-                }
-                  
                 
                 return;
             }
@@ -220,17 +215,7 @@ namespace Scuti {
 
         private void OnClosePopUp(bool val)
         {
-            if (val)
-                ScutiSDK.Instance.UnloadUI();
-            else
-            {
-                if(lastView != null)
-                {
-                    OpenNonModal(lastView);                    
-                    //history.Last().Open();
-                    lastView = null;
-                }
-            }                
+            ScutiSDK.Instance.UnloadUI();
         }
 
         internal BreadCrumbs GetHistory()

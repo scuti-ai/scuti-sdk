@@ -111,7 +111,7 @@ namespace Scuti {
             if (_destroyed) return;
 
             bool wasOpen = m_State == State.Opened || m_State == State.Opening;
-
+                       
             m_State = State.Closing;
 
             if (wasOpen)
