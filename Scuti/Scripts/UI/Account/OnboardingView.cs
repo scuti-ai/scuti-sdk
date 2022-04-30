@@ -106,26 +106,22 @@ namespace Scuti.UI
 
         public void ShowCategories()
         {
-            Debug.LogError("Show Cat");
             navigation.Open(interestSelect);
         }
 
         public void ShowAccountVerification(string email, string pwd)
         {
-            Debug.LogError("Show Cred");
             verifyEmail.SetCredentials(email, pwd);
             navigation.Open(verifyEmail);
         }
 
         public void ShowDetails()
         {
-            Debug.LogError("Show Det");
             navigation.Open(userDetails);
         }
 
         public void ShowAddressForm()
         {
-            Debug.LogError("Show Add");
             navigation.Open(addressForm);
         }
 

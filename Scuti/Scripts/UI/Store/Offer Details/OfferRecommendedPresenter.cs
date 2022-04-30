@@ -43,7 +43,7 @@ namespace Scuti.UI {
                     {
                         if (offer.Id.ToString() != currentOfferId)
                         {
-                            tempData.Items.Add(Mappers.GetOfferSummaryPresenterModel(offer, true));
+                            tempData.Items.Add(Mappers.GetOfferSummaryPresenterModel(offer));
                         }
 
                         // we requested 1 more than we needed in case they returned the item we are currently looking at
@@ -115,7 +115,7 @@ namespace Scuti.UI {
                 widget.Data.IsTall = false; 
                 widget.OnLoaded -= OnWidgetLoaded;
                 widget.OnLoaded += OnWidgetLoaded;
-                widget.Data.isSingle = widget.Single;
+                widget.Data.LoadShopImage(widget.DisplayShopBrandImage, widget.SetDefaultBrandShopImage);
                 widget.Data.LoadImage();
 
                 widget.OnClick -= OnPresenterClicked;
@@ -139,7 +139,7 @@ namespace Scuti.UI {
             }
         }
 
-        private void OnWidgetLoaded(bool value, OfferSummaryPresenterBase widget)
+        private void OnWidgetLoaded(OfferSummaryPresenterBase widget)
         {
             widget.Show();
             widget.DisplayCurrentImage();

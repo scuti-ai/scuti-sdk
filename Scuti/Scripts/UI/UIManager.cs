@@ -24,7 +24,6 @@ namespace Scuti.UI {
 
         void Awake() {
             instance = this;
-            DetermineLayout();
             LoadingBlocker.Close();
 
             var eventSystems = FindObjectsOfType<EventSystem>();
@@ -71,25 +70,6 @@ namespace Scuti.UI {
 
        
 
-        private void DetermineLayout()
-        {
-            _useLargeLayout = false;
-            // TODO: Re-enable when we finish portrait mode + test PC mode -mg
-//#if UNITY_EDITOR
-//            _useLargeLayout = EditorUseLargeDisplay;
-//#elif UNITY_STANDALONE
-//            _useLargeLayout = true;
-//#else
-//            _useLargeLayout = false;
-//#endif
-        }
-
-        public static bool IsLargeDisplay()
-        {
-            return instance._useLargeLayout;
-        }
-
-
         public static Navigation Navigator
         {
             get
@@ -126,6 +106,9 @@ namespace Scuti.UI {
         public static void Back() {
             instance.navigation.Back();
         }
+
+        public static Action<bool> onBackButton;
+
 
         // OVERLAY
 
@@ -175,9 +158,9 @@ namespace Scuti.UI {
             get { return Overlay["SUPPORT"] as SupportContactView; }
         }
 
-        public static ConfirmationView LogoutPopup
+        public static LogoutView LogoutPopup
         {
-            get { return Overlay["LOGOUT-POPUP"] as ConfirmationView; }
+            get { return Overlay["LOGOUT-POPUP"] as LogoutView; }
         }
 
         // ACCOUNT
@@ -204,8 +187,6 @@ namespace Scuti.UI {
         {
             get { return Account["WELCOME"] as WelcomeView;  }
         }
-
-       
 
         public static WalletView Wallet {
             get { return Account["WALLET"] as WalletView; }
@@ -245,9 +226,9 @@ namespace Scuti.UI {
             get { return instance.generator["STORE", true]; }
         }
 
-        public static OffersPresenterBase Offers {
+        public static OffersPresenter Offers {
             get { 
-                return Store["OFFERS"] as OffersPresenterBase; 
+                return Store["OFFERS"] as OffersPresenter; 
             }
         }
 

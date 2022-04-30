@@ -38,7 +38,6 @@ namespace Scuti.UI {
         public override void Open()
         {
             base.Open();
-            Debug.LogError("Open Interest Selector");
             Instructions.color = Color.white;
 
             if (ScutiNetClient.Instance.FinishedOnBoarding)
@@ -53,7 +52,7 @@ namespace Scuti.UI {
                 if(prevButton)
                     prevButton.gameObject.SetActive(true);
                 if(saveButtonLabel)
-                    saveButtonLabel.text = "NEXT STEP";
+                    saveButtonLabel.text = "SAVE";
             }
             if (!_init)
             {
