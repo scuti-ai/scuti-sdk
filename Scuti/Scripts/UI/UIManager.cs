@@ -158,9 +158,9 @@ namespace Scuti.UI {
             get { return Overlay["SUPPORT"] as SupportContactView; }
         }
 
-        public static ConfirmationView LogoutPopup
+        public static LogoutView LogoutPopup
         {
-            get { return Overlay["LOGOUT-POPUP"] as ConfirmationView; }
+            get { return Overlay["LOGOUT-POPUP"] as LogoutView; }
         }
 
         // ACCOUNT
