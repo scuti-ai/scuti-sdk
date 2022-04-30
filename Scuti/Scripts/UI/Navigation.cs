@@ -65,33 +65,8 @@ namespace Scuti {
 
         void OpenModal(View view) {
             currentModal = view;
-
-            Debug.Log("BLOGS OPEN MODAL: "+currentModal.name);
             view.OnViewClosed += CloseView;
-            /*view.OnViewClosed += (View v) => {
-
-                Debug.Log("BLOGS ADD COUNT: " + v.name);
-                counterModals--;
-                if (currentModal == v)
-                {           
-                    Debug.Log("BLOGS ONVIEWCLOSE: "+v.name);
-                    currentModal = null;
-                    if(history.Count > 1)
-                    {
-                        UIManager.Offers.GetNavigator().isShowingCategories = false;
-                    }
-                    else
-                    {
-                        UIManager.Offers.GetNavigator().isShowingCategories = true;
-                    }                   
-                    // Sanity Check
-                    if (CurrentNonModal == null)
-                    {
-                        OpenNonModal(UIManager.Offers);
-                    }
-                }
-            };*/
-
+           
             // Here open Modal
             currentModal.Open();
             counterModals++;
@@ -100,11 +75,9 @@ namespace Scuti {
         private void CloseView(View v)
         {
             v.OnViewClosed -= CloseView;
-            Debug.Log("BLOGS ADD COUNT: " + v.name);
             counterModals--;
             if (currentModal == v)
             {
-                Debug.Log("BLOGS ONVIEWCLOSE: " + v.name);
                 currentModal = null;
                 if (history.Count > 1)
                 {
@@ -130,7 +103,6 @@ namespace Scuti {
             // add it to the list and open it
             if (history.Count == 0)
             {
-                Debug.Log("BLOGS 1");
                // UIManager.Offers.GetNavigator().isShowingCategories = true;
 
                 history.Add(view);
@@ -146,7 +118,6 @@ namespace Scuti {
             // If the same element is being added again, return
             if (history.Last() == view)
             {
-                Debug.Log("BLOGS 5");
                 return;
             }              
 
@@ -156,8 +127,6 @@ namespace Scuti {
             // So, if the history was A>B>C and the incoming one was B, we are removing C and reopening B which makes is A>B
             // instead of adding B again and opening it, which would have made it A>B>C>B (unnecessary repeatition)
             if (history.Count >= 2 && history.FromLast(1) == view && !allowHistoryRepeatition) {
-
-                Debug.Log("BLOGS 2");
 
                 history.Last().Close();
                 history.RemoveAt(history.Count - 1);
@@ -174,7 +143,6 @@ namespace Scuti {
             // If the incoming element is not the same as the second last, we just close the last, then add the incoming and open the new last
             // So if the history was A>B>C and the incoming one was D, the history now would become A>B>C>D
             else {
-                Debug.Log("BLOGS 3");
 
                 history.Last().Close();
                 //history.RemoveLast();
@@ -203,7 +171,6 @@ namespace Scuti {
                 history.RemoveAt(history.Count - 1);
             }
 
-            Debug.Log("BLOGS 4");
         }
 
         public void Back()
