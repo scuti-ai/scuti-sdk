@@ -2121,7 +2121,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 224257659059251314}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9865128
+  m_Size: 0
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4757,7 +4757,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 60
   m_Viewport: {fileID: 224399255350543958}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 114350825651614680}
