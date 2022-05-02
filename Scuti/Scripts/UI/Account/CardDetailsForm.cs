@@ -426,7 +426,7 @@ namespace Scuti.UI
                 };                
             } else
             {
-                Debug.LogError("Null or invalid address "+Data.Address);
+                //Debug.LogError("Null or invalid address "+Data.Address);
                 //if (Data.Address != null) Debug.LogError("Valid? " + Data.Address.ToJson()); 
             }
             //Debug.Log("Using: " + address.ToJson());

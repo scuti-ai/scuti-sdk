@@ -62,10 +62,9 @@ namespace Scuti.UI
             rewardWidget.Data = Data.Reward;
             feedbackWidget.Data = Data.Feedback;
             showcaseWidget.Data = Data.Showcase;
-            Debug.Log("DataCustomización: " + Data.Customization.SerializeJSON());
             customizationWidget.Data = Data.Customization;
             if(DescriptionScrollContent) DescriptionScrollContent.verticalNormalizedPosition = 1;
-            RecommendedWidget.SearchForRecommendations(Data.ShopName, Data.Info.ID);
+            RecommendedWidget.SearchForRecommendations(Data.ShopName, Data.Info.ID); //TODO uncomment after we fix the issue with wrong offer prefab
         }
 
 
@@ -73,11 +72,16 @@ namespace Scuti.UI
         {
             base.Open();
             browseTime = Time.time;
+            //if (ScutiUtils.IsPortrait())
+            //{
+            UIManager.TopBar.ShowBanner(false);
+            //}
         }
 
         public override void Close()
         {
             base.Close();
+
 
 
                 if (Data != null && Data.Info != null)

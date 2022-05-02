@@ -3,6 +3,7 @@
 /// Demo - https://www.youtube.com/watch?v=uVTV7Udx78k  - configures automatically.  - works in both vertical and horizontal (but not both at the same time)  - drag and drop  - can be initialized by code (in case you populate your scrollview content from code)
 /// Updated by Febo Zodiaco - https://bitbucket.org/UnityUIExtensions/unity-ui-extensions/issues/349/magnticinfinitescroll
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,6 +45,8 @@ namespace Scuti.UI
         private int _itemCount = 0;
         private float _recordOffsetX = 0;
         private float _recordOffsetY = 0;
+
+        public Action<Transform> OnSiblingUpdate;
 
         private int _count = 0;
 
@@ -89,7 +92,7 @@ namespace Scuti.UI
         {
             if (initialized) return;
             initialized = true;
-            //Debug.LogWarning("-------------------------------------------- INIT --------------------------------------------");
+            Debug.LogWarning("-------------------------------------------- INIT --------------------------------------------");
             //Debug.LogWarning(" ==== childCount::  " + items.Count);
             _count = 0;
             //Debug.LogWarning("--------------------------------------- POST INIT ---------------------------------------");
@@ -104,9 +107,10 @@ namespace Scuti.UI
                 _newAnchoredPosition = Vector2.zero;
             }
 
-            if (GetComponent<ScrollRect>() != null)
+            var tempRect = GetComponent<ScrollRect>();
+            if (tempRect != null)
             {
-                _scrollRect = GetComponent<ScrollRect>();
+                _scrollRect = tempRect;
                 _scrollRect.onValueChanged.AddListener(OnScroll);
                 _scrollRect.movementType = ScrollRect.MovementType.Unrestricted;
 
@@ -165,7 +169,12 @@ namespace Scuti.UI
                         _recordOffsetY += _verticalLayoutGroup.padding.top;
                         _recordOffsetY += _verticalLayoutGroup.spacing * items.Count;
                     }
+
+
                     _disableMarginY = _recordOffsetY / 2;
+
+                    _disableMarginY *= _scrollRect.content.localScale.y;
+
                     _recordOffsetY /= items.Count;
                     /*Debug.LogWarning("       "+ items[1].name+" ** "+ items[0].name);
                     _recordOffsetY = items[1].GetComponent<RectTransform>().anchoredPosition.y - items[0].GetComponent<RectTransform>().anchoredPosition.y;
@@ -266,14 +275,20 @@ namespace Scuti.UI
                             _newAnchoredPosition = items[i].anchoredPosition;
                             _newAnchoredPosition.x -= _itemCount * _recordOffsetX;
                             items[i].anchoredPosition = _newAnchoredPosition;
-                            _scrollRect.content.GetChild(_itemCount - 1).transform.SetAsFirstSibling();
+
+                            var trans = _scrollRect.content.GetChild(_itemCount - 1).transform;
+                            trans.SetAsFirstSibling();
+                            OnSiblingUpdate?.Invoke(items[i].transform);
                         }
                         else if (_scrollRect.transform.InverseTransformPoint(items[i].gameObject.transform.position).x < -_disableMarginX)
                         {
                             _newAnchoredPosition = items[i].anchoredPosition;
                             _newAnchoredPosition.x += _itemCount * _recordOffsetX;
                             items[i].anchoredPosition = _newAnchoredPosition;
-                            _scrollRect.content.GetChild(0).transform.SetAsLastSibling();
+
+                            var trans = _scrollRect.content.GetChild(0);
+                            trans.transform.SetAsLastSibling();
+                            OnSiblingUpdate?.Invoke(items[i].transform);
                         }
                     }
 
@@ -284,14 +299,18 @@ namespace Scuti.UI
                             _newAnchoredPosition = items[i].anchoredPosition;
                             _newAnchoredPosition.y -= _itemCount * _recordOffsetY;
                             items[i].anchoredPosition = _newAnchoredPosition;
-                            _scrollRect.content.GetChild(_itemCount - 1).transform.SetAsFirstSibling();
+                            var trans = _scrollRect.content.GetChild(_itemCount - 1).transform;
+                            trans.SetAsFirstSibling();
+                            OnSiblingUpdate?.Invoke(items[i].transform);
                         }
                         else if (_scrollRect.transform.InverseTransformPoint(items[i].gameObject.transform.position).y < -_disableMarginY)
                         {
                             _newAnchoredPosition = items[i].anchoredPosition;
                             _newAnchoredPosition.y += _itemCount * _recordOffsetY;
                             items[i].anchoredPosition = _newAnchoredPosition;
-                            _scrollRect.content.GetChild(0).transform.SetAsLastSibling();
+                            var trans = _scrollRect.content.GetChild(0);
+                            trans.transform.SetAsLastSibling();
+                            OnSiblingUpdate?.Invoke(items[i].transform);
                         }
                     }
                 }

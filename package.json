@@ -1,11 +1,11 @@
 {
   "name": "com.scuti.sdk",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "displayName": "Scuti SDK",
   "description": "Scuti Marketplace",
   "unity": "2018.4",
   "dependencies": {
-    "com.unity.nuget.newtonsoft-json": "2.0.0",
+    "com.unity.nuget.newtonsoft-json": "3.0.1",
     "com.unity.textmeshpro": "1.4.1"
   }
 }

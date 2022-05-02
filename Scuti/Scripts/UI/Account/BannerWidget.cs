@@ -18,12 +18,12 @@ public class BannerWidget : View {
     private bool _loading;
     private float _timePassed;
     private int _index = 0;
+    private int _prevIndex;
     private Offer _banner;
 
     public RoundedImage Rounded;
 
-
-
+    public System.Action<int> onCreateBanners;
 
     protected bool timerCompleted = false;
     [SerializeField] protected Timer timer;
@@ -175,9 +175,13 @@ public class BannerWidget : View {
             ScutiLogger.LogException(e);
         }
 
-        if(offerPage != null && offerPage.Nodes.Count>0)
+        if (offerPage != null && offerPage.Paging.TotalCount > 0)
         {
+            onCreateBanners?.Invoke((int)offerPage.Paging.TotalCount);
+        }
 
+        if (offerPage != null && offerPage.Nodes.Count>0)
+        {
             _banner = (offerPage.Nodes as List<Offer>)[0];
         } else
         {
@@ -188,37 +192,55 @@ public class BannerWidget : View {
 
         if (_banner == null || string.IsNullOrEmpty(_banner.Media.Banner.BigUrl))
         {
-            if(_index==0)
+            if (_index == 0)
                 _timePassed = 0; // give it a break before trying again
             else
-                _index = 0;
+                //_index = 0;
+                _index = _prevIndex;
 
             _loading = false;
-        } else
+        }
+        else
         {
             _index++;
-        ImageDownloader.New().Download(_banner.Media.Banner.BigUrl,
-                        result =>
-                        {
-                            ResetTimer();
-                            BannerImage.enabled = true;
-                            BannerImage.sprite = result.ToSprite();
-                            _loading = false;
-                            _timePassed = 0;
-                        },
-                        error =>
-                        {
-                            ScutiLogger.LogError("Failed to load: " + _banner.Media.Banner.BigUrl);
-                            _loading = false;
-                            _timePassed = 0;
-                        }
-                    );
 
+            try
+            {
+                var result = await ImageDownloader.New().Download(_banner.Media.Banner.BigUrl);
+                if (result != null)
+                {
+                    ResetTimer();
+                    BannerImage.enabled = true;
+                    BannerImage.sprite = result.ToSprite();
+                    _loading = false;
+                    _timePassed = 0;
+
+                }
+                else
+                {
+                    ScutiLogger.LogError("Failed to load: " + _banner.Media.Banner.BigUrl);
+                    _loading = false;
+                    _timePassed = 0;
+                }
+            }
+            catch
+            {
+                ScutiLogger.LogError("Failed to load: " + _banner.Media.Banner.BigUrl);
+                _loading = false;
+                _timePassed = 0;
+            }
         }
     }
 
-    internal void Open()
+    public override void Open()
     {
+        base.Open();
 	    if(Rounded != null) Rounded.Refresh();
+    }
+
+    public void SetIndex(int index)
+    {
+        _index = index;
+        _prevIndex = _index;
     }
 }

@@ -81,7 +81,7 @@ namespace Scuti.UI
             }
             catch (Exception ex)
             {
-                Debug.LogError(ex);
+                ScutiLogger.LogError(ex);
 
                 string message = ex.Message;
                 if (ex is UserRegistrationException)
@@ -99,7 +99,7 @@ namespace Scuti.UI
                                 message = "User already exists. Try logging in or request a new password.";
                                 break;
                             default:
-                                Debug.LogError("TODO: Add more response code messages here. -mg");
+                                //Debug.LogError("TODO: Add more response code messages here. -mg");
                                 break;
                         }
                     } 

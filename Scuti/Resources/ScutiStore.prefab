@@ -126,28 +126,22 @@ MonoBehaviour:
     view: {fileID: 3468817519860186242, guid: 9b711427ac321ee4583f0d203d634909, type: 3}
     view_portrait: {fileID: 3468817519860186242, guid: d6bd0dc97885e8643a93c51dc5150094,
       type: 3}
-    view_pc: {fileID: 0}
-    parent: {fileID: 224981712142982816}
-    instance: {fileID: 0}
-  - id: TOPBAR
-    view: {fileID: 114704480669402606, guid: e520e917c8490f54a9399ac2fcb2c153, type: 3}
-    view_portrait: {fileID: 114704480669402606, guid: 7370cc218ce5d44498015542c47f31d8,
-      type: 3}
-    view_pc: {fileID: 114937602133350700, guid: d6a349bb9cf057b468388d76b13fedb3,
-      type: 3}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
   - id: BOTTOMBAR
     view: {fileID: 114437396300607642, guid: 732c304c6afe38a409607a6066db38d6, type: 3}
     view_portrait: {fileID: 0}
-    view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
   - id: OFFERS
-    view: {fileID: 3080986844477801138, guid: d0014075c4db0094e83ff60b8f9eff67, type: 3}
-    view_portrait: {fileID: 7643613424775923764, guid: 4d0e46d0f3285214a9578ea02ee79c23,
+    view: {fileID: 5220054516801358695, guid: 62f4c71f7cfc98c468474ae9a615a16b, type: 3}
+    view_portrait: {fileID: 5220054516801358695, guid: 62f4c71f7cfc98c468474ae9a615a16b,
       type: 3}
-    view_pc: {fileID: 6838221929514559003, guid: a069147496a7abf469712558313835af,
+    parent: {fileID: 224981712142982816}
+    instance: {fileID: 0}
+  - id: TOPBAR
+    view: {fileID: 114704480669402606, guid: 0276557c835d32d49894dbae974a9c2d, type: 3}
+    view_portrait: {fileID: 114704480669402606, guid: a8d719a728153f040a787858ac03e9a8,
       type: 3}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
@@ -155,33 +149,28 @@ MonoBehaviour:
     view: {fileID: 114460696469063826, guid: e6593aaf93d797e4bbacaca49432347c, type: 3}
     view_portrait: {fileID: 114460696469063826, guid: ad26bb25be468f840a0cac039278aaf2,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
   - id: CART
     view: {fileID: 114196425146411846, guid: 647f304acdc311b469d37aec8dbe2ba7, type: 3}
     view_portrait: {fileID: 114196425146411846, guid: 90129ea0951de5e47a1e93788e2b4a5b,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
   - id: VIDEO
     view: {fileID: 114105399446196482, guid: 6a46a0db32ea9324aaf3e53619c72cce, type: 3}
     view_portrait: {fileID: 0}
-    view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
   - id: REWARD
     view: {fileID: 114490104202079348, guid: 940f2da4678643e48a513476d82c209c, type: 3}
     view_portrait: {fileID: 114490104202079348, guid: 48b1135eb2c6deb42b60860969f776d0,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
   - id: VIDEOPLAYER
     view: {fileID: 114437396300607642, guid: 732c304c6afe38a409607a6066db38d6, type: 3}
     view_portrait: {fileID: 0}
-    view_pc: {fileID: 0}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
 --- !u!1 &1266037488985866
@@ -304,74 +293,63 @@ MonoBehaviour:
     view: {fileID: 114500923584915998, guid: 847f1486db175de4eae4aa899ee8bb44, type: 3}
     view_portrait: {fileID: 114500923584915998, guid: 0bc23dce0b1b0df46b42137471d1c3bd,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: ALERT
     view: {fileID: 114240253315962262, guid: c4f9a2666098e88479b55f35afcfc577, type: 3}
     view_portrait: {fileID: 114240253315962262, guid: 8c6a377d313193845bbabd95ec012bce,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: CONFIRMATION
     view: {fileID: 114975572350812452, guid: 764926c0c2049f34486bbe4cc437fc38, type: 3}
     view_portrait: {fileID: 114975572350812452, guid: bc878a4f32b0b5f49a5f1268214d0049,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: SELECTION-LIST
     view: {fileID: 114534210181984434, guid: 817d21a2d786dc643a9cdbdd12c20d5e, type: 3}
     view_portrait: {fileID: 0}
-    view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: SETTINGS
     view: {fileID: 114247002012134422, guid: e34a7ff93d461b7499670b4ae2bda021, type: 3}
     view_portrait: {fileID: 114247002012134422, guid: 997a15b4c7a0d454cbbcaa4d3c175723,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: TEXTINPUT
     view: {fileID: 114451015750324946, guid: e3ff7a5f379b0f249865870734dd4396, type: 3}
     view_portrait: {fileID: 114451015750324946, guid: befe57ffc774fdb4b9c29159cd30985f,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: SHIPPING
     view: {fileID: 114815407960247212, guid: 6618b08ddc7d9ee4893cdd6a2130c42c, type: 3}
     view_portrait: {fileID: 114815407960247212, guid: 52db1fea71347ca4ca96c10f63604370,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: SPLASH
     view: {fileID: 114304311399143144, guid: 20581f7529bf35448902710cd9fd06f6, type: 3}
     view_portrait: {fileID: 114304311399143144, guid: 20581f7529bf35448902710cd9fd06f6,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: CVV
     view: {fileID: 3127000716478003750, guid: fb16de886ce32c64b9bbaabc870a4099, type: 3}
     view_portrait: {fileID: 4042901439541793564, guid: 1b191fb841c092942b88590168c41119,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: LOGOUT-POPUP
     view: {fileID: 7197706502279204191, guid: 74d6b9a70ff35b440b9fe561846ef160, type: 3}
     view_portrait: {fileID: 0}
-    view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
   - id: SUPPORT
     view: {fileID: 114940364197242724, guid: 1102a22e72c6b0c41a3d8f9df4c68e13, type: 3}
     view_portrait: {fileID: 0}
-    view_pc: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
 --- !u!1 &1736270222254480
@@ -455,7 +433,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1080, y: 1920}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
@@ -508,6 +486,7 @@ GameObject:
   - component: {fileID: 114487081744072800}
   - component: {fileID: 114942104422593048}
   - component: {fileID: 114191979548969972}
+  - component: {fileID: 8942881100732373919}
   m_Layer: 0
   m_Name: ScutiStore
   m_TagString: Untagged
@@ -680,6 +659,18 @@ MonoBehaviour:
   - Category: 19
     Icon: {fileID: 21300000, guid: 48273d681b4b80e4fb1335f959bef633, type: 3}
     InActive: 0
+--- !u!114 &8942881100732373919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833577399175640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ce5dd3527ca0e94597eb1bfd23519ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1882320012358154
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,91 +725,78 @@ MonoBehaviour:
     view: {fileID: 3468817519860186242, guid: 8ee182f0ddae3e041878c62e88a0edd8, type: 3}
     view_portrait: {fileID: 3468817519860186242, guid: 1d2199056196b824eb49a4a6c12b2c6f,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: MYACCOUNT
     view: {fileID: 114809112739792404, guid: 97b265316cb28f14baf8dd9fe18e26f1, type: 3}
     view_portrait: {fileID: 114809112739792404, guid: c7c56b0bc2cccd842a96ce5f973d7d7a,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: ONBOARDING
     view: {fileID: 114526024948912102, guid: d64a4fea3c9b23c4d8e1a2d1bed84856, type: 3}
     view_portrait: {fileID: 114526024948912102, guid: 45be9a2165c1b594aadd8649e557fd29,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: LOGIN
     view: {fileID: 114415404541608640, guid: 598c017db9aa7094f9cc836ed8f44138, type: 3}
     view_portrait: {fileID: 114415404541608640, guid: 7cec5d8f3a5b6164f91320b065545c28,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: PW-RESET-VIA-EMAIL
     view: {fileID: 114593751330843874, guid: 8f7d063360a87214ea6e46d5319f2dc4, type: 3}
     view_portrait: {fileID: 114593751330843874, guid: 8b71ef73a25cd2d479a2582bff3c8e42,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: WALLET
     view: {fileID: 114784654123931938, guid: 43208d951f4a7bf478160acf37d03fc4, type: 3}
     view_portrait: {fileID: 114784654123931938, guid: 012f81daa3836064c81279100733936d,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: DETAILS
     view: {fileID: 114355165316777038, guid: fac9c1cbbb054fe498e0eafff01a8172, type: 3}
     view_portrait: {fileID: 114355165316777038, guid: 6db876fa076f07c41aac541e874cfc38,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: CARD-MANAGER
     view: {fileID: 114725433111894774, guid: 696cb9128615ed74480f74584e71ba49, type: 3}
     view_portrait: {fileID: 673180899770796065, guid: 7f6acb21a29c2bf4b9ce907d15f3ae12,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: CARD
     view: {fileID: 114961355867730450, guid: c7fc15bd2481cd042b96f6203d2cf67d, type: 3}
     view_portrait: {fileID: 114961355867730450, guid: fbf7a9e972c77a747bcfede5a721aade,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: PW-EDIT
     view: {fileID: 114330477555145026, guid: da67f943c56977a419a6e669f4289599, type: 3}
     view_portrait: {fileID: 114330477555145026, guid: b10d06030ffc7d94cabb98df46142383,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: ORDERS
     view: {fileID: 114969802503334858, guid: 3e3fb1cf2f0f04c4ca71115a25c07c27, type: 3}
     view_portrait: {fileID: 114969802503334858, guid: 9cd892b13860b544f9fcd76f45d7ea93,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: PROMOACCOUNT
     view: {fileID: 4876377460699837358, guid: 1ff4f358ff463914b94be156eba250d1, type: 3}
     view_portrait: {fileID: 4876377460699837358, guid: d5bf64d6e6054234a87ceb0607b54195,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
   - id: WELCOME
     view: {fileID: 114785370302255702, guid: bccb0c704ad6e124f833ec21023f7ec4, type: 3}
     view_portrait: {fileID: 114785370302255702, guid: 413006544987bb04091cb27bb80ca560,
       type: 3}
-    view_pc: {fileID: 0}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
 --- !u!1001 &3972478454920286358

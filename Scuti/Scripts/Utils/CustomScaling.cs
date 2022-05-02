@@ -29,9 +29,6 @@ namespace Scuti.UI
         {
             get
             {
-                if (ScutiConstants.FORCE_LANDSCAPE)
-                    return true;
-
 		        _landscape = Screen.orientation == ScreenOrientation.Landscape || Screen.orientation == ScreenOrientation.LandscapeLeft || Screen.orientation == ScreenOrientation.LandscapeRight;
                 #if UNITY_EDITOR
 		        _landscape = Camera.main.pixelWidth > Camera.main.pixelHeight;

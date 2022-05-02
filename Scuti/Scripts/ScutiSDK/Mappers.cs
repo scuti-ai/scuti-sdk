@@ -20,17 +20,37 @@ namespace Scuti
         // ================================================
         #region OFFERS
         // ================================================
-        public static OffersPresenterBase.Model GetOffersPresenterModel(List<Offer> offers)
+        public static OffersPresenter.Model GetOffersPresenterModel(List<Offer> offers, int backfillRequirement, Net.OfferService.MediaType backfilType = Net.OfferService.MediaType.Product)
         {
-            var result = new OffersPresenterBase.Model();
+            var result = new OffersPresenter.Model();
             if (offers != null)
             {
                 offers.ToList().ForEach(offer =>
                 {
-                var element = GetOfferSummaryPresenterModel(offer, true);// allowAd > 0);
-                    //if (element.DisplayAd) allowAd--;
+                var element = GetOfferSummaryPresenterModel(offer); 
                     result.AddNewItem(element);
                 });
+            }
+
+            if (backfillRequirement > 0)
+            {
+                var count = result.NewItemsCount(backfilType);
+                if (count > 0)
+                {
+                    var duplicate = offers.ToList();
+                    while(count < backfillRequirement)
+                    {
+                        if(duplicate.Count>0)
+                        {
+                            result.AddNewItem(GetOfferSummaryPresenterModel(duplicate[0]));
+                            duplicate.RemoveAt(0);
+                            count++;
+                        } else
+                        {
+                            duplicate = offers.ToList();
+                        }
+                    }
+                }
             }
             result.Shuffle();
             return result;
@@ -56,16 +76,11 @@ namespace Scuti
         // ================================================
         #region OFFER SUMMARY
         // ================================================
-        public static OfferSummaryPresenterBase.Model GetOfferSummaryPresenterModel(Offer offer, bool allowAd)
+        public static OfferSummaryPresenterBase.Model GetOfferSummaryPresenterModel(Offer offer)
         {
             List<string> images = new List<string>();
             if (offer != null && offer.Media?.Images != null) images = offer.Media.Images.ToList();
 
-            bool displayAd = allowAd;
-            if (displayAd || !string.IsNullOrEmpty(offer.Media.VideoUrl) && offer.Media.Banner!=null)
-            {
-                displayAd = (!ScutiUtils.IsPortrait() && !string.IsNullOrEmpty(offer.Media.Vertical)) || !string.IsNullOrEmpty(offer.Media.Tile);
-            }
             if (offer.Product == null)
             {
                 offer.Product = new OfferProduct();
@@ -89,9 +104,9 @@ namespace Scuti
                 TallURL = offer.Media.Vertical,
                 SmallURL = offer.Media.Tile,
                 VideoURL = offer.Media.VideoUrl,
-                Scutis = scutis,
-                DisplayAd = displayAd,
-                Title = offer.Product.Name,
+				ShopURL = offer.Shop.Thumbnail,
+				Scutis = scutis,
+                Title = offer.Product.Name?? offer.Name,
                 Description = offer.Product.Description,
                 Brand = brandName,
                 DisplayPrice = $"${offer.Product.Price.Amount.Value.ToString("F2")}",
