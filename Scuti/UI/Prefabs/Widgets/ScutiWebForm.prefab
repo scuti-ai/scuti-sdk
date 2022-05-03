@@ -181,9 +181,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.6877569}
+  m_AnchoredPosition: {x: 0, y: 112.5}
+  m_SizeDelta: {x: 0, y: 225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &3589100243052836074
 CanvasGroup:
@@ -283,6 +283,7 @@ MonoBehaviour:
       m_Calls: []
   Transitions: []
   Url: https://www.pdatapartners.com/hf/Scuti/CD300A/
+  Canvas: {fileID: 3588635752008874034}
   _webViewObject: {fileID: 119697972790570343}
 --- !u!114 &119697972790570343
 MonoBehaviour:

@@ -29,6 +29,7 @@ using UnityEngine.UI;
 public class ScutiWebView : View
 {
     public string Url = "";
+    public RectTransform Canvas;
     [SerializeField]
     private WebViewObject _webViewObject;
 
@@ -143,22 +144,23 @@ public class ScutiWebView : View
 
         //webViewObject.SetScrollbarsVisibility(true);
 
-        _webViewObject.SetMargins(0, 200, 0, 0);
+        _webViewObject.SetMargins((int)Canvas.offsetMin.x, (int)Canvas.offsetMax.y, (int)Canvas.offsetMax.x, (int)Canvas.offsetMin.y, true);
         _webViewObject.SetTextZoom(100);  // android only. cf. https://stackoverflow.com/questions/21647641/android-webview-set-font-size-system-default/47017410#47017410
 
     }
 
     private Coroutine _openRoutine;
 
-    public override void Open()
+    protected override void SetOpened()
     {
-        base.Open();
+        base.SetOpened();
         if (_openRoutine != null) StopCoroutine(_openRoutine);
         _openRoutine = StartCoroutine(OpenHelper());
     }
 
     private IEnumerator OpenHelper()
-    { 
+    {
+        yield return new WaitForSeconds(0.1f);
     _webViewObject.SetVisibility(true);
 #if !UNITY_WEBPLAYER && !UNITY_WEBGL
         if (Url.StartsWith("http"))
