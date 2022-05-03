@@ -140,13 +140,15 @@ public class BannerWidget : View {
         {
             if (!ScutiUtils.TryOpenLink(offer))
             {
-                var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
-                if (panelModel != null)
-                {
-                    UIManager.OfferDetails.SetData(panelModel);
-                    UIManager.OfferDetails.SetIsVideo(isVideo);
-                    UIManager.Open(UIManager.OfferDetails);
-                } 
+                UIManager.WebForm.Open();
+
+                //var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
+                //if (panelModel != null)
+                //{
+                //    UIManager.OfferDetails.SetData(panelModel);
+                //    UIManager.OfferDetails.SetIsVideo(isVideo);
+                //    UIManager.Open(UIManager.OfferDetails);
+                //} 
             }
         }
     }
