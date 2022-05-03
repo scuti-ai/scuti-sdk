@@ -352,6 +352,11 @@ MonoBehaviour:
     view_portrait: {fileID: 0}
     parent: {fileID: 224471452044485110}
     instance: {fileID: 0}
+  - id: WEBFORM
+    view: {fileID: 1717751142189353948, guid: a8e141cf618aea3448b1f193e4e5fb88, type: 3}
+    view_portrait: {fileID: 0}
+    parent: {fileID: 224471452044485110}
+    instance: {fileID: 0}
 --- !u!1 &1736270222254480
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,7 +440,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -560,6 +565,7 @@ MonoBehaviour:
   history: []
   currentNonModal: {fileID: 0}
   currentModal: {fileID: 0}
+  counterModals: 0
 --- !u!114 &114487081744072800
 MonoBehaviour:
   m_ObjectHideFlags: 0
