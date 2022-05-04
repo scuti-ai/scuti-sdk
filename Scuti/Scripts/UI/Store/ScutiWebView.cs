@@ -147,8 +147,8 @@ public class ScutiWebView : View
 
         var isPortrait = ScutiUtils.IsPortrait();
         float height = 1920;
-        if (isPortrait) height = 1080;
-        float percent = 200 / height;
+        if (!isPortrait) height = 1080;
+        float percent = 150 / height;
         percent = Screen.height * percent;
         //float h = (float)Screen.height;
 
@@ -157,7 +157,6 @@ public class ScutiWebView : View
         //        int ih = Screen.currentResolution.height;
         //#endif 
 
-        Debug.Log("Percent: >>>>>> "+(int)percent +" vs "+percent);
         _webViewObject.SetMargins(0, (int)percent, 0, 0, false);
         _webViewObject.SetTextZoom(100);  // android only. cf. https://stackoverflow.com/questions/21647641/android-webview-set-font-size-system-default/47017410#47017410
 
