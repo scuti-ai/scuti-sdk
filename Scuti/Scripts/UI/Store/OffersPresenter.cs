@@ -974,27 +974,49 @@ namespace Scuti.UI
         {
             if (presenter.Data != null && !presenter.Data.ID.IsNullOrEmpty())
             {
-                UIManager.ShowLoading(false);
-                var id = presenter.Data.ID;
-                var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
-                if (!ScutiUtils.TryOpenLink(offer))
+                if (presenter.Data.VideoURL.StartsWith(ScutiConstants.INTERNAL_URL_PREFIX))
                 {
-                    var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
-
-                    try
+                    ScutiAPI.EngagementWithProductMetric(0, 1, presenter.Data.ID.ToString());
+                    var url = presenter.Data.VideoURL.Substring(ScutiConstants.INTERNAL_URL_PREFIX.Length);
+                    if (url.ToLower().StartsWith("http"))
                     {
-                        UIManager.OfferDetails.SetData(panelModel);
-                        UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(presenter.Data.VideoURL));
-                        UIManager.Open(UIManager.OfferDetails);
+                        UIManager.WebForm.Url = url;
+                        UIManager.WebForm.Open();
                     }
-                    catch (Exception e)
+                    else
                     {
-                        ScutiLogger.LogException(e);
-                        UIManager.Alert.SetHeader("Out of Stock").SetBody("This item is out of stock. Please try again later.").SetButtonText("OK").Show(() => { });
-                        //UIManager.Open(UIManager.Offers);
+
+                        var pageUrl = ScutiUtils.ParseScutiURL(url);
+                        if (pageUrl != null)
+                        {
+                            UIManager.Open(pageUrl.SetID, pageUrl.ViewID);
+                        }
                     }
                 }
-                UIManager.HideLoading(false);
+                else
+                {
+                    UIManager.ShowLoading(false);
+                    var id = presenter.Data.ID;
+                    var offer = await ScutiNetClient.Instance.Offer.GetOfferByID(id);
+                    if (!ScutiUtils.TryOpenLink(offer))
+                    {
+                        var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
+
+                        try
+                        {
+                            UIManager.OfferDetails.SetData(panelModel);
+                            UIManager.OfferDetails.SetIsVideo(!string.IsNullOrEmpty(presenter.Data.VideoURL));
+                            UIManager.Open(UIManager.OfferDetails);
+                        }
+                        catch (Exception e)
+                        {
+                            ScutiLogger.LogException(e);
+                            UIManager.Alert.SetHeader("Out of Stock").SetBody("This item is out of stock. Please try again later.").SetButtonText("OK").Show(() => { });
+                            //UIManager.Open(UIManager.Offers);
+                        }
+                    }
+                    UIManager.HideLoading(false);
+                }
             }
         }
 

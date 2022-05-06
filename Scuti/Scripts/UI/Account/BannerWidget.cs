@@ -109,12 +109,21 @@ public class BannerWidget : View {
             {
                 if(_banner.Media.VideoUrl.StartsWith(ScutiConstants.INTERNAL_URL_PREFIX))
                 {
-                    ScutiLogger.Log("TODO: Record internal click performance of banners: " + ScutiConstants.INTERNAL_URL_PREFIX);
+                    ScutiAPI.EngagementWithProductMetric(0, 1, _banner.Id.ToString());
                     var url = _banner.Media.VideoUrl.Substring(ScutiConstants.INTERNAL_URL_PREFIX.Length);
-                    var pageUrl = ScutiUtils.ParseScutiURL(url);
-                    if(pageUrl!=null)
+                    if (url.ToLower().StartsWith("http"))
                     {
-                        UIManager.Open(pageUrl.SetID, pageUrl.ViewID);
+                        UIManager.WebForm.Url = url;
+                        UIManager.WebForm.Open();
+                    }
+                    else
+                    {
+
+                        var pageUrl = ScutiUtils.ParseScutiURL(url);
+                        if (pageUrl != null)
+                        {
+                            UIManager.Open(pageUrl.SetID, pageUrl.ViewID);
+                        }
                     }
                 }
                 else
@@ -140,15 +149,13 @@ public class BannerWidget : View {
         {
             if (!ScutiUtils.TryOpenLink(offer))
             {
-                UIManager.WebForm.Open();
-
-                //var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
-                //if (panelModel != null)
-                //{
-                //    UIManager.OfferDetails.SetData(panelModel);
-                //    UIManager.OfferDetails.SetIsVideo(isVideo);
-                //    UIManager.Open(UIManager.OfferDetails);
-                //} 
+                var panelModel = Mappers.GetOfferDetailsPresenterModel(offer);
+                if (panelModel != null)
+                {
+                    UIManager.OfferDetails.SetData(panelModel);
+                    UIManager.OfferDetails.SetIsVideo(isVideo);
+                    UIManager.Open(UIManager.OfferDetails);
+                }
             }
         }
     }
