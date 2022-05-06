@@ -111,8 +111,10 @@ public class BannerWidget : View {
                 var url = _banner.Media.VideoUrl.Substring(ScutiConstants.INTERNAL_URL_PREFIX.Length);
                 if (url.ToLower().StartsWith("http"))
                 {
+#if UNITY_ANDROID || UNITY_IOS
                     UIManager.WebForm.Url = url;
                     UIManager.WebForm.Open();
+#endif
                 }
                 else
                 {
