@@ -123,7 +123,7 @@ public class ScutiWebView : View
             //separated: false
             );
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-        webViewObject.bitmapRefreshCycle = 1;
+        _webViewObject.bitmapRefreshCycle = 1;
 #endif
         // cf. https://github.com/gree/unity-webview/pull/512
         // Added alertDialogEnabled flag to enable/disable alert/confirm/prompt dialogs. by KojiNakamaru · Pull Request #512 · gree/unity-webview
@@ -220,9 +220,9 @@ public class ScutiWebView : View
         }
 #else
         if (Url.StartsWith("http")) {
-            webViewObject.LoadURL(Url.Replace(" ", "%20"));
+            _webViewObject.LoadURL(Url.Replace(" ", "%20"));
         } else {
-            webViewObject.LoadURL("StreamingAssets/" + Url.Replace(" ", "%20"));
+            _webViewObject.LoadURL("StreamingAssets/" + Url.Replace(" ", "%20"));
         }
 #endif
         yield break;
