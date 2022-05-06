@@ -105,32 +105,30 @@ public class BannerWidget : View {
             {
                 ShowOfferDetails(false);
             }
-            else
+            else if (_banner.Media.VideoUrl.StartsWith(ScutiConstants.INTERNAL_URL_PREFIX))
             {
-                if(_banner.Media.VideoUrl.StartsWith(ScutiConstants.INTERNAL_URL_PREFIX))
+                ScutiAPI.EngagementWithProductMetric(0, 1, _banner.Id.ToString());
+                var url = _banner.Media.VideoUrl.Substring(ScutiConstants.INTERNAL_URL_PREFIX.Length);
+                if (url.ToLower().StartsWith("http"))
                 {
-                    ScutiAPI.EngagementWithProductMetric(0, 1, _banner.Id.ToString());
-                    var url = _banner.Media.VideoUrl.Substring(ScutiConstants.INTERNAL_URL_PREFIX.Length);
-                    if (url.ToLower().StartsWith("http"))
-                    {
-                        UIManager.WebForm.Url = url;
-                        UIManager.WebForm.Open();
-                    }
-                    else
-                    {
-
-                        var pageUrl = ScutiUtils.ParseScutiURL(url);
-                        if (pageUrl != null)
-                        {
-                            UIManager.Open(pageUrl.SetID, pageUrl.ViewID);
-                        }
-                    }
+                    UIManager.WebForm.Url = url;
+                    UIManager.WebForm.Open();
                 }
                 else
                 {
-                    ShowOfferDetails(true);
+
+                    var pageUrl = ScutiUtils.ParseScutiURL(url);
+                    if (pageUrl != null)
+                    {
+                        UIManager.Open(pageUrl.SetID, pageUrl.ViewID);
+                    }
                 }
             }
+            else
+            {
+                ShowOfferDetails(true);
+            }
+        
 
 // Shouldn't be needed since the opening of the offer details should record it. Does not record internal banner ad performance though :|  -mg
 //#pragma warning disable 4014

@@ -974,14 +974,16 @@ namespace Scuti.UI
         {
             if (presenter.Data != null && !presenter.Data.ID.IsNullOrEmpty())
             {
-                if (presenter.Data.VideoURL.StartsWith(ScutiConstants.INTERNAL_URL_PREFIX))
+                if (!string.IsNullOrEmpty(presenter.Data.VideoURL) &&  presenter.Data.VideoURL.StartsWith(ScutiConstants.INTERNAL_URL_PREFIX))
                 {
                     ScutiAPI.EngagementWithProductMetric(0, 1, presenter.Data.ID.ToString());
                     var url = presenter.Data.VideoURL.Substring(ScutiConstants.INTERNAL_URL_PREFIX.Length);
                     if (url.ToLower().StartsWith("http"))
                     {
+#if UNITY_ANDROID || UNITY_IOS
                         UIManager.WebForm.Url = url;
                         UIManager.WebForm.Open();
+#endif
                     }
                     else
                     {
