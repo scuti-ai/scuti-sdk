@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
-using UnityEngine.UI;
 using UnityEditor.UI;
+
 
 [CustomEditor(typeof(ScrollRectNested))]
 public class ScrollRectNestedEditor : ScrollRectEditor
@@ -25,3 +24,4 @@ public class ScrollRectNestedEditor : ScrollRectEditor
         serializedObject.ApplyModifiedProperties();
     }
 }
+#endif
