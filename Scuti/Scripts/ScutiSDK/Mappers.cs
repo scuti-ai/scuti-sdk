@@ -97,6 +97,12 @@ namespace Scuti
             if (offer.Review != null) rating = offer.Review.Score.Value;
             string brandName = string.Empty;
             if (offer.Brand != null && !string.IsNullOrEmpty(offer.Brand.Name)) brandName = offer.Brand.Name;
+
+            var title = offer.Name;
+            if(offer.Type.Equals(CampaignType.ProductListing.GetEnumMemberValue()) || string.IsNullOrEmpty(title))
+            {
+                title = offer.Product.Name ?? offer.Name;
+            }
             return new OfferSummaryPresenterBase.Model
             {
                 ID = offer.Id.ToString(),
@@ -106,7 +112,7 @@ namespace Scuti
                 VideoURL = offer.Media.VideoUrl,
 				ShopURL = offer.Shop.Thumbnail,
 				Scutis = scutis,
-                Title = offer.Product.Name?? offer.Name,
+                Title = title,
                 Description = offer.Product.Description,
                 Brand = brandName,
                 DisplayPrice = $"${offer.Product.Price.Amount.Value.ToString("F2")}",
