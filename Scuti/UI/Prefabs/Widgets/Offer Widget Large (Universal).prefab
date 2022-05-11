@@ -853,10 +853,8 @@ MonoBehaviour:
   animator: {fileID: 5795079797880958981}
   backgroundImage: {fileID: 5811947631418222119}
   displayImage: {fileID: 8522798051530715264}
-  shopImage: {fileID: 8522798051838616075}
   titleText: {fileID: 8522798052679582709}
   brandText: {fileID: 0}
-  defaultStoreSprite: {fileID: 21300000, guid: 4760e11f6e079104d916a66d555f146f, type: 3}
   Viewport: {fileID: 0}
   ProductVisualRules:
   - Visual: {fileID: 5853023579475081909}
@@ -1625,7 +1623,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 43.43, y: 0}
-  m_SizeDelta: {x: -225.98169, y: 0}
+  m_SizeDelta: {x: -225.98169, y: -45.607544}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8522798052679582699
 CanvasRenderer:
