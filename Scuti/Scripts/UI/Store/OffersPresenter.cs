@@ -983,6 +983,8 @@ namespace Scuti.UI
 #if UNITY_ANDROID || UNITY_IOS
                         UIManager.WebForm.Url = url;
                         UIManager.WebForm.Open();
+#else
+                        Application.OpenURL(url);
 #endif
                     }
                     else
