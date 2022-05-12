@@ -853,8 +853,10 @@ MonoBehaviour:
   animator: {fileID: 5795079797880958981}
   backgroundImage: {fileID: 5811947631418222119}
   displayImage: {fileID: 8522798051530715264}
+  shopImage: {fileID: 8522798051838616075}
   titleText: {fileID: 8522798052679582709}
   brandText: {fileID: 0}
+  defaultStoreSprite: {fileID: 0}
   Viewport: {fileID: 0}
   ProductVisualRules:
   - Visual: {fileID: 5853023579475081909}
