@@ -628,6 +628,11 @@ namespace Scuti
             mr = right;
             mb = AdjustBottomMargin(bottom);
         }
+#else
+            ml = left;
+            mt = top;
+            mr = right;
+            mb = bottom;
 #endif
             bool r = relative;
 
@@ -800,6 +805,9 @@ namespace Scuti
         if (webView == null)
             return false;
         return webView.Call<bool>("SetURLPattern", allowPattern, denyPattern, hookPattern);
+#else
+            // TODO: UNSUPPORTED
+            return false;
 #endif
         }
 
@@ -884,6 +892,9 @@ namespace Scuti
         if (webView == null)
             return 0;
         return webView.Get<int>("progress");
+#else
+            // TODO: UNSUPPORTED
+            return 0;
 #endif
         }
 
@@ -903,6 +914,9 @@ namespace Scuti
         if (webView == null)
             return false;
         return webView.Get<bool>("canGoBack");
+#else
+            // TODO: UNSUPPORTED
+            return false;
 #endif
         }
 
@@ -922,6 +936,9 @@ namespace Scuti
         if (webView == null)
             return false;
         return webView.Get<bool>("canGoForward");
+#else
+            // TODO: UNSUPPORTED
+            return false;
 #endif
         }
 
@@ -1072,6 +1089,9 @@ namespace Scuti
         if (webView == null)
             return null;
         return webView.Call<string>("GetCustomHeaderValue", headerKey);
+#else
+            // TODO: UNSUPPORTED
+            return null;
 #endif
         }
 
