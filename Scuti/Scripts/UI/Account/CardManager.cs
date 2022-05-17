@@ -99,6 +99,11 @@ namespace Scuti.UI
 
         }
 
+        public List<UserCard> GetUserCardInfo()
+        {
+            return _cardsInformation;
+        }
+
         private void UpdateCardInfoView()
         {
             // It sorts the UserCard list in increasing order according to the last card numbers.
@@ -158,6 +163,7 @@ namespace Scuti.UI
             TryToLoadData();
         }
 
+
         /// <summary>
         /// Get info for payment methods stored on server
         /// </summary>
@@ -173,7 +179,7 @@ namespace Scuti.UI
                     Data.Card.Reset();
                     _cachedCard = cards.Last();
                     ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
-                    
+
                 }
                 else if (Data.Card == null)
                 {

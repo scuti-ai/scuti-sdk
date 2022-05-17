@@ -63,5 +63,13 @@ namespace Scuti
             base.Close();
             Clear();
         }
+
+        #region For UnitTest
+        public void SetText(string text)
+        {
+            inputField.text = text;
+        }
+        #endregion
+
     }
 }
