@@ -114,6 +114,12 @@ namespace Scuti.UI
             return interestSelect;
         }
 
+        public UserCredentialsForm GetUserCredentialForm()
+        {
+            return credentials;
+        }
+
+
         #endregion
 
         public void ShowCategories()

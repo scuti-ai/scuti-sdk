@@ -26,6 +26,8 @@ namespace Scuti.UI
         [SerializeField] InputField passwordInput;
         [SerializeField] Button registerButton;
 
+        public bool registerComplete;
+
 
         public override Model GetDefaultDataObject()
         {
@@ -77,6 +79,7 @@ namespace Scuti.UI
             try
             {
                 await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName == null ? "" : Data.fullName);
+                registerComplete = true;
                 Submit();
             }
             catch (Exception ex)
@@ -104,6 +107,8 @@ namespace Scuti.UI
                         }
                     } 
                 }
+
+                registerComplete = false;
                 UIManager.Alert.SetHeader("Create Account Failed").SetBody(message).SetButtonText("OK").Show(() => { });
             }
 
