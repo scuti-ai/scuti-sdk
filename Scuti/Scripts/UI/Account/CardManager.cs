@@ -130,6 +130,11 @@ namespace Scuti.UI
             }
         }
 
+        public List<CreditCardView> GetCreditCardView()
+        {
+            return creditCardList;
+        }
+
         #endregion
 
 
