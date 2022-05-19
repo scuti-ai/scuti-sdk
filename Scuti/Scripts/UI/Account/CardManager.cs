@@ -34,6 +34,7 @@ namespace Scuti.UI
         public System.Action<CardDetailsForm.Model> OnCardSelected;
 
         public bool isSelectCardMode;
+        public bool isDefaultCardChanged;
 
 
         protected override void Awake()
@@ -291,12 +292,14 @@ namespace Scuti.UI
         // Call the endpoint to set the default credit card after confirmation.
         private async void SetCardByDefault(CreditCardView.CreditCardModel creditCardInfo)
         {
+            isDefaultCardChanged = false;
             UIManager.ShowLoading(false);
 
             try
             {
                 await ScutiAPI.SetMyDefaultCard(creditCardInfo.id);
                 UIManager.HideLoading(false);
+                isDefaultCardChanged = true;
 
             }
             catch (Exception ex)
@@ -321,7 +324,7 @@ namespace Scuti.UI
 
         #endregion
 
-        #region CardDetaildFom
+        #region CardDetaildForm
 
         // Get detailed information of the card to be edited or removed.
         private void UpdatedValueData(CreditCardView.CreditCardModel creditCardInfo)
