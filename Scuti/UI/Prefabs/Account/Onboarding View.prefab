@@ -497,6 +497,7 @@ MonoBehaviour:
   emailInput: {fileID: 114800185025038138}
   passwordInput: {fileID: 114073426364949038}
   registerButton: {fileID: 114265662213628754}
+  registerComplete: 0
 --- !u!114 &114383346497969888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8468,6 +8469,7 @@ MonoBehaviour:
   history: []
   currentNonModal: {fileID: 0}
   currentModal: {fileID: 0}
+  counterModals: 0
 --- !u!114 &114526024948912102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8542,6 +8544,7 @@ MonoBehaviour:
   history: []
   currentNonModal: {fileID: 0}
   currentModal: {fileID: 0}
+  counterModals: 0
 --- !u!114 &114106360230067794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12168,8 +12171,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 100
-    m_Right: 100
+    m_Left: 200
+    m_Right: 200
     m_Top: 0
     m_Bottom: 60
   m_ChildAlignment: 4
