@@ -21,6 +21,10 @@ namespace Scuti.UI {
         [SerializeField] Button prevButton;
         [SerializeField] Text saveButtonLabel;
 
+        private List<LabelledImageWidget> widgetCategories;
+
+        public bool wasSavedCategories;
+
         public Text Instructions;
 
         public Text CountLabel;
@@ -49,9 +53,9 @@ namespace Scuti.UI {
             }
             else
             {
-                if(prevButton)
+                if (prevButton)
                     prevButton.gameObject.SetActive(true);
-                if(saveButtonLabel)
+                if (saveButtonLabel)
                     saveButtonLabel.text = "SAVE";
             }
             if (!_init)
@@ -65,12 +69,12 @@ namespace Scuti.UI {
         private async Task Populate()
         {
             _init = true;
-
+            widgetCategories = new List<LabelledImageWidget>();
             List<string> selectedCategories = new List<string>(); ;
             try
             {
                 var prefs = await ScutiAPI.GetCategories();
-                if (prefs != null && prefs.Categories!=null) selectedCategories = prefs.Categories.ToList();
+                if (prefs != null && prefs.Categories != null) selectedCategories = prefs.Categories.ToList();
             } catch (Exception e)
             {
                 ScutiLogger.LogException(e);
@@ -84,11 +88,12 @@ namespace Scuti.UI {
                 widget.SetIcon(catData.Icon);
                 widget.onInteract += OnCategoryToggled;
 
-                if(selectedCategories.Contains(catData.Category.ToString()))
+                if (selectedCategories.Contains(catData.Category.ToString()))
                 {
                     widget.Select(true);
                     selection.Add((Categories)widget.GetEnumValue());
-                }  
+                }
+                widgetCategories.Add(widget);
             }
         }
 
@@ -98,7 +103,7 @@ namespace Scuti.UI {
                 selection.Add((Categories)widget.GetEnumValue());
             else selection.Remove((Categories)widget.GetEnumValue());
         }
-         
+
         protected override bool Evaluate() {
             return selection.Count >= minSelection;
         }
@@ -106,11 +111,11 @@ namespace Scuti.UI {
         public void NextStep()
         {
             int count = selection.Count;
-           
+
             if (count < 3)
             {
                 Instructions.color = Color.red;
-                if(_errorCount>1)
+                if (_errorCount > 1)
                 {
                     UIManager.Alert.SetHeader("Select Categories").SetBody("You must select at least 3 categories before continuing.").SetButtonText("OK").Show(() => { });
                 }
@@ -124,12 +129,18 @@ namespace Scuti.UI {
             }
         }
 
+        public List<LabelledImageWidget> GetWidgetCategories()
+        {
+            return widgetCategories;
+        }
+
         private bool _saving = false;
         private async Task SaveChanges()
         {
             if (_saving) return;
             saveButton.interactable = false;
             _saving = true;
+            wasSavedCategories = false;
             bool submit = false;
             try
             {
@@ -142,7 +153,8 @@ namespace Scuti.UI {
                     i++;
                 }
                 await ScutiAPI.SetCategories(categories);
-                submit = true; 
+                submit = true;
+                wasSavedCategories = true;
             } catch (Exception e)
             {
                 ScutiLogger.LogException(e);
