@@ -122,12 +122,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: STORE
   creators:
-  - id: REWARDSAD
-    view: {fileID: 3468817519860186242, guid: 9b711427ac321ee4583f0d203d634909, type: 3}
-    view_portrait: {fileID: 3468817519860186242, guid: d6bd0dc97885e8643a93c51dc5150094,
-      type: 3}
-    parent: {fileID: 224981712142982816}
-    instance: {fileID: 0}
   - id: BOTTOMBAR
     view: {fileID: 114437396300607642, guid: 732c304c6afe38a409607a6066db38d6, type: 3}
     view_portrait: {fileID: 0}
@@ -142,6 +136,12 @@ MonoBehaviour:
   - id: TOPBAR
     view: {fileID: 114704480669402606, guid: 0276557c835d32d49894dbae974a9c2d, type: 3}
     view_portrait: {fileID: 114704480669402606, guid: a8d719a728153f040a787858ac03e9a8,
+      type: 3}
+    parent: {fileID: 224981712142982816}
+    instance: {fileID: 0}
+  - id: REWARDSAD
+    view: {fileID: 3468817519860186242, guid: 9b711427ac321ee4583f0d203d634909, type: 3}
+    view_portrait: {fileID: 3468817519860186242, guid: d6bd0dc97885e8643a93c51dc5150094,
       type: 3}
     parent: {fileID: 224981712142982816}
     instance: {fileID: 0}
@@ -438,9 +438,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
