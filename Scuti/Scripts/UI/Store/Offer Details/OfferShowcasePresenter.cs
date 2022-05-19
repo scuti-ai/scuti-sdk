@@ -118,7 +118,7 @@ namespace Scuti.UI {
             var downloader = ImageDownloader.New(false);
             var downloads = new List<Task<Texture2D>>();
 
-             
+            int amountThumbs = 0;
 
             Data.URLs.ForEach(x => downloads.Add(downloader.Download(x)));
             thumbnailParent.gameObject.SetActive(false);
@@ -128,8 +128,9 @@ namespace Scuti.UI {
             {
                 while (downloads.Count > 0)
                 {
+                    if (amountThumbs >= 10) break;
                     var finished = await Task.WhenAny(downloads);
-                    downloads.Remove(finished);
+                    downloads.Remove(finished);    
                     if (finished.Result != null)
                     {
                         AddDisplayImage(finished.Result);
@@ -138,6 +139,7 @@ namespace Scuti.UI {
                         // Hack, add scrollable area instead
                         //if (Data.TextureCount() > 3) break;
                     }
+                    amountThumbs++;
                 }
             }
             catch (Exception e)
@@ -146,9 +148,14 @@ namespace Scuti.UI {
             }
 
             Destroy(downloader.gameObject);
+            Debug.Log("Count thumbs: " + m_Thumbs.Count);
+
         }
 
         void AddDisplayImage(Texture2D texture){
+
+            Debug.Log(" --- Display IMAGE "+ texture.name);
+
             Data.AddTexture(texture);
             // If this is the first texture, set it to display
             if (Data.TextureCount() == 1) {
@@ -158,6 +165,9 @@ namespace Scuti.UI {
         }
 
         void AddThumbnail(Texture2D texture2D) {
+
+            Debug.Log(" --- Display THUMBNAIL "+ texture2D.name);
+
             var instance = Instantiate(thumbnailPrefab, thumbnailParent);
             instance.hideFlags = HideFlags.DontSave;
 
