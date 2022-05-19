@@ -148,13 +148,9 @@ namespace Scuti.UI {
             }
 
             Destroy(downloader.gameObject);
-            Debug.Log("Count thumbs: " + m_Thumbs.Count);
-
         }
 
         void AddDisplayImage(Texture2D texture){
-
-            Debug.Log(" --- Display IMAGE "+ texture.name);
 
             Data.AddTexture(texture);
             // If this is the first texture, set it to display
@@ -165,8 +161,6 @@ namespace Scuti.UI {
         }
 
         void AddThumbnail(Texture2D texture2D) {
-
-            Debug.Log(" --- Display THUMBNAIL "+ texture2D.name);
 
             var instance = Instantiate(thumbnailPrefab, thumbnailParent);
             instance.hideFlags = HideFlags.DontSave;
