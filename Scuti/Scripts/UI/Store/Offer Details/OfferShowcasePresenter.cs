@@ -123,29 +123,36 @@ namespace Scuti.UI {
             Data.URLs.ForEach(x => downloads.Add(downloader.Download(x)));
             thumbnailParent.gameObject.SetActive(false);
             // Downloads the iamges together and process as they finish         
-
-            try
+            while (downloads.Count > 0)
             {
-                while (downloads.Count > 0)
+                try
                 {
                     if (amountThumbs >= 10) break;
                     var finished = await Task.WhenAny(downloads);
-                    downloads.Remove(finished);    
-                    if (finished.Result != null)
+                    if(finished.Exception == null)
                     {
-                        AddDisplayImage(finished.Result);
-                        AddThumbnail(finished.Result);
+                        downloads.Remove(finished);    
+                        if (finished.Result != null)
+                        {
+                            AddDisplayImage(finished.Result);
+                            AddThumbnail(finished.Result);
 
-                        // Hack, add scrollable area instead
-                        //if (Data.TextureCount() > 3) break;
-                    }
-                    amountThumbs++;
+                            // Hack, add scrollable area instead
+                            //if (Data.TextureCount() > 3) break;
+                        }
+                        amountThumbs++;
+                      
+                    }else
+                    {
+                        downloads.Remove(finished);
+                    }                  
+
                 }
-            }
-            catch (Exception e)
-            {
-                ScutiLogger.LogException(e);
-            }
+                catch (Exception e)
+                {
+                    ScutiLogger.LogException(e);
+                }
+            } 
 
             Destroy(downloader.gameObject);
         }
