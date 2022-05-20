@@ -118,20 +118,23 @@ namespace Scuti.UI {
             var downloader = ImageDownloader.New(false);
             var downloads = new List<Task<Texture2D>>();
 
-            int amountThumbs = 0;
+            int amountLimitImages = 6;
 
-            Data.URLs.ForEach(x => downloads.Add(downloader.Download(x)));
+            if (Data.URLs.Count < amountLimitImages)
+                amountLimitImages = Data.URLs.Count;
+
+            List<string> newURLs = new List<string>(Data.URLs.GetRange(0, amountLimitImages));
+            newURLs.ForEach(x => downloads.Add(downloader.Download(x)));
             thumbnailParent.gameObject.SetActive(false);
             // Downloads the iamges together and process as they finish         
             while (downloads.Count > 0)
             {
                 try
                 {
-                    if (amountThumbs >= 10) break;
                     var finished = await Task.WhenAny(downloads);
-                    if(finished.Exception == null)
+                    if (finished.Exception == null)
                     {
-                        downloads.Remove(finished);    
+                        downloads.Remove(finished);
                         if (finished.Result != null)
                         {
                             AddDisplayImage(finished.Result);
@@ -140,19 +143,19 @@ namespace Scuti.UI {
                             // Hack, add scrollable area instead
                             //if (Data.TextureCount() > 3) break;
                         }
-                        amountThumbs++;
-                      
-                    }else
+
+                    }
+                    else
                     {
                         downloads.Remove(finished);
-                    }                  
+                    }
 
                 }
                 catch (Exception e)
                 {
                     ScutiLogger.LogException(e);
                 }
-            } 
+            }
 
             Destroy(downloader.gameObject);
         }
