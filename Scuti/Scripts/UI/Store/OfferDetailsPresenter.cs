@@ -175,8 +175,6 @@ namespace Scuti.UI
         // Handlers
         private void OnVariantChanged()
         {
-            Debug.Log("ON VARIANT CHANGE");
-
             var productVariant = customizationWidget.Data.GetSelectedVariant();
             infoWidget.SetVariant(productVariant);
             rewardWidget.SetVariant(productVariant);

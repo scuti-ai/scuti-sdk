@@ -81,16 +81,13 @@ namespace Scuti.UI {
         }
 
         void RefreshDisplay() {
-            Debug.Log("Refresing IMAGE");
 
             if (m_Index == Data.URLs.Count)
                 m_Index = 0;
 
             if (Data.TextureCount() > m_Index) 
-            {
-                Debug.Log("DIPOLSAY IMAGEN --------");
                 imageDisplay.sprite = Data.GetTexture(m_Index).ToSprite();
-            }
+            
                 
         }
 
@@ -100,7 +97,6 @@ namespace Scuti.UI {
                 m_Index = 0;
 
             Data.Dispose();
-            Debug.Log("New index image: " + m_Index);
             DownloadLargeImagen(m_Index);
 
         }
@@ -142,8 +138,6 @@ namespace Scuti.UI {
             int counterLargeImage = 0;
             int indexLarge = -1;
 
-            Debug.Log("Count URLs 1: " + Data.URLs.Count);
-
             if (Data.URLs.Count < amountLimitImages)
                 amountLimitImages = Data.URLs.Count;
 
@@ -155,8 +149,7 @@ namespace Scuti.UI {
             for (int i = 0; i < newListUrl.Count; i++)
             {
                 if (!String.IsNullOrEmpty(newListUrl[i]) && newListUrl[i].IndexOf("shopify") != -1 && newListUrl[i].LastIndexOf(".") != -1)
-                {
-                    Debug.Log("***** Images loaded from SHOPIFY: "+i);
+                {                  
                     newListUrl[i] = newListUrl[i].Insert(newListUrl[i].LastIndexOf("."), "_medium");
                     counterLargeImage++;
                     if(counterLargeImage > 0 && indexLarge < 0)
@@ -165,14 +158,6 @@ namespace Scuti.UI {
                     }
                 }
             }
-            int counterImages = 0;
-
-
-            for (int i = 0; i < newListUrl.Count; i++)
-            {
-                Debug.Log("URL: " + i + " " + newListUrl[i]);
-            }
-
 
             newListUrl.ForEach(x => downloads.Add(downloader.Download(x)));
             thumbnailParent.gameObject.SetActive(false);
@@ -205,11 +190,9 @@ namespace Scuti.UI {
                     ScutiLogger.LogException(e);
                 }
 
-                counterImages++;
             }
 
             Destroy(downloader.gameObject);
-
             //DownloadLargeImagen(indexLarge);
         }
 
@@ -219,21 +202,7 @@ namespace Scuti.UI {
             var downloader = ImageDownloader.New(false);
             var downloads = new List<Task<Texture2D>>();
 
-            //int amountLimitImages = m_Urls.Count;
-
-            //if (Data.URLs.Count < amountLimitImages)
-            //    amountLimitImages = Data.URLs.Count;
-
-            Debug.Log("Count URLs 2: " + m_Urls.Count);
-            //m_Urls = new List<string>(Data.URLs.GetRange(0, amountLimitImages));
-            Debug.Log("Index large image: " + indexLarge);
             List<string> newListUrl = new List<string>(m_Urls);
-
-            for(int i = 0; i < newListUrl.Count; i++)
-            {
-                Debug.Log("URL: " + i + " " + newListUrl[i]);
-            }
-
 
             if (newListUrl.Count > 0)
             {
@@ -244,18 +213,15 @@ namespace Scuti.UI {
                         // if source its shopify
                         newListUrl[indexLarge] = newListUrl[indexLarge].Insert(newListUrl[indexLarge].LastIndexOf("."), "_1024x1024");
                         downloads.Add(downloader.Download(newListUrl[indexLarge]));
-                        Debug.Log("LargeImage downloaded 1: " + newListUrl[indexLarge]);
                     }
                     else 
-                    {
                         downloads.Add(downloader.Download(newListUrl[indexLarge]));
-                        Debug.Log("LargeImage downloaded 2: " + newListUrl[indexLarge]);
-                    }
+                    
                 }
                 else
                 {
                     downloads.Add(downloader.Download(newListUrl[0]));
-                    Debug.Log("LargeImage downloaded 0: " + newListUrl[0]);
+
                 }
             }           
 
@@ -288,7 +254,6 @@ namespace Scuti.UI {
         void AddDisplayImage(Texture2D texture){
 
             Data.AddTexture(texture);
-            Debug.Log("ADD DISPLAY IMAGE: "+Data.TextureCount());
             // If this is the first texture, set it to display
             if (Data.TextureCount() == 1) {
                 imageDisplay.sprite = Data.GetTexture(0).ToSprite();
@@ -327,8 +292,7 @@ namespace Scuti.UI {
             if (productVariant!=null)
             {
                 if(!string.IsNullOrEmpty(productVariant.Image))
-                {
-                    Debug.Log("Set VARIANT LOAD IMAGE");
+                {  
                     LoadVariantImage(productVariant.Image);
                 }
                 else 
@@ -349,7 +313,6 @@ namespace Scuti.UI {
             var tex = await downloader.Download(image);
             Data.ClearVariantTexture();
             Data.AddVariantTexture(tex);
-            Debug.Log("DIPOLSAY IMAGEN 2 --------");
             imageDisplay.sprite = tex.ToSprite();
         }
     }
