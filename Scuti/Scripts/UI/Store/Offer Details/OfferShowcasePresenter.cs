@@ -62,7 +62,7 @@ namespace Scuti.UI {
         [SerializeField] ZoomOfferDetails panningAndPinchImage;
         [SerializeField] Image imageDisplay;
         [SerializeField] GameObject thumbnailPrefab;
-        [SerializeField] Transform thumbnailParent;
+        [SerializeField] RectTransform thumbnailParent;
 
         private List<string> m_Urls = new List<string>();
 
@@ -210,7 +210,7 @@ namespace Scuti.UI {
 
             Destroy(downloader.gameObject);
 
-            DownloadLargeImagen(indexLarge);
+            //DownloadLargeImagen(indexLarge);
         }
 
 
@@ -304,8 +304,12 @@ namespace Scuti.UI {
             var index = m_Thumbs.Count;
             m_Thumbs.Add(instance);
 
-            if(m_Thumbs.Count>1)
+            if (m_Thumbs.Count > 1) 
+            {
+                // reset position of content thumbnails
+                thumbnailParent.anchoredPosition = new Vector2(0, thumbnailParent.anchoredPosition.y);
                 thumbnailParent.gameObject.SetActive(true);
+            }                
             var image = instance.GetComponent<Image>();
             image.sprite = texture2D.ToSprite();
             var button = instance.GetComponent<Button>();
@@ -327,18 +331,21 @@ namespace Scuti.UI {
                     Debug.Log("Set VARIANT LOAD IMAGE");
                     LoadVariantImage(productVariant.Image);
                 }
+                else 
+                {
+                    if(Data.TextureCount() <= 0)
+                        DownloadLargeImagen(-1);
+                }
             }
         }
 
         async void LoadVariantImage(string image)
         {
             var downloader = ImageDownloader.New(true);
-
             if (!String.IsNullOrEmpty(image) && image.IndexOf("shopify") != -1 && image.LastIndexOf(".") != -1)
             {
                 image = image.Insert(image.LastIndexOf("."), "_1024x1024");
             }
-
             var tex = await downloader.Download(image);
             Data.ClearVariantTexture();
             Data.AddVariantTexture(tex);
