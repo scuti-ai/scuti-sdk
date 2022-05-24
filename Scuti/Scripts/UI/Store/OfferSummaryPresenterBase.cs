@@ -83,8 +83,11 @@ namespace Scuti.UI
 
 
                         // had to check if image was from shopify because some images wasn't from shopify and I was getting an error
-                        if (!String.IsNullOrEmpty(url) && url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1)
+                        if (!String.IsNullOrEmpty(url) && url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1) 
+                        {
                             url = url.Insert(url.LastIndexOf("."), "_large");
+                        }
+                           
 
                         if (IsTall && !string.IsNullOrEmpty(TallURL))
                         {

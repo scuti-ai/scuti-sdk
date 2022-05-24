@@ -64,6 +64,8 @@ namespace Scuti.UI {
         [SerializeField] GameObject thumbnailPrefab;
         [SerializeField] Transform thumbnailParent;
 
+        private List<string> m_Urls = new List<string>();
+
         List<GameObject> m_Thumbs = new List<GameObject>();
         int m_Index;
 
@@ -79,11 +81,19 @@ namespace Scuti.UI {
         }
 
         void RefreshDisplay() {
+            Debug.Log("Refresing IMAGE");
+
             if (m_Index == Data.URLs.Count)
                 m_Index = 0;
 
-            if(Data.TextureCount()>m_Index)
-                imageDisplay.sprite = Data.GetTexture(m_Index).ToSprite();
+            //if(Data.TextureCount()>m_Index)
+            //    imageDisplay.sprite = Data.GetTexture(m_Index).ToSprite();
+
+            //New code
+            Data.Dispose();
+            Debug.Log("New index image: " + m_Index);
+            DownloadLargeImagen(m_Index);
+
         }
              
         
@@ -114,17 +124,41 @@ namespace Scuti.UI {
             //panningAndPinchImage.ResetSizeImage();
         }
 
-        async void DownloadImages() {
+        async void DownloadImages()
+        {
             var downloader = ImageDownloader.New(false);
             var downloads = new List<Task<Texture2D>>();
 
             int amountLimitImages = 6;
+            int counterLargeImage = 0;
+            int indexLarge = -1;
+
+            Debug.Log("Count URLs 1: " + Data.URLs.Count);
 
             if (Data.URLs.Count < amountLimitImages)
                 amountLimitImages = Data.URLs.Count;
 
-            List<string> newURLs = new List<string>(Data.URLs.GetRange(0, amountLimitImages));
-            newURLs.ForEach(x => downloads.Add(downloader.Download(x)));
+            m_Urls = new List<string>(Data.URLs.GetRange(0, amountLimitImages));
+
+            List<string> newListUrl = new List<string>(m_Urls);
+
+            // Convert the urls to medium for thumbs
+            for (int i = 0; i < newListUrl.Count; i++)
+            {
+                if (!String.IsNullOrEmpty(newListUrl[i]) && newListUrl[i].IndexOf("shopify") != -1 && newListUrl[i].LastIndexOf(".") != -1)
+                {
+                    Debug.Log("***** Images loaded from SHOPIFY: "+i);
+                    newListUrl[i] = newListUrl[i].Insert(newListUrl[i].LastIndexOf("."), "_medium");
+                    counterLargeImage++;
+                    if(counterLargeImage > 0 && indexLarge < 0)
+                    {
+                        indexLarge = i;
+                    }
+                }
+            }
+            int counterImages = 0;
+
+            newListUrl.ForEach(x => downloads.Add(downloader.Download(x)));
             thumbnailParent.gameObject.SetActive(false);
             // Downloads the iamges together and process as they finish         
             while (downloads.Count > 0)
@@ -137,13 +171,12 @@ namespace Scuti.UI {
                         downloads.Remove(finished);
                         if (finished.Result != null)
                         {
-                            AddDisplayImage(finished.Result);
-                            AddThumbnail(finished.Result);
 
+                            //AddDisplayImage(finished.Result); 
+                            AddThumbnail(finished.Result);
                             // Hack, add scrollable area instead
                             //if (Data.TextureCount() > 3) break;
                         }
-
                     }
                     else
                     {
@@ -155,10 +188,77 @@ namespace Scuti.UI {
                 {
                     ScutiLogger.LogException(e);
                 }
+
+                counterImages++;
             }
 
             Destroy(downloader.gameObject);
+            DownloadLargeImagen(indexLarge);
         }
+
+        async void DownloadLargeImagen(int indexLarge)
+        {
+            var downloader = ImageDownloader.New(false);
+            var downloads = new List<Task<Texture2D>>();
+
+            //int amountLimitImages = m_Urls.Count;
+
+            //if (Data.URLs.Count < amountLimitImages)
+            //    amountLimitImages = Data.URLs.Count;
+
+            Debug.Log("Count URLs 2: " + m_Urls.Count);
+            //m_Urls = new List<string>(Data.URLs.GetRange(0, amountLimitImages));
+            Debug.Log("Index large image: " + indexLarge);
+            List<string> newListUrl = new List<string>(m_Urls);
+
+            if (newListUrl.Count > 0)
+            {
+                if (indexLarge >= 0)
+                {
+                    if (!String.IsNullOrEmpty(newListUrl[indexLarge]) && newListUrl[indexLarge].IndexOf("shopify") != -1 && newListUrl[indexLarge].LastIndexOf(".") != -1)
+                    {
+                        newListUrl[indexLarge] = newListUrl[indexLarge].Insert(newListUrl[indexLarge].LastIndexOf("."), "_1024x1024");
+                        downloads.Add(downloader.Download(newListUrl[indexLarge]));
+                        Debug.Log("LargeImage downloaded 1: " + newListUrl[indexLarge]);
+                    }
+                    else 
+                    {
+                        downloads.Add(downloader.Download(newListUrl[indexLarge]));
+                        Debug.Log("LargeImage downloaded 2: " + newListUrl[indexLarge]);
+                    }
+                }
+                else
+                {
+                    downloads.Add(downloader.Download(newListUrl[0]));
+                    Debug.Log("LargeImage downloaded 0: " + newListUrl[0]);
+                }
+            }           
+
+            try
+            {
+                var finished = await Task.WhenAny(downloads);
+                if (finished.Exception == null)
+                {
+                    downloads.Remove(finished);
+                    if (finished.Result != null)
+                    {
+                        AddDisplayImage(finished.Result); 
+                    }
+                }
+                else
+                {
+                    downloads.Remove(finished);
+                }
+
+            }
+            catch (Exception e)
+            {
+                ScutiLogger.LogException(e);
+            }                
+            
+            Destroy(downloader.gameObject);
+        }
+
 
         void AddDisplayImage(Texture2D texture){
 
