@@ -62,7 +62,9 @@ namespace Scuti.UI {
         [SerializeField] ZoomOfferDetails panningAndPinchImage;
         [SerializeField] Image imageDisplay;
         [SerializeField] GameObject thumbnailPrefab;
-        [SerializeField] Transform thumbnailParent;
+        [SerializeField] RectTransform thumbnailParent;
+
+        private List<string> m_Urls = new List<string>();
 
         List<GameObject> m_Thumbs = new List<GameObject>();
         int m_Index;
@@ -79,11 +81,24 @@ namespace Scuti.UI {
         }
 
         void RefreshDisplay() {
+
             if (m_Index == Data.URLs.Count)
                 m_Index = 0;
 
-            if(Data.TextureCount()>m_Index)
+            if (Data.TextureCount() > m_Index) 
                 imageDisplay.sprite = Data.GetTexture(m_Index).ToSprite();
+            
+                
+        }
+
+        void RefreshDisplayReduced()
+        {
+            if (m_Index == m_Urls.Count)
+                m_Index = 0;
+
+            Data.Dispose();
+            DownloadLargeImage(m_Index);
+
         }
              
         
@@ -114,41 +129,116 @@ namespace Scuti.UI {
             //panningAndPinchImage.ResetSizeImage();
         }
 
-        async void DownloadImages() {
+        async void DownloadImages()
+        {
             var downloader = ImageDownloader.New(false);
             var downloads = new List<Task<Texture2D>>();
 
-             
+            int amountLimitImages = 6;
+            int counterLargeImage = 0;
+            int indexLarge = -1;
 
-            Data.URLs.ForEach(x => downloads.Add(downloader.Download(x)));
+            if (Data.URLs.Count < amountLimitImages)
+                amountLimitImages = Data.URLs.Count;
+
+            m_Urls = new List<string>(Data.URLs.GetRange(0, amountLimitImages));
+
+            List<string> newListUrl = new List<string>(m_Urls);
+
+            // Convert the urls to medium for thumbs
+            for (int i = 0; i < newListUrl.Count; i++)
+            {
+                if (!String.IsNullOrEmpty(newListUrl[i]) && newListUrl[i].IndexOf("shopify") != -1 && newListUrl[i].LastIndexOf(".") != -1)
+                {                  
+                    newListUrl[i] = newListUrl[i].Insert(newListUrl[i].LastIndexOf("."), "_medium");
+                    counterLargeImage++;
+                    if(counterLargeImage > 0 && indexLarge < 0)
+                    {
+                        indexLarge = i;
+                    }
+                }
+            }
+
+            newListUrl.ForEach(x => downloads.Add(downloader.Download(x)));
             thumbnailParent.gameObject.SetActive(false);
             // Downloads the iamges together and process as they finish         
-
-            try
+            while (downloads.Count > 0)
             {
-                while (downloads.Count > 0)
+                try
                 {
                     var finished = await Task.WhenAny(downloads);
-                    downloads.Remove(finished);
-                    if (finished.Result != null)
+                    if (finished.Exception == null)
                     {
-                        AddDisplayImage(finished.Result);
-                        AddThumbnail(finished.Result);
+                        downloads.Remove(finished);
+                        if (finished.Result != null)
+                        {
 
-                        // Hack, add scrollable area instead
-                        //if (Data.TextureCount() > 3) break;
+                            //AddDisplayImage(finished.Result); 
+                            AddThumbnail(finished.Result);
+                            // Hack, add scrollable area instead
+                            //if (Data.TextureCount() > 3) break;
+                        }
                     }
+                    else
+                    {
+                        downloads.Remove(finished);
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    ScutiLogger.LogException(e);
+                }
+
+            }
+
+            Destroy(downloader.gameObject);
+            //DownloadLargeImagen(indexLarge);
+        }
+
+
+        async void DownloadLargeImage(int indexLarge)
+        {
+            var downloader = ImageDownloader.New(false);
+            string url = String.Empty;
+            List<string> newListUrl = new List<string>(m_Urls);
+
+            if (newListUrl.Count > 0)
+            {
+                if (indexLarge >= 0)
+                {
+                    url = newListUrl[indexLarge];
+                }
+                else
+                {
+                    url = newListUrl[0];
+                }
+            }
+
+            if (!String.IsNullOrEmpty(url) && url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1)
+            {
+                // if source its shopify
+                url = url.Insert(url.LastIndexOf("."), "_1024x1024");
+            }
+            try
+            {
+                var finished = await downloader.Download(url);
+                if (finished != null)
+                {                    
+                   AddDisplayImage(finished); 
                 }
             }
             catch (Exception e)
             {
                 ScutiLogger.LogException(e);
-            }
-
+            }                
+            
             Destroy(downloader.gameObject);
         }
 
+
         void AddDisplayImage(Texture2D texture){
+
             Data.AddTexture(texture);
             // If this is the first texture, set it to display
             if (Data.TextureCount() == 1) {
@@ -158,20 +248,25 @@ namespace Scuti.UI {
         }
 
         void AddThumbnail(Texture2D texture2D) {
+
             var instance = Instantiate(thumbnailPrefab, thumbnailParent);
             instance.hideFlags = HideFlags.DontSave;
-
             var index = m_Thumbs.Count;
             m_Thumbs.Add(instance);
 
-            if(m_Thumbs.Count>1)
+            if (m_Thumbs.Count > 1) 
+            {
+                // reset position of content thumbnails
+                thumbnailParent.anchoredPosition = new Vector2(0, thumbnailParent.anchoredPosition.y);
                 thumbnailParent.gameObject.SetActive(true);
+            }                
             var image = instance.GetComponent<Image>();
             image.sprite = texture2D.ToSprite();
             var button = instance.GetComponent<Button>();
             button.onClick.AddListener(() => {
                 m_Index = index;
-                RefreshDisplay();
+                RefreshDisplayReduced();
+                //RefreshDisplay();
             });
         }
 
@@ -182,15 +277,24 @@ namespace Scuti.UI {
             if (productVariant!=null)
             {
                 if(!string.IsNullOrEmpty(productVariant.Image))
-                {                   
+                {  
                     LoadVariantImage(productVariant.Image);
-                } 
+                }
+                else 
+                {
+                    if(Data.TextureCount() <= 0)
+                        DownloadLargeImage(-1);
+                }
             }
         }
 
         async void LoadVariantImage(string image)
         {
             var downloader = ImageDownloader.New(true);
+            if (!String.IsNullOrEmpty(image) && image.IndexOf("shopify") != -1 && image.LastIndexOf(".") != -1)
+            {
+                image = image.Insert(image.LastIndexOf("."), "_1024x1024");
+            }
             var tex = await downloader.Download(image);
             Data.ClearVariantTexture();
             Data.AddVariantTexture(tex);
