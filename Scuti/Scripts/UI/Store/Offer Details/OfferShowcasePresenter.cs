@@ -97,7 +97,7 @@ namespace Scuti.UI {
                 m_Index = 0;
 
             Data.Dispose();
-            DownloadLargeImagen(m_Index);
+            DownloadLargeImage(m_Index);
 
         }
              
@@ -197,50 +197,36 @@ namespace Scuti.UI {
         }
 
 
-        async void DownloadLargeImagen(int indexLarge)
+        async void DownloadLargeImage(int indexLarge)
         {
             var downloader = ImageDownloader.New(false);
-            var downloads = new List<Task<Texture2D>>();
-
+            string url = String.Empty;
             List<string> newListUrl = new List<string>(m_Urls);
 
             if (newListUrl.Count > 0)
             {
                 if (indexLarge >= 0)
                 {
-                    if (!String.IsNullOrEmpty(newListUrl[indexLarge]) && newListUrl[indexLarge].IndexOf("shopify") != -1 && newListUrl[indexLarge].LastIndexOf(".") != -1)
-                    {
-                        // if source its shopify
-                        newListUrl[indexLarge] = newListUrl[indexLarge].Insert(newListUrl[indexLarge].LastIndexOf("."), "_1024x1024");
-                        downloads.Add(downloader.Download(newListUrl[indexLarge]));
-                    }
-                    else 
-                        downloads.Add(downloader.Download(newListUrl[indexLarge]));
-                    
+                    url = newListUrl[indexLarge];
                 }
                 else
                 {
-                    downloads.Add(downloader.Download(newListUrl[0]));
-
+                    url = newListUrl[0];
                 }
-            }           
+            }
 
+            if (!String.IsNullOrEmpty(url) && url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1)
+            {
+                // if source its shopify
+                url = url.Insert(url.LastIndexOf("."), "_1024x1024");
+            }
             try
             {
-                var finished = await Task.WhenAny(downloads);
-                if (finished.Exception == null)
+                var finished = await downloader.Download(url);
+                if (finished != null)
                 {                    
-                    if (finished.Result != null)
-                    {
-                        AddDisplayImage(finished.Result); 
-                    }
-                    downloads.Remove(finished);
+                   AddDisplayImage(finished); 
                 }
-                else
-                {
-                    downloads.Remove(finished);
-                }
-
             }
             catch (Exception e)
             {
@@ -265,7 +251,6 @@ namespace Scuti.UI {
 
             var instance = Instantiate(thumbnailPrefab, thumbnailParent);
             instance.hideFlags = HideFlags.DontSave;
-
             var index = m_Thumbs.Count;
             m_Thumbs.Add(instance);
 
@@ -298,7 +283,7 @@ namespace Scuti.UI {
                 else 
                 {
                     if(Data.TextureCount() <= 0)
-                        DownloadLargeImagen(-1);
+                        DownloadLargeImage(-1);
                 }
             }
         }
