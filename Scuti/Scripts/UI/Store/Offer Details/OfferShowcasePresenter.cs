@@ -163,40 +163,29 @@ namespace Scuti.UI {
             newListUrl.ForEach(x => downloads.Add(downloader.Download(x)));
             thumbnailParent.gameObject.SetActive(false);
 
-            // Downloads the iamges together and process as they finish        
+            // Downloads the image together and process as they finish        
 
-            int index = -1;
-            int counterDownloads = 0;
-
-            UIManager.ShowLoading(false);
             try
             {
-
-                //while (downloads.Count > 0)
-                while (counterDownloads < downloads.Count)
+                while (downloads.Count > 0)  
                 {
-                    //await Task.Delay(300);
-                    var finished = await Task.WhenAny(downloads[counterDownloads]);
+                     var finished = await Task.WhenAny(downloads[0]);
 
                     if (finished.Exception == null)
                     {
-                        //finished.
-                        index = downloads.IndexOf(finished);
-                        //downloads.Remove(finished);
+                        downloads.Remove(finished);
                         if (finished.Result != null)
                         { 
                             //AddDisplayImage(finished.Result); 
-                            AddThumbnail(finished.Result, index);
-                            counterDownloads++;
-                            Debug.Log("Counter downloads: " + counterDownloads);
+                            AddThumbnail(finished.Result);
                             // Hack, add scrollable area instead
                             //if (Data.TextureCount() > 3) break;
                         }
                     }
                     else
                     {
-                        counterDownloads++;
-                        //downloads.Remove(finished);
+                        //counterDownloads++;
+                        downloads.Remove(finished);
                     }
                 }
             }
@@ -205,18 +194,8 @@ namespace Scuti.UI {
                 ScutiLogger.LogException(e);
             }
 
-            downloads.Clear();
-            UIManager.HideLoading(false);
             Destroy(downloader.gameObject);
             //DownloadLargeImagen(indexLarge);
-
-            /*if (m_Thumbs.Count > 1)
-            {
-                // reset position of content thumbnails
-                thumbnailParent.anchoredPosition = new Vector2(0, thumbnailParent.anchoredPosition.y);
-                loadingThumbBlock.gameObject.SetActive(false);
-                thumbnailParent.gameObject.SetActive(true);
-            }*/
         }
      
         async void DownloadLargeImage(int indexLarge)
@@ -269,14 +248,12 @@ namespace Scuti.UI {
             }
         }
 
-        void AddThumbnail(Texture2D texture2D, int indexDownlaod) {
+        void AddThumbnail(Texture2D texture2D) {
 
             var instance = Instantiate(thumbnailPrefab, thumbnailParent);
             instance.hideFlags = HideFlags.DontSave;
             //instance.transform.SetSiblingIndex(instance.transform.childCount - 1);
-            //var index = m_Thumbs.Count;
-            var index = indexDownlaod;
-            Debug.Log("Indice download: " + index);
+            var index = m_Thumbs.Count; 
             m_Thumbs.Add(instance);
 
             if (m_Thumbs.Count > 1) 
