@@ -135,7 +135,7 @@ namespace Scuti.UI {
             var downloader = ImageDownloader.New(false);
             //var downloads = new List<Task<Texture2D>>();
 
-            int amountLimitImages = 6;
+            int amountLimitImages = 15;
             int counterLargeImage = 0;
             int indexLarge = -1;
 
