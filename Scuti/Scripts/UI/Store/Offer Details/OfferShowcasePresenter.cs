@@ -63,7 +63,6 @@ namespace Scuti.UI {
         [SerializeField] Image imageDisplay;
         [SerializeField] GameObject thumbnailPrefab;
         [SerializeField] RectTransform thumbnailParent;
-        [SerializeField] RectTransform loadingThumbBlock;
 
         private List<string> m_Urls = new List<string>();
 
@@ -130,6 +129,7 @@ namespace Scuti.UI {
             //panningAndPinchImage.ResetSizeImage();
         }
 
+       
         async void DownloadImages()
         {
             var downloader = ImageDownloader.New(false);
@@ -162,31 +162,41 @@ namespace Scuti.UI {
 
             newListUrl.ForEach(x => downloads.Add(downloader.Download(x)));
             thumbnailParent.gameObject.SetActive(false);
-            loadingThumbBlock.gameObject.SetActive(true);
+
             // Downloads the iamges together and process as they finish        
+
+            int index = -1;
+            int counterDownloads = 0;
 
             UIManager.ShowLoading(false);
             try
-            {               
-                while (downloads.Count > 0)
+            {
+
+                //while (downloads.Count > 0)
+                while (counterDownloads < downloads.Count)
                 {
-                    await Task.Delay(300);
-                    var finished = await Task.WhenAny(downloads);
+                    //await Task.Delay(300);
+                    var finished = await Task.WhenAny(downloads[counterDownloads]);
+
                     if (finished.Exception == null)
                     {
-                        downloads.Remove(finished);
+                        //finished.
+                        index = downloads.IndexOf(finished);
+                        //downloads.Remove(finished);
                         if (finished.Result != null)
-                        {
-
+                        { 
                             //AddDisplayImage(finished.Result); 
-                            AddThumbnail(finished.Result);
+                            AddThumbnail(finished.Result, index);
+                            counterDownloads++;
+                            Debug.Log("Counter downloads: " + counterDownloads);
                             // Hack, add scrollable area instead
                             //if (Data.TextureCount() > 3) break;
                         }
                     }
                     else
                     {
-                        downloads.Remove(finished);
+                        counterDownloads++;
+                        //downloads.Remove(finished);
                     }
                 }
             }
@@ -195,17 +205,18 @@ namespace Scuti.UI {
                 ScutiLogger.LogException(e);
             }
 
+            downloads.Clear();
             UIManager.HideLoading(false);
             Destroy(downloader.gameObject);
             //DownloadLargeImagen(indexLarge);
 
-            if (m_Thumbs.Count > 1)
+            /*if (m_Thumbs.Count > 1)
             {
                 // reset position of content thumbnails
                 thumbnailParent.anchoredPosition = new Vector2(0, thumbnailParent.anchoredPosition.y);
                 loadingThumbBlock.gameObject.SetActive(false);
                 thumbnailParent.gameObject.SetActive(true);
-            }
+            }*/
         }
      
         async void DownloadLargeImage(int indexLarge)
@@ -258,20 +269,22 @@ namespace Scuti.UI {
             }
         }
 
-        void AddThumbnail(Texture2D texture2D) {
+        void AddThumbnail(Texture2D texture2D, int indexDownlaod) {
 
             var instance = Instantiate(thumbnailPrefab, thumbnailParent);
             instance.hideFlags = HideFlags.DontSave;
             //instance.transform.SetSiblingIndex(instance.transform.childCount - 1);
-            var index = m_Thumbs.Count;
+            //var index = m_Thumbs.Count;
+            var index = indexDownlaod;
+            Debug.Log("Indice download: " + index);
             m_Thumbs.Add(instance);
 
-            /*if (m_Thumbs.Count > 1) 
+            if (m_Thumbs.Count > 1) 
             {
                 // reset position of content thumbnails
                 thumbnailParent.anchoredPosition = new Vector2(0, thumbnailParent.anchoredPosition.y);
                 thumbnailParent.gameObject.SetActive(true);
-            } */               
+            }              
             var image = instance.GetComponent<Image>();
             image.sprite = texture2D.ToSprite();
             var button = instance.GetComponent<Button>();
