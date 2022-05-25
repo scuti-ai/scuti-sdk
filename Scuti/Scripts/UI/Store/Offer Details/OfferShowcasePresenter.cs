@@ -133,7 +133,7 @@ namespace Scuti.UI {
         async void DownloadImages()
         {
             var downloader = ImageDownloader.New(false);
-            var downloads = new List<Task<Texture2D>>();
+            //var downloads = new List<Task<Texture2D>>();
 
             int amountLimitImages = 6;
             int counterLargeImage = 0;
@@ -160,33 +160,21 @@ namespace Scuti.UI {
                 }
             }
 
-            newListUrl.ForEach(x => downloads.Add(downloader.Download(x)));
+            //newListUrl.ForEach(x => downloads.Add(downloader.Download(x)));
             thumbnailParent.gameObject.SetActive(false);
 
             // Downloads the image together and process as they finish        
+            int countImages = 0;
 
             try
             {
-                while (downloads.Count > 0)  
+                while (countImages < newListUrl.Count)  
                 {
-                     var finished = await Task.WhenAny(downloads[0]);
+                    var finished = await downloader.Download(newListUrl[countImages]);
 
-                    if (finished.Exception == null)
-                    {
-                        downloads.Remove(finished);
-                        if (finished.Result != null)
-                        { 
-                            //AddDisplayImage(finished.Result); 
-                            AddThumbnail(finished.Result);
-                            // Hack, add scrollable area instead
-                            //if (Data.TextureCount() > 3) break;
-                        }
-                    }
-                    else
-                    {
-                        //counterDownloads++;
-                        downloads.Remove(finished);
-                    }
+                    AddThumbnail(finished);
+                    countImages++;
+
                 }
             }
             catch (Exception e)
