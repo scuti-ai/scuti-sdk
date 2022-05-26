@@ -45,6 +45,9 @@ namespace Scuti.UI {
         [SerializeField] GameObject scutiPromo;
 
         protected override void OnSetState() {
+
+            string text = Data.Title;
+            text.Replace("&amp;", "&");
             title.text = Data.Title;
             subtitle.text = Data.Subtitle.ToUpper();
             subtitle.gameObject.SetActive(!string.IsNullOrWhiteSpace(subtitle.text));

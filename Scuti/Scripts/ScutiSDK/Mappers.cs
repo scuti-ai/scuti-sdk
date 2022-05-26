@@ -112,7 +112,7 @@ namespace Scuti
                 VideoURL = offer.Media.VideoUrl,
 				ShopURL = offer.Shop.Thumbnail,
 				Scutis = scutis,
-                Title = title,
+                Title = ScutiUtils.HtmlDecode(title),
                 Description = offer.Product.Description,
                 Brand = brandName,
                 DisplayPrice = $"${offer.Product.Price.Amount.Value.ToString("F2")}",
@@ -164,7 +164,7 @@ namespace Scuti
                 Info = new OfferInfoPresenter.Model
                 {
                     ID = offer.Id.ToString(),
-                    Title = offer.Product.Name,
+                    Title = ScutiUtils.HtmlDecode(offer.Product.Name),
                     Subtitle = subtitle,
                     Brand = brandName,
                     Description = ScutiUtils.HtmlDecode(offer.Product.Description), // intentionally escaped twice for now
