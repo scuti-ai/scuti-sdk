@@ -35,9 +35,12 @@ namespace Scuti.UI
         [SerializeField] Dropdown YearDropDown;
 
         #region UserDetails
-                protected override void Awake()
+        
+        protected override void Awake()
         {
             base.Awake();
+
+            Debug.Log("Opened Form");
 
             var year = DateTime.Now.Year;
             List<Dropdown.OptionData> years = new List<Dropdown.OptionData>();
@@ -60,6 +63,11 @@ namespace Scuti.UI
 
         private async Task SaveDetails()
         {
+            Debug.Log("Name: " + Data.fullName);
+            Debug.Log("Gender: " + Data.gender);
+            Debug.Log("Phone: " + Data.phoneNumber);
+            Debug.Log("BirthDay: " + Data.birthDay);
+
 
             bool submit = false;
             try
@@ -77,7 +85,9 @@ namespace Scuti.UI
             if (submit)
             {
                 Submit();
-            }        
+            }
+
+            UIManager.HideLoading(false);
 
         }
 
@@ -110,11 +120,13 @@ namespace Scuti.UI
                 return;
             }
 
+            bool success = false;
             UIManager.ShowLoading(false);
             try
             {
-                await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName == null ? "" : Data.fullName);
+                await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName);
                 Submit();
+                success = true;
             }
             catch (Exception ex)
             {
@@ -143,8 +155,18 @@ namespace Scuti.UI
                 }
                 UIManager.Alert.SetHeader("Create Account Failed").SetBody(message).SetButtonText("OK").Show(() => { });
             }
-            await SaveDetails();
+
+            /*if (success)
+            {
+                await SaveDetails();
+            }
+            else 
+            {
+                UIManager.HideLoading(false);
+            }*/
+
             UIManager.HideLoading(false);
+
         }
 
         public override void Refresh()

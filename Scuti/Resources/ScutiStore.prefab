@@ -741,7 +741,7 @@ MonoBehaviour:
     instance: {fileID: 0}
   - id: ONBOARDING
     view: {fileID: 114526024948912102, guid: 2faa7cd14798d944eaf391323ebd211d, type: 3}
-    view_portrait: {fileID: 114526024948912102, guid: 45be9a2165c1b594aadd8649e557fd29,
+    view_portrait: {fileID: 114526024948912102, guid: a680e227cd012fe47ac62b179c191868,
       type: 3}
     parent: {fileID: 224120975414160842}
     instance: {fileID: 0}
