@@ -13,7 +13,7 @@ namespace Scuti.UI
     {
 
         [SerializeField] Navigation navigation;
-        [SerializeField] UserCredentialsForm credentials;
+        [SerializeField] UserCreateCredentialForm credentials;
         [SerializeField] UserDetailsForm userDetails;
         [SerializeField] AddressForm addressForm;
         [SerializeField] InterestsSelector interestSelect;
