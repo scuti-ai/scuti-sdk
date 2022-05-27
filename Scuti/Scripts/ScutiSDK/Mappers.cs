@@ -114,7 +114,7 @@ namespace Scuti
 				Scutis = scutis,
                 Title = ScutiUtils.HtmlDecode(title),
                 Description = offer.Product.Description,
-                Brand = brandName,
+                Brand = ScutiUtils.HtmlDecode(brandName),                
                 DisplayPrice = $"${offer.Product.Price.Amount.Value.ToString("F2")}",
                 IsNew = offer.Promotions.IsNew.Value,
                 IsHot = offer.Promotions.IsHotItem.Value,
