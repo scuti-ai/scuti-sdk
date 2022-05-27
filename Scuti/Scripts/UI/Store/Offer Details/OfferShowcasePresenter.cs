@@ -133,7 +133,6 @@ namespace Scuti.UI {
         async void DownloadImages()
         {
             var downloader = ImageDownloader.New(false);
-            //var downloads = new List<Task<Texture2D>>();
 
             int amountLimitImages = 15;
             int counterLargeImage = 0;
@@ -160,7 +159,6 @@ namespace Scuti.UI {
                 }
             }
 
-            //newListUrl.ForEach(x => downloads.Add(downloader.Download(x)));
             thumbnailParent.gameObject.SetActive(false);
 
             // Downloads the image together and process as they finish        
