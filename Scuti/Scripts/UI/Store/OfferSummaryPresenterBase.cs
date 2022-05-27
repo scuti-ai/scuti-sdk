@@ -537,13 +537,17 @@ namespace Scuti.UI
         // Updates UI based on values on View.Data
         protected virtual void UpdateUI()
         {
-            titleText.text = TextElipsis(Data.Title);
-            if(brandText!=null) brandText.text = Data.Brand;
+            titleText.text = TextElipsis(Data.Title);       
+            if (brandText!=null) brandText.text = Data.Brand;
         }
 
         protected string TextElipsis(string text, int truncateSize = 24)
         {
-	        if(text!=null && text.Length > truncateSize) return text.Remove(truncateSize) + "...";
+	        if(text!=null && text.Length > truncateSize)
+            {
+                return text.Remove(truncateSize) + "...";
+            }               
+           
 	        return text;
         }
         private void OnEnable()
