@@ -63,12 +63,7 @@ namespace Scuti.UI
 
         private async Task SaveDetails()
         {
-            Debug.Log("Name: " + Data.fullName);
-            Debug.Log("Gender: " + Data.gender);
-            Debug.Log("Phone: " + Data.phoneNumber);
-            Debug.Log("BirthDay: " + Data.birthDay);
-
-
+  
             bool submit = false;
             try
             {
