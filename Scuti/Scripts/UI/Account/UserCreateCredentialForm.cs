@@ -61,31 +61,6 @@ namespace Scuti.UI
             Data.fullName = "";         
         }     
 
-        /*private async Task SaveDetails()
-        {
-  
-            bool submit = false;
-            try
-            {
-                await ScutiAPI.EditPersonalInfo(Data.gender, Data.birthDay, Data.phoneNumber, Data.fullName);
-                submit = true;
-            }
-            catch (Exception ex)
-            {
-                ScutiLogger.LogException(ex);
-                UIManager.Alert.SetHeader("Error").SetBody("Setting personal info failed").Show(() => { });
-            }
-
-            // Don't submit in the try catch as it could catch errors unrelated to the actual call
-            if (submit)
-            {
-                Submit();
-            }
-
-            UIManager.HideLoading(false);
-
-        }*/
-
         private bool setBirthdayAtDropDownChange = true;
 
         #endregion region
@@ -115,13 +90,11 @@ namespace Scuti.UI
                 return;
             }
 
-            bool success = false;
             UIManager.ShowLoading(false);
             try
             {  
                 await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName, Data.gender, Data.birthDay.Year.ToString());
                 Submit();
-                success = true;
             }
             catch (Exception ex)
             {
@@ -150,25 +123,13 @@ namespace Scuti.UI
                 }
                 UIManager.Alert.SetHeader("Create Account Failed").SetBody(message).SetButtonText("OK").Show(() => { });
             }
-
-            /*if (success)
-            {
-                await SaveDetails();
-            }
-            else 
-            {
-                UIManager.HideLoading(false);
-            }*/
-
             UIManager.HideLoading(false);
-
         }
 
         public override void Refresh()
         {
             emailInput.text = Data.Email;
             passwordInput.text = Data.Password;
-
             /////
             setBirthdayAtDropDownChange = false;
             NameInput.text = Data.fullName;
