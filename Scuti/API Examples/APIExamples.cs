@@ -148,7 +148,7 @@ namespace Scuti.Examples
         {
             try
             {
-                var response = await ScutiNetClient.Instance.RegisterUser("ashkan.saeedi.1989@gmail.com", "passpasspass123", "Ashkan Saeedi Mazdeh");
+                var response = await ScutiNetClient.Instance.RegisterUser("ashkan.saeedi.1989@gmail.com", "passpasspass123", "Ashkan Saeedi Mazdeh", "Male", "1980");
                 ScutiLogger.Log(response);
             }
             catch (Exception e)

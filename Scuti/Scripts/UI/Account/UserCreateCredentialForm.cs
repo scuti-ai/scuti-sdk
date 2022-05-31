@@ -61,7 +61,7 @@ namespace Scuti.UI
             Data.fullName = "";         
         }     
 
-        private async Task SaveDetails()
+        /*private async Task SaveDetails()
         {
   
             bool submit = false;
@@ -84,7 +84,7 @@ namespace Scuti.UI
 
             UIManager.HideLoading(false);
 
-        }
+        }*/
 
         private bool setBirthdayAtDropDownChange = true;
 
@@ -118,8 +118,8 @@ namespace Scuti.UI
             bool success = false;
             UIManager.ShowLoading(false);
             try
-            {
-                await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName);
+            {  
+                await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName, Data.gender, Data.birthDay.Year.ToString());
                 Submit();
                 success = true;
             }

@@ -76,7 +76,7 @@ namespace Scuti.UI
             UIManager.ShowLoading(false);
             try
             {
-                await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName == null ? "" : Data.fullName);
+                await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName == null ? "" : Data.fullName, "Male", "1980");
                 Submit();
             }
             catch (Exception ex)
