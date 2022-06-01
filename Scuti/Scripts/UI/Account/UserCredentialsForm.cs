@@ -61,9 +61,11 @@ namespace Scuti.UI
         {
             base.Open();
             Data.birthDay = new DateTime(2000, 2, 15);
-            Data.gender = "Male";
-            Data.phoneNumber = "3214567878"; //For testing
+            Data.gender = "";
+            Data.phoneNumber = "1234567878";
             Data.fullName = "";
+
+            YearDropDown.SetDropDown(Data.birthDay.Year.ToString());
         }
 
         private bool setBirthdayAtDropDownChange = true;
