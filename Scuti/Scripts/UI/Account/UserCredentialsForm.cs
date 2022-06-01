@@ -50,7 +50,6 @@ namespace Scuti.UI
             List<Dropdown.OptionData> years = new List<Dropdown.OptionData>();
             for (var i = 0; i < 100; i++)
             {
-                Debug.Log("Year: " + year);
                 years.Add(new Dropdown.OptionData(year.ToString(), null));
                 year--;
 
@@ -99,7 +98,7 @@ namespace Scuti.UI
             UIManager.ShowLoading(false);
             try
             {
-                await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName, Data.gender, Data.birthDay.Year.ToString());
+                await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName, Data.gender, Data.birthDay.ToString("yyyy-MM-dd"));
                 Submit();
             }
             catch (Exception ex)
