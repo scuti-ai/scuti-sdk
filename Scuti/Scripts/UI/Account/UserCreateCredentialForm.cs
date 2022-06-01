@@ -42,12 +42,15 @@ namespace Scuti.UI
 
             Debug.Log("Opened Form");
 
-            var year = DateTime.Now.Year;
+            var year = DateTime.Now.Year - 1;
             List<Dropdown.OptionData> years = new List<Dropdown.OptionData>();
             for (var i = 0; i < 100; i++)
             {
+                Debug.Log("Year: " + year);
                 years.Add(new Dropdown.OptionData(year.ToString(), null));
                 year--;
+
+
             }
             YearDropDown.AddOptions(years);
         }

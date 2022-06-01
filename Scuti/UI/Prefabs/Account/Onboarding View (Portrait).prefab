@@ -6909,7 +6909,7 @@ GameObject:
   - component: {fileID: 114106360230067794}
   - component: {fileID: 114468275455448304}
   m_Layer: 5
-  m_Name: Onboarding View (Portrait) v2
+  m_Name: Onboarding View (Portrait)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10498,7 +10498,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.000000021314907, y: 0}
+  m_AnchoredPosition: {x: 0.00012193068, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &114101639850121162
@@ -20204,7 +20204,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: 55
+  m_firstOverflowCharacterIndex: -1
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -20233,7 +20233,7 @@ MonoBehaviour:
     spaceCount: 27
     wordCount: 28
     linkCount: 0
-    lineCount: 22
+    lineCount: 5
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -22268,7 +22268,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2020
+  m_Text: 2022
 --- !u!1 &5587323729635776290
 GameObject:
   m_ObjectHideFlags: 0
@@ -22835,7 +22835,7 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: 2020
+    - m_Text: 2022
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
