@@ -11,7 +11,7 @@ public class ScutiEditorWindow : EditorWindow
     private static string REPEAT = "repeat";
     private static string PREVENT = "prevent";
 
-    private static int WINDOW_HEIGHT = 380;
+    private static int WINDOW_HEIGHT = 440;
     private static int BUTTON_WIDTH = 120;
     private static int BUTTON_HEIGHT = 40;
     private static string ID_LABEL = "App ID: (found on the dashboard)";
@@ -22,6 +22,8 @@ public class ScutiEditorWindow : EditorWindow
     private string secret;
     private bool isInitialized;
     private bool showAgain = true;
+    private int orientation;
+
 
     static ScutiEditorWindow()
     {
@@ -160,6 +162,7 @@ public class ScutiEditorWindow : EditorWindow
             developerKey = settings.developerKey;
             secret = settings.secret;
             type = (int)settings.ExchangeMethod;
+            orientation = (int)settings.Orientation;
         }
         GUILayout.BeginArea(new Rect(10, 10, 380, WINDOW_HEIGHT));
         //GUILayout.FlexibleSpace();
@@ -202,7 +205,6 @@ public class ScutiEditorWindow : EditorWindow
             GUILayout.Label("Currency Exchange:");
             var priorType = type;
             type = GUILayout.Toolbar(type, new string[] { "None", "Game Client", "Game Server" });
-            var updated = priorType != type;
 
 
             GUILayout.Space(10);
@@ -220,12 +222,20 @@ public class ScutiEditorWindow : EditorWindow
                 secret = GUILayout.TextField(secret);
             }
 
+            GUILayout.Space(10);
+            GUILayout.Label("Application Orientation:");
+            var priorOrientation = orientation;
+            orientation = GUILayout.Toolbar(orientation, new string[] { "None", "Autorotation", "Portrait", "Landscape" });
+            var updated = priorType != type || priorOrientation != orientation;
+
+            GUILayout.Space(10);
             GUILayout.BeginHorizontal();
             if (updated || GUILayout.Button("Save"))
             {
                 settings.developerKey = developerKey;
                 settings.ExchangeMethod = (ScutiSettings.CurrencyExchangeMethod)type;
                 settings.secret = secret;
+                settings.Orientation = (ScutiSettings.AppOrientation)orientation;
                 if (settings.ExchangeMethod != ScutiSettings.CurrencyExchangeMethod.GameServer)
                     settings.secret = "";
                 else
@@ -238,6 +248,8 @@ public class ScutiEditorWindow : EditorWindow
                 AssetDatabase.OpenAsset(settings);
             }
             GUILayout.EndHorizontal();
+
+            
         }
         //end info
         GUILayout.Space(10);

@@ -281,7 +281,8 @@ namespace Scuti.UI {
             if (allInStock.Count > 0)
             {
                 var thirdOpt = allInStock.Find(f => f.labelOpt2 == secondVariant.options[value].text);
-                thirdVariant.value = thirdVariant.options.FindIndex(f => f.text == thirdOpt.labelOpt3);
+                if(thirdOpt != null)
+                    thirdVariant.value = thirdVariant.options.FindIndex(f => f.text == thirdOpt.labelOpt3);
             }
 
             VariantChanged?.Invoke();
