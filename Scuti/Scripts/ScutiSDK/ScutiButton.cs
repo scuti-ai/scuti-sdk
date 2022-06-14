@@ -8,6 +8,8 @@ public class ScutiButton : MonoBehaviour
     public GameObject NotificationIcon;
     public GameObject NewItems;
 
+    private GameObject toast;
+    private bool canConnect;
     private void Awake()
     {
         NotificationIcon.SetActive(true);
@@ -40,19 +42,58 @@ public class ScutiButton : MonoBehaviour
 
     public void OnClick()
     {
-        ScutiSDK.Instance.LoadUI();
-        NotificationIcon.SetActive(false);
+        if (canConnect)
+        {
+            ScutiSDK.Instance.LoadUI();
+            NotificationIcon.SetActive(false);
+        }
     }
 
     private async void CheckNewOffers()
     {
-        var stats = await ScutiAPI.GetCategoryStatistics();
-        NewItems?.SetActive(false);
-        if (stats != null)
+        try
         {
-            if (stats.NewOffers.HasValue && stats.NewOffers.Value > 0)
+            var stats = await ScutiAPI.GetCategoryStatistics();
+            NewItems?.SetActive(false);
+            if (stats != null)
             {
-                NewItems?.SetActive(true);
+                if (stats.NewOffers.HasValue && stats.NewOffers.Value > 0)
+                {
+                    NewItems?.SetActive(true);
+                }
+            }
+            canConnect = true;
+        }
+        catch (Exception)
+        {
+            Debug.LogError("couldn't find offers");
+            canConnect = false;
+            LoadToast();
+        }
+    }
+
+    private void LoadToast()
+    {
+        if(toast == null)
+        {
+            toast = Instantiate(Resources.Load<GameObject>(ScutiConstants.UI_TOAST_NAME));
+        }
+    }
+
+    float timeToCheck = 0;
+
+    private void Update()
+    {
+        if (!canConnect)
+        {
+            if(timeToCheck < 1)
+            {
+                timeToCheck += Time.deltaTime;
+            }
+            else
+            {
+                timeToCheck = 0;
+                CheckNewOffers();
             }
         }
     }
@@ -81,6 +122,4 @@ public class ScutiButton : MonoBehaviour
             ScutiNetClient.Instance.OnInitialization -= CheckNewOffers;
         }
     }
-
-
 }
