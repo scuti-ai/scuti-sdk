@@ -218,6 +218,16 @@ namespace Scuti {
             ScutiSDK.Instance.UnloadUI();
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                history.Clear();
+                UIManager.Offers.GetNavigator().isShowingCategories = true;
+                UIManager.LogoutPopup.Show(OnClosePopUp);
+            }
+        }
+
         internal BreadCrumbs GetHistory()
         {
             throw new NotImplementedException();
