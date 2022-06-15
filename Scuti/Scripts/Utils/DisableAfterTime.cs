@@ -21,8 +21,7 @@ public class DisableAfterTime : MonoBehaviour
         }
         else
         {
-            gameObject.SetActive(false);
-            this.enabled = false;
+            Destroy(gameObject);
         }
     }
 }

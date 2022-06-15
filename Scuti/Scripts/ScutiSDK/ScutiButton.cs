@@ -47,6 +47,10 @@ public class ScutiButton : MonoBehaviour
             ScutiSDK.Instance.LoadUI();
             NotificationIcon.SetActive(false);
         }
+        else
+        {
+            LoadToast();
+        }
     }
 
     private async void CheckNewOffers()
@@ -68,7 +72,6 @@ public class ScutiButton : MonoBehaviour
         {
             Debug.LogError("couldn't find offers");
             canConnect = false;
-            LoadToast();
         }
     }
 
