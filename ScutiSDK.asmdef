@@ -1,6 +1,9 @@
 {
     "name": "Scuti",
-    "references": ["Unity.TextMeshPro"],
+    "references": [
+        "Unity.TextMeshPro",
+        "Unity.InputSystem"
+        ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
