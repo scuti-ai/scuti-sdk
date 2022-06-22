@@ -96,8 +96,12 @@ namespace Scuti.UI
 
         private void OnInputChanged(string value)
         {
-            var scutis = int.Parse(value);
-            ConversionText.text = Math.Floor(scutis * ExchangeRate).ToString();
+            var scutis = 0;
+            if(int.TryParse(value, out scutis))
+            {
+                ConversionText.text = Math.Floor(scutis * ExchangeRate).ToString();
+            }
+
         }
 
 
