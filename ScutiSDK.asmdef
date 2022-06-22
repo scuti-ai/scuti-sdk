@@ -1,6 +1,9 @@
 {
     "name": "Scuti",
-    "references": ["Unity.TextMeshPro"],
+    "references": [
+        "Unity.TextMeshPro",
+        "NativeShare.Runtime"
+    ],
     "optionalUnityReferences": [],
     "includePlatforms": [],
     "excludePlatforms": [],
