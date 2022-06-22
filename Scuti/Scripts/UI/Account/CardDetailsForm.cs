@@ -236,8 +236,6 @@ namespace Scuti.UI
             isUpdatedCountries = true;
         }
 
-
-
         public void Save()
         {
             if (!Evaluate())
@@ -325,6 +323,7 @@ namespace Scuti.UI
 
         private async void SavePayment()
         {
+
             if (!Evaluate())
             {
                 UIManager.Alert.SetHeader("Invalid Field").SetBody("Please ensure all form fields are filled in correctly.").SetButtonText("OK").Show(() => { });
@@ -334,6 +333,7 @@ namespace Scuti.UI
             saveButton.interactable = false;
             try
             {
+
                 JObject cardDetails = new JObject();
                 cardDetails["number"] = Data.Card.Number;
                 cardDetails["cvv"] = Data.Card.CVV;

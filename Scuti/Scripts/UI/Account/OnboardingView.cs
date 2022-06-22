@@ -103,6 +103,29 @@ namespace Scuti.UI
 
         }
 
+        #region For UnitTest
+
+        public InterestsSelector GetInterestsSelector()
+        {
+            return interestSelect;
+        }
+        public AddressForm GetAddressForm()
+        {
+            return addressForm;
+        }
+
+        public InterestsSelector GetInterestSelector()
+        {
+            return interestSelect;
+        }
+
+        public UserCredentialsForm GetUserCredentialForm()
+        {
+            return credentials;
+        }
+
+
+        #endregion
 
         public void ShowCategories()
         {
