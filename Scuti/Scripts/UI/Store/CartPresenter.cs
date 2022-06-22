@@ -496,7 +496,8 @@ namespace Scuti.UI
                     UIManager.Alert.SetHeader("Please Wait").SetBody("Processing your order...").SetButtonText("Ok").SetButtonsEnabled(false).Show(() => { });
                     await ScutiAPI.Checkout(paymentSource, orders, GetAddress());
                     UIManager.Alert.Close();
-                    success = true;
+                    success = true;                   
+
 
                 }
                 catch (Exception ex)
@@ -507,6 +508,7 @@ namespace Scuti.UI
                     UIManager.Alert.SetHeader("Failed To Checkout").SetBody($"Failed to checkout with error: {ex.Message}").SetButtonText("Ok").Show(() => { });
                 }
 
+                UIManager.isCheckoutSuccess = success;
                 if (success)
                 {
                     Data.Items.Clear();

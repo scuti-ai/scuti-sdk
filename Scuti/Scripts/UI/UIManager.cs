@@ -108,10 +108,10 @@ namespace Scuti.UI {
         }
 
         public static Action<bool> onBackButton;
-
+        public static bool isLogged;
+        public static bool isCheckoutSuccess;
 
         // OVERLAY
-
 
         public static ViewSet Overlay {
             get { return instance.generator["OVERLAY", true]; }
