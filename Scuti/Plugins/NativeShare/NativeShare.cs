@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
+using Scuti;
 #if UNITY_ANDROID || UNITY_IOS
 using NativeShareNamespace;
 #endif
@@ -132,7 +133,7 @@ public class NativeShare
 			mimes.Add( mime ?? string.Empty );
 		}
 		else
-			Debug.LogError( "Share Error: file does not exist at path or permission denied: " + filePath );
+			ScutiLogger.LogError( "Share Error: file does not exist at path or permission denied: " + filePath );
 
 		return this;
 	}
@@ -140,7 +141,7 @@ public class NativeShare
 	public NativeShare AddFile( Texture2D texture, string createdFileName = "Image.png" )
 	{
 		if( !texture )
-			Debug.LogError( "Share Error: Texture does not exist!" );
+			ScutiLogger.LogError( "Share Error: Texture does not exist!" );
 		else
 		{
 			if( string.IsNullOrEmpty( createdFileName ) )
@@ -180,7 +181,7 @@ public class NativeShare
 	{
 		if( files.Count == 0 && subject.Length == 0 && text.Length == 0 && url.Length == 0 )
 		{
-			Debug.LogWarning( "Share Error: attempting to share nothing!" );
+			ScutiLogger.LogWarning( "Share Error: attempting to share nothing!" );
 			return;
 		}
 
@@ -202,7 +203,7 @@ public class NativeShare
 			_NativeShare_Share( files.ToArray(), files.Count, subject, CombineURLWithText(), "" );
 		}
 #else
-		Debug.LogWarning( "NativeShare is not supported on this platform!" );
+		ScutiLogger.LogWarning( "NativeShare is not supported on this platform!" );
 #endif
 	}
 
@@ -291,7 +292,7 @@ public class NativeShare
 	private byte[] GetTextureBytesFromCopy( Texture2D texture, bool isJpeg )
 	{
 		// Texture is marked as non-readable, create a readable copy and share it instead
-		Debug.LogWarning( "Sharing non-readable textures is slower than sharing readable textures" );
+		ScutiLogger.LogWarning( "Sharing non-readable textures is slower than sharing readable textures" );
 
 		Texture2D sourceTexReadable = null;
 		RenderTexture rt = RenderTexture.GetTemporary( texture.width, texture.height );
@@ -308,7 +309,7 @@ public class NativeShare
 		}
 		catch( System.Exception e )
 		{
-			Debug.LogException( e );
+			ScutiLogger.LogException( e );
 
 			Object.DestroyImmediate( sourceTexReadable );
 			return null;
@@ -325,7 +326,7 @@ public class NativeShare
 		}
 		catch( System.Exception e )
 		{
-			Debug.LogException( e );
+			ScutiLogger.LogException( e );
 			return null;
 		}
 		finally
