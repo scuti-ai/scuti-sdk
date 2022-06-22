@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 using Scuti.Net;
 using System;
-
+using System.Collections.Generic;
 //#if UNITY_IOS
 //using Unity.Advertisement.IosSupport;
 //#endif
@@ -19,15 +19,58 @@ namespace Scuti.UI
         {
             public string Email;
             public string Password;
+
             public string fullName;
+            public string phoneNumber;
+            public string gender = "Male";
+            public DateTime birthDay;
         }
 
+        // For email password
         [SerializeField] InputField emailInput;
         [SerializeField] InputField passwordInput;
         [SerializeField] Button registerButton;
 
-        public bool registerComplete;
+        //For info User
+        [SerializeField] InputField NameInput;
+        [SerializeField] Dropdown GenderDropDown;
+        [SerializeField] Dropdown YearDropDown;
 
+        #region UserDetails
+
+        protected override void Awake()
+        {
+            base.Awake();
+
+            Debug.Log("Opened Form");
+
+            YearDropDown.ClearOptions();
+
+            var year = DateTime.Now.Year;
+            List<Dropdown.OptionData> years = new List<Dropdown.OptionData>();
+            for (var i = 0; i < 100; i++)
+            {
+                years.Add(new Dropdown.OptionData(year.ToString(), null));
+                year--;
+
+            }
+            YearDropDown.AddOptions(years);
+        }
+
+        public override void Open()
+        {
+            base.Open();
+            Data.birthDay = new DateTime(2000, 2, 15);
+            Data.gender = "";
+            Data.phoneNumber = "1234567878";
+            Data.fullName = "";
+
+            YearDropDown.SetDropDown(Data.birthDay.Year.ToString());
+        }
+
+        private bool setBirthdayAtDropDownChange = true;
+
+        #endregion region
 
         public override Model GetDefaultDataObject()
         {
@@ -39,33 +82,12 @@ namespace Scuti.UI
             emailInput.onValueChanged.AddListener(value => Data.Email = value);
             passwordInput.onValueChanged.AddListener(value => Data.Password = value);
             registerButton.onClick.AddListener(async () => await Register());
-        }
-/*
-        private void RequestTracking()
-        {
-#if UNITY_IOS
-            var status = ATTrackingStatusBinding.GetAuthorizationTrackingStatus();
-            switch(status)
-            {
-                case ATTrackingStatusBinding.AuthorizationTrackingStatus.NOT_DETERMINED:
-                    ATTrackingStatusBinding.RequestAuthorizationTracking();
-                    break;
-                case ATTrackingStatusBinding.AuthorizationTrackingStatus.AUTHORIZED:
-                    Register();
-                    break;
-                case ATTrackingStatusBinding.AuthorizationTrackingStatus.RESTRICTED:
-                    UIManager.Alert.SetHeader("Permission Needed").SetButtonText("Ok").SetBody("Apple requires permission for Scuti you to earn rewards across all games on the Scuti network. Please visit your device's Settings->Privacy->Tracking and enable the setting before registering.").Show(() => { });
-                    break;
-                case ATTrackingStatusBinding.AuthorizationTrackingStatus.DENIED:
-                    ATTrackingStatusBinding.RequestAuthorizationTracking();
-                    break;
 
-            }
-#else
-            Register();
-#endif
+            NameInput.onValueChanged.AddListener(value => Data.fullName = value);
+            GenderDropDown.onValueChanged.AddListener(value => Data.gender = GenderDropDown.options[value].text);
+            YearDropDown.onValueChanged.AddListener(value => { if (setBirthdayAtDropDownChange) Data.birthDay = new DateTime(int.Parse(YearDropDown.options[YearDropDown.value].text), 12, 29); });
+
         }
-        */
 
         public async Task Register()
         {
@@ -78,8 +100,7 @@ namespace Scuti.UI
             UIManager.ShowLoading(false);
             try
             {
-                await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName == null ? "" : Data.fullName);
-                registerComplete = true;
+                await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName, Data.gender, Data.birthDay.ToString("yyyy-MM-dd"));
                 Submit();
             }
             catch (Exception ex)
@@ -105,19 +126,25 @@ namespace Scuti.UI
                                 //Debug.LogError("TODO: Add more response code messages here. -mg");
                                 break;
                         }
-                    } 
+                    }
                 }
-
-                registerComplete = false;
                 UIManager.Alert.SetHeader("Create Account Failed").SetBody(message).SetButtonText("OK").Show(() => { });
             }
-
             UIManager.HideLoading(false);
         }
+
         public override void Refresh()
         {
             emailInput.text = Data.Email;
             passwordInput.text = Data.Password;
+            /////
+            setBirthdayAtDropDownChange = false;
+            NameInput.text = Data.fullName;
+            GenderDropDown.SetDropDown(Data.gender);
+            YearDropDown.SetDropDown(Data.birthDay.Year.ToString());
+            //MonthDropDown.SetDropDown(Data.birthDay.Month.ToString());
+            //DayDropDown.SetDropDown(Data.birthDay.Day.ToString());
+            setBirthdayAtDropDownChange = true;
         }
     }
 }

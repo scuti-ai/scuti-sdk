@@ -83,8 +83,11 @@ namespace Scuti.UI
 
 
                         // had to check if image was from shopify because some images wasn't from shopify and I was getting an error
-                        if (!String.IsNullOrEmpty(url) && url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1)
+                        if (!String.IsNullOrEmpty(url) && url.IndexOf("shopify") != -1 && url.LastIndexOf(".") != -1) 
+                        {
                             url = url.Insert(url.LastIndexOf("."), "_large");
+                        }
+                           
 
                         if (IsTall && !string.IsNullOrEmpty(TallURL))
                         {
@@ -534,13 +537,17 @@ namespace Scuti.UI
         // Updates UI based on values on View.Data
         protected virtual void UpdateUI()
         {
-            titleText.text = TextElipsis(Data.Title);
-            if(brandText!=null) brandText.text = Data.Brand;
+            titleText.text = TextElipsis(Data.Title);       
+            if (brandText!=null) brandText.text = Data.Brand;
         }
 
         protected string TextElipsis(string text, int truncateSize = 24)
         {
-	        if(text!=null && text.Length > truncateSize) return text.Remove(truncateSize) + "...";
+	        if(text!=null && text.Length > truncateSize)
+            {
+                return text.Remove(truncateSize) + "...";
+            }               
+           
 	        return text;
         }
         private void OnEnable()
