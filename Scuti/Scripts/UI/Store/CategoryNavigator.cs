@@ -8,6 +8,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
+
 namespace Scuti.UI
 {
     /// <summary>
@@ -104,7 +108,7 @@ namespace Scuti.UI
 
                 List<string> ordered = new List<string>();
                 // Add default to category list
-                foreach(var custom in ScutiConstants.CUSTOM_CATEGORIES)
+                foreach (var custom in ScutiConstants.CUSTOM_CATEGORIES)
                 {
                     ordered.Add(custom.DisplayName.ToUpper());
                 }
@@ -138,7 +142,7 @@ namespace Scuti.UI
         // Helpers
         private void ChangeCategory(int delta)
         {
-            if(_offersPresentere!=null)
+            if (_offersPresentere != null)
             {
                 if (_offersPresentere.IsUnableToChangeCategory()) return;
             }
@@ -158,7 +162,7 @@ namespace Scuti.UI
         public void Show()
         {
 
-            if(GetCanvasGroup() < 1)
+            if (GetCanvasGroup() < 1)
                 onShow?.Invoke();
         }
 
@@ -196,34 +200,54 @@ namespace Scuti.UI
 
         private void Update()
         {
-            if(isShowingCategories)
+            if (isShowingCategories)
             {
 #if UNITY_STANDALONE || UNITY_EDITOR
 
+#if ENABLE_INPUT_SYSTEM
+
+                if (Mouse.current.leftButton.isPressed)
+                {
+                    fingerDown = Mouse.current.position.ReadValue();
+                    fingerUp = Mouse.current.position.ReadValue();
+                    fingerDownTime = DateTime.Now;
+
+                }
+                
+                if (Mouse.current.leftButton.wasReleasedThisFrame)
+                {
+                    fingerDown = Mouse.current.position.ReadValue();
+                    fingerUpTime = DateTime.Now;
+                    CheckSwipe();
+                }
+
+#else
                 if (Input.GetMouseButtonDown(0))
                 {
                     fingerDown = Input.mousePosition;
                     fingerUp = Input.mousePosition;
                     fingerDownTime = DateTime.Now;
                 }
+
                 if (Input.GetMouseButtonUp(0))
                 {
                     fingerDown = Input.mousePosition;
                     fingerUpTime = DateTime.Now;
                     CheckSwipe();
                 }
+#endif
 
 #endif
 
                 if (Input.touchCount > 0)
                 {
                     var touch = Input.touches[0];
-                    if (touch.phase == TouchPhase.Began)
+                    if (touch.phase == UnityEngine.TouchPhase.Began)
                     {
                         fingerDown = touch.position;
                         fingerUp = touch.position;
                     }
-                    else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                    else if (touch.phase == UnityEngine.TouchPhase.Ended || touch.phase == UnityEngine.TouchPhase.Canceled)
                     {
                         fingerDown = touch.position;
 
@@ -242,7 +266,7 @@ namespace Scuti.UI
 
         private void CheckSwipe()
         {
-            float duration = (float) fingerUpTime.Subtract(fingerDownTime).TotalSeconds;
+            float duration = (float)fingerUpTime.Subtract(fingerDownTime).TotalSeconds;
             if (duration > timeThreshold) return;
 
             Vector3 dirVector = fingerDown - fingerUp;
@@ -260,7 +284,7 @@ namespace Scuti.UI
                     Previous();
                 }
             }
-          
+
         }
 
     }
