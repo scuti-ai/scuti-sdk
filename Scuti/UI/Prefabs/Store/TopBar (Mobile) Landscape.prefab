@@ -636,6 +636,7 @@ MonoBehaviour:
   thresholdBanners: 50
   maxWidthContent: 0
   widthBanner: 0
+  btnFirstSelection: {fileID: 1269984166588800}
   rectBanner: {fileID: 1769449445738817901}
   Banner: {fileID: 1875583720201930397}
   additionalBanners: []

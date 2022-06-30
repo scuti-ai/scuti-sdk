@@ -14,6 +14,8 @@ public class TopBarView : View {
     public float maxWidthContent;
     public float widthBanner;
 
+    [SerializeField] private GameObject btnFirstSelection;
+
     [Header("Customization")]
     public RectTransform rectBanner;
     public BannerWidget Banner;
@@ -26,7 +28,8 @@ public class TopBarView : View {
         base.Awake();
         // Only the default banner is enrolled.        
         Banner.onCreateBanners += CreateBanners;
-      
+
+        Scuti.UI.UIManager.SetFirstSelected(btnFirstSelection);
     }
 
     private void CreateBanners(int offerCount)

@@ -22,6 +22,8 @@ namespace Scuti.UI {
 
         public GameObject EventSystemObject;
 
+        public GameObject firstSelected;
+
         void Awake() {
             instance = this;
             LoadingBlocker.Close();
@@ -29,9 +31,21 @@ namespace Scuti.UI {
             var eventSystems = FindObjectsOfType<EventSystem>();
             if(eventSystems!=null && eventSystems.Length>1)
             {
+                Debug.Log("Eventsystem founded");
                 EventSystemObject.SetActive(false);
+
+               
             }
         }
+
+        public static void SetFirstSelected(GameObject obj)
+        {
+            instance.firstSelected = obj;
+            var eventSystem2 = EventSystem.current;
+            eventSystem2.firstSelectedGameObject = obj;
+        }
+
+
 
         protected int _loadingCount = 0;
         public static void ShowLoading(bool useCount)
