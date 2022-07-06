@@ -55,6 +55,8 @@ namespace Scuti {
         Coroutine _closingRoutine;
 
         public Transition[] Transitions;
+        // For a selected UI element when opening
+        public GameObject firstSelection;
 
         protected virtual void Awake()
         {

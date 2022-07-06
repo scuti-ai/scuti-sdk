@@ -45,6 +45,7 @@ namespace Scuti.UI
         [SerializeField] Text stateLabel;
         [SerializeField] Validatable stateValidatable;
 
+        [SerializeField] GameObject firstSelect;
 
         private List<Dropdown.OptionData> _states;
         private List<Dropdown.OptionData> _provinces;
@@ -126,6 +127,9 @@ namespace Scuti.UI
         public override void Open()
         {
             onOpenCardDetails?.Invoke();
+
+            UIManager.SetFirstSelected(firstSelect);
+
             base.Open();
             Refresh();
         }   

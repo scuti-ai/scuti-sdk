@@ -32,20 +32,22 @@ namespace Scuti.UI {
             if(eventSystems!=null && eventSystems.Length>1)
             {
                 Debug.Log("Eventsystem founded");
-                EventSystemObject.SetActive(false);
-
-               
+                EventSystemObject.SetActive(false);               
             }
         }
 
         public static void SetFirstSelected(GameObject obj)
         {
-            instance.firstSelected = obj;
-            var eventSystem2 = EventSystem.current;
-            eventSystem2.firstSelectedGameObject = obj;
+            // null is also accepted
+            //instance.firstSelected = obj;
+            //var eventSystem2 = EventSystem.current;
+            //eventSystem2.firstSelectedGameObject = obj;
+            if(obj != null)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(obj);
+            }
         }
-
-
 
         protected int _loadingCount = 0;
         public static void ShowLoading(bool useCount)
