@@ -98,7 +98,6 @@ namespace Scuti {
                 else SetOpened();
             }
 
-            // Is this possible?
             if(firstSelection != null)
             {
                 UIManager.SetFirstSelected(firstSelection);
