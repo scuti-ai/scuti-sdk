@@ -698,6 +698,7 @@ MonoBehaviour:
       m_Calls: []
   Transitions:
   - {fileID: 114371257765813596}
+  firstSelection: {fileID: 1547398374939290}
   validatorGroup: {fileID: 114159551091383356}
   contentCardDetails: {fileID: 224586831419399576}
   cardholderNameInput: {fileID: 114850107171657360}
@@ -2121,8 +2122,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114727241279556488}
   m_HandleRect: {fileID: 224257659059251314}
   m_Direction: 2
-  m_Value: 0.99999994
-  m_Size: 0.4531794
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

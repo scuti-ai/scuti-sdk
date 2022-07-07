@@ -70,6 +70,8 @@ namespace Scuti.UI
 
         public override void Open()
         {
+            UIManager.SetFirstSelected(firstSelection);
+
             base.Open();
             browseTime = Time.time;
             //if (ScutiUtils.IsPortrait())

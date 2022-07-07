@@ -692,6 +692,7 @@ MonoBehaviour:
       m_Calls: []
   Transitions:
   - {fileID: 114371257765813596}
+  firstSelection: {fileID: 1547398374939290}
   validatorGroup: {fileID: 114159551091383356}
   contentCardDetails: {fileID: 224586831419399576}
   cardholderNameInput: {fileID: 114850107171657360}
@@ -712,7 +713,6 @@ MonoBehaviour:
   SaveCard: {fileID: 114143062195322134}
   stateLabel: {fileID: 114782172847047890}
   stateValidatable: {fileID: 0}
-  firstSelect: {fileID: 1547398374939290}
 --- !u!1 &1041325889573178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,8 +2058,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114727241279556488}
   m_HandleRect: {fileID: 224257659059251314}
   m_Direction: 2
-  m_Value: 0.9999999
-  m_Size: 0.8052066
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7939,7 +7939,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -554, y: 0.000054351374}
+  m_AnchoredPosition: {x: -554, y: -0.00006847669}
   m_SizeDelta: {x: 1108, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4924675820156814728
@@ -10138,7 +10138,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -2.7, y: 84.4}
+  m_AnchoredPosition: {x: -2.7000122, y: 84.4}
   m_SizeDelta: {x: 57.659622, y: 44.754852}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &6235965632129230059
