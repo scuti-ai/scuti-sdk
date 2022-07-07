@@ -1,4 +1,5 @@
-﻿using Scuti.UISystem;
+﻿using Scuti.UI;
+using Scuti.UISystem;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -95,6 +96,12 @@ namespace Scuti {
                 // The parent may be inactive, only delay opening if we are active
                 if (gameObject.activeInHierarchy) _openingRoutine = StartCoroutine(OpenHelper());
                 else SetOpened();
+            }
+
+            // Is this possible?
+            if(firstSelection != null)
+            {
+                UIManager.SetFirstSelected(firstSelection);
             }
              
         }

@@ -617,6 +617,7 @@ MonoBehaviour:
         m_CallState: 2
   Transitions:
   - {fileID: 114973620524188912}
+  firstSelection: {fileID: 1320781640434686}
 --- !u!114 &114973620524188912
 MonoBehaviour:
   m_ObjectHideFlags: 0

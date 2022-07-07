@@ -17,6 +17,12 @@ namespace Scuti.UI
         [SerializeField] InputField emailInput;
         [SerializeField] Button resetButton;
 
+        public override void Open()
+        {
+            UIManager.SetFirstSelected(firstSelection);
+            base.Open();
+        }
+
         public override void Bind()
         {
             resetButton.onClick.AddListener(async () => await ResetWithEmail());
