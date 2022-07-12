@@ -27,6 +27,9 @@ public class GamepadCursor : MonoBehaviour
     private void Awake()
     {
         mainCamera = Camera.main;
+#if ENABLE_INPUT_SYSTEM
+        playerInput sc = gameObject.AddComponent(typeof(PlayerInput)) as PlayerInput;
+#endif
     }
 
 
