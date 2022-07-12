@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Users;
 #endif
 
@@ -28,7 +32,12 @@ public class GamepadCursor : MonoBehaviour
     {
         mainCamera = Camera.main;
 #if ENABLE_INPUT_SYSTEM
-        playerInput sc = gameObject.AddComponent(typeof(PlayerInput)) as PlayerInput;
+        PlayerInput sc = gameObject.AddComponent(typeof(PlayerInput)) as PlayerInput;
+        playerInput = sc;
+
+        playerInput.actions = (Resources.Load<InputActionAsset>("ScutiGamepad"));
+        playerInput.camera = mainCamera;
+        playerInput.uiInputModule = EventSystem.current.GetComponent<InputSystemUIInputModule>();
 #endif
     }
 
