@@ -10,10 +10,7 @@ using UnityEngine.InputSystem;
 #endif
 public class GamepadCursor : MonoBehaviour
 {
-#if ENABLE_INPUT_SYSTEM
 
-    [SerializeField]
-    private PlayerInput playerInput;
     [SerializeField]
     private RectTransform cursorTransform;
     [SerializeField]
@@ -24,6 +21,17 @@ public class GamepadCursor : MonoBehaviour
     private Camera mainCamera;
     [SerializeField]
     private float cursorSpeed = 1000;
+
+    private void Awake()
+    {
+        mainCamera = Camera.main;
+    }
+
+
+#if ENABLE_INPUT_SYSTEM
+
+    [SerializeField]
+    private PlayerInput playerInput;
 
     private bool previousMouseState;
 
