@@ -16,7 +16,8 @@ using UnityEngine.InputSystem.Users;
 #endif
 public class GamepadCursor : MonoBehaviour
 {
-
+    [SerializeField]
+    private RectTransform cursorFront;
     [SerializeField]
     private RectTransform cursorTransform;
     [SerializeField]
@@ -36,8 +37,12 @@ public class GamepadCursor : MonoBehaviour
         playerInput = sc;
 
         playerInput.actions = (Resources.Load<InputActionAsset>("ScutiGamepad"));
+        playerInput.actions = inputActAsset;
         playerInput.camera = mainCamera;
         playerInput.uiInputModule = EventSystem.current.GetComponent<InputSystemUIInputModule>();
+
+        uiInputModule.actionsAsset = inputActAsset;
+        playerInput.uiInputModule = uiInputModule;
 #endif
     }
 
@@ -123,6 +128,7 @@ public class GamepadCursor : MonoBehaviour
 
 
         cursorTransform.anchoredPosition = anchoredPosition;
+        cursorFront.anchoredPosition = anchoredPosition;
 
     }
 #endif
