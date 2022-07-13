@@ -8,7 +8,10 @@ using UnityEngine;
 namespace Scuti.UI
 {
     public class WalletView : View
-    {
+    {        
+        // For unit test
+        public enum ConvertScutisResponse { None, Success, NotEnought, Failed };
+        public ConvertScutisResponse convertResponseMsg = ConvertScutisResponse.None;
 
         public InputField ScutiInput;
         public Text ConversionText;
@@ -96,8 +99,12 @@ namespace Scuti.UI
 
         private void OnInputChanged(string value)
         {
-            var scutis = int.Parse(value);
-            ConversionText.text = Math.Floor(scutis * ExchangeRate).ToString();
+            var scutis = 0;
+            if(int.TryParse(value, out scutis))
+            {
+                ConversionText.text = Math.Floor(scutis * ExchangeRate).ToString();
+            }
+
         }
 
 
@@ -108,7 +115,7 @@ namespace Scuti.UI
                 UIManager.Alert.SetHeader("Invalid Field").SetBody($"Please enter a number of SCUTI to convert.").SetButtonText("OK").Show(() => { });
                 return;
             }
-
+            convertResponseMsg = ConvertScutisResponse.None;
             ConvertButton.enabled = false;
             try
             {
@@ -117,7 +124,6 @@ namespace Scuti.UI
                 if (_wallet != null && amount > total)
                 {
                     UIManager.Alert.SetHeader("Not enough Scutis").SetBody($"You can only convert up to your balance of {total}. ").SetButtonText("OK").Show(() => { });
-
                 }
                 else
                 {
@@ -130,18 +136,20 @@ namespace Scuti.UI
                         }
                         var newWallet = await ScutiAPI.GetWallet(true);
                         ScutiTotal.text = ScutiUtils.GetTotalWallet(newWallet).ToString();
-
+                        convertResponseMsg = ConvertScutisResponse.Success;
                         var currencyName = ScutiNetClient.Instance.gameInfo.Currency.Name;
                         UIManager.Alert.SetHeader("Congratulations!").SetBody($"You successfully exchanged {ScutiInput.text} for {reward} {currencyName}.").SetButtonText("OK").Show(() => { });
                     }
                     else
                     {
+                        convertResponseMsg = ConvertScutisResponse.NotEnought;
                         UIManager.Alert.SetHeader("Not enough Scutis").SetBody($"You need to convert more Scuti in order to at least get 1 {ScutiNetClient.Instance.gameInfo.Currency.Name} ").SetButtonText("OK").Show(() => { });
                     }
                 }
             }
             catch (Exception ex)
             {
+                convertResponseMsg = ConvertScutisResponse.Failed;
                 UIManager.Alert.SetHeader("Failed to exchange").SetBody($"Failed to exchange {ScutiInput.text} scuti {ex.Message}").SetButtonText("OK").Show(() => { });
                 ScutiLogger.LogException(ex);
             }

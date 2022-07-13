@@ -22,6 +22,11 @@ public class WalletWidget : MonoBehaviour {
 #pragma warning restore 4014
     }
 
+    private void OnDestroy()
+    {
+        ScutiAPI.OnWalletUpdated -= OnWalletUpdated;
+        ScutiNetClient.Instance.OnAuthenticated -= DoRefresh;
+    }
 
     private void OnWalletUpdated(int balance)
     { 

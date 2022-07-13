@@ -17,6 +17,12 @@ namespace Scuti.UI
             Description.text = message;
         }
 
+        public override void Open()
+        {
+            UIManager.SetFirstSelected(firstSelection);
+            base.Open();
+        }
+
         public void ShowLogin()
         {
             UIManager.Open(UIManager.Login);

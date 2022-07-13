@@ -45,7 +45,6 @@ namespace Scuti.UI
         [SerializeField] Text stateLabel;
         [SerializeField] Validatable stateValidatable;
 
-
         private List<Dropdown.OptionData> _states;
         private List<Dropdown.OptionData> _provinces;
         private List<Dropdown.OptionData> _countries;
@@ -126,6 +125,9 @@ namespace Scuti.UI
         public override void Open()
         {
             onOpenCardDetails?.Invoke();
+
+            UIManager.SetFirstSelected(firstSelection);
+
             base.Open();
             Refresh();
         }   
@@ -236,8 +238,6 @@ namespace Scuti.UI
             isUpdatedCountries = true;
         }
 
-
-
         public void Save()
         {
             if (!Evaluate())
@@ -325,6 +325,7 @@ namespace Scuti.UI
 
         private async void SavePayment()
         {
+
             if (!Evaluate())
             {
                 UIManager.Alert.SetHeader("Invalid Field").SetBody("Please ensure all form fields are filled in correctly.").SetButtonText("OK").Show(() => { });
@@ -334,6 +335,7 @@ namespace Scuti.UI
             saveButton.interactable = false;
             try
             {
+
                 JObject cardDetails = new JObject();
                 cardDetails["number"] = Data.Card.Number;
                 cardDetails["cvv"] = Data.Card.CVV;

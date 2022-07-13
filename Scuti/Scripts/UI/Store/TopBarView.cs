@@ -26,7 +26,6 @@ public class TopBarView : View {
         base.Awake();
         // Only the default banner is enrolled.        
         Banner.onCreateBanners += CreateBanners;
-      
     }
 
     private void CreateBanners(int offerCount)
@@ -64,6 +63,8 @@ public class TopBarView : View {
 
     public override void Open()
     {
+        Scuti.UI.UIManager.SetFirstSelected(firstSelection);
+
         base.Open();
         Banner?.Open();
         if(isAdditionalBanners)

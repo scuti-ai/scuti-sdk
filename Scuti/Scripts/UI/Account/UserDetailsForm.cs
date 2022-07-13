@@ -50,6 +50,8 @@ namespace Scuti.UI
 
         public override void Open()
         {
+            UIManager.SetFirstSelected(firstSelection);
+
             base.Open();
             if (ScutiNetClient.Instance.FinishedOnBoarding)
             {

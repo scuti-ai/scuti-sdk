@@ -36,6 +36,8 @@ namespace Scuti.UI
         [SerializeField] Dropdown GenderDropDown;
         [SerializeField] Dropdown YearDropDown;
 
+        public bool registerComplete;
+
         #region UserDetails
 
         protected override void Awake()
@@ -59,6 +61,8 @@ namespace Scuti.UI
 
         public override void Open()
         {
+            UIManager.SetFirstSelected(firstSelection);
+
             base.Open();
             Data.birthDay = new DateTime(2000, 2, 15);
             Data.gender = "";
@@ -101,6 +105,7 @@ namespace Scuti.UI
             try
             {
                 await ScutiNetClient.Instance.RegisterUser(Data.Email, Data.Password, Data.fullName, Data.gender, Data.birthDay.ToString("yyyy-MM-dd"));
+                registerComplete = true;
                 Submit();
             }
             catch (Exception ex)
@@ -128,6 +133,7 @@ namespace Scuti.UI
                         }
                     }
                 }
+                registerComplete = false;
                 UIManager.Alert.SetHeader("Create Account Failed").SetBody(message).SetButtonText("OK").Show(() => { });
             }
             UIManager.HideLoading(false);

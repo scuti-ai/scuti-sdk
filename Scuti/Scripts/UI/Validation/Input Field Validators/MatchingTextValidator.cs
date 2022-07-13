@@ -35,5 +35,11 @@ namespace Scuti {
                 return false;
             }
         }
+
+        public void SetTextInput(string text)
+        {
+            inputField.text = text;
+        }
+
     }
 }

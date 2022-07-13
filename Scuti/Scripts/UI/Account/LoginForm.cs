@@ -22,6 +22,12 @@ namespace Scuti.UI
         [SerializeField] InputField passwordInput;
         [SerializeField] Button loginButton;
 
+        public override void Open()
+        {
+            UIManager.SetFirstSelected(firstSelection);
+            base.Open();
+        }
+
 
         public override void Bind()
         {
@@ -60,9 +66,12 @@ namespace Scuti.UI
                 fullName = response.fullName;
                 UIManager.TopBar.Refresh();
                 UIManager.HideLoading(false);
+
+                UIManager.isLogged = true;
             }
             catch(Exception ex)
             {
+                UIManager.isLogged = false;
                 UIManager.HideLoading(false);
                 ScutiLogger.LogError(ex);
                 loginButton.interactable = true;
@@ -95,7 +104,8 @@ namespace Scuti.UI
                                 break;
                         }
                     }
-                }  
+                }
+
                 UIManager.Alert.SetHeader("Login Failed").SetBody(message).SetButtonText("OK").Show(() => { });
                 return;
             }

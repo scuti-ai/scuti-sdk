@@ -1393,15 +1393,14 @@ MonoBehaviour:
   IsTall: 0
   Single: 1
   FirstColumn: 0
-  FirstLoad: 1
   animator: {fileID: 95641918555222256}
   backgroundImage: {fileID: 114740763463083730}
   displayImage: {fileID: 114019555032766228}
+  shopImage: {fileID: 0}
   titleText: {fileID: 764582368738745695}
-  displayPriceText: {fileID: 2756234722387913229}
-  ratingText: {fileID: 2149191937632664361}
   brandText: {fileID: 7043113048152663435}
-  ratingStarsWidget: {fileID: 114622562493505216}
+  defaultStoreSprite: {fileID: 0}
+  Viewport: {fileID: 0}
   ProductVisualRules:
   - Visual: {fileID: 1572720323770944}
     HideIfStatic: 0
@@ -3063,7 +3062,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 432.79083, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &222697738918697638
 CanvasRenderer:

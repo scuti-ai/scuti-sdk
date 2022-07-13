@@ -20,6 +20,9 @@ namespace Scuti.UI
         [SerializeField] InputField newPasswordInput;
         [SerializeField] Button changeButton;
 
+
+        public bool isPassChangedSuccess;
+
         public override void Bind()
         {
             currentPasswordInput.onValueChanged.AddListener(value => Data.CurrentPassword = value);
@@ -35,24 +38,41 @@ namespace Scuti.UI
 
         private async Task ChangePassword()
         {
+            if (!Evaluate())
+            {
+                UIManager.Alert.SetHeader("Invalid Field").SetBody("Please ensure all form fields are filled in correctly.").SetButtonText("OK").Show(() => { });
+                return;
+            }
+            UIManager.ShowLoading(false);
+
+            isPassChangedSuccess = false;
             changeButton.interactable = false;
             try
             {
                 await ScutiNetClient.Instance.ChangePassword(Data.CurrentPassword, Data.NewPassword);
+                isPassChangedSuccess = true;
                 Submit();
                 Close();
             }
             catch(Exception ex)
             {
+                isPassChangedSuccess = false;
                 UIManager.Alert.SetHeader("Failed to change password").SetBody($"Failed to change password").SetButtonText("Ok").Show(() => { });
                 ScutiLogger.LogException(ex);
             }
+
+            UIManager.HideLoading(false);
             changeButton.interactable = true;
         }
 
         public override Model GetDefaultDataObject()
         {
             return new Model();
+        }
+
+        public void OnChangePassword()
+        {
+            ChangePassword();
         }
     }
 }

@@ -2295,6 +2295,7 @@ MonoBehaviour:
       m_Calls: []
   Transitions:
   - {fileID: 114931425319839262}
+  firstSelection: {fileID: 0}
   PriceLabels:
   - {fileID: 114144775858180602}
   - {fileID: 114594189656811928}
@@ -2980,7 +2981,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
