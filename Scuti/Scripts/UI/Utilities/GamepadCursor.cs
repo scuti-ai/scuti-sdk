@@ -29,21 +29,36 @@ public class GamepadCursor : MonoBehaviour
     [SerializeField]
     private float cursorSpeed = 1000;
 
+    private bool isInitialize;
+
     private void Awake()
     {
-        mainCamera = Camera.main;
-#if ENABLE_INPUT_SYSTEM
-        PlayerInput sc = gameObject.AddComponent(typeof(PlayerInput)) as PlayerInput;
-        playerInput = sc;
+    #if ENABLE_INPUT_SYSTEM
+        if (Gamepad.all.Count > 0)
+        {
+            mainCamera = Camera.main;
 
-        playerInput.actions = (Resources.Load<InputActionAsset>("ScutiGamepad"));
-        playerInput.actions = inputActAsset;
-        playerInput.camera = mainCamera;
-        playerInput.uiInputModule = EventSystem.current.GetComponent<InputSystemUIInputModule>();
+            PlayerInput sc = gameObject.AddComponent(typeof(PlayerInput)) as PlayerInput;
+            playerInput = sc;
 
-        uiInputModule.actionsAsset = inputActAsset;
-        playerInput.uiInputModule = uiInputModule;
-#endif
+            InputActionAsset inputActAsset = (Resources.Load<InputActionAsset>("ScutiGamepad"));
+            //playerInput.actions = (Resources.Load<InputActionAsset>("ScutiGamepad"));
+            playerInput.actions = inputActAsset;
+            playerInput.camera = mainCamera;
+            playerInput.uiInputModule = EventSystem.current.GetComponent<InputSystemUIInputModule>();
+
+            uiInputModule.actionsAsset = inputActAsset;
+            playerInput.uiInputModule = uiInputModule;
+
+             isInitialize = true;
+
+        }
+        else
+        {
+            cursorFront.gameObject.SetActive(false);
+            cursorTransform.gameObject.SetActive(false);
+        }
+    #endif
     }
 
 
@@ -58,6 +73,10 @@ public class GamepadCursor : MonoBehaviour
 
     private void OnEnable()
     {
+        if (!isInitialize)
+            return;
+
+
         if (virtualMouse == null)
         {
             virtualMouse = (Mouse)InputSystem.AddDevice("VirtualMouse");
@@ -90,7 +109,7 @@ public class GamepadCursor : MonoBehaviour
 
     private void UpdateMotion()
     {
-        if (virtualMouse == null || Gamepad.current == null)
+        if (virtualMouse == null || Gamepad.current == null  || !isInitialize)
         {
             return;
         }
