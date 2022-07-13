@@ -39,7 +39,6 @@ public class GamepadCursor : MonoBehaviour
             playerInput = sc;
 
             InputActionAsset inputActAsset = (Resources.Load<InputActionAsset>("ScutiGamepad"));
-            //playerInput.actions = (Resources.Load<InputActionAsset>("ScutiGamepad"));
             playerInput.actions = inputActAsset;
             playerInput.camera = mainCamera;
             InputSystemUIInputModule uiInputModule = EventSystem.current.GetComponent<InputSystemUIInputModule>();
