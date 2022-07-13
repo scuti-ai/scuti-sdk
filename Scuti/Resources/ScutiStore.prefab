@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -120,7 +120,7 @@ MonoBehaviour:
   canvasRectransform: {fileID: 224424352842759854}
   canvas: {fileID: 223116880424058194}
   mainCamera: {fileID: 0}
-  cursorSpeed: 1000
+  cursorSpeed: 1500
 --- !u!1 &1132727096652746
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,9 +11,6 @@ using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Users;
 #endif
 
-#if ENABLE_INPUT_SYSTEM
-[RequireComponent(typeof(PlayerInput))]
-#endif
 public class GamepadCursor : MonoBehaviour
 {
     [SerializeField]
@@ -33,7 +30,7 @@ public class GamepadCursor : MonoBehaviour
 
     private void Awake()
     {
-    #if ENABLE_INPUT_SYSTEM
+#if ENABLE_INPUT_SYSTEM
         if (Gamepad.all.Count > 0)
         {
             mainCamera = Camera.main;
@@ -45,8 +42,7 @@ public class GamepadCursor : MonoBehaviour
             //playerInput.actions = (Resources.Load<InputActionAsset>("ScutiGamepad"));
             playerInput.actions = inputActAsset;
             playerInput.camera = mainCamera;
-            playerInput.uiInputModule = EventSystem.current.GetComponent<InputSystemUIInputModule>();
-
+            InputSystemUIInputModule uiInputModule = EventSystem.current.GetComponent<InputSystemUIInputModule>();
             uiInputModule.actionsAsset = inputActAsset;
             playerInput.uiInputModule = uiInputModule;
 
@@ -58,7 +54,7 @@ public class GamepadCursor : MonoBehaviour
             cursorFront.gameObject.SetActive(false);
             cursorTransform.gameObject.SetActive(false);
         }
-    #endif
+#endif
     }
 
 
