@@ -47,6 +47,8 @@ public class GamepadCursor : MonoBehaviour
 
              isInitialize = true;
 
+            cursorFront.gameObject.SetActive(true);
+            cursorTransform.gameObject.SetActive(true);
         }
         else
         {
