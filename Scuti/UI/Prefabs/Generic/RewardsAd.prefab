@@ -670,7 +670,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Earn 3,500 Scutis
+  m_Text: Earn 3,000 Scutis
 --- !u!1 &4564558332641128467
 GameObject:
   m_ObjectHideFlags: 0
