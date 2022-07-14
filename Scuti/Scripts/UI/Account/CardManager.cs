@@ -162,6 +162,8 @@ namespace Scuti.UI
             UIManager.Card.onOpenCardDetails -= BtnAddNewCard;
             UIManager.Card.onOpenCardDetails += BtnAddNewCard;
 
+            UIManager.SetFirstSelected(firstSelection);
+
             // Hide empty credit card view
             emptyCardView.gameObject.SetActive(false);
 
