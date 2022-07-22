@@ -180,14 +180,6 @@ namespace Scuti.Examples
         }
 
 
-        [ContextMenu("Delete account")]
-        public async void DeleteAccount()
-        {
-            await ScutiNetClient.Instance.DeleteAccount();
-            //print($"{response.emailVerified} {response.phoneVerified}");
-        }
-
-
         [ContextMenu("Get Info")]
         public async void GetInfo()
         {

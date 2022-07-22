@@ -77,9 +77,20 @@ namespace Scuti.UI
 
         }
 
-        private void DeleteAccount()
+        private async void DeleteAccount()
         {
-            ScutiNetClient.Instance.DeleteAccount();
+            try
+            {
+                var response = await ScutiNetClient.Instance.DeleteAccount();
+                ScutiLogger.Log(response);
+
+                Close();
+                UIManager.Open(UIManager.Login);
+            }
+            catch (Exception e)
+            {
+                ScutiLogger.LogError(e + "" + e.InnerException);
+            }
         }
 
     }
