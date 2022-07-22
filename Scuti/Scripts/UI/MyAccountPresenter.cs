@@ -64,5 +64,23 @@ namespace Scuti.UI
             Close();
             UIManager.Open(UIManager.Login);
         }
+
+        public void DeleteAccountButton()
+        {
+
+            UIManager.Confirmation.SetHeader("Delete account").SetBody("Are you sure you want to delete your account??").SetPositive("Yes").SetNegative("No").Show((bool callback) => {
+                if (callback)
+                    DeleteAccount();
+                else
+                    return;
+            });
+
+        }
+
+        private void DeleteAccount()
+        {
+            ScutiNetClient.Instance.DeleteAccount();
+        }
+
     }
 }
