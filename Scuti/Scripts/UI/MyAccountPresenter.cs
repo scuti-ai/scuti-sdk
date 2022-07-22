@@ -45,6 +45,14 @@ namespace Scuti.UI
             UIManager.Onboarding.ShowDetails();
         }
 
+        public void SelectManageAccount()
+        {
+            UIManager.Open(UIManager.Onboarding);
+            UIManager.Onboarding.ShowManageAccount();
+            Close();
+        }
+
+
         public void SelectEditAddress()
         {
             UIManager.Open(UIManager.Onboarding);
@@ -58,6 +66,8 @@ namespace Scuti.UI
             Close();
         }
 
+
+
         public void Logout()
         {
             ScutiNetClient.Instance.Logout();
@@ -65,33 +75,7 @@ namespace Scuti.UI
             UIManager.Open(UIManager.Login);
         }
 
-        public void DeleteAccountButton()
-        {
-
-            UIManager.Confirmation.SetHeader("Delete account").SetBody("Are you sure you want to delete your account??").SetPositive("Yes").SetNegative("No").Show((bool callback) => {
-                if (callback)
-                    DeleteAccount();
-                else
-                    return;
-            });
-
-        }
-
-        private async void DeleteAccount()
-        {
-            try
-            {
-                var response = await ScutiNetClient.Instance.DeleteAccount();
-                ScutiLogger.Log(response);
-
-                Close();
-                UIManager.Open(UIManager.Login);
-            }
-            catch (Exception e)
-            {
-                ScutiLogger.LogError(e + "" + e.InnerException);
-            }
-        }
+       
 
     }
 }
