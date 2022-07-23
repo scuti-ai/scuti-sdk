@@ -45,6 +45,14 @@ namespace Scuti.UI
             UIManager.Onboarding.ShowDetails();
         }
 
+        public void SelectManageAccount()
+        {
+            UIManager.Open(UIManager.Onboarding);
+            UIManager.Onboarding.ShowManageAccount();
+            Close();
+        }
+
+
         public void SelectEditAddress()
         {
             UIManager.Open(UIManager.Onboarding);
@@ -58,11 +66,16 @@ namespace Scuti.UI
             Close();
         }
 
+
+
         public void Logout()
         {
             ScutiNetClient.Instance.Logout();
             Close();
             UIManager.Open(UIManager.Login);
         }
+
+       
+
     }
 }

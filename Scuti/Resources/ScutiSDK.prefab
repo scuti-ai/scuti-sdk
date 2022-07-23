@@ -65,7 +65,7 @@ MonoBehaviour:
     URL: https://commerce.staging.scuti.dev
   - Environment: 2
     URL: https://commerce.scuti.store
-  TargetEnvironment: 2
+  TargetEnvironment: 1
 --- !u!114 &7349703978155535786
 MonoBehaviour:
   m_ObjectHideFlags: 0
