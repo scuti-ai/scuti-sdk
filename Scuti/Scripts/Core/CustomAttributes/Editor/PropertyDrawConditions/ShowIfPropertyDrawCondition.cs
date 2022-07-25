@@ -61,7 +61,7 @@ namespace Scuti.Editor
             else
             {
                 string warning = showIfAttribute.GetType().Name + " needs a valid boolean condition field or method name to work";
-                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
+                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
 
                 return true;
             }

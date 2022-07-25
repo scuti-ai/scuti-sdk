@@ -243,7 +243,7 @@ namespace Scuti.Editor
             }
             else
             {
-                EditorDrawUtility.DrawPropertyField(this.serializedPropertiesByFieldName[field.Name]);
+                Scuti.Editor.EditorDrawUtility.DrawPropertyField(this.serializedPropertiesByFieldName[field.Name]);
             }
 
             if (EditorGUI.EndChangeCheck())

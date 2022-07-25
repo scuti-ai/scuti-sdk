@@ -8,7 +8,7 @@ namespace Scuti.Editor
     {
         public override void DrawProperty(SerializedProperty property)
         {
-            EditorDrawUtility.DrawHeader(property);
+            Scuti.Editor.EditorDrawUtility.DrawHeader(property);
 
             if (property.propertyType == SerializedPropertyType.String)
             {
@@ -26,9 +26,9 @@ namespace Scuti.Editor
             else
             {
                 string warning = PropertyUtility.GetAttribute<ResizableTextAreaAttribute>(property).GetType().Name + " can only be used on string fields";
-                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
+                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
 
-                EditorDrawUtility.DrawPropertyField(property);
+                Scuti.Editor.EditorDrawUtility.DrawPropertyField(property);
             }
         }
     }

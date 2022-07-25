@@ -22,7 +22,7 @@ namespace Scuti.Editor
             else
             {
                 string warning = typeof(ButtonAttribute).Name + " works only on methods with no parameters";
-                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
+                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
             }
         }
     }

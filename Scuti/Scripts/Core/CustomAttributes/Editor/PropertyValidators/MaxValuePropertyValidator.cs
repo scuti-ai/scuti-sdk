@@ -26,7 +26,7 @@ namespace Scuti.Editor
             else
             {
                 string warning = maxValueAttribute.GetType().Name + " can be used only on int or float fields";
-                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
+                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
             }
         }
     }

@@ -12,7 +12,7 @@ namespace Scuti.Editor
     {
         public override void DrawProperty(SerializedProperty property)
         {
-            EditorDrawUtility.DrawHeader(property);
+            Scuti.Editor.EditorDrawUtility.DrawHeader(property);
 
             DropdownAttribute dropdownAttribute = PropertyUtility.GetAttribute<DropdownAttribute>(property);
             UnityEngine.Object target = PropertyUtility.GetTargetObject(property);

@@ -13,12 +13,12 @@ namespace Scuti.Editor
             if (value == null)
             {
                 string warning = string.Format("{0} doesn't support {1} types", typeof(ShowNativePropertyNativePropertyDrawer).Name, "Reference");
-                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
+                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
             }
-            else if (!EditorDrawUtility.DrawLayoutField(value, property.Name))
+            else if (!Scuti.Editor.EditorDrawUtility.DrawLayoutField(value, property.Name))
             {
                 string warning = string.Format("{0} doesn't support {1} types", typeof(ShowNativePropertyNativePropertyDrawer).Name, property.PropertyType.Name);
-                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
+                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
             }
         }
     }

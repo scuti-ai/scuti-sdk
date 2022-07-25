@@ -9,7 +9,7 @@ namespace Scuti.Editor
         public override void DrawProperty(SerializedProperty property)
         {
             GUI.enabled = false;
-            EditorDrawUtility.DrawPropertyField(property);
+            Scuti.Editor.EditorDrawUtility.DrawPropertyField(property);
             GUI.enabled = true;
         }
     }

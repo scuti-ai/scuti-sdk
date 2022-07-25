@@ -58,13 +58,13 @@ namespace Scuti.Editor
                 }
 
                 GUI.enabled = enabled;
-                EditorDrawUtility.DrawPropertyField(property);
+                Scuti.Editor.EditorDrawUtility.DrawPropertyField(property);
                 GUI.enabled = true;
             }
             else
             {
                 string warning = enableIfAttribute.GetType().Name + " needs a valid boolean condition field or method name to work";
-                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
+                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
             }
         }
     }

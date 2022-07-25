@@ -8,7 +8,7 @@ namespace Scuti.Editor
     {
         public override void DrawProperty(SerializedProperty property)
         {
-            EditorDrawUtility.DrawHeader(property);
+            Scuti.Editor.EditorDrawUtility.DrawHeader(property);
 
             MinMaxSliderAttribute minMaxSliderAttribute = PropertyUtility.GetAttribute<MinMaxSliderAttribute>(property);
 
@@ -67,9 +67,9 @@ namespace Scuti.Editor
             else
             {
                 string warning = minMaxSliderAttribute.GetType().Name + " can be used only on Vector2 fields";
-                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
+                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
 
-                EditorDrawUtility.DrawPropertyField(property);
+                Scuti.Editor.EditorDrawUtility.DrawPropertyField(property);
             }
         }
     }
