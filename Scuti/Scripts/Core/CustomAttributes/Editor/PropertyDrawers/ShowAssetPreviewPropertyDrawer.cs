@@ -8,7 +8,7 @@ namespace Scuti.Editor
     {
         public override void DrawProperty(SerializedProperty property)
         {
-            Scuti.Editor.EditorDrawUtility.DrawPropertyField(property);
+            EditorDrawUtility.DrawPropertyField(property);
 
             if (property.propertyType == SerializedPropertyType.ObjectReference)
             {
@@ -26,14 +26,14 @@ namespace Scuti.Editor
                     else
                     {
                         string warning = property.name + " doesn't have an asset preview";
-                        Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
+                        EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
                     }
                 }
             }
             else
             {
                 string warning = property.name + " doesn't have an asset preview";
-                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
+                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
             }
         }
     }

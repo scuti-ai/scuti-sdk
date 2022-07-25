@@ -6,6 +6,7 @@
   "unity": "2018.4",
   "dependencies": {
     "com.unity.nuget.newtonsoft-json": "3.0.1",
-    "com.unity.textmeshpro": "1.4.1"
+    "com.unity.textmeshpro": "1.4.1",
+    "com.dbrizov.naughtyattributes": "2.1.4"
   }
 }

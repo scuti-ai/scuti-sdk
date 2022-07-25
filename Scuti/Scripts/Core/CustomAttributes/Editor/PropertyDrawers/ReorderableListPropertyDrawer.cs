@@ -17,7 +17,7 @@ namespace Scuti.Editor
 
         public override void DrawProperty(SerializedProperty property)
         {
-            Scuti.Editor.EditorDrawUtility.DrawHeader(property);
+            EditorDrawUtility.DrawHeader(property);
 
             if (property.isArray)
             {
@@ -56,9 +56,9 @@ namespace Scuti.Editor
             else
             {
                 string warning = typeof(ReorderableListAttribute).Name + " can be used only on arrays or lists";
-                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
+                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
 
-                Scuti.Editor.EditorDrawUtility.DrawPropertyField(property);
+                EditorDrawUtility.DrawPropertyField(property);
             }
         }
 

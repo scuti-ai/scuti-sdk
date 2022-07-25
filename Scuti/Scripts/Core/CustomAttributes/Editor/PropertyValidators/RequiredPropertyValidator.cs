@@ -19,13 +19,13 @@ namespace Scuti.Editor
                         errorMessage = requiredAttribute.Message;
                     }
 
-                    Scuti.Editor.EditorDrawUtility.DrawHelpBox(errorMessage, MessageType.Error, context: PropertyUtility.GetTargetObject(property));
+                    EditorDrawUtility.DrawHelpBox(errorMessage, MessageType.Error, context: PropertyUtility.GetTargetObject(property));
                 }
             }
             else
             {
                 string warning = requiredAttribute.GetType().Name + " works only on reference types";
-                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
+                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
             }
         }
     }

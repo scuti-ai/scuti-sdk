@@ -13,12 +13,12 @@ namespace Scuti.Editor
             if (value == null)
             {
                 string warning = string.Format("{0} doesn't support {1} types", typeof(ShowNonSerializedFieldFieldDrawer).Name, "Reference");
-                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
+                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
             }
-            else if (!Scuti.Editor.EditorDrawUtility.DrawLayoutField(value, field.Name))
+            else if (!EditorDrawUtility.DrawLayoutField(value, field.Name))
             {
                 string warning = string.Format("{0} doesn't support {1} types", typeof(ShowNonSerializedFieldFieldDrawer).Name, field.FieldType.Name);
-                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
+                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: target);
             }
         }
     }

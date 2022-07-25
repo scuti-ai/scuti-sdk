@@ -39,7 +39,7 @@ namespace Scuti.Editor
                 }
 
                 string warning = infoBoxAttribute.GetType().Name + " needs a valid boolean condition field or method name to work";
-                Scuti.Editor.EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
+                EditorDrawUtility.DrawHelpBox(warning, MessageType.Warning, context: PropertyUtility.GetTargetObject(property));
             }
             else
             {

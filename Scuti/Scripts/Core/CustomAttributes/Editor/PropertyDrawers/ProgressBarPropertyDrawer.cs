@@ -9,7 +9,7 @@ namespace Scuti.Editor
     {
         public override void DrawProperty(SerializedProperty property)
         {
-            Scuti.Editor.EditorDrawUtility.DrawHeader(property);
+            EditorDrawUtility.DrawHeader(property);
 
             if (property.propertyType != SerializedPropertyType.Float && property.propertyType != SerializedPropertyType.Integer)
             {
