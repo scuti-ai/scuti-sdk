@@ -35,13 +35,17 @@ public class GamepadCursor : MonoBehaviour
         {
             mainCamera = Camera.main;
 
+            Destroy(EventSystem.current.gameObject.GetComponent(typeof(StandaloneInputModule)));
+            InputSystemUIInputModule uiInputModule =  EventSystem.current.gameObject.AddComponent(typeof(InputSystemUIInputModule)) as InputSystemUIInputModule;
+
             PlayerInput sc = gameObject.AddComponent(typeof(PlayerInput)) as PlayerInput;
             playerInput = sc;
 
             InputActionAsset inputActAsset = (Resources.Load<InputActionAsset>("ScutiGamepad"));
             playerInput.actions = inputActAsset;
             playerInput.camera = mainCamera;
-            InputSystemUIInputModule uiInputModule = EventSystem.current.GetComponent<InputSystemUIInputModule>();
+
+            //InputSystemUIInputModule uiInputModule = EventSystem.current.GetComponent<InputSystemUIInputModule>();
             uiInputModule.actionsAsset = inputActAsset;
             playerInput.uiInputModule = uiInputModule;
 
