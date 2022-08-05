@@ -35,6 +35,7 @@ public class GamepadCursor : MonoBehaviour
         {
 
             #if UNITY_WSA
+            //Add "Independent Input Source" to the input source in the windows version. 
                 PlayerSettings.WSA.inputSource = PlayerSettings.WSAInputSource.IndependentInputSource;
             #endif
 
