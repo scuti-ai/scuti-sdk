@@ -1818,8 +1818,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 212.44, y: -388.75}
-  m_SizeDelta: {x: 424.87622, y: 97.5}
+  m_AnchoredPosition: {x: 198.7, y: -388.75}
+  m_SizeDelta: {x: 397.25208, y: 97.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222310203946386792
 CanvasRenderer:
@@ -2690,7 +2690,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6023156894212003439
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2707,10 +2707,10 @@ RectTransform:
   m_Father: {fileID: 224058797022534714}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 460.85, y: -690.8334}
-  m_SizeDelta: {x: 921.7, y: 98.333336}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2917377786403287133
 CanvasRenderer:
@@ -2791,7 +2791,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114809112739792404}
-        m_MethodName: SelectManageCategories
+        m_MethodName: SelectManageAccount
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
