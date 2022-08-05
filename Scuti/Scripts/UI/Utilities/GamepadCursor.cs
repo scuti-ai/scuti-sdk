@@ -31,11 +31,12 @@ public class GamepadCursor : MonoBehaviour
     private void Awake()
     {
 #if ENABLE_INPUT_SYSTEM
-        if (Gamepad.all.Count > 0)
+  if (Gamepad.all.Count > 0)
         {
             mainCamera = Camera.main;
 
             Destroy(EventSystem.current.gameObject.GetComponent(typeof(StandaloneInputModule)));
+            EventSystem.current.sendNavigationEvents = false;
             InputSystemUIInputModule uiInputModule =  EventSystem.current.gameObject.AddComponent(typeof(InputSystemUIInputModule)) as InputSystemUIInputModule;
 
             PlayerInput sc = gameObject.AddComponent(typeof(PlayerInput)) as PlayerInput;
@@ -45,11 +46,10 @@ public class GamepadCursor : MonoBehaviour
             playerInput.actions = inputActAsset;
             playerInput.camera = mainCamera;
 
-            //InputSystemUIInputModule uiInputModule = EventSystem.current.GetComponent<InputSystemUIInputModule>();
             uiInputModule.actionsAsset = inputActAsset;
             playerInput.uiInputModule = uiInputModule;
 
-             isInitialize = true;
+            isInitialize = true;
 
             cursorFront.gameObject.SetActive(true);
             cursorTransform.gameObject.SetActive(true);
