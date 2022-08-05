@@ -33,6 +33,11 @@ public class GamepadCursor : MonoBehaviour
 #if ENABLE_INPUT_SYSTEM
   if (Gamepad.all.Count > 0)
         {
+
+            #if UNITY_WSA
+                PlayerSettings.WSA.inputSource = PlayerSettings.WSAInputSource.IndependentInputSource;
+            #endif
+
             mainCamera = Camera.main;
 
             Destroy(EventSystem.current.gameObject.GetComponent(typeof(StandaloneInputModule)));
