@@ -30,7 +30,6 @@ namespace Scuti.UI
 
         public override void Open()
         {
-            Debug.Log("Open Account presenter");
             UIManager.SetFirstSelected(firstSelection);
             base.Open();
         }

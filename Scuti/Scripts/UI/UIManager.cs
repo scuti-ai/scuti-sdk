@@ -22,8 +22,6 @@ namespace Scuti.UI {
 
         public GameObject EventSystemObject;
 
-        public GameObject firstSelected;
-
         void Awake() {
             instance = this;
             LoadingBlocker.Close();
