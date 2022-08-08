@@ -142,8 +142,6 @@ namespace Scuti.UI
         {
             base.Open();
 
-            UIManager.SetFirstSelected(firstSelection);
-
             if (UseAsOnboarding)
             {
                 if (ScutiNetClient.Instance.FinishedOnBoarding)
