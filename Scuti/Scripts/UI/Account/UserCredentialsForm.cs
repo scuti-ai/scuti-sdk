@@ -61,8 +61,6 @@ namespace Scuti.UI
 
         public override void Open()
         {
-            UIManager.SetFirstSelected(firstSelection);
-
             base.Open();
             Data.birthDay = new DateTime(2000, 2, 15);
             Data.gender = "";

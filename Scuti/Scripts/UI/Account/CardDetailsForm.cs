@@ -125,9 +125,6 @@ namespace Scuti.UI
         public override void Open()
         {
             onOpenCardDetails?.Invoke();
-
-            UIManager.SetFirstSelected(firstSelection);
-
             base.Open();
             Refresh();
         }   

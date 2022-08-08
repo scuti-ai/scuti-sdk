@@ -22,13 +22,6 @@ namespace Scuti.UI
         [SerializeField] InputField passwordInput;
         [SerializeField] Button loginButton;
 
-        public override void Open()
-        {
-            UIManager.SetFirstSelected(firstSelection);
-            base.Open();
-        }
-
-
         public override void Bind()
         {
             emailInput.onValueChanged.AddListener(value => Data.Email = value);
