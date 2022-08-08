@@ -28,13 +28,6 @@ namespace Scuti.UI
             locationText.text = Data.Location;
         }
 
-        public override void Open()
-        {
-            UIManager.SetFirstSelected(firstSelection);
-            base.Open();
-        }
-
-
         public override void OnEvent(string name, object payload)
         {
             switch (name)
