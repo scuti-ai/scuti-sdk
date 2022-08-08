@@ -29,7 +29,16 @@ namespace Scuti.UI {
             var eventSystems = FindObjectsOfType<EventSystem>();
             if(eventSystems!=null && eventSystems.Length>1)
             {
-                EventSystemObject.SetActive(false);
+                EventSystemObject.SetActive(false);               
+            }
+        }
+
+        public static void SetFirstSelected(GameObject obj)
+        {
+            if(obj != null)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(obj);
             }
         }
 
@@ -108,10 +117,10 @@ namespace Scuti.UI {
         }
 
         public static Action<bool> onBackButton;
-
+        public static bool isLogged;
+        public static bool isCheckoutSuccess;
 
         // OVERLAY
-
 
         public static ViewSet Overlay {
             get { return instance.generator["OVERLAY", true]; }

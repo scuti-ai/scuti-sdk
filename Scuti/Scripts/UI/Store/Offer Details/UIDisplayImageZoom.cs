@@ -10,6 +10,8 @@ namespace Scuti.UI
         [SerializeField] private RectTransform rectParentImage;
         [SerializeField] private Image imageLarge;
 
+        [SerializeField] private GameObject firstSelection;
+
         public void Init()
         {
             Hide();
@@ -20,6 +22,9 @@ namespace Scuti.UI
         {
             imageLarge.sprite = sprite;
             rectParentImage.gameObject.SetActive(true);
+
+            UIManager.SetFirstSelected(firstSelection);
+
         }
 
         // Update is called once per frame

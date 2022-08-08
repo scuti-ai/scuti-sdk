@@ -18,7 +18,8 @@ namespace Scuti.UI
         [SerializeField] AddressForm addressForm;
         [SerializeField] InterestsSelector interestSelect;
         [SerializeField] VerifyEmailView verifyEmail;
-        
+        [SerializeField] ManagerAccount managerAccount;
+
 
         protected override void Awake()
         {
@@ -101,8 +102,38 @@ namespace Scuti.UI
                     Close();
             };
 
+            managerAccount.DeletedConfirmed += () =>
+            {                
+                Close();
+                ScutiNetClient.Instance.Logout();
+                UIManager.Open(UIManager.Login);
+            };
+
         }
 
+        #region For UnitTest
+
+        public InterestsSelector GetInterestsSelector()
+        {
+            return interestSelect;
+        }
+        public AddressForm GetAddressForm()
+        {
+            return addressForm;
+        }
+
+        public InterestsSelector GetInterestSelector()
+        {
+            return interestSelect;
+        }
+
+        public UserCredentialsForm GetUserCredentialForm()
+        {
+            return credentials;
+        }
+
+
+        #endregion
 
         public void ShowCategories()
         {
@@ -118,6 +149,11 @@ namespace Scuti.UI
         public void ShowDetails()
         {
             navigation.Open(userDetails);
+        }
+
+        public void ShowManageAccount()
+        {
+            navigation.Open(managerAccount);
         }
 
         public void ShowAddressForm()

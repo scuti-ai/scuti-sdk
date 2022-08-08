@@ -34,6 +34,7 @@ namespace Scuti.UI
         public System.Action<CardDetailsForm.Model> OnCardSelected;
 
         public bool isSelectCardMode;
+        public bool isDefaultCardChanged;
 
 
         protected override void Awake()
@@ -99,6 +100,11 @@ namespace Scuti.UI
 
         }
 
+        public List<UserCard> GetUserCardInfo()
+        {
+            return _cardsInformation;
+        }
+
         private void UpdateCardInfoView()
         {
             // It sorts the UserCard list in increasing order according to the last card numbers.
@@ -123,6 +129,11 @@ namespace Scuti.UI
                 creditCardList[i].Refresh(creditCardInfo);
                 creditCardList[i].Open();
             }
+        }
+
+        public List<CreditCardView> GetCreditCardView()
+        {
+            return creditCardList;
         }
 
         #endregion
@@ -158,6 +169,7 @@ namespace Scuti.UI
             TryToLoadData();
         }
 
+
         /// <summary>
         /// Get info for payment methods stored on server
         /// </summary>
@@ -173,7 +185,7 @@ namespace Scuti.UI
                     Data.Card.Reset();
                     _cachedCard = cards.Last();
                     ScutiLogger.Log(_cachedCard.Scheme + "  Last: " + _cachedCard.Last4 + " and " + _cachedCard.ToString());
-                    
+
                 }
                 else if (Data.Card == null)
                 {
@@ -280,12 +292,14 @@ namespace Scuti.UI
         // Call the endpoint to set the default credit card after confirmation.
         private async void SetCardByDefault(CreditCardView.CreditCardModel creditCardInfo)
         {
+            isDefaultCardChanged = false;
             UIManager.ShowLoading(false);
 
             try
             {
                 await ScutiAPI.SetMyDefaultCard(creditCardInfo.id);
                 UIManager.HideLoading(false);
+                isDefaultCardChanged = true;
 
             }
             catch (Exception ex)
@@ -310,7 +324,7 @@ namespace Scuti.UI
 
         #endregion
 
-        #region CardDetaildFom
+        #region CardDetaildForm
 
         // Get detailed information of the card to be edited or removed.
         private void UpdatedValueData(CreditCardView.CreditCardModel creditCardInfo)

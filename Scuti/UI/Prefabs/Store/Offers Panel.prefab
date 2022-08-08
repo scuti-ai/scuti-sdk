@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 8997016454454647021}
   - component: {fileID: 7687707171870248762}
   - component: {fileID: 8326592368596466693}
-  - component: {fileID: 3940560098318585601}
+  - component: {fileID: 4588382194282388419}
   m_Layer: 5
   m_Name: Viewport
   m_TagString: Untagged
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -260,7 +260,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &3940560098318585601
+--- !u!114 &4588382194282388419
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -269,10 +269,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1874380998344515918}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1200242548, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: -146154839, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 0
 --- !u!1 &2656034775027086741
 GameObject:
   m_ObjectHideFlags: 0

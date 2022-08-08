@@ -1,4 +1,5 @@
-﻿using Scuti.UISystem;
+﻿using Scuti.UI;
+using Scuti.UISystem;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -55,6 +56,8 @@ namespace Scuti {
         Coroutine _closingRoutine;
 
         public Transition[] Transitions;
+        // For a selected UI element when opening
+        public GameObject firstSelection;
 
         protected virtual void Awake()
         {
@@ -93,6 +96,11 @@ namespace Scuti {
                 // The parent may be inactive, only delay opening if we are active
                 if (gameObject.activeInHierarchy) _openingRoutine = StartCoroutine(OpenHelper());
                 else SetOpened();
+            }
+
+            if(firstSelection != null)
+            {
+                UIManager.SetFirstSelected(firstSelection);
             }
              
         }

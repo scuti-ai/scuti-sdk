@@ -2,11 +2,13 @@
 using Scuti;
 using Scuti.Net;
 using System;
+using UnityEngine.EventSystems;
 
 public class ScutiButton : MonoBehaviour
 {
     public GameObject NotificationIcon;
     public GameObject NewItems;
+    public GameObject Button;
 
     private void Awake()
     {
@@ -36,6 +38,10 @@ public class ScutiButton : MonoBehaviour
                 ScutiNetClient.Instance.OnInitialization += CheckNewOffers;
             }
         }
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(Button);
+
     }
 
     public void OnClick()

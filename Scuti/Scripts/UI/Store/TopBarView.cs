@@ -26,7 +26,6 @@ public class TopBarView : View {
         base.Awake();
         // Only the default banner is enrolled.        
         Banner.onCreateBanners += CreateBanners;
-      
     }
 
     private void CreateBanners(int offerCount)

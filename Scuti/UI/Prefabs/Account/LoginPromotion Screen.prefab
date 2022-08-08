@@ -342,7 +342,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434155382843184}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -466,10 +466,8 @@ MonoBehaviour:
       m_Calls: []
   Transitions:
   - {fileID: 114491648362505000}
+  firstSelection: {fileID: 1060032684248330}
   Description: {fileID: 6884796048669741121}
-  DefaultText: <b><size=50>WELCOME TO SCUTI</size> </b> <b>CREATE</b> your account
-    <b>DISCOVER</b> new stuff <b>EARN</b> Scuti$ - the Universal Video Game Currency
-    <b>REDEEM</b> your Scuti$ for digital and real things <b>HAVE FUN</b>
 --- !u!1 &1493548184138038
 GameObject:
   m_ObjectHideFlags: 0
