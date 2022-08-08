@@ -230,7 +230,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1333932653445368}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0000116, y: 1.0000116, z: 1.0000116}
   m_Children:
@@ -301,6 +301,7 @@ MonoBehaviour:
       m_Calls: []
   Transitions:
   - {fileID: 114762662334368706}
+  firstSelection: {fileID: 1456439974451528}
   AnimatedCoinPrefab: {fileID: 224532872918830604, guid: 7590d6ed3ae8d974e887648187936c51,
     type: 3}
   titleText: {fileID: 114097817283777386}
@@ -626,7 +627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}

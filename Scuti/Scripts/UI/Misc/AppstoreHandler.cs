@@ -22,11 +22,6 @@ namespace Scuti
 #if UNITY_ANDROID
 				jo = new AndroidJavaObject("com.scuti.nativestore.NativeAppstore");
 #endif
-
-			}
-			else
-			{
-				Debug.Log("AppstoreHandler:: Cannot open Appstore in Editor.");
 			}
 		}
 

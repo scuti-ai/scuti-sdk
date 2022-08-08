@@ -29,7 +29,16 @@ namespace Scuti.UI {
             var eventSystems = FindObjectsOfType<EventSystem>();
             if(eventSystems!=null && eventSystems.Length>1)
             {
-                EventSystemObject.SetActive(false);
+                EventSystemObject.SetActive(false);               
+            }
+        }
+
+        public static void SetFirstSelected(GameObject obj)
+        {
+            if(obj != null)
+            {
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(obj);
             }
         }
 

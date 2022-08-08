@@ -145,7 +145,7 @@ RectTransform:
   m_LocalScale: {x: 0.30729, y: 0.30729, z: 0.30729}
   m_Children: []
   m_Father: {fileID: 857246085}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -316,8 +316,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1879701368}
   - {fileID: 498861823}
+  - {fileID: 1879701368}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -515,6 +515,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1669794264 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1388340894123826, guid: 2cb2618eace960047ba12632ff6baf3c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2092477956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1879701368 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224833251874926114, guid: 2cb2618eace960047ba12632ff6baf3c,
@@ -528,6 +534,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 857246085}
     m_Modifications:
+    - target: {fileID: 1388340894123826, guid: 2cb2618eace960047ba12632ff6baf3c, type: 3}
+      propertyPath: m_Name
+      value: StartScuti
+      objectReference: {fileID: 0}
     - target: {fileID: 1634651169081832, guid: 2cb2618eace960047ba12632ff6baf3c, type: 3}
       propertyPath: m_Name
       value: ScutiButton
@@ -570,7 +580,7 @@ PrefabInstance:
     - target: {fileID: 224833251874926114, guid: 2cb2618eace960047ba12632ff6baf3c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224833251874926114, guid: 2cb2618eace960047ba12632ff6baf3c,
         type: 3}
@@ -647,5 +657,10 @@ PrefabInstance:
       propertyPath: NewItems
       value: 
       objectReference: {fileID: 1498853980}
+    - target: {fileID: 6426953470451323965, guid: 2cb2618eace960047ba12632ff6baf3c,
+        type: 3}
+      propertyPath: Button
+      value: 
+      objectReference: {fileID: 1669794264}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cb2618eace960047ba12632ff6baf3c, type: 3}

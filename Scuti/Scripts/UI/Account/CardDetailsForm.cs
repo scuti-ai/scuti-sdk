@@ -45,7 +45,6 @@ namespace Scuti.UI
         [SerializeField] Text stateLabel;
         [SerializeField] Validatable stateValidatable;
 
-
         private List<Dropdown.OptionData> _states;
         private List<Dropdown.OptionData> _provinces;
         private List<Dropdown.OptionData> _countries;
