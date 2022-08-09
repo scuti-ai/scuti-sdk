@@ -17,6 +17,7 @@ namespace Scuti.UI {
 
         private bool _useLargeLayout;
         public bool EditorUseLargeDisplay = false;
+        [SerializeField] Canvas canvas;
 
         public View LoadingBlocker;
 
@@ -40,6 +41,11 @@ namespace Scuti.UI {
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(obj);
             }
+        }
+
+        public static Canvas GetCanvas()
+        {
+            return instance.canvas;
         }
 
         protected int _loadingCount = 0;
