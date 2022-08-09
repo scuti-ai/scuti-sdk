@@ -22,6 +22,8 @@ namespace Scuti.UI {
 
         public GameObject EventSystemObject;
 
+        [SerializeField] Canvas canvas;
+
         void Awake() {
             instance = this;
             LoadingBlocker.Close();
@@ -40,6 +42,11 @@ namespace Scuti.UI {
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(obj);
             }
+        }
+
+        public static Canvas GetCanvas()
+        {
+            return instance.canvas;
         }
 
         protected int _loadingCount = 0;
