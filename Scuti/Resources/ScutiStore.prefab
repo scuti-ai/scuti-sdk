@@ -533,6 +533,7 @@ MonoBehaviour:
   EditorUseLargeDisplay: 0
   LoadingBlocker: {fileID: 9078210080845684487}
   EventSystemObject: {fileID: 1266037488985866}
+  canvas: {fileID: 223116880424058194}
 --- !u!114 &114308699530787508
 MonoBehaviour:
   m_ObjectHideFlags: 0
